@@ -1,0 +1,229 @@
+Order version history
+------------------
+
+1.0.3749.23463		Order created (it was initially named PlattformOrdMan). Functionality:
+			Create, update and list
+				--> Suppliers
+				--> Products
+				--> Orders
+			Two uesr types: users and administrators. Adm. can create, update and list other users. 
+			An order go through the status stages 'Booked', 'Ordered', 'Arrived', 'Completed'. Suppliers and 
+			products have been scanned from word-documents. Previous booking system was with pen and paper. 
+
+1.0.3887.28370		<Never released>
+
+1.0.3889.23546		<Never released>
+
+1.0.3912.17418		<Never released>
+
+1.0.3943.15303		Only administrators have permision to add a supplier
+			
+			The name of the application is altered to 'Order'
+
+			Possibility to show more than one product at the same time, as well as suppliers and posts.
+
+			Post -  Alternativ for 'No invoice'
+
+			Post listview -  Sorting by column click, button for restore sorting. 
+
+			Free text search on posts. 
+
+			Posts listview - Separate search fields for supplier and products. 
+
+			Dates are shown in format YYYY-MM-DD regardless of local computer preferences. 
+
+			Supplier -  The text length for telephone number is longer. 
+
+			Post listview -  Possibility to mark multiple posts and change status. 
+
+			Product, post - handling with comma in price instead of dot. 
+			
+			Error handling when two products with identical names are created. Error is raised when
+			product, amount and supplier all are equal.
+
+			Product, Post - Currency handling. 
+
+			Products, suppliers - Search functionality in list views. 
+
+			Product - The bug when creating new product and filling in the invoice category is now 
+				  taken care of. 
+
+			Products list view -	 After a product have been created, it should show in the list and be marked. 
+
+			Products and suppliers -       Sorting by columnclick. 
+
+			Update post -	       Possibility to change date and persons in stauts fields. Also to change order status back and forth
+
+			Post list view -       Alternatives in right click menu to regret status settings. 
+
+			Post list view -       Sorting is performed in client software instead of at sql-level. The identifier of post was
+					       misleading for sorting. 
+
+			All lists -	       Right click menu option to copy/export rows 
+
+
+1.0.4218.15743		20/7 2011
+			History tables and triggers are enabled for the tables merchandise, supplier, post and article_number.
+			The history tables are not accessible from the client program.
+
+			Update post - bugfix - When article number is updated, the internal variable merchandise is updated as well
+
+			Update post - bugfix - Checkboxes for Invoice Inst, Invoice Clin and No Invoice are checked accoding to the 
+					       post to be shown. 
+
+			Create post - bugfix - User settings for Invoice Inst, Invoice Clin and No Invoice are carried on to the db 
+					       when user press Create.
+
+			Update product - bugfix - Preventing that two copies of the product are shown in the list after update. 
+
+			Update product - bugfix - The update button is enabled at the right time.
+
+			Disable product bugfix, disabled products are not shown in the list when creating new posts, but they are shown 
+			when searching on existing posts. 
+
+			Order history - bugfix - Free text search on booker name is now correct (before it was on the log-in name)
+
+			Delete product, supplier, posts - Error handling is implemented. 
+
+			Main form - The header text is filled in with a "(Research)" when the client is connecting to BookKeeping_Research.
+
+			
+			
+1.0.4387.26665		(Not released)
+
+1.0.4392.18362		10/1 2012
+			ShowProducts, ShowOrderHistory - Filter preferences are saved between sessions
+
+			ShowProducts - Checkbox for showing/hiding dissabled products
+
+			ShowProduct - New representatin of article numbers. All previous (not active) article numbers are shown for 
+				      a product in a combobox. Bugfix, changing back to a previous article number is now possible.
+
+			CreatePost/EditPost - All previous article numbers for the selected product is shown in a combobox. 
+					      If the entered article number is not present in for the product, it is added to the product,
+					      option to set this article number as default for the selected product. 
+					      Bugfix, the article number is shown for the actual post, not the default 
+					      article number for the selected product.
+
+			EditSupplier - When a supplier is dissabled, all products associated with the supplier are also dissabled.
+				       An info-box is shown. 
+
+			Update Post - For posts with no selected supplier, or that the product has no associated supplier, the supplier
+				      combobox is enabled and it is possible to update the post with any supplier in the list. 						
+
+			CopyListViewMenu - All newlines in the copied fields are replaced with the string "<newline>", to prevent 
+					   newlines when the list is copied into an excel worksheet.
+
+1.0.4407.23678		(Never released)
+
+1.0.4407.27283		25/1 2012
+			OrderHistory - Two new fields for a post, "Invoice number" and "Final prize". They are shown in the list.
+
+			OrderHistory - A new status "Order confirmed", is between "Ordered" and "Arrival confirmed" and is shown in 
+				       yellow. Possibility to alter status for multiple posts in the rightclick menu. 
+
+1.0.4423.23426		10/2 2012
+			OrderHistory - New field for posts, "Delivery deviation", a text field that is also shown in the list.			
+
+1.1.4465.27141		(Never released)
+
+1.0.4475.17871		(Never released)
+
+1.0.4485.22220		12/4
+			Inlog - Possible to log in in lab mode from a lab-computer, with a windows account not recognized by Order.
+
+			User manager - New field 'lab user' for users. These users are used for logging in lab mode, and have the 
+				       same associated name as the ordinary user. There is handling so that the same name don't 
+				       appear twice in user list, when creating posts.
+
+			Create post - Bugfix, possible to create a post with another user.
+
+1.0.4678.17874		User accounts - Instead of having separate accounts for lab users, the database lab-user name is stored 
+					as a separate field for each account. The users are hence listed only one time in the authroiity 
+					management. The database function GetAuthorityId checks both 
+					authority.identifier and authroity.lab_user_identifier fields. This also prevents a bug
+					that is related to different accounts for lab-users and windows-users. 
+
+1.0.4708.17050		21/11 2012
+			Order history - Option to create new orders from existing orders. Right click on a order, choose "Create
+					new order ..." and the create order form appears with the same product preset.
+
+			Searching combobox - Selected index changed event is triggered when focus is lost on a control also. 
+
+1.0.4729.26629		12/12 2012
+			Product list - Option to create new orders from a selected product.
+
+			Create new order - Warning if the product is recently ordered and has not finished the line yet.
+
+			BugFix - Possible to update orders that have a disabled product
+
+1.0.4891.21212		23/5 2013
+			ShowOrderHistoryDialog - Column order changed, orders with disabled products are shown with red text, not possible to 
+			create new orders from a dissabled product.
+
+			Create- or update order - Product storage are shown, not possible to change default article number from here. 
+
+1.0.4982.18112		(Never released)
+
+1.0.4982.21131		22/8 2013
+			ShowOrderHistoryDialog		When an order status is changed from 'incoming' to 'completed' (while or black),
+							there is no immediate re-sorting. The status can be changed either from the right-
+							click menu or from the update-window.
+
+			ShowOrderHistoryDialog		Right-click menu for updating invoice number for the selected posts. Only accessible for
+							administrators. 
+
+			ShowOrderHistoryDialog		Extra column for 'total prize', which is amount = appr.prize or amount = final prize (if
+							it exists).
+
+			CreatePostDialog		(for create and updating posts) Buttons '...' for opening the product and supplier when 
+							these fields are not empty. Article number is read only.
+
+			All forms			New update handling for suppliers and product (not posts). Permits many forms to be opened
+							containing different/same products and suppliers. These forms can be opened everywhere. 
+
+			CreatePostDialog		New fields for 'Purchase order no.' and Sales order no.'.
+			
+			ShowOrderHistoryDialog		New columns for fields 'Purchase order no.' and Sales order no.'. 
+
+
+1.0.4983.26499		23/8 2013			Small bugfix of the release above.
+
+1.0.4996.27250		5/9 2013
+			Login in lab-mode				User scan his/her personal barcode.
+
+			fGetAuthorityId					Get authority-id from the table authority_session_mapping, instead of the system user.
+
+1.0.5050.23549		29/10 2013
+			Settings			The connection is set up against the new server, mm-wchs001
+
+1.0.5094.18809		30/1 2014
+			Order history			Posts are categorized into 'SNP', 'SEQ', 'Research' and 'Plattform unspec.'. There is a new column for 'Group'
+
+			Order history			'Options'-button, showing configuration panes for filtering options (Group and time interval),
+							which columns to show, and the column viewing order. 
+
+			Order history			The column width can be locked, so that the column width is preserved between sessions. (some columns
+							being way to wide otherwise ...)
+
+			Database			The plattform-order-database and the research-order-database are merged. Plattform and research people 
+							work against the same database from now on. 
+
+			Internal in database		The column 'identifier' in post table is removed. 
+
+			Create Order, more		Customer number inst and Customer number clin is replaced by a drop-down list. Customer numbers are edited 
+							at the Edit Supplier form. There are two different sets of customer numbers for each supplier, 
+							one for the plattform group (including SNP, SEQ and Plattform unspec subgroups) and one for the research group. 
+
+			EditSupplierDialog		A list of Customer number is shown with options to add, update and delete.
+
+			Main window			Menu choice to refresh all lists, F5
+
+			Create/Edit post dialog		The blue underline of the supplier and product drop down lists are removed.
+
+			Order history			Right click menu choice to set Sales Order Number in list, only available to administrators.
+
+			Order history			The list is loaded much faster. (All subclasses, i.e. supplier, product, users, to a post is loaded simultaneusly)
+
+1.0.5150.22899		6/2 2014
+			Main form			Bugfix, prevent all forms to reload when user press on 'Tools' menu item.

@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PlattformOrdMan.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DataServerInitialCatalog" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">BookKeeping_devel</Value>
+    </Setting>
+    <Setting Name="DatabaseCommandTimeout" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">3600</Value>
+    </Setting>
+    <Setting Name="DataServerAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mm-wchs001</Value>
+    </Setting>
+    <Setting Name="DialogTitleStandard" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Plattform Order Manager</Value>
+    </Setting>
+    <Setting Name="ApplicationMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">OFFICE</Value>
+    </Setting>
+    <Setting Name="AutomaticLogoutTimeLimit" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="DefaultCurrency" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SEK</Value>
+    </Setting>
+    <Setting Name="DefaultTimeIntervalForPosts" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DefaultTimeRestrictionToCompletedPosts" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="RegisterRecentPathSubKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Software\PlattformOrdMan\Paths</Value>
+    </Setting>
+    <Setting Name="RegisterRecentPathKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RecentPath</Value>
+    </Setting>
+    <Setting Name="BarCodeMaxTimeToRead" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="BarCodeLengthInternal" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

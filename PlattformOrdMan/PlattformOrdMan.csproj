@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EED2E02B-79F5-499A-AE25-6473E12FFB39}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlattformOrdMan</RootNamespace>
+    <AssemblyName>Order</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <ApplicationIcon>OrderManIcon5.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Database\Constants.cs" />
+    <Compile Include="Database\Datareader.cs" />
+    <Compile Include="Database\Dataserver.cs" />
+    <Compile Include="Database\SqlCommandBuilder.cs" />
+    <Compile Include="Data\ArticleNumber.cs" />
+    <Compile Include="Data\CustomerNumber.cs" />
+    <Compile Include="Data\CustomerNumberManager.cs" />
+    <Compile Include="Data\OrdManEventHandler.cs" />
+    <Compile Include="Data\Configuration.cs" />
+    <Compile Include="Data\Currency.cs" />
+    <Compile Include="Data\CurrencyManager.cs" />
+    <Compile Include="Data\DataComment.cs" />
+    <Compile Include="Data\DataIdentifier.cs" />
+    <Compile Include="Data\DataIdentity.cs" />
+    <Compile Include="Data\Exception\DataAlreadyDefinedException.cs" />
+    <Compile Include="Data\Exception\DataArgumentEmptyException.cs" />
+    <Compile Include="Data\Exception\DataArgumentException.cs" />
+    <Compile Include="Data\Exception\DataArgumentLengthException.cs" />
+    <Compile Include="Data\Exception\DataArgumentNullException.cs" />
+    <Compile Include="Data\Exception\DataException.cs" />
+    <Compile Include="Data\InvoiceCategory.cs" />
+    <Compile Include="Data\InvoiceCategoryManager.cs" />
+    <Compile Include="Data\LogRow.cs" />
+    <Compile Include="Data\Merchandise.cs" />
+    <Compile Include="Data\MerchandiseManager.cs" />
+    <Compile Include="Data\PlattformOrdManBase.cs" />
+    <Compile Include="Data\PlattformOrdManData.cs" />
+    <Compile Include="Data\Post.cs" />
+    <Compile Include="Data\PostManager.cs" />
+    <Compile Include="Data\Supplier.cs" />
+    <Compile Include="Data\SupplierManager.cs" />
+    <Compile Include="Data\TimeIntervalForPosts.cs" />
+    <Compile Include="Data\TimeIntervalForPostsManager.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Data\UserManager.cs" />
+    <Compile Include="IO\Export.cs" />
+    <Compile Include="IO\ExportDelimitedText.cs" />
+    <Compile Include="IO\PathPersistFileDialog.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Controller\BarCodeController.cs" />
+    <Compile Include="UI\Controller\ToolTipHandler.cs" />
+    <Compile Include="UI\Dialog\CreateEditCustomerNumber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\CreateEditCustomerNumber.Designer.cs">
+      <DependentUpon>CreateEditCustomerNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\GetValueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\GetValueDialog.Designer.cs">
+      <DependentUpon>GetValueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\LoginWithBarcodeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\LoginWithBarcodeDialog.Designer.cs">
+      <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\OrderHistoryOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\OrderHistoryOptionsDialog.Designer.cs">
+      <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\SetInvoiceNumberDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\SetInvoiceNumberDialog.Designer.cs">
+      <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\View\PostListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\View\PostListView.Designer.cs">
+      <DependentUpon>PostListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\View\SortedListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\View\SortedListView.Designer.cs">
+      <DependentUpon>SortedListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\View\SupplierListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\View\SupplierListView.Designer.cs">
+      <DependentUpon>SupplierListView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\AboutDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\CreateEditCustomerNumber.resx">
+      <DependentUpon>CreateEditCustomerNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\EditCurrencyDialog.resx">
+      <DependentUpon>EditCurrencyDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\EditInvoiceCategoryDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditInvoiceCategoryDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\EditMerchandiseDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditMerchandiseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\CreatePostDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CreatePostDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\EditSupplierDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditSupplierDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\EditUserDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditUserDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\InvoiceCategoryDialog.resx">
+      <DependentUpon>InvoiceCategoryDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\LoginDialog.resx">
+      <DependentUpon>LoginDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\LoginWithBarcodeDialog.resx">
+      <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\OrderHistoryOptionsDialog.resx">
+      <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\SetInvoiceNumberDialog.resx">
+      <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\ShowCurrenciesDialog.resx">
+      <DependentUpon>ShowCurrenciesDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\ShowInvoiceCategoriesDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ShowInvoiceCategoriesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\ShowMerchandiseDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ShowMerchandiseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\ShowOrderHistoryDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ShowOrderHistoryDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\ShowSuppliersDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ShowSuppliersDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\ShowUserDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ShowUserDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\SignInvoiceDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SignInvoiceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UI\Component\CurrencyCombobox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\CurrencyCombobox.Designer.cs">
+      <DependentUpon>CurrencyCombobox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\InvoiceCategoryCombobox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\InvoiceCategoryCombobox.Designer.cs">
+      <DependentUpon>InvoiceCategoryCombobox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\MerchandiseCombobox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\MerchandiseCombobox.Designer.cs">
+      <DependentUpon>MerchandiseCombobox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\SearchingComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\SearchingComboBox.Designer.cs">
+      <DependentUpon>SearchingComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\SupplierCombobox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\SupplierCombobox.Designer.cs">
+      <DependentUpon>SupplierCombobox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\UserComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\UserComboBox.Designer.cs">
+      <DependentUpon>UserComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controller\CopyListViewMenu.cs" />
+    <Compile Include="UI\Dialog\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\EditCurrencyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\EditCurrencyDialog.Designer.cs">
+      <DependentUpon>EditCurrencyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\EditInvoiceCategoryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\EditInvoiceCategoryDialog.Designer.cs">
+      <DependentUpon>EditInvoiceCategoryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\EditMerchandiseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\EditMerchandiseDialog.Designer.cs">
+      <DependentUpon>EditMerchandiseDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\CreatePostDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\CreatePostDialog.Designer.cs">
+      <DependentUpon>CreatePostDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\EditSupplierDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\EditSupplierDialog.Designer.cs">
+      <DependentUpon>EditSupplierDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\EditUserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\EditUserDialog.Designer.cs">
+      <DependentUpon>EditUserDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\InvoiceCategoryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\InvoiceCategoryDialog.Designer.cs">
+      <DependentUpon>InvoiceCategoryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ListDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ListDialog.Designer.cs">
+      <DependentUpon>ListDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\LoginDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\LoginDialog.Designer.cs">
+      <DependentUpon>LoginDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowCurrenciesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowCurrenciesDialog.Designer.cs">
+      <DependentUpon>ShowCurrenciesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowErrorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowErrorDialog.Designer.cs">
+      <DependentUpon>ShowErrorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowInvoiceCategoriesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowInvoiceCategoriesDialog.Designer.cs">
+      <DependentUpon>ShowInvoiceCategoriesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowMerchandiseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowMerchandiseDialog.Designer.cs">
+      <DependentUpon>ShowMerchandiseDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowOrderHistoryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowOrderHistoryDialog.Designer.cs">
+      <DependentUpon>ShowOrderHistoryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowSuppliersDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowSuppliersDialog.Designer.cs">
+      <DependentUpon>ShowSuppliersDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowUserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ShowUserDialog.Designer.cs">
+      <DependentUpon>ShowUserDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\SignInvoiceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\SignInvoiceDialog.Designer.cs">
+      <DependentUpon>SignInvoiceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OrdManForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OrdManForm.Designer.cs">
+      <DependentUpon>OrdManForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\View\IScrollableView.cs" />
+    <Compile Include="UI\View\MerchandiseListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\View\MerchandiseListView.Designer.cs">
+      <DependentUpon>MerchandiseListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\View\OrderManListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\View\OrderManListView.Designer.cs">
+      <DependentUpon>OrderManListView.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\testIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ApplicationIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OrderManIcon3.ico" />
+    <Content Include="OrderManIcon4.ico" />
+    <Content Include="OrderManIcon5.ico" />
+    <None Include="Resources\DevelBackground.PNG" />
+    <None Include="Resources\ValidationBackground.PNG" />
+    <None Include="Resources\Information-icon2.ico" />
+    <None Include="Resources\INFORMATION ICON.jpg" />
+    <None Include="Resources\Information-icon.png" />
+    <None Include="Resources\Oxygen-Icons.org-Oxygen-Actions-go-up.ico" />
+    <None Include="Resources\Oxygen-Icons.org-Oxygen-Actions-go-down.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
