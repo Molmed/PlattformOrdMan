@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="BookKeeping_devel_procedures">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items />
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="dbo.p_CleanAuthoritySessionMapping.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CleanAuthoritySessionMapping.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CompletePost.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CompletePost.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ConfirmPostArrival.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ConfirmPostArrival.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ConfirmPostOrdered.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ConfirmPostOrdered.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateArticleNumber.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateArticleNumber.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateArticleNumberNoSelect.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateArticleNumberNoSelect.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateCurrency.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateCurrency.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateCustomerNumber.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateCustomerNumber.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateInvoiceCategory.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateInvoiceCategory.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateMerchandise.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateMerchandise.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreatePost.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreatePost.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateSupplier.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateSupplier.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateUser.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateUser.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteArticleNumber.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteArticleNumber.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteCurrency.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteCurrency.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteCustomerNumber.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteCustomerNumber.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteInvoiceCategory.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteInvoiceCategory.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteMerchandise.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteMerchandise.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeletePost.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeletePost.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteSupplier.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteSupplier.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteUser.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteUser.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetArticleNumberById.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetArticleNumberById.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetArticleNumberByMerchandiseId.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetArticleNumberByMerchandiseId.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetArticleNumbers.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetArticleNumbers.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetColumnLength.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetColumnLength.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCurrencies.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCurrencies.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCustomerNumberById.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCustomerNumberById.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCustomerNumberBySupplierId.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCustomerNumberBySupplierId.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCustomerNumbersAll.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCustomerNumbersAll.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetInvoiceCategories.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetInvoiceCategories.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetInvoiceCategoryById.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetInvoiceCategoryById.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetMerchandise.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetMerchandise.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetMerchandiseById.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetMerchandiseById.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPlaceOfPurchases.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPlaceOfPurchases.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPostById.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPostById.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPosts.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPosts.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPostsByCustomerNumberId.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPostsByCustomerNumberId.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetSupplierById.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetSupplierById.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetSuppliers.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetSuppliers.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetTimeIntervalsForPosts.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetTimeIntervalsForPosts.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetUserCurrent.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetUserCurrent.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetUserFromBarcode.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetUserFromBarcode.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetUsers.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetUsers.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_OrderPost.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_OrderPost.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretArrivalConfirmation.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretArrivalConfirmation.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretCompleted.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretCompleted.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretOrderConfirmed.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretOrderConfirmed.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretOrderPost.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretOrderPost.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ReleaseAuthorityMapping.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ReleaseAuthorityMapping.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ResetArticleNumbersForMerchandise.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ResetArticleNumbersForMerchandise.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ResetPostInvoiceStatus.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ResetPostInvoiceStatus.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ScheduledProcedureDisableProducts.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ScheduledProcedureDisableProducts.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_SetAuthorityMappingFromBarcode.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_SetAuthorityMappingFromBarcode.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_SetAuthorityMappingFromSysUser.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_SetAuthorityMappingFromSysUser.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_SignPostInvoice.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_SignPostInvoice.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateArticleNumber.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateArticleNumber.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateCurrency.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateCurrency.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateCustomerNumber.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateCustomerNumber.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateInvoiceCategory.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateInvoiceCategory.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateMerchandise.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateMerchandise.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdatePost.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdatePost.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdatePostSalesOrderNumber.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdatePostSalesOrderNumber.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateSupplier.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateSupplier.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateUser.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateUser.StoredProcedure.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>
