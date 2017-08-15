@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 13.00
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "BookKeeping_devel_functions", "BookKeeping_devel_functions\BookKeeping_devel_functions.ssmssqlproj", "{4CAD9F40-EE03-45C7-A6AA-05FFBFCA8AFB}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "BookKeeping_devel_procedures", "BookKeeping_devel_procedures\BookKeeping_devel_procedures.ssmssqlproj", "{3D9C3D4D-F25A-4BCD-AE68-5FE78B02AD67}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "BookKeeping_devel_views", "BookKeeping_devel_views\BookKeeping_devel_views.ssmssqlproj", "{F7155F49-B8ED-4320-9AE1-E0BB5EDCB1D9}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "BookKeeping_devel_roles", "BookKeeping_devel_roles\BookKeeping_devel_roles.ssmssqlproj", "{79684999-719E-4E57-BA3D-D67C85CC3D7F}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "BookKeeping_devel_triggers", "BookKeeping_devel_triggers\BookKeeping_devel_triggers.ssmssqlproj", "{3EA3AB0A-52FE-49FC-BCD2-07711243F1DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E6EF130-2491-4F4D-ACE6-F5C38DBE38E6}.Default|Default.ActiveCfg = Default
+		{4CAD9F40-EE03-45C7-A6AA-05FFBFCA8AFB}.Default|Default.ActiveCfg = Default
+		{3D9C3D4D-F25A-4BCD-AE68-5FE78B02AD67}.Default|Default.ActiveCfg = Default
+		{F7155F49-B8ED-4320-9AE1-E0BB5EDCB1D9}.Default|Default.ActiveCfg = Default
+		{79684999-719E-4E57-BA3D-D67C85CC3D7F}.Default|Default.ActiveCfg = Default
+		{3EA3AB0A-52FE-49FC-BCD2-07711243F1DB}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
