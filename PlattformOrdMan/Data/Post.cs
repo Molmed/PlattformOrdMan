@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Molmed.PlattformOrdMan.Database;
 
 namespace Molmed.PlattformOrdMan.Data
@@ -9,7 +7,7 @@ namespace Molmed.PlattformOrdMan.Data
     {
         public UpdateHandlerEventArgs(bool newSortOrder)
         {
-            this.NewSortOrder = newSortOrder;
+            NewSortOrder = newSortOrder;
         }
         public readonly bool NewSortOrder;
     }
@@ -27,182 +25,180 @@ namespace Molmed.PlattformOrdMan.Data
         public enum InvoiceStatus
         { 
             Incoming,
-            Ok,
-            NotOk
+            Ok
         }
 
-        private ArticleNumber MyArticleNumber;
-        private int MyArticleNumberId;
-        private int MyBookerUserId;
-        private User MyBooker;
-        private DateTime MyBookDate;
-        private int MyMerchandiseId;
-        private Merchandise MyMerchandise;
-        private int MySupplierId;
-        private Supplier MySupplier;
-        private decimal MyApprPrize;
-        private DateTime MyOrderDate;
-        private int MyOrdererUserId;
-        private User MyOrderer;
-        private DateTime MyPredictedArrival;
-        private bool MyInvoiceInst;
-        private bool MyInvoiceClin;
-        private DateTime MyArrivalDate;
-        private int MyArrivalSignUserId;
-        private User MyArrivalSignUser;
-        private int MyAmount;
-        private PostStatus MyPostStatus;
-        private InvoiceStatus MyInvoiceStatus;
-        private DateTime MyInvoiceDate;
-        private int MyInvoicerUserId;
-        private User MyInvoicerUser;
-        private bool MyIsInvoiceAbsent;
-        private int MyCurrencyId;
-        private Currency MyCurrency;
-        private string MyInvoiceNumber;
-        private decimal MyFinalPrize;
-        private int MyConfirmedOrderUserId;
-        private User MyConfirmedOrderUser;
-        private DateTime MyConfirmedOrderDate;
-        private string MyDeliveryDeviation;
-        private string MyPurchaseOrderNo;
-        private string MySalesOrderNo;
-        private PlaceOfPurchase MyPlaceOfPurchase;
-        private string MyComment;
-        private int MyId;
-        private int MyCustomerNumberId;
-        private CustomerNumber MyCustomerNumber;
+        private ArticleNumber _articleNumber;
+        private int _articleNumberId;
+        private int _bookerUserId;
+        private User _booker;
+        private DateTime _bookDate;
+        private int _merchandiseId;
+        private Merchandise _merchandise;
+        private int _supplierId;
+        private Supplier _supplier;
+        private decimal _apprPrize;
+        private DateTime _orderDate;
+        private int _ordererUserId;
+        private User _orderer;
+        private DateTime _predictedArrival;
+        private bool _invoiceInst;
+        private bool _invoiceClin;
+        private DateTime _arrivalDate;
+        private int _arrivalSignUserId;
+        private User _arrivalSignUser;
+        private int _amount;
+        private PostStatus _postStatus;
+        private InvoiceStatus _invoiceStatus;
+        private DateTime _invoiceDate;
+        private int _invoicerUserId;
+        private User _invoicerUser;
+        private bool _isInvoiceAbsent;
+        private int _currencyId;
+        private Currency _currency;
+        private string _invoiceNumber;
+        private decimal _finalPrize;
+        private int _confirmedOrderUserId;
+        private User _confirmedOrderUser;
+        private DateTime _confirmedOrderDate;
+        private string _deliveryDeviation;
+        private string _purchaseOrderNo;
+        private string _salesOrderNo;
+        private PlaceOfPurchase _placeOfPurchase;
+        private string _comment;
+        private readonly int _id;
+        private int _customerNumberId;
+        private CustomerNumber _customerNumber;
         // These fields are metadata for faster loading time
-        private string MyMerchandiseIdentifier;
-        private string MyMerchandiseAmount;
-        private bool MyIsMerchandiseEnabled;
-        private string MyMerchandiseComment;
-        private string MySupplierIdentifier;
-        private string MyCustomerNumberDescription;
-        private string MyCustomerNumberIdentifier;
-        private int MyInvoiceCategoryNumber;
+        private string _merchandiseIdentifier;
+        private string _merchandiseAmount;
+        private bool _isMerchandiseEnabled;
+        private string _merchandiseComment;
+        private string _supplierIdentifier;
+        private string _customerNumberDescription;
+        private string _customerNumberIdentifier;
+        private readonly int _invoiceCategoryNumber;
 
         public Post(DataReader dataReader)
         {
-            string placeOfPurchase;
-            MyId = dataReader.GetInt32(DataIdentityData.ID);
-            MyComment = dataReader.GetString(DataCommentData.COMMENT);
-            MyBookerUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_BOOKER);
-            MyBookDate = dataReader.GetDateTime(PostData.BOOK_DATE);
-            MyMerchandiseId = dataReader.GetInt32(PostData.MERCHANDISE_ID);
-            MySupplierId = PlattformOrdManData.NO_ID;
+            _id = dataReader.GetInt32(DataIdentityData.ID);
+            _comment = dataReader.GetString(DataCommentData.COMMENT);
+            _bookerUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_BOOKER);
+            _bookDate = dataReader.GetDateTime(PostData.BOOK_DATE);
+            _merchandiseId = dataReader.GetInt32(PostData.MERCHANDISE_ID);
+            _supplierId = NO_ID;
             if (!dataReader.IsDBNull(PostData.SUPPLIER_ID))
             {
-                MySupplierId = dataReader.GetInt32(PostData.SUPPLIER_ID);
+                _supplierId = dataReader.GetInt32(PostData.SUPPLIER_ID);
             }
-            MyIsInvoiceAbsent = dataReader.GetBoolean(PostData.INVOICE_ABSENT);
-            MyDeliveryDeviation = dataReader.GetString(PostData.DELIVERY_DEVIATION);
-            MyBooker = null;
-            MyMerchandise = null;
-            MySupplier = null;
-            MyOrderer = null;
-            MyArrivalSignUser = null;
-            MyInvoicerUser = null;
-            MyOrderDate = new DateTime();
-            MyArrivalDate = new DateTime();
-            MyApprPrize = PlattformOrdManData.NO_COUNT;
-            MyArrivalSignUserId = PlattformOrdManData.NO_ID;
-            MyOrdererUserId = PlattformOrdManData.NO_ID;
-            MyInvoicerUserId = PlattformOrdManData.NO_ID;
-            MyCurrency = null;
-            MyCurrencyId = PlattformOrdManData.NO_ID;
-            MyConfirmedOrderDate = new DateTime();
+            _isInvoiceAbsent = dataReader.GetBoolean(PostData.INVOICE_ABSENT);
+            _deliveryDeviation = dataReader.GetString(PostData.DELIVERY_DEVIATION);
+            _booker = null;
+            _merchandise = null;
+            _supplier = null;
+            _orderer = null;
+            _arrivalSignUser = null;
+            _invoicerUser = null;
+            _orderDate = new DateTime();
+            _arrivalDate = new DateTime();
+            _apprPrize = NO_COUNT;
+            _arrivalSignUserId = NO_ID;
+            _ordererUserId = NO_ID;
+            _invoicerUserId = NO_ID;
+            _currency = null;
+            _currencyId = NO_ID;
+            _confirmedOrderDate = new DateTime();
             if (!dataReader.IsDBNull(PostData.CURRENCY_ID))
             {
-                MyCurrencyId = dataReader.GetInt32(PostData.CURRENCY_ID);
+                _currencyId = dataReader.GetInt32(PostData.CURRENCY_ID);
             }
             SetInvoiceStatus(dataReader.GetString(PostData.INVOICE_STATUS));
-            MyInvoiceDate = new DateTime();
-            MyPredictedArrival = new DateTime();
-            MyInvoiceNumber = dataReader.GetString(PostData.INVOICE_NUMBER);
-            MyFinalPrize = dataReader.GetDecimal(PostData.FINAL_PRIZE, PlattformOrdManData.NO_COUNT);
-            MyConfirmedOrderUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_CONFIRMED_ORDER, PlattformOrdManData.NO_ID);
-            MyPurchaseOrderNo = "";
-            MySalesOrderNo = "";
+            _invoiceDate = new DateTime();
+            _predictedArrival = new DateTime();
+            _invoiceNumber = dataReader.GetString(PostData.INVOICE_NUMBER);
+            _finalPrize = dataReader.GetDecimal(PostData.FINAL_PRIZE, NO_COUNT);
+            _confirmedOrderUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_CONFIRMED_ORDER, NO_ID);
+            _purchaseOrderNo = "";
+            _salesOrderNo = "";
             if (!dataReader.IsDBNull(PostData.CONFIRMED_ORDER_DATE))
             {
-                MyConfirmedOrderDate = dataReader.GetDateTime(PostData.CONFIRMED_ORDER_DATE);
+                _confirmedOrderDate = dataReader.GetDateTime(PostData.CONFIRMED_ORDER_DATE);
             }
             if (!dataReader.IsDBNull(PostData.APPR_PRIZE))
             {
-                MyApprPrize = dataReader.GetDecimal(PostData.APPR_PRIZE);
+                _apprPrize = dataReader.GetDecimal(PostData.APPR_PRIZE);
             }
             if (!dataReader.IsDBNull(PostData.ORDER_DATE))
             {
-                MyOrderDate = dataReader.GetDateTime(PostData.ORDER_DATE);
+                _orderDate = dataReader.GetDateTime(PostData.ORDER_DATE);
             }
             if (!dataReader.IsDBNull(PostData.AUTHORITY_ID_ORDERER))
             {
-                MyOrdererUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_ORDERER);
+                _ordererUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_ORDERER);
             }
             if (!dataReader.IsDBNull(PostData.AUTHORITY_ID_INVOICER))
             {
-                MyInvoicerUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_INVOICER);
+                _invoicerUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_INVOICER);
             }
             if (!dataReader.IsDBNull(PostData.INVOICE_DATE))
             {
-                MyInvoiceDate = dataReader.GetDateTime(PostData.INVOICE_DATE);
+                _invoiceDate = dataReader.GetDateTime(PostData.INVOICE_DATE);
             }
             if (!dataReader.IsDBNull(PostData.PREDICTED_ARRIVAL))
             {
-                MyPredictedArrival = dataReader.GetDateTime(PostData.PREDICTED_ARRIVAL);
+                _predictedArrival = dataReader.GetDateTime(PostData.PREDICTED_ARRIVAL);
             }
             if (!dataReader.IsDBNull(PostData.INVOICE_INST))
             {
-                MyInvoiceInst = dataReader.GetBoolean(PostData.INVOICE_INST);
+                _invoiceInst = dataReader.GetBoolean(PostData.INVOICE_INST);
             }
             if (!dataReader.IsDBNull(PostData.INVOICE_CLIN))
             {
-                MyInvoiceClin = dataReader.GetBoolean(PostData.INVOICE_CLIN);
+                _invoiceClin = dataReader.GetBoolean(PostData.INVOICE_CLIN);
             }
             if (!dataReader.IsDBNull(PostData.ARRIVAL_DATE))
             {
-                MyArrivalDate = dataReader.GetDateTime(PostData.ARRIVAL_DATE);
+                _arrivalDate = dataReader.GetDateTime(PostData.ARRIVAL_DATE);
             }
             if (!dataReader.IsDBNull(PostData.ARRIVAL_SIGN))
             {
-                MyArrivalSignUserId = dataReader.GetInt32(PostData.ARRIVAL_SIGN);
+                _arrivalSignUserId = dataReader.GetInt32(PostData.ARRIVAL_SIGN);
             }
             if (!dataReader.IsDBNull(PostData.AMOUNT))
             {
-                MyAmount = dataReader.GetInt32(PostData.AMOUNT);
+                _amount = dataReader.GetInt32(PostData.AMOUNT);
             }
             if (!dataReader.IsDBNull(PostData.PURCHASE_ORDER_NO))
             {
-                MyPurchaseOrderNo = dataReader.GetString(PostData.PURCHASE_ORDER_NO);
+                _purchaseOrderNo = dataReader.GetString(PostData.PURCHASE_ORDER_NO);
             }
 
             if (!dataReader.IsDBNull(PostData.SALES_ORDER_NO))
             {
-                MySalesOrderNo = dataReader.GetString(PostData.SALES_ORDER_NO);
+                _salesOrderNo = dataReader.GetString(PostData.SALES_ORDER_NO);
             }
 
             if (!dataReader.IsDBNull(PostData.PLACE_OF_PURCHASE))
             {
-                placeOfPurchase = dataReader.GetString(PostData.PLACE_OF_PURCHASE);
-                MyPlaceOfPurchase = (PlaceOfPurchase)(Enum.Parse(typeof(PlaceOfPurchase), placeOfPurchase));
+                var placeOfPurchase = dataReader.GetString(PostData.PLACE_OF_PURCHASE);
+                _placeOfPurchase = (PlaceOfPurchase)(Enum.Parse(typeof(PlaceOfPurchase), placeOfPurchase));
             }
 
-            MyMerchandiseIdentifier = dataReader.GetString(PostData.MERCHANDISE_IDENTIFIER);
-            MyMerchandiseAmount = dataReader.GetString(PostData.MERCHANDISE_AMOUNT);
-            MyIsMerchandiseEnabled = dataReader.GetBoolean(PostData.MERCHANDISE_ENABLED);
-            MyMerchandiseComment = dataReader.GetString(PostData.MERCHANDISE_COMMENT);
-            MySupplierIdentifier = dataReader.GetString(PostData.SUPPLIER_IDENTIFIER);
-            MyCustomerNumberDescription = dataReader.GetString(PostData.CUSTOMER_NUMBER_DESCRIPTION);
-            MyCustomerNumberIdentifier = dataReader.GetString(PostData.CUSTOMER_NUMBER_IDENTIFIER);
-            MyInvoiceCategoryNumber = dataReader.GetInt32(PostData.INVOICE_CATEGORY_NUMBER, NO_COUNT);
+            _merchandiseIdentifier = dataReader.GetString(PostData.MERCHANDISE_IDENTIFIER);
+            _merchandiseAmount = dataReader.GetString(PostData.MERCHANDISE_AMOUNT);
+            _isMerchandiseEnabled = dataReader.GetBoolean(PostData.MERCHANDISE_ENABLED);
+            _merchandiseComment = dataReader.GetString(PostData.MERCHANDISE_COMMENT);
+            _supplierIdentifier = dataReader.GetString(PostData.SUPPLIER_IDENTIFIER);
+            _customerNumberDescription = dataReader.GetString(PostData.CUSTOMER_NUMBER_DESCRIPTION);
+            _customerNumberIdentifier = dataReader.GetString(PostData.CUSTOMER_NUMBER_IDENTIFIER);
+            _invoiceCategoryNumber = dataReader.GetInt32(PostData.INVOICE_CATEGORY_NUMBER, NO_COUNT);
 
-            MyCustomerNumberId = dataReader.GetInt32(PostData.CUSTOMER_NUMBER_ID, NO_ID);
-            MyCustomerNumber = null;
+            _customerNumberId = dataReader.GetInt32(PostData.CUSTOMER_NUMBER_ID, NO_ID);
+            _customerNumber = null;
 
-            MyArticleNumber = null;
-            MyArticleNumberId = dataReader.GetInt32(PostData.ARTICLE_NUMBER_ID, PlattformOrdManData.NO_ID);
-            if (IsValidId(MyArticleNumberId))
+            _articleNumber = null;
+            _articleNumberId = dataReader.GetInt32(PostData.ARTICLE_NUMBER_ID, NO_ID);
+            if (IsValidId(_articleNumberId))
             {
                 LoadArticleNumber(dataReader);
             }
@@ -212,11 +208,11 @@ namespace Molmed.PlattformOrdMan.Data
 
         public CustomerNumber GetCustomerNumber()
         {
-            if (MyCustomerNumber == null && MyCustomerNumberId != NO_ID)
+            if (_customerNumber == null && _customerNumberId != NO_ID)
             {
-                MyCustomerNumber = CustomerNumberManager.GetCustomerNumberById(MyCustomerNumberId);
+                _customerNumber = CustomerNumberManager.GetCustomerNumberById(_customerNumberId);
             }
-            return MyCustomerNumber;
+            return _customerNumber;
         }
 
         public bool HasCustomerNumber()
@@ -224,29 +220,19 @@ namespace Molmed.PlattformOrdMan.Data
             return IsNotNull(GetCustomerNumber());
         }
 
-        public bool HasSupplierLoaded()
-        {
-            return IsNotNull(MySupplier);
-        }
-
-        public bool HasMerchandiseLoaded()
-        {
-            return IsNotNull(MyMerchandise);
-        }
-
         public bool IsMerchandiseEnabled()
         {
-            return MyIsMerchandiseEnabled;
+            return _isMerchandiseEnabled;
         }
 
         public int GetCustomerNumberId()
         {
-            return MyCustomerNumberId;
+            return _customerNumberId;
         }
 
         public int GetId()
         {
-            return MyId;
+            return _id;
         }
 
         public string GetIdentifier()
@@ -256,97 +242,97 @@ namespace Molmed.PlattformOrdMan.Data
 
         public String GetComment()
         {
-            if (IsNull(MyComment))
+            if (IsNull(_comment))
             {
                 return "";
             }
-            return MyComment;
+            return _comment;
         }
 
-        public void SetComment(String comment)
+        private void SetComment(String comment)
         {
-            MyComment = comment;
+            _comment = comment;
         }
 
         public Boolean HasComment()
         {
-            return IsNotEmpty(MyComment);
+            return IsNotEmpty(_comment);
         }
 
         public PlaceOfPurchase GetPlaceOfPurchase()
         {
-            return MyPlaceOfPurchase;
+            return _placeOfPurchase;
         }
 
         public GroupCategory GetGroupCategory()
         {
-            return GetGroupCategory(MyPlaceOfPurchase);
+            return GetGroupCategory(_placeOfPurchase);
         }
 
         public string GetPlaceOfPurchaseString()
         {
-            return GetPlaceOfPurchaseString(MyPlaceOfPurchase);
+            return GetPlaceOfPurchaseString(_placeOfPurchase);
         }
 
         public string GetDeliveryDeviation()
         {
-            if (IsNull(MyDeliveryDeviation))
+            if (IsNull(_deliveryDeviation))
             {
                 return "";
             }
-            return MyDeliveryDeviation;
+            return _deliveryDeviation;
         }
 
         public string GetInvoiceNumber()
         {
-            if (IsNull(MyInvoiceNumber))
+            if (IsNull(_invoiceNumber))
             {
                 return "";
             }
-            return MyInvoiceNumber;
+            return _invoiceNumber;
         }
 
         public string GetPurchaseOrderNo()
         {
-            return MyPurchaseOrderNo;
+            return _purchaseOrderNo;
         }
 
         public string GetSalesOrderNo()
         {
-            return MySalesOrderNo;
+            return _salesOrderNo;
         }
 
         public decimal GetFinalPrize()
         {
-            return MyFinalPrize;
+            return _finalPrize;
         }
 
         public int GetConfirmedOrderUserId()
         {
-            return MyConfirmedOrderUserId;
+            return _confirmedOrderUserId;
         }
 
         public User GetConfirmedOrderUser()
         {
-            if (MyConfirmedOrderUser == null && MyConfirmedOrderUserId != PlattformOrdManData.NO_ID)
+            if (_confirmedOrderUser == null && _confirmedOrderUserId != NO_ID)
             {
-                MyConfirmedOrderUser = UserManager.GetUser(MyConfirmedOrderUserId);
+                _confirmedOrderUser = UserManager.GetUser(_confirmedOrderUserId);
             }
-            return MyConfirmedOrderUser;
+            return _confirmedOrderUser;
         }
 
         public DateTime GetConfirmedOrderDate()
         {
-            return MyConfirmedOrderDate;
+            return _confirmedOrderDate;
         }
 
-        public ArticleNumber GetArticleNumber()
+        private ArticleNumber GetArticleNumber()
         {
-            if (IsNull(MyArticleNumber) && IsValidId(MyArticleNumberId))
+            if (IsNull(_articleNumber) && IsValidId(_articleNumberId))
             {
-                MyArticleNumber = MerchandiseManager.GetArticleNumberById(MyArticleNumberId);
+                _articleNumber = MerchandiseManager.GetArticleNumberById(_articleNumberId);
             }
-            return MyArticleNumber;
+            return _articleNumber;
         }
 
         public string GetArticleNumberString()
@@ -361,7 +347,7 @@ namespace Molmed.PlattformOrdMan.Data
         private void LoadArticleNumber(DataReader reader)
         {
             reader.SetColumnNamePrefix(PostData.ARTICLE_NUMBER_PREFIX);
-            MyArticleNumber = new ArticleNumber(reader);
+            _articleNumber = new ArticleNumber(reader);
             reader.ResetColumnNamePrefix();
         }
 
@@ -369,63 +355,62 @@ namespace Molmed.PlattformOrdMan.Data
         {
             if (IsNull(GetOrderer()))
             {
-                MyPostStatus = PostStatus.Booked;
+                _postStatus = PostStatus.Booked;
             }
             else if(IsNull(GetConfirmedOrderUser()))
             {
-                MyPostStatus = PostStatus.Ordered;
+                _postStatus = PostStatus.Ordered;
             }
             else if (IsNull(GetArrivalSignUser()))
             {
-                MyPostStatus = PostStatus.ConfirmedOrder;
+                _postStatus = PostStatus.ConfirmedOrder;
             }
             else if (IsNull(GetInvoicerUser()))
             {
-                MyPostStatus = PostStatus.Confirmed;
+                _postStatus = PostStatus.Confirmed;
             }
             else
             {
-                MyPostStatus = PostStatus.Completed;
+                _postStatus = PostStatus.Completed;
             }
         }
 
         public void ConfirmPostArrival(int arrivalSignUserId)
         {
-            Post tmpPost;
             Database.ConfirmPostArrival(GetId(), arrivalSignUserId);
-            MyArrivalSignUserId = arrivalSignUserId;
-            MyArrivalSignUser = null;
-            tmpPost = PostManager.GetPostById(GetId());
-            MyArrivalDate = tmpPost.GetArrivalDate();
-            MyPostStatus = PostStatus.Confirmed;
+            _arrivalSignUserId = arrivalSignUserId;
+            _arrivalSignUser = null;
+            var tmpPost = PostManager.GetPostById(GetId());
+            _arrivalDate = tmpPost.GetArrivalDate();
+            _postStatus = PostStatus.Confirmed;
         }
 
-        public Currency GetCurrency()
+        private Currency GetCurrency()
         {
-            if (IsNull(MyCurrency))
+            if (IsNull(_currency))
             {
-                MyCurrency = Data.CurrencyManager.GetCurrency(MyCurrencyId);
+                _currency = CurrencyManager.GetCurrency(_currencyId);
             }
-            return MyCurrency;
+            return _currency;
         }
 
         public int GetCurrencyId()
         {
-            return MyCurrencyId;
+            return _currencyId;
         }
 
         public User GetBooker()
         {
-            if (IsNull(MyBooker))
+            if (IsNull(_booker))
             {
-                MyBooker = UserManager.GetUser(MyBookerUserId);
+                _booker = UserManager.GetUser(_bookerUserId);
             }
-            return MyBooker;
+            return _booker;
         }
 
         public int GetBookerId()
         {
-            return MyBookerUserId;
+            return _bookerUserId;
         }
 
         public string GetStringForListViewColumn(PostListViewColumn column)
@@ -487,40 +472,30 @@ namespace Molmed.PlattformOrdMan.Data
                 case PostListViewColumn.CustomerNumber:
                     return GetCustomerNumberString2();
                 default:
-                    throw new Data.Exception.DataException("Unknwon post list view column: " + column.ToString());
+                    throw new Exception.DataException("Unknwon post list view column: " + column);
             }
         }
 
         private string GetCustomerNumberString2()
         {
             string str = "";
-            if (IsNotEmpty(MyCustomerNumberDescription))
+            if (IsNotEmpty(_customerNumberDescription))
             {
-                str += MyCustomerNumberDescription + ", ";
+                str += _customerNumberDescription + ", ";
             }
-            if (IsNotEmpty(MyCustomerNumberIdentifier))
+            if (IsNotEmpty(_customerNumberIdentifier))
             {
-                str += MyCustomerNumberIdentifier;
+                str += _customerNumberIdentifier;
             }
             return str;
-        }
-        
-        private string GetCustomerNumberString()
-        {
-            if (IsNotNull(GetCustomerNumber()))
-            {
-                return GetCustomerNumber().GetStringForCombobox();
-            }
-            return "";
         }
 
         private string GetCommentForListView()
         {
-            string commentText;
-            commentText = "";
-            if (IsNotEmpty(MyMerchandiseComment))
+            var commentText = "";
+            if (IsNotEmpty(_merchandiseComment))
             {
-                commentText += MyMerchandiseComment + "; ";
+                commentText += _merchandiseComment + "; ";
             }
             commentText = commentText + GetComment();
             return commentText;
@@ -537,22 +512,18 @@ namespace Molmed.PlattformOrdMan.Data
 
         public InvoiceStatus GetInvoiceStatus()
         {
-            return MyInvoiceStatus;
+            return _invoiceStatus;
         }
 
         public String GetInvoiceStatusString()
         {
-            if (MyInvoiceStatus == InvoiceStatus.Incoming)
+            if (_invoiceStatus == InvoiceStatus.Incoming)
             {
                 return "Not checked";
             }
-            else if (MyInvoiceStatus == InvoiceStatus.NotOk)
-            {
-                return "Not OK";
-            }
             else
             {
-                if (MyIsInvoiceAbsent)
+                if (_isInvoiceAbsent)
                 {
                     return "Ok (no invoice)";
                 }
@@ -563,23 +534,23 @@ namespace Molmed.PlattformOrdMan.Data
             }
         }
 
-        public int GetInvoicerUserId()
+        private int GetInvoicerUserId()
         {
-            return MyInvoicerUserId;
+            return _invoicerUserId;
         }
 
         public User GetInvoicerUser()
         {
-            if (IsNull(MyInvoicerUser))
+            if (IsNull(_invoicerUser))
             {
-                MyInvoicerUser = UserManager.GetUser(MyInvoicerUserId);
+                _invoicerUser = UserManager.GetUser(_invoicerUserId);
             }
-            return MyInvoicerUser;
+            return _invoicerUser;
         }
 
         public int GetInvoiceUserId()
         {
-            return MyInvoicerUserId;
+            return _invoicerUserId;
         }
 
         public String GetInvoicerUserName()
@@ -593,72 +564,68 @@ namespace Molmed.PlattformOrdMan.Data
 
         public DateTime GetInvoiceDate()
         {
-            return MyInvoiceDate;
+            return _invoiceDate;
         }
 
         public String GetInvoiceDateString()
         {
-            if (MyInvoiceDate.Ticks == 0)
+            if (_invoiceDate.Ticks == 0)
             {
                 return "";
             }
-            return MyInvoiceDate.Date.ToString("yyyy-MM-dd");
+            return _invoiceDate.Date.ToString("yyyy-MM-dd");
         }
 
         public DateTime GetBookDateDT()
         {
-            return MyBookDate;
+            return _bookDate;
         }
 
         public String GetBookDate()
         {
-            if (IsNull(MyBookDate))
+            if (IsNull(_bookDate))
             {
                 return "";
             }
-            return MyBookDate.Date.ToString("yyyy-MM-dd");
+            return _bookDate.Date.ToString("yyyy-MM-dd");
         }
 
         public Merchandise GetMerchandise()
         {
-            if (IsNull(MyMerchandise) && MyMerchandiseId != PlattformOrdManData.NO_ID)
+            if (IsNull(_merchandise) && _merchandiseId != NO_ID)
             {
-                MyMerchandise = MerchandiseManager.GetMerchandiseById(MyMerchandiseId);
+                _merchandise = MerchandiseManager.GetMerchandiseById(_merchandiseId);
             }
-            return MyMerchandise;
+            return _merchandise;
         }
 
         public int GetMerchandiseId()
         {
-            return MyMerchandiseId;
+            return _merchandiseId;
         }
 
-        public string GetMerchandiseName2()
+        private string GetMerchandiseName2()
         {
-            String name;
-
-            if (IsEmpty(MyMerchandiseIdentifier))
+            if (IsEmpty(_merchandiseIdentifier))
             {
                 return "";
             }
 
-            name = MyMerchandiseIdentifier;
-            if (IsNotEmpty(MyMerchandiseAmount))
+            var name = _merchandiseIdentifier;
+            if (IsNotEmpty(_merchandiseAmount))
             {
-                name += ", " + MyMerchandiseAmount;
+                name += ", " + _merchandiseAmount;
             }
             return name;            
         }
 
         public String GetMerchandiseName()
         {
-            String name;
-
             if (IsNull(GetMerchandise()))
             {
                 return "";
             }
-            name = GetMerchandise().GetIdentifier();
+            var name = GetMerchandise().GetIdentifier();
             if (IsNotEmpty(GetMerchandise().GetAmount()))
             {
                 name = name + ", " + GetMerchandise().GetAmount();
@@ -668,118 +635,118 @@ namespace Molmed.PlattformOrdMan.Data
 
         public DateTime GetOrderDate()
         {
-            return MyOrderDate;
+            return _orderDate;
         }
 
         public String GetOrderDateString()
         {
-            if (MyOrderDate.Ticks == 0)
+            if (_orderDate.Ticks == 0)
             {
                 return "";
             }
-            return MyOrderDate.Date.ToString("yyyy-MM-dd");
+            return _orderDate.Date.ToString("yyyy-MM-dd");
         }
 
         public string GetConfirmedOrderDateString()
         {
-            if (MyConfirmedOrderDate.Ticks == 0)
+            if (_confirmedOrderDate.Ticks == 0)
             {
                 return "";
             }
-            return MyConfirmedOrderDate.Date.ToString("yyyy-MM-dd");
+            return _confirmedOrderDate.Date.ToString("yyyy-MM-dd");
         }
 
         public PostStatus GetPostStatus()
         {
-            return MyPostStatus;
+            return _postStatus;
         }
 
         public String GetPredictedArrival()
         {
-            if (MyPredictedArrival.Ticks == 0)
+            if (_predictedArrival.Ticks == 0)
             {
                 return "";
             }
             else
             {
-                return MyPredictedArrival.Date.ToString("yyyy-MM-dd");
+                return _predictedArrival.Date.ToString("yyyy-MM-dd");
             }
         }
 
         public bool HasSupplier()
         {
-            return MySupplierId != PlattformOrdManData.NO_ID;
+            return _supplierId != NO_ID;
         }
 
 
         public void ResetSupplierLocal()
         {
-            MySupplier = null;
+            _supplier = null;
         }
 
         public void ReloadSupplier(Supplier supplier)
         {
-            MySupplier = supplier;
+            _supplier = supplier;
             if (IsNotNull(supplier))
             {
-                MySupplierId = supplier.GetId();
-                MySupplierIdentifier = supplier.GetIdentifier();
+                _supplierId = supplier.GetId();
+                _supplierIdentifier = supplier.GetIdentifier();
             }
             else
             {
-                MySupplierId = NO_ID;
-                MySupplierIdentifier = "";
+                _supplierId = NO_ID;
+                _supplierIdentifier = "";
             }
         }
 
         public void ResetMerchandiseLocal()
         {
-            MyMerchandise = null;
+            _merchandise = null;
         }
 
         public void ReloadMerchandise(Merchandise merchandise)
         {
-            MyMerchandise = merchandise;
-            if (IsNotNull(MyMerchandise))
+            _merchandise = merchandise;
+            if (IsNotNull(_merchandise))
             {
-                MyMerchandiseAmount = MyMerchandise.GetAmount();
-                MyMerchandiseComment = MyMerchandise.GetComment();
-                MyMerchandiseId = MyMerchandise.GetId();
-                MyMerchandiseIdentifier = MyMerchandise.GetIdentifier();
-                MyIsMerchandiseEnabled = MyMerchandise.IsEnabled();
+                _merchandiseAmount = _merchandise.GetAmount();
+                _merchandiseComment = _merchandise.GetComment();
+                _merchandiseId = _merchandise.GetId();
+                _merchandiseIdentifier = _merchandise.GetIdentifier();
+                _isMerchandiseEnabled = _merchandise.IsEnabled();
                 ReloadSupplier(merchandise.GetSupplier());
             }
             else
             {
-                MyMerchandiseAmount = "";
-                MyMerchandiseComment = "";
-                MyMerchandiseIdentifier = "";
-                MyIsMerchandiseEnabled = false;
-                MyMerchandiseId = NO_ID;
+                _merchandiseAmount = "";
+                _merchandiseComment = "";
+                _merchandiseIdentifier = "";
+                _isMerchandiseEnabled = false;
+                _merchandiseId = NO_ID;
             }
         }
 
         public Supplier GetSupplier()
         {
-            if (IsNull(MySupplier))
+            if (IsNull(_supplier))
             {
-                MySupplier = SupplierManager.GetSupplierById(MySupplierId);
+                _supplier = SupplierManager.GetSupplierById(_supplierId);
             }
-            return MySupplier;
+            return _supplier;
         }
 
         public int GetSupplierId()
         {
-            return MySupplierId;
+            return _supplierId;
         }
 
-        public string GetSupplierName2()
+        private string GetSupplierName2()
         {
-            if (IsEmpty(MySupplierIdentifier))
+            if (IsEmpty(_supplierIdentifier))
             {
                 return "No supplier selected";                
             }
-            return MySupplierIdentifier;
+            return _supplierIdentifier;
         }
 
         public String GetSupplierName()
@@ -868,9 +835,10 @@ namespace Molmed.PlattformOrdMan.Data
 
         public int CompareTo(object obj)
         {
-            if (obj is Post)
+            var post = obj as Post;
+            if (post != null)
             {
-                if (this >= (Post)obj)
+                if (this >= post)
                 {
                     return 1;
                 }
@@ -884,55 +852,54 @@ namespace Molmed.PlattformOrdMan.Data
 
         public int GetAmount()
         { 
-            return MyAmount;
+            return _amount;
         }
 
         public string GetAmountString()
         {
-            if (MyAmount == NO_COUNT)
+            if (_amount == NO_COUNT)
             {
                 return "";
             }
             else
             {
-                return MyAmount.ToString();
+                return _amount.ToString();
             }
         }
 
         public decimal GetApprPrizeDecimal()
         {
-            return MyApprPrize;
+            return _apprPrize;
         }
 
         public String GetPriceWithCurrencyString()
         {
-            if (MyApprPrize == PlattformOrdManData.NO_COUNT || IsNull(GetCurrency()))
+            if (_apprPrize == NO_COUNT || IsNull(GetCurrency()))
             {
                 return "";
             }
-            return MyCurrency.GetPriceWithCurrencyString(MyApprPrize);        
+            return _currency.GetPriceWithCurrencyString(_apprPrize);        
         }
 
         public string GetFinalPrizeWithCurrencyString()
         {
-            if (MyFinalPrize == PlattformOrdManData.NO_COUNT || IsNull(GetCurrency()))
+            if (_finalPrize == NO_COUNT || IsNull(GetCurrency()))
             {
                 return "";
             }
-            return MyCurrency.GetPriceWithCurrencyString(MyFinalPrize);
+            return _currency.GetPriceWithCurrencyString(_finalPrize);
         }
 
 
-
-        public decimal GetTotalPrize()
+        private decimal GetTotalPrize()
         {
-            if (MyAmount != NO_COUNT && MyFinalPrize != NO_COUNT && IsNotNull(GetCurrency()))
+            if (_amount != NO_COUNT && _finalPrize != NO_COUNT && IsNotNull(GetCurrency()))
             {
-                return ((decimal)MyAmount) * MyFinalPrize;
+                return _amount * _finalPrize;
             }
-            else if (MyAmount != NO_COUNT && MyApprPrize != NO_COUNT && IsNotNull(GetCurrency()))
+            else if (_amount != NO_COUNT && _apprPrize != NO_COUNT && IsNotNull(GetCurrency()))
             {
-                return ((decimal)MyAmount) * MyApprPrize;
+                return _amount * _apprPrize;
             }
             else
             {
@@ -940,13 +907,12 @@ namespace Molmed.PlattformOrdMan.Data
             }
         }
 
-        public string GetTotalPrizeWithCurrencyString()
+        private string GetTotalPrizeWithCurrencyString()
         {
-            decimal prize;
-            prize = GetTotalPrize();
+            var prize = GetTotalPrize();
             if (prize != NO_COUNT)
             {
-                return MyCurrency.GetPriceWithCurrencyString(prize);
+                return _currency.GetPriceWithCurrencyString(prize);
             }
             else
             {
@@ -956,22 +922,22 @@ namespace Molmed.PlattformOrdMan.Data
         
         public bool GetInvoiceClin()
         {
-            return MyInvoiceClin;
+            return _invoiceClin;
         }
 
         public bool GetInvoiceInst()
         {
-            return MyInvoiceInst;
+            return _invoiceInst;
         }
 
         public bool IsInvoceAbsent()
         {
-            return MyIsInvoiceAbsent;
+            return _isInvoiceAbsent;
         }
 
-        public String GetInvoiceInstString()
+        private String GetInvoiceInstString()
         {
-            if (MyInvoiceInst)
+            if (_invoiceInst)
             {
                 return "x";
             }
@@ -983,9 +949,9 @@ namespace Molmed.PlattformOrdMan.Data
 
         public String GetInvoiceCategoryCodeString2()
         {
-            if (MyInvoiceCategoryNumber != NO_COUNT)
+            if (_invoiceCategoryNumber != NO_COUNT)
             {
-                return MyInvoiceCategoryNumber.ToString();
+                return _invoiceCategoryNumber.ToString();
             }
             else
             {
@@ -994,18 +960,9 @@ namespace Molmed.PlattformOrdMan.Data
         }
 
 
-        public String GetInvoiceCategoryCodeString()
+        private String GetInvoiceClinString()
         {
-            if (IsNull(GetMerchandise()))
-            {
-                return "";
-            }
-            return GetMerchandise().GetInvoiceCategoryCodeString();
-        }
-
-        public String GetInvoiceClinString()
-        {
-            if (MyInvoiceClin)
+            if (_invoiceClin)
             {
                 return "x";
             }
@@ -1017,16 +974,16 @@ namespace Molmed.PlattformOrdMan.Data
 
         public User GetOrderer()
         {
-            if (IsNull(MyOrderer))
+            if (IsNull(_orderer))
             {
-                MyOrderer = UserManager.GetUser(MyOrdererUserId);
+                _orderer = UserManager.GetUser(_ordererUserId);
             }
-            return MyOrderer;
+            return _orderer;
         }
 
         public int GetOrderUserId()
         {
-            return MyOrdererUserId;
+            return _ordererUserId;
         }
 
         public String GetOrdererName()
@@ -1040,30 +997,30 @@ namespace Molmed.PlattformOrdMan.Data
 
         public DateTime GetArrivalDate()
         {
-            return MyArrivalDate;
+            return _arrivalDate;
         }
 
         public String GetArrivalDateString()
         {
-            if(MyArrivalDate.Ticks == 0)
+            if(_arrivalDate.Ticks == 0)
             {
                 return "";
             }
-            return MyArrivalDate.Date.ToString("yyyy-MM-dd");
+            return _arrivalDate.Date.ToString("yyyy-MM-dd");
         }
 
         public User GetArrivalSignUser()
         {
-            if (IsNull(MyArrivalSignUser))
+            if (IsNull(_arrivalSignUser))
             {
-                MyArrivalSignUser = UserManager.GetUser(MyArrivalSignUserId);
+                _arrivalSignUser = UserManager.GetUser(_arrivalSignUserId);
             }
-            return MyArrivalSignUser;
+            return _arrivalSignUser;
         }
 
         public int GetArrivalSignUserId()
         {
-            return MyArrivalSignUserId;
+            return _arrivalSignUserId;
         }
 
         public String GetArrivalSignUserName()
@@ -1082,43 +1039,41 @@ namespace Molmed.PlattformOrdMan.Data
 
         public bool HasActiveArticleNumberSelected()
         {
-            int activeANId = NO_ID;
+            int activeAnId = NO_ID;
             int selANId = NO_ID;
             if (GetMerchandise().HasArticleNumber())
             {
-                activeANId = GetMerchandise().GetActiveArticleNumber().GetId();
+                activeAnId = GetMerchandise().GetActiveArticleNumber().GetId();
             }
             if (IsNotNull(GetArticleNumber()))
             {
                 selANId = GetArticleNumber().GetId();
             }
 
-            return selANId == activeANId;
+            return selANId == activeAnId;
         }
 
         public void OrderPost(int ordererUserId)
         {
-            Post tmpPost;
             Database.OrderPost(GetId(), ordererUserId);
-            tmpPost = PostManager.GetPostById(GetId());
-            MyOrderDate = tmpPost.GetOrderDate();
-            MyOrdererUserId = ordererUserId;
-            MyOrderer = null;
+            var tmpPost = PostManager.GetPostById(GetId());
+            _orderDate = tmpPost.GetOrderDate();
+            _ordererUserId = ordererUserId;
+            _orderer = null;
             SetPostStatus();
-            if (MyIsInvoiceAbsent)
+            if (_isInvoiceAbsent)
             {
-                SignPostInvoice(UserManager.GetUser(ordererUserId), InvoiceStatus.Ok, MyIsInvoiceAbsent);
+                SignPostInvoice(UserManager.GetUser(ordererUserId), InvoiceStatus.Ok, _isInvoiceAbsent);
             }
         }
 
         public void ConfirmPostOrdered(int userId)
         {
-            Post tempPost;
             Database.ConfirmPostOrdered(GetId(), userId);
-            tempPost = PostManager.GetPostById(GetId());
-            MyConfirmedOrderDate = tempPost.GetConfirmedOrderDate();
-            MyConfirmedOrderUserId = tempPost.GetConfirmedOrderUserId();
-            MyConfirmedOrderUser = null;
+            var tempPost = PostManager.GetPostById(GetId());
+            _confirmedOrderDate = tempPost.GetConfirmedOrderDate();
+            _confirmedOrderUserId = tempPost.GetConfirmedOrderUserId();
+            _confirmedOrderUser = null;
             SetPostStatus();
         }
 
@@ -1135,20 +1090,19 @@ namespace Molmed.PlattformOrdMan.Data
 
         public void SignPostInvoice(User signer, InvoiceStatus status, bool isInvoiceAbsent)
         {
-            Post tmpPost;
             Database.SignPostInvoice(GetId(), signer.GetId(), status.ToString(), isInvoiceAbsent);
-            tmpPost = PostManager.GetPostById(GetId());
-            MyInvoiceDate = tmpPost.GetInvoiceDate();
-            MyInvoiceStatus = status;
-            MyInvoicerUserId = signer.GetId();
-            MyInvoicerUser = null;
-            MyIsInvoiceAbsent = isInvoiceAbsent;
+            var tmpPost = PostManager.GetPostById(GetId());
+            _invoiceDate = tmpPost.GetInvoiceDate();
+            _invoiceStatus = status;
+            _invoicerUserId = signer.GetId();
+            _invoicerUser = null;
+            _isInvoiceAbsent = isInvoiceAbsent;
             SetPostStatus();
         }
 
         public void SetApprPrizeLocal(decimal prize)
         {
-            MyApprPrize = prize;
+            _apprPrize = prize;
         }
 
         public void UpdateCustomerNumberId(int custNumId)
@@ -1159,7 +1113,7 @@ namespace Molmed.PlattformOrdMan.Data
             UpdatePost(GetComment(), GetApprPrizeDecimal(), GetAmount(), GetInvoiceClin(), GetInvoiceInst(),
                 apprArrival, GetInvoiceStatus().ToString(), IsInvoceAbsent(), GetCurrencyId(), GetBookerId(),
                 GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(), GetArrivalDate(),
-                GetInvoicerUserId(), GetInvoiceDate(), MyArticleNumberId, GetSupplierId(), GetInvoiceNumber(), GetFinalPrize(),
+                GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(), GetInvoiceNumber(), GetFinalPrize(),
                 GetConfirmedOrderDate(), GetConfirmedOrderUserId(), GetDeliveryDeviation(), GetPurchaseOrderNo(), 
                 GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), custNumId);
         }
@@ -1173,7 +1127,7 @@ namespace Molmed.PlattformOrdMan.Data
             UpdatePost(GetComment(), GetApprPrizeDecimal(), GetAmount(), GetInvoiceClin(), GetInvoiceInst(),
                 apprArrival, GetInvoiceStatus().ToString(), isNoInvoice, GetCurrencyId(),
                 GetBookerId(), GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(),
-                GetArrivalDate(), GetInvoicerUserId(), GetInvoiceDate(), MyArticleNumberId, GetSupplierId(),
+                GetArrivalDate(), GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 invoiceNumber, GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(),
                 GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), customerNumberId);
         }
@@ -1192,51 +1146,51 @@ namespace Molmed.PlattformOrdMan.Data
                 invoiceNumber, finalPrize, confirmedOrderDate, confirmedOrderUserId, deliveryDeviation,
                 purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId);
             SetComment(comment);
-            MyCustomerNumberId = customerNumberId;
-            MyCustomerNumber = null;
-            MyApprPrize = apprPrize;
-            MyAmount = amount;
-            MyInvoiceClin = invoiceClin;
-            MyInvoiceInst = invoiceInst;
-            MyPredictedArrival = apprArrival;
-            MyIsInvoiceAbsent = isInvoiceAbsent;
-            MyCurrencyId = currencyId;
-            MyCurrency = null;
+            _customerNumberId = customerNumberId;
+            _customerNumber = null;
+            _apprPrize = apprPrize;
+            _amount = amount;
+            _invoiceClin = invoiceClin;
+            _invoiceInst = invoiceInst;
+            _predictedArrival = apprArrival;
+            _isInvoiceAbsent = isInvoiceAbsent;
+            _currencyId = currencyId;
+            _currency = null;
             SetBookerId(bookerUserId);
             SetOrderUserId(orderUserId);
             SetArrivalSignUserId(arrivalSignUserId);
             SetInvoicerUserId(invoiceCheckerUserId);
-            MyBookDate = bookDate;
-            MyOrderDate = orderDate;
-            MyArrivalDate = arrivalDate;
-            MyInvoiceDate = invoiceDate;
+            _bookDate = bookDate;
+            _orderDate = orderDate;
+            _arrivalDate = arrivalDate;
+            _invoiceDate = invoiceDate;
             SetInvoiceStatus(invoiceStatus);
-            MyArticleNumberId = articleNumberId;
-            MyArticleNumber = null;
-            MySupplierId = supplierId;
-            MySupplier = null;
-            MyInvoiceNumber = invoiceNumber;
-            MyFinalPrize = finalPrize;
-            MyConfirmedOrderDate = confirmedOrderDate;
-            MyConfirmedOrderUserId = confirmedOrderUserId;
-            MyConfirmedOrderUser = null;
-            MyDeliveryDeviation = deliveryDeviation;
-            MyPurchaseOrderNo = purchaseOrderNo;
-            MySalesOrderNo = salesOrderNo;
-            MyPlaceOfPurchase = (PlaceOfPurchase)(Enum.Parse(typeof(PlaceOfPurchase), placeOfPurchase));
+            _articleNumberId = articleNumberId;
+            _articleNumber = null;
+            _supplierId = supplierId;
+            _supplier = null;
+            _invoiceNumber = invoiceNumber;
+            _finalPrize = finalPrize;
+            _confirmedOrderDate = confirmedOrderDate;
+            _confirmedOrderUserId = confirmedOrderUserId;
+            _confirmedOrderUser = null;
+            _deliveryDeviation = deliveryDeviation;
+            _purchaseOrderNo = purchaseOrderNo;
+            _salesOrderNo = salesOrderNo;
+            _placeOfPurchase = (PlaceOfPurchase)(Enum.Parse(typeof(PlaceOfPurchase), placeOfPurchase));
 
             // Metadata update
             // Merchandise + invoice number metadata need not to be updated
-            MySupplierIdentifier = GetSupplierName();
+            _supplierIdentifier = GetSupplierName();
             if (IsNotNull(GetCustomerNumber()))
             {
-                MyCustomerNumberDescription = GetCustomerNumber().GetDescription();
-                MyCustomerNumberIdentifier = GetCustomerNumber().GetIdentifier();
+                _customerNumberDescription = GetCustomerNumber().GetDescription();
+                _customerNumberIdentifier = GetCustomerNumber().GetIdentifier();
             }
             else
             {
-                MyCustomerNumberDescription = "";
-                MyCustomerNumberIdentifier = "";
+                _customerNumberDescription = "";
+                _customerNumberIdentifier = "";
             }
 
             SetPostStatus();
@@ -1246,44 +1200,44 @@ namespace Molmed.PlattformOrdMan.Data
         public void RegretOrderPost()
         {
             Database.RegretOrderPost(GetId());
-            MyPostStatus = PostStatus.Booked;
-            MyOrderDate = new DateTime();
-            MyOrdererUserId = PlattformOrdManData.NO_ID;
-            MyOrderer = null;
+            _postStatus = PostStatus.Booked;
+            _orderDate = new DateTime();
+            _ordererUserId = NO_ID;
+            _orderer = null;
         }
 
         public void RegretOrderConfirmed()
         {
             Database.RegretOrderConfirmed(GetId());
-            MyPostStatus = PostStatus.Ordered;
-            MyConfirmedOrderDate = new DateTime();
-            MyConfirmedOrderUserId = PlattformOrdManData.NO_ID;
-            MyConfirmedOrderUser = null;
+            _postStatus = PostStatus.Ordered;
+            _confirmedOrderDate = new DateTime();
+            _confirmedOrderUserId = NO_ID;
+            _confirmedOrderUser = null;
         }
 
         public void RegretArrivalConfirmation()
         {
             Database.RegretArrivalConfirmation(GetId());
-            MyPostStatus = PostStatus.ConfirmedOrder;
-            MyArrivalDate = new DateTime();
-            MyArrivalSignUser = null;
-            MyArrivalSignUserId = PlattformOrdManData.NO_ID;
+            _postStatus = PostStatus.ConfirmedOrder;
+            _arrivalDate = new DateTime();
+            _arrivalSignUser = null;
+            _arrivalSignUserId = NO_ID;
         }
 
         public void RegretCompleted()
         {
             Database.RegretCompleted(GetId());
-            MyPostStatus = PostStatus.Confirmed;
-            MyIsInvoiceAbsent = false;
-            MyInvoicerUser = null;
-            MyInvoicerUserId = PlattformOrdManData.NO_ID;
-            MyInvoiceStatus = InvoiceStatus.Incoming;
-            MyInvoiceDate = new DateTime();
+            _postStatus = PostStatus.Confirmed;
+            _isInvoiceAbsent = false;
+            _invoicerUser = null;
+            _invoicerUserId = NO_ID;
+            _invoiceStatus = InvoiceStatus.Incoming;
+            _invoiceDate = new DateTime();
         }
 
         public void ResetMerchanidse()
         {
-            MyMerchandise = null;
+            _merchandise = null;
         }
 
         public void ResetPostInvoiceStatus()
@@ -1293,79 +1247,49 @@ namespace Molmed.PlattformOrdMan.Data
 
         private void SetBookerId(int bookerId)
         {
-            MyBooker = null;
-            MyBookerUserId = bookerId;
-        }
-
-        public void SetMerchandise(Merchandise merchandise)
-        {
-            MyMerchandise = merchandise;
+            _booker = null;
+            _bookerUserId = bookerId;
         }
 
         private void SetOrderUserId(int orderUserId)
         {
-            MyOrderer = null;
-            MyOrdererUserId = orderUserId;
+            _orderer = null;
+            _ordererUserId = orderUserId;
         }
 
         private void SetArrivalSignUserId(int arrivalSignUserId)
         {
-            MyArrivalSignUser = null;
-            MyArrivalSignUserId = arrivalSignUserId;
+            _arrivalSignUser = null;
+            _arrivalSignUserId = arrivalSignUserId;
         }
 
         private void SetInvoicerUserId(int invoicerUserId)
         {
-            MyInvoicerUser = null;
-            MyInvoicerUserId = invoicerUserId;
+            _invoicerUser = null;
+            _invoicerUserId = invoicerUserId;
         }
 
-        public void SetInvoiceStatus(String status)
+        private void SetInvoiceStatus(String status)
         {
-            string str;
             switch (status)
             {
                 case "Incoming":
-                    MyInvoiceStatus = InvoiceStatus.Incoming;
+                    _invoiceStatus = InvoiceStatus.Incoming;
                     break;
                 case "Ok":
-                    MyInvoiceStatus = InvoiceStatus.Ok;
-                    break;
-                case "NotOk":
-                    MyInvoiceStatus = InvoiceStatus.NotOk;
+                    _invoiceStatus = InvoiceStatus.Ok;
                     break;
                 default:
-                    str = "Error, invoice status not set to proper value: ''" + status + "''";
-                    throw new Data.Exception.DataException(str);
+                    var str = "Error, invoice status not set to proper value: ''" + status + "''";
+                    throw new Exception.DataException(str);
             }
         }
 
         public void SetSalesOrderNo(string salesOrderNo)
         {
             Database.UpdatePostSetSalesOrderNo(GetId(), salesOrderNo);
-            MySalesOrderNo = salesOrderNo;
+            _salesOrderNo = salesOrderNo;
         }
-
-        public void SetPostStatus(PostStatus postStatus)
-        {
-            MyPostStatus = postStatus;
-        }
-
-        private String TruncDecimals(String str)
-        {
-            int residue = 0;
-            if (str.IndexOf(".") > -1)
-            {
-                if (str.Substring(str.IndexOf(".")).Contains("0000"))
-                {
-                    return str.Substring(0, str.IndexOf("."));
-                }
-                residue = Math.Min(3, str.Length - str.IndexOf("."));
-                return str.Substring(0, str.IndexOf(".") + residue);
-            }
-            return str;
-        }
-
     }
 
     public class PostList : DataIdentityList
@@ -1384,14 +1308,6 @@ namespace Molmed.PlattformOrdMan.Data
             set
             {
                 base[index] = value;
-            }
-        }
-
-        public new Post this[String identifier]
-        {
-            get
-            {
-                return (Post)(base[identifier]);
             }
         }
 

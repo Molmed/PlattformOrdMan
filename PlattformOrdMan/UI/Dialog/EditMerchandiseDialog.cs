@@ -502,7 +502,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     MessageBoxIcon.Exclamation);
                 return;
             }
-            createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create, merchandice, isDoubtfulProd);
+            createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create, merchandice);
             createPostDialog.MdiParent = this.MdiParent;
             // Subscribe for changes, if any order history window open
             createPostDialog.Show();
