@@ -67,7 +67,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             ProductOrderConfirmedLabel.BackColor = Color.LightBlue;
             CompletedPostPanel.BackColor = Color.White;
             InvoiceNotCheckedPanel.BackColor = Color.Lime;
-            InvoiceNotOkPanel.BackColor = Color.Black;
             userComboBox1.Init(true, "booker");
             userComboBox1.LoadIdentitiesWithInfoText();
             userComboBox1.OnMyControlledSelectedIndexChanged += 

@@ -49,8 +49,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label3 = new System.Windows.Forms.Label();
             this.InvoiceNotCheckedPanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.InvoiceNotOkPanel = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
             this.RestoreSortingButton = new System.Windows.Forms.Button();
             this.ProductOrderConfirmedLabel = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
@@ -209,7 +207,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // CompletedPostPanel
             // 
             this.CompletedPostPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CompletedPostPanel.Location = new System.Drawing.Point(570, 113);
+            this.CompletedPostPanel.Location = new System.Drawing.Point(570, 91);
             this.CompletedPostPanel.Name = "CompletedPostPanel";
             this.CompletedPostPanel.Size = new System.Drawing.Size(38, 14);
             this.CompletedPostPanel.TabIndex = 8;
@@ -217,7 +215,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(614, 113);
+            this.label3.Location = new System.Drawing.Point(614, 91);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(148, 13);
             this.label3.TabIndex = 9;
@@ -239,23 +237,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label4.Size = new System.Drawing.Size(134, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Product arrival is confirmed";
-            // 
-            // InvoiceNotOkPanel
-            // 
-            this.InvoiceNotOkPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InvoiceNotOkPanel.Location = new System.Drawing.Point(570, 91);
-            this.InvoiceNotOkPanel.Name = "InvoiceNotOkPanel";
-            this.InvoiceNotOkPanel.Size = new System.Drawing.Size(38, 14);
-            this.InvoiceNotOkPanel.TabIndex = 10;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(614, 91);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(169, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Invoice is not OK (completed post)";
             // 
             // RestoreSortingButton
             // 
@@ -295,8 +276,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.Controls.Add(this.label6);
             this.Controls.Add(this.ProductOrderConfirmedLabel);
             this.Controls.Add(this.RestoreSortingButton);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.InvoiceNotOkPanel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.InvoiceNotCheckedPanel);
             this.Controls.Add(this.label3);
@@ -338,8 +317,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel InvoiceNotCheckedPanel;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel InvoiceNotOkPanel;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button RestoreSortingButton;
         private Molmed.PlattformOrdMan.UI.Component.SupplierCombobox SupplierCombobox;
         private Molmed.PlattformOrdMan.UI.Component.UserComboBox userComboBox1;
