@@ -394,16 +394,8 @@ namespace Molmed.PlattformOrdMan.UI.View
                     ForeColor = Color.Black;
                     break;
                 case Post.PostStatus.Completed:
-                    if (_post.GetInvoiceStatus() == Post.InvoiceStatus.NotOk)
-                    {
-                        BackColor = Color.Black;
-                        ForeColor = Color.LightSalmon;
-                    }
-                    else
-                    {
-                        BackColor = Color.White;
-                        ForeColor = Color.Black;
-                    }
+                    BackColor = Color.White;
+                    ForeColor = Color.Black;
                     break;
             }
             if (!_post.IsMerchandiseEnabled())

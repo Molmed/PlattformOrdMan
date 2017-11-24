@@ -8,12 +8,18 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
     public partial class CreatePostDialog : OrdManForm, ISupplierForm, IMerchandiseForm
     {
         public delegate void PostUpdatedHandler(object sender, UpdateHandlerEventArgs e);
+
         private delegate bool CheckComboxesSelectedCallback();
+
         private delegate void FixComboboxesSelectionCallback();
+
         public event PostUpdatedHandler OnPostUpdate;
         private Post _post;
         private readonly PostUpdateMode _updateMode;
-        private Component.SearchingCombobox.MyControlledSelectedIndexChanged _controlledSelectedIndexChangedForMerchanidse;
+
+        private Component.SearchingCombobox.MyControlledSelectedIndexChanged
+            _controlledSelectedIndexChangedForMerchanidse;
+
         private readonly DateTimeStyles _dateTimeStyles;
         private System.Timers.Timer _fixComboboxSelectionTimer;
         private int _popPrevSel;
@@ -53,11 +59,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             if (SupplierComboBox.HasSelectedSupplier() && OrderingUnitComboBox.SelectedIndex >= 0)
             {
-                var placeOfPurchase = PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem);
+                var placeOfPurchase =
+                    PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem);
                 var supplier = SupplierComboBox.GetSelectedSupplier();
                 CustomerNumberComboBox.Items.Clear();
                 foreach (CustomerNumber custNum in supplier.GetCustomerNumbersForUserGroup(placeOfPurchase))
-                //foreach (CustomerNumber custNum in supplier.GetCustomerNumbersForCurrentUserGroup())
+                    //foreach (CustomerNumber custNum in supplier.GetCustomerNumbersForCurrentUserGroup())
                 {
                     if (custNum.IsEnabled())
                     {
@@ -70,7 +77,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     CustomerNumberComboBox.Items.Add(_post.GetCustomerNumber());
                 }
-
             }
 
             if (CustomerNumberComboBox.Items.Count == 0)
@@ -101,7 +107,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             else if (CustomerNumberComboBox.Items.Count == 0)
             {
                 CustomerNumberComboBox.Text = "No customer number available!";
-            }            
+            }
         }
 
         private void UpdateCustomerNumber()
@@ -112,7 +118,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 foreach (object o in CustomerNumberComboBox.Items)
                 {
                     var number = o as CustomerNumber;
-                    if(number != null && 
+                    if (number != null &&
                         number.GetId() == _post.GetCustomerNumberId())
                     {
                         CustomerNumberComboBox.SelectedItem = o;
@@ -194,7 +200,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             InitInvoiceCheckboxes();
             _popPrevSel = -1;
-            _controlledSelectedIndexChangedForMerchanidse = 
+            _controlledSelectedIndexChangedForMerchanidse =
                 merchandiseCombobox1_OnMyControlledSelectedIndexChanged;
             var suppliers = SupplierManager.GetActiveSuppliersOnly();
             SupplierComboBox.Init(suppliers, "supplier", true);
@@ -207,7 +213,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                merchandiseCombobox1.Init(false, true);            
+                merchandiseCombobox1.Init(false, true);
             }
             merchandiseCombobox1.LoadIdentitiesWithInfoText();
             merchandiseCombobox1.OnMyControlledSelectedIndexChanged += _controlledSelectedIndexChangedForMerchanidse;
@@ -216,7 +222,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             InitStatusFields();
             InitOrderingUnitCombobox();
             switch (_updateMode)
-            { 
+            {
                 case PostUpdateMode.Create:
                     SetDefaultCustomerNumber();
                     break;
@@ -245,7 +251,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             var products = MerchandiseManager.GetActiveMerchandiseOnly();
             SupplierComboBox.ReloadIdentities(suppliers);
             merchandiseCombobox1.ReloadIdentities(products);
-
         }
 
         void CreatePostDialog_Activated(object sender, EventArgs e)
@@ -270,12 +275,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 CheckComboxesSelectedCallback c = IsComboboxesSelected;
                 if (!IsDisposed)
                 {
-                    return (bool)Invoke(c);
+                    return (bool) Invoke(c);
                 }
             }
             else
             {
-                return SupplierComboBox.SelectionStart == 0 || merchandiseCombobox1.SelectionStart == 0;            
+                return SupplierComboBox.SelectionStart == 0 || merchandiseCombobox1.SelectionStart == 0;
             }
             return false;
         }
@@ -283,13 +288,13 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == PlattformOrdManData.WM_SYSCOMMAND &&
-                (m.WParam == new IntPtr(PlattformOrdManData.SC_MAXIMIZE)||
-                m.WParam == new IntPtr(PlattformOrdManData.SC_RESTORE) ||
-                m.WParam == new IntPtr(PlattformOrdManData.SC_MINIMIZE)))
+                (m.WParam == new IntPtr(PlattformOrdManData.SC_MAXIMIZE) ||
+                 m.WParam == new IntPtr(PlattformOrdManData.SC_RESTORE) ||
+                 m.WParam == new IntPtr(PlattformOrdManData.SC_MINIMIZE)))
             {
                 _fixComboboxSelectionTimer.Enabled = true;
             }
-            
+
             base.WndProc(ref m);
         }
 
@@ -322,7 +327,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
             }
             InitCustomerNumberCombobox();
-            HandleSaveButtonEnabled();        
+            HandleSaveButtonEnabled();
         }
 
         private void CurrencyCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -345,7 +350,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             ConfirmedOrderUserComboBox.Enabled = false;
             ConfirmedOrderDateTextBox.Enabled = false;
             OrderDateTextBox.Enabled = false;
-            
+
             BookerUserComboBox.Init(false, "user");
             BookerUserComboBox.LoadIdentities();
             OrdererUserComboBox.Init(true, "user");
@@ -356,12 +361,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             ArrivalSignUserComboBox.LoadIdentities();
             InvoiceCheckerUserComboBox.Init(true, "user");
             InvoiceCheckerUserComboBox.LoadIdentities();
-            BookerUserComboBox.OnMyControlledSelectedIndexChanged += BookerUserComboBox_OnMyControlledSelectedIndexChanged;
-            OrdererUserComboBox.OnMyControlledSelectedIndexChanged += OrdererUserComboBox_OnMyControlledSelectedIndexChanged;
-            ConfirmedOrderUserComboBox.OnMyControlledSelectedIndexChanged += ConfirmedOrderUserComboBox_OnMyControlledSelectedIndexChanged;
-            ArrivalSignUserComboBox.OnMyControlledSelectedIndexChanged += ArrivalSignUserComboBox_OnMyControlledSelectedIndexChanged;
-            InvoiceCheckerUserComboBox.OnMyControlledSelectedIndexChanged +=InvoiceCheckerUserComboBox_OnMyControlledSelectedIndexChanged;
-            InvoiceOKCheckBox.Enabled = false;
+            BookerUserComboBox.OnMyControlledSelectedIndexChanged +=
+                BookerUserComboBox_OnMyControlledSelectedIndexChanged;
+            OrdererUserComboBox.OnMyControlledSelectedIndexChanged +=
+                OrdererUserComboBox_OnMyControlledSelectedIndexChanged;
+            ConfirmedOrderUserComboBox.OnMyControlledSelectedIndexChanged +=
+                ConfirmedOrderUserComboBox_OnMyControlledSelectedIndexChanged;
+            ArrivalSignUserComboBox.OnMyControlledSelectedIndexChanged +=
+                ArrivalSignUserComboBox_OnMyControlledSelectedIndexChanged;
+            InvoiceCheckerUserComboBox.OnMyControlledSelectedIndexChanged +=
+                InvoiceCheckerUserComboBox_OnMyControlledSelectedIndexChanged;
             if (IsNull(_post))
             {
                 BookerUserComboBox.SetSelectedIdentity(UserManager.GetCurrentUser());
@@ -419,11 +428,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                         OrderDateTextBox.Enabled = true;
                         InvoiceCheckDateTextBox.Enabled = true;
                         InvoiceCheckerUserComboBox.Enabled = true;
-                        InvoiceOKCheckBox.Enabled = true;
-                        if (_post.GetInvoiceStatus() == Post.InvoiceStatus.NotOk)
-                        {
-                            InvoiceOKCheckBox.Checked = false;
-                        }
                         break;
                 }
             }
@@ -454,7 +458,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             ApprArrivalTextBox.Text = _post.GetPredictedArrival();
             InvoiceInstCheckBox.Checked = _post.GetInvoiceInst();
             InvoiceClinCheckBox.Checked = _post.GetInvoiceClin();
-            NoInvoiceCheckBox.Checked =  _post.IsInvoceAbsent();
+            NoInvoiceCheckBox.Checked = _post.IsInvoceAbsent();
             InitCustomerNumberCombobox();
             UpdateCustomerNumber();
         }
@@ -472,7 +476,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             else
             {
                 SupplierComboBox.SelectionStart = SupplierComboBox.Text.Length;
-                merchandiseCombobox1.SelectionStart = merchandiseCombobox1.Text.Length;    
+                merchandiseCombobox1.SelectionStart = merchandiseCombobox1.Text.Length;
             }
         }
 
@@ -485,7 +489,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             else
             {
                 SupplierComboBox.Text = "No Supplier selected";
-            }        
+            }
         }
 
         private void InitOrderMode()
@@ -517,25 +521,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private Post.InvoiceStatus GetInvoiceStatus()
         {
-            if (InvoiceCheckerUserComboBox.GetSelectedIdentityId() == PlattformOrdManData.NO_ID)
-            {
-                return Post.InvoiceStatus.Incoming;
-            }
-            else if (InvoiceOKCheckBox.Checked)
-            {
-                return Post.InvoiceStatus.Ok;
-            }
-            else
-            {
-                return Post.InvoiceStatus.NotOk;
-            }
+            return InvoiceCheckerUserComboBox.GetSelectedIdentityId() == PlattformOrdManData.NO_ID
+                ? Post.InvoiceStatus.Incoming
+                : Post.InvoiceStatus.Ok;
         }
 
         private bool IsUpdated()
         {
             int currencyId = PlattformOrdManData.NO_ID;
             decimal prize, finalPrize;
-            bool invoiceOk = true;
             int amount;
             int customerNumberId = PlattformOrdManData.NO_ID;
 
@@ -547,13 +541,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (CustomerNumberComboBox.SelectedIndex > -1 &&
                 CustomerNumberComboBox.SelectedItem is CustomerNumber)
             {
-                customerNumberId = ((CustomerNumber)CustomerNumberComboBox.SelectedItem).GetId();
+                customerNumberId = ((CustomerNumber) CustomerNumberComboBox.SelectedItem).GetId();
             }
 
-            if (_post.GetInvoiceStatus() == Post.InvoiceStatus.NotOk)
-            {
-                invoiceOk = false;
-            }
             if (ApprPrizeTextBox.Text.Trim() == "")
             {
                 prize = -1;
@@ -566,7 +556,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 finalPrize = -1;
             }
-            else if(!GetPrizeDecimal(GetPrizeString(FinalPrizeTextBox.Text), out finalPrize))
+            else if (!GetPrizeDecimal(GetPrizeString(FinalPrizeTextBox.Text), out finalPrize))
             {
                 return false;
             }
@@ -576,48 +566,48 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
 
             return (amount != _post.GetAmount() ||
-                CommentTextBox.Text != _post.GetComment()||
-                DeliveryDeviationTextBox.Text != _post.GetDeliveryDeviation() ||
-                prize != _post.GetApprPrizeDecimal() ||
-                (InvoiceInstCheckBox.Checked != _post.GetInvoiceInst()) ||
-                (InvoiceClinCheckBox.Checked != _post.GetInvoiceClin()) ||
-                (NoInvoiceCheckBox.Checked != _post.IsInvoceAbsent()) ||
-                ApprArrivalTextBox.Text.Trim() != _post.GetPredictedArrival()||
-                currencyId != _post.GetCurrencyId() ||
-                BookerUserComboBox.GetSelectedIdentityId() != _post.GetBookerId() ||
-                OrdererUserComboBox.GetSelectedIdentityId() != _post.GetOrderUserId() ||
-                ArrivalSignUserComboBox.GetSelectedIdentityId() != _post.GetArrivalSignUserId() ||
-                InvoiceCheckerUserComboBox.GetSelectedIdentityId() != _post.GetInvoiceUserId() ||
-                GetBookDate().Date != _post.GetBookDateDT().Date ||
-                GetOrderDate().Date != _post.GetOrderDate().Date ||
-                GetArrivalDate() != _post.GetArrivalDate() || 
-                GetInvoiceDate() != _post.GetInvoiceDate() ||
-                InvoiceOKCheckBox.Checked != invoiceOk || 
-                finalPrize != _post.GetFinalPrize() ||
-                InvoiceNumberTextBox.Text.Trim() != _post.GetInvoiceNumber() ||
-                ConfirmedOrderUserComboBox.GetSelectedIdentityId() != _post.GetConfirmedOrderUserId() ||
-                GetConfirmedOrderDate().Date != _post.GetConfirmedOrderDate().Date ||
-                PurchaseOrderNoTextBox.Text.Trim() != _post.GetPurchaseOrderNo() ||
-                SalesOrdernoTextBox.Text.Trim() != _post.GetSalesOrderNo() ||
-                customerNumberId != _post.GetCustomerNumberId() ||
-                IsOrderingUnitUpdated() ||
-                IsSupplierUpdated()
-                );
+                    CommentTextBox.Text != _post.GetComment() ||
+                    DeliveryDeviationTextBox.Text != _post.GetDeliveryDeviation() ||
+                    prize != _post.GetApprPrizeDecimal() ||
+                    (InvoiceInstCheckBox.Checked != _post.GetInvoiceInst()) ||
+                    (InvoiceClinCheckBox.Checked != _post.GetInvoiceClin()) ||
+                    (NoInvoiceCheckBox.Checked != _post.IsInvoceAbsent()) ||
+                    ApprArrivalTextBox.Text.Trim() != _post.GetPredictedArrival() ||
+                    currencyId != _post.GetCurrencyId() ||
+                    BookerUserComboBox.GetSelectedIdentityId() != _post.GetBookerId() ||
+                    OrdererUserComboBox.GetSelectedIdentityId() != _post.GetOrderUserId() ||
+                    ArrivalSignUserComboBox.GetSelectedIdentityId() != _post.GetArrivalSignUserId() ||
+                    InvoiceCheckerUserComboBox.GetSelectedIdentityId() != _post.GetInvoiceUserId() ||
+                    GetBookDate().Date != _post.GetBookDateDT().Date ||
+                    GetOrderDate().Date != _post.GetOrderDate().Date ||
+                    GetArrivalDate() != _post.GetArrivalDate() ||
+                    GetInvoiceDate() != _post.GetInvoiceDate() ||
+                    finalPrize != _post.GetFinalPrize() ||
+                    InvoiceNumberTextBox.Text.Trim() != _post.GetInvoiceNumber() ||
+                    ConfirmedOrderUserComboBox.GetSelectedIdentityId() != _post.GetConfirmedOrderUserId() ||
+                    GetConfirmedOrderDate().Date != _post.GetConfirmedOrderDate().Date ||
+                    PurchaseOrderNoTextBox.Text.Trim() != _post.GetPurchaseOrderNo() ||
+                    SalesOrdernoTextBox.Text.Trim() != _post.GetSalesOrderNo() ||
+                    customerNumberId != _post.GetCustomerNumberId() ||
+                    IsOrderingUnitUpdated() ||
+                    IsSupplierUpdated()
+            );
         }
 
         private bool IsCustomerNumberNotHandled()
         {
             return SupplierComboBox.HasSelectedSupplier() &&
-                SupplierComboBox.GetSelectedSupplier().GetCustomerNumbersForCurrentUserGroup().Count > 0 &&
-                (CustomerNumberComboBox.SelectedIndex == -1 ||
-                (CustomerNumberComboBox.SelectedIndex > -1 && !(CustomerNumberComboBox.SelectedItem is CustomerNumber)));
+                   SupplierComboBox.GetSelectedSupplier().GetCustomerNumbersForCurrentUserGroup().Count > 0 &&
+                   (CustomerNumberComboBox.SelectedIndex == -1 ||
+                    (CustomerNumberComboBox.SelectedIndex > -1 &&
+                     !(CustomerNumberComboBox.SelectedItem is CustomerNumber)));
         }
 
         private bool IsOrderingUnitUpdated()
         {
             if (OrderingUnitComboBox.SelectedIndex > PlattformOrdManData.NO_COUNT)
             {
-                return ((string)OrderingUnitComboBox.SelectedItem) != _post.GetPlaceOfPurchaseString();
+                return ((string) OrderingUnitComboBox.SelectedItem) != _post.GetPlaceOfPurchaseString();
             }
             else
             {
@@ -626,8 +616,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         }
 
         private bool IsSupplierUpdated()
-        { 
-            if(SupplierComboBox.SelectedIndex <= 0 && _post.HasSupplier())
+        {
+            if (SupplierComboBox.SelectedIndex <= 0 && _post.HasSupplier())
             {
                 return true;
             }
@@ -714,7 +704,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         }
 
         private bool IsAmountNumeric()
-        { 
+        {
             int amount;
             if (!int.TryParse(AmountTextBox.Text, out amount))
             {
@@ -737,7 +727,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (CustomerNumberComboBox.SelectedIndex > -1 &&
                 CustomerNumberComboBox.SelectedItem is CustomerNumber)
             {
-                var custNum = (CustomerNumber)CustomerNumberComboBox.SelectedItem;
+                var custNum = (CustomerNumber) CustomerNumberComboBox.SelectedItem;
                 if (custNum != null)
                 {
                     customerNumberId = custNum.GetId();
@@ -758,10 +748,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             else if (!GetPrizeDecimal(GetPrizeString(FinalPrizeTextBox.Text), out finalPrize))
             {
                 ShowWarning("Error, the final prize could not be converted to a number, create canceled!");
-                return false;            
+                return false;
             }
 
-            var supplier = (Supplier)SupplierComboBox.GetSelectedIdentity();
+            var supplier = (Supplier) SupplierComboBox.GetSelectedIdentity();
             if (IsNotNull(supplier))
             {
                 supplierId = supplier.GetId();
@@ -775,7 +765,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             var merchandise = merchandiseCombobox1.GetSelectedMerchandise();
             var currentUser = UserManager.GetCurrentUser();
             var bookerUserId = BookerUserComboBox.GetSelectedIdentityId();
-            if (IsNull(merchandise)|| IsNull(currentUser))
+            if (IsNull(merchandise) || IsNull(currentUser))
             {
                 ShowWarning("Error, either the supplier, merchandise or the active user were not set, create canceled!");
                 return false;
@@ -784,7 +774,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (IsCustomerNumberNotHandled() &&
                 OrdererUserComboBox.HasSelectedIdentity() &&
                 MessageBox.Show("Customer number has not been chosen, continue anyway?",
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
+                DialogResult.Cancel)
             {
                 return false;
             }
@@ -796,13 +787,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             else
             {
                 // Want to have the string repr of the enum 'Other' not 'Plattform unspec.'
-                popStr = PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem).ToString();
+                popStr =
+                    PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem)
+                        .ToString();
             }
 
             UpdateMerchandisePrize(finalPrize, currencyId, out prize);
             _post = PostManager.CreatePost(merchandise.GetCurrentArticleNumberId(), bookerUserId, GetCommentFromForm(),
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
-                InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(), 
+                InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
                 finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text,
                 popStr, customerNumberId);
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
@@ -811,9 +804,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 bool dummy;
                 return UpdatePost(out dummy, false);
             }
-            var placeOfPurchase = (string)OrderingUnitComboBox.SelectedItem;
-            PlattformOrdManData.Configuration.PlaceOfPurchase = 
-                PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem);
+            var placeOfPurchase = (string) OrderingUnitComboBox.SelectedItem;
+            PlattformOrdManData.Configuration.PlaceOfPurchase =
+                PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem);
             if (!PlattformOrdManData.Configuration.PlaceOfPurchaseFilter.Contains(placeOfPurchase))
             {
                 PlattformOrdManData.Configuration.PlaceOfPurchaseFilter.Add(placeOfPurchase);
@@ -916,19 +909,19 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         }
 
         private bool IsNewSortOrderNeeded()
-        { 
+        {
             //If book date is altered, or
             //if post status changed from anything to completed, or
             // if post status changed from completed to anything
-            if(IsNull(_post))
+            if (IsNull(_post))
             {
                 return true;
             }
-            else if((GetPostStatus() == Post.PostStatus.Completed &&
-                    _post.GetPostStatus() != Post.PostStatus.Completed) ||
-                    (GetPostStatus() != Post.PostStatus.Completed &&
-                    _post.GetPostStatus() == Post.PostStatus.Completed) ||
-                    (GetDate(BookDateTextBox.Text.Trim()).Date != _post.GetBookDateDT().Date))
+            else if ((GetPostStatus() == Post.PostStatus.Completed &&
+                      _post.GetPostStatus() != Post.PostStatus.Completed) ||
+                     (GetPostStatus() != Post.PostStatus.Completed &&
+                      _post.GetPostStatus() == Post.PostStatus.Completed) ||
+                     (GetDate(BookDateTextBox.Text.Trim()).Date != _post.GetBookDateDT().Date))
             {
                 return true;
             }
@@ -936,7 +929,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         }
 
         private DateTime GetDate(string dateString)
-        { 
+        {
             DateTime theDate;
             if (!DateTime.TryParse(dateString, out theDate))
             {
@@ -957,7 +950,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             int currencyId = PlattformOrdManData.NO_ID;
             int customerNumberId = PlattformOrdManData.NO_ID;
 
-            var popStr = PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem).ToString();
+            var popStr =
+                PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem).ToString();
             if (IsNotNull(CurrencyCombobox.GetSelectedCurrency()))
             {
                 currencyId = CurrencyCombobox.GetSelectedCurrency().GetId();
@@ -965,7 +959,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (CustomerNumberComboBox.SelectedIndex > -1 &&
                 CustomerNumberComboBox.SelectedItem is CustomerNumber)
             {
-                var custNum = (CustomerNumber)CustomerNumberComboBox.SelectedItem;
+                var custNum = (CustomerNumber) CustomerNumberComboBox.SelectedItem;
                 if (custNum != null)
                 {
                     customerNumberId = custNum.GetId();
@@ -987,7 +981,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             else if (!GetPrizeDecimal(GetPrizeString(FinalPrizeTextBox.Text), out finalPrize))
             {
                 ShowWarning("Error, the prize could not be converted to a number, update canceled!");
-                return false;                
+                return false;
             }
 
             if (!CheckDates())
@@ -998,13 +992,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 return false;
             }
-            if (InvoiceOKCheckBox.Checked == false && NoInvoiceCheckBox.Checked)
-            {
-                var str = "Please choose either ''No invoice'' or ''Invoice not OK''!";
-                MessageBox.Show(str, "Mismatching invoice status", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-            if ((GetInvoiceStatus() == Post.InvoiceStatus.NotOk || GetInvoiceStatus() == Post.InvoiceStatus.Ok) &&
+            if (GetInvoiceStatus() == Post.InvoiceStatus.Ok &&
                 !NoInvoiceCheckBox.Checked &&
                 IsInvoiceCategoryMissing())
             {
@@ -1025,7 +1013,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 IsCustomerNumberNotHandled() &&
                 OrdererUserComboBox.HasSelectedIdentity() &&
                 MessageBox.Show("Customer number has not been chosen, continue anyway?",
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
+                DialogResult.Cancel)
             {
                 return false;
             }
@@ -1038,10 +1027,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             var arrivalSignUserId = ArrivalSignUserComboBox.GetSelectedIdentityId();
             var invoicerUserId = InvoiceCheckerUserComboBox.GetSelectedIdentityId();
             _post.UpdatePost(GetCommentFromForm(), prize, GetAmountFromForm(),
-                InvoiceClinCheckBox.Checked, InvoiceInstCheckBox.Checked, GetApprArrivalDate(), GetInvoiceStatus().ToString(),
-                NoInvoiceCheckBox.Checked,currencyId, bookerUserId, GetBookDate(), ordererUserId, GetOrderDate(),
-                arrivalSignUserId, GetArrivalDate(), invoicerUserId, GetInvoiceDate(), _post.GetMerchandise().GetCurrentArticleNumberId(),
-                SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize, 
+                InvoiceClinCheckBox.Checked, InvoiceInstCheckBox.Checked, GetApprArrivalDate(),
+                GetInvoiceStatus().ToString(),
+                NoInvoiceCheckBox.Checked, currencyId, bookerUserId, GetBookDate(), ordererUserId, GetOrderDate(),
+                arrivalSignUserId, GetArrivalDate(), invoicerUserId, GetInvoiceDate(),
+                _post.GetMerchandise().GetCurrentArticleNumberId(),
+                SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
                 PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, popStr,
                 customerNumberId);
@@ -1055,7 +1046,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private bool CheckDateUserConsistency()
         {
             string str;
-            if (BookDateTextBox.Text.Trim().Length > 0 && 
+            if (BookDateTextBox.Text.Trim().Length > 0 &&
                 BookerUserComboBox.GetSelectedIdentityId() == PlattformOrdManData.NO_ID)
             {
                 str = "Error, the booking date is filled in but no booker!";
@@ -1067,14 +1058,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 str = "Error, the order date is filled in but no order person!";
                 MessageBox.Show(str, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;            
+                return false;
             }
             if (ConfirmedOrderDateTextBox.Text.Trim().Length > 0 &&
                 ConfirmedOrderUserComboBox.GetSelectedIdentityId() == PlattformOrdManData.NO_ID)
             {
                 str = "Error, the order confirmation date is filled in but no person to sign it!";
                 MessageBox.Show(str, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;            
+                return false;
             }
             if (ArrivalDateTextBox.Text.Trim().Length > 0 &&
                 ArrivalSignUserComboBox.GetSelectedIdentityId() == PlattformOrdManData.NO_ID)
@@ -1101,17 +1092,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 dateTime = new DateTime();
             }
-            return dateTime;        
+            return dateTime;
         }
 
         private DateTime GetBookDate()
         {
             DateTime dateTime;
-            if(!DateTime.TryParse(BookDateTextBox.Text.Trim(), out dateTime))
+            if (!DateTime.TryParse(BookDateTextBox.Text.Trim(), out dateTime))
             {
                 dateTime = new DateTime();
             }
-            return dateTime;        
+            return dateTime;
         }
 
         private DateTime GetOrderDate()
@@ -1121,7 +1112,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 dateTime = new DateTime();
             }
-            return dateTime;        
+            return dateTime;
         }
 
         private DateTime GetConfirmedOrderDate()
@@ -1141,7 +1132,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 dateTime = new DateTime();
             }
-            return dateTime;        
+            return dateTime;
         }
 
         private DateTime GetInvoiceDate()
@@ -1151,7 +1142,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 dateTime = new DateTime();
             }
-            return dateTime;        
+            return dateTime;
         }
 
         private bool SignPost(out bool newSortOrder)
@@ -1181,10 +1172,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
                 if (IsNotNull(_post))
                 {
-                    _post.SetApprPrizeLocal(newApprPrize);                
+                    _post.SetApprPrizeLocal(newApprPrize);
                 }
-                var str = "Change default price for product ''" + merchandise.GetIdentifier() + "'' to " + prizeStr + "?";
-                if (MessageBox.Show(str, "Price update", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                var str = "Change default price for product ''" + merchandise.GetIdentifier() + "'' to " + prizeStr +
+                          "?";
+                if (MessageBox.Show(str, "Price update", MessageBoxButtons.YesNo, MessageBoxIcon.Question) ==
+                    DialogResult.Yes)
                 {
                     merchandise.SetApprPrize(prize);
                     merchandise.SetCurrencyId(currencyId);
@@ -1207,7 +1200,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     case PostUpdateMode.Create:
                         if (IsProductInLine() &&
-                                MessageBox.Show("There is already an un-completed order with this product in line, proceed anyway?",
+                            MessageBox.Show(
+                                "There is already an un-completed order with this product in line, proceed anyway?",
                                 "Product already in line", MessageBoxButtons.OKCancel,
                                 MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                         {
@@ -1243,7 +1237,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             finally
             {
-                Cursor = Cursors.Default;            
+                Cursor = Cursors.Default;
             }
             Close();
         }
@@ -1252,14 +1246,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             decimal dummy;
             return FinalPrizeTextBox.Text.Trim() != "" &&
-                GetPrizeDecimal(GetPrizeString(FinalPrizeTextBox.Text), out dummy);
+                   GetPrizeDecimal(GetPrizeString(FinalPrizeTextBox.Text), out dummy);
         }
 
         private bool HasApprPrize()
         {
             decimal dummy;
             return ApprPrizeTextBox.Text.Trim() != "" &&
-                GetPrizeDecimal(GetPrizeString(ApprPrizeTextBox.Text), out dummy);        
+                   GetPrizeDecimal(GetPrizeString(ApprPrizeTextBox.Text), out dummy);
         }
 
         private decimal GetFinalPrize()
@@ -1302,7 +1296,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 prize = amount * GetFinalPrize();
             }
             else if (HasApprPrize() &&
-                amount != PlattformOrdManData.NO_COUNT)
+                     amount != PlattformOrdManData.NO_COUNT)
             {
                 prize = amount * GetApprPrize();
             }
@@ -1313,14 +1307,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 TotalPrizeTextBox.Text = CurrencyCombobox.GetSelectedCurrency().GetPriceWithCurrencyString(prize);
             }
             else if (prize != PlattformOrdManData.NO_COUNT &&
-                !CurrencyCombobox.HasSelectedCurrency())
+                     !CurrencyCombobox.HasSelectedCurrency())
             {
                 TotalPrizeTextBox.Text = prize.ToString(CultureInfo.InvariantCulture);
             }
             else
             {
                 TotalPrizeTextBox.Text = "";
-            }            
+            }
         }
 
         private void ApprPrizeTextBox_TextChanged(object sender, EventArgs e)
@@ -1422,7 +1416,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 ArrivalDateTextBox.Text = "";
                 InvoiceCheckDateTextBox.Text = "";
                 InvoiceCheckerUserComboBox.SelectedIndex = -1;
-                InvoiceCheckerUserComboBox.Enabled = false;            
+                InvoiceCheckerUserComboBox.Enabled = false;
             }
         }
 
@@ -1470,7 +1464,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                ConfirmedOrderDateTextBox.Text  = "";
+                ConfirmedOrderDateTextBox.Text = "";
                 ArrivalSignUserComboBox.SelectedIndex = -1;
                 ArrivalSignUserComboBox.Enabled = false;
                 ArrivalDateTextBox.Text = "";
@@ -1513,14 +1507,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 InvoiceCheckDateTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
-            if (InvoiceCheckerUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
-            {
-                InvoiceOKCheckBox.Enabled = true;
-            }
-            else
+            if (InvoiceCheckerUserComboBox.GetSelectedIdentityId() == PlattformOrdManData.NO_ID)
             {
                 InvoiceCheckDateTextBox.Text = "";
-                InvoiceOKCheckBox.Enabled = false;
             }
         }
 
@@ -1567,7 +1556,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void BookerUserComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void DeliveryDeviationTextBox_TextChanged(object sender, EventArgs e)
@@ -1577,42 +1565,34 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void label17_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label16_Click(object sender, EventArgs e)
         {
-
         }
 
         private void CurrencyCombobox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
         }
 
         private void label7_Click(object sender, EventArgs e)
         {
-
         }
 
         private void ApprArrivalLabel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-
         }
 
         private void ShowSupplierButton_Click(object sender, EventArgs e)
@@ -1660,21 +1640,20 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void label24_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label23_Click(object sender, EventArgs e)
         {
-
         }
 
         private void OrderingUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (OrderingUnitComboBox.SelectedIndex >= 0)
             {
-                var pop = PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem);
+                var pop = PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem);
                 if (_popPrevSel == PlattformOrdManData.NO_COUNT ||
-                    PlattformOrdManData.GetGroupCategory(pop) != PlattformOrdManData.GetGroupCategory((PlaceOfPurchase)_popPrevSel))
+                    PlattformOrdManData.GetGroupCategory(pop) !=
+                    PlattformOrdManData.GetGroupCategory((PlaceOfPurchase) _popPrevSel))
                 {
                     InitCustomerNumberCombobox();
                 }
@@ -1685,7 +1664,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void SupplierComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void CustomerNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)

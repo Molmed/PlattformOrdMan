@@ -57,7 +57,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label18 = new System.Windows.Forms.Label();
             this.ConfirmedOrderDateTextBox = new System.Windows.Forms.TextBox();
             this.ConfirmedOrderUserComboBox = new Molmed.PlattformOrdMan.UI.Component.UserComboBox();
-            this.InvoiceOKCheckBox = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -276,7 +275,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // NoInvoiceCheckBox
             // 
             this.NoInvoiceCheckBox.AutoSize = true;
-            this.NoInvoiceCheckBox.Location = new System.Drawing.Point(110, 324);
+            this.NoInvoiceCheckBox.Location = new System.Drawing.Point(110, 304);
             this.NoInvoiceCheckBox.Name = "NoInvoiceCheckBox";
             this.NoInvoiceCheckBox.Size = new System.Drawing.Size(77, 17);
             this.NoInvoiceCheckBox.TabIndex = 20;
@@ -345,7 +344,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.ConfirmedOrderDateTextBox);
             this.groupBox1.Controls.Add(this.ConfirmedOrderUserComboBox);
-            this.groupBox1.Controls.Add(this.InvoiceOKCheckBox);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label13);
@@ -408,19 +406,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.ConfirmedOrderUserComboBox.Name = "ConfirmedOrderUserComboBox";
             this.ConfirmedOrderUserComboBox.Size = new System.Drawing.Size(252, 21);
             this.ConfirmedOrderUserComboBox.TabIndex = 17;
-            // 
-            // InvoiceOKCheckBox
-            // 
-            this.InvoiceOKCheckBox.AutoSize = true;
-            this.InvoiceOKCheckBox.Checked = true;
-            this.InvoiceOKCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.InvoiceOKCheckBox.Location = new System.Drawing.Point(110, 304);
-            this.InvoiceOKCheckBox.Name = "InvoiceOKCheckBox";
-            this.InvoiceOKCheckBox.Size = new System.Drawing.Size(79, 17);
-            this.InvoiceOKCheckBox.TabIndex = 16;
-            this.InvoiceOKCheckBox.Text = "Invoice OK";
-            this.InvoiceOKCheckBox.UseVisualStyleBackColor = true;
-            this.InvoiceOKCheckBox.CheckedChanged += new System.EventHandler(this.InvoiceOKCheckBox_CheckedChanged);
             // 
             // label15
             // 
@@ -885,7 +870,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox InvoiceOKCheckBox;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox FinalPrizeTextBox;
         private System.Windows.Forms.Label label17;

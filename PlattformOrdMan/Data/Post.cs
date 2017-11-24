@@ -25,8 +25,7 @@ namespace Molmed.PlattformOrdMan.Data
         public enum InvoiceStatus
         { 
             Incoming,
-            Ok,
-            NotOk
+            Ok
         }
 
         private ArticleNumber _articleNumber;
@@ -521,10 +520,6 @@ namespace Molmed.PlattformOrdMan.Data
             if (_invoiceStatus == InvoiceStatus.Incoming)
             {
                 return "Not checked";
-            }
-            else if (_invoiceStatus == InvoiceStatus.NotOk)
-            {
-                return "Not OK";
             }
             else
             {
@@ -1283,9 +1278,6 @@ namespace Molmed.PlattformOrdMan.Data
                     break;
                 case "Ok":
                     _invoiceStatus = InvoiceStatus.Ok;
-                    break;
-                case "NotOk":
-                    _invoiceStatus = InvoiceStatus.NotOk;
                     break;
                 default:
                     var str = "Error, invoice status not set to proper value: ''" + status + "''";

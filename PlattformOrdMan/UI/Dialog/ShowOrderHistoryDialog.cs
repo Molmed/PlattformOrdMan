@@ -27,13 +27,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private const String SUPPLIER = "Supplier ...";
         private const String MERCHANDISE = "Product ...";
         private const String SIGN_INVOICE_OK_AND_SENT = "Sign invoice Ok and sent";
-        private const String SIGN_INVOICE_NOT_OK = "Sign invoice NOT Ok";
         private const String SIGN_INVOICE_ABSENT = "Sign invoice absent";
         private const String REGRET_ORDER_POST = "Regret Order post";
         private const String REGRET_CONFRIRM_ORDER = "Regret order confirmal";
         private const String REGRET_ARRIVAL_CONFIRMATION = "Regret Arrival confirmation";
         private const String REGRET_INVOICE_OK_AND_SENT = "Regret Invoice OK and Sent";
-        private const String REGRET_INVOICE_NOT_OK = "Regret Invoice not OK";
         private const String REGRET_COMPLETED = "Regret Completed";
         private const String RESET_INVOICE_STATUS = "Reset status";
         private const String SET_INVOICE_NUMBER = "Set invoice number ...";
@@ -273,10 +271,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             AddMenuItem(PostsListView, REGRET_ORDER_POST, RegretOrderPost);
             AddMenuItem(PostsListView, REGRET_CONFRIRM_ORDER, RegretOrderConfirmation);
             AddMenuItem(PostsListView, SIGN_INVOICE_OK_AND_SENT, SignInvoiceOkAndSentMenuItem_Click);
-            AddMenuItem(PostsListView, SIGN_INVOICE_NOT_OK, SignInvoiceNotOk_Click);
             AddMenuItem(PostsListView, SIGN_INVOICE_ABSENT, SingInvoiceAbsent_Click);
             AddMenuItem(PostsListView, REGRET_ARRIVAL_CONFIRMATION, RegretArrivalConfirmation);
-            AddMenuItem(PostsListView, REGRET_INVOICE_NOT_OK, RegretInvoiceNotOK);
             AddMenuItem(PostsListView, REGRET_INVOICE_OK_AND_SENT, RegretInvoiceOKAndSent);
             AddMenuItem(PostsListView, REGRET_COMPLETED, RegretInvoiceOKAndSent);
             AddMenuItem(PostsListView, RESET_INVOICE_STATUS, ResetInvoiceStatusMenuItem_Click);
@@ -604,7 +600,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SetVisible(sender, UPDATE, false);
                 SetVisible(sender, DELETE, false);
                 SetVisible(sender, SIGN_INVOICE_OK_AND_SENT, false);
-                SetVisible(sender, SIGN_INVOICE_NOT_OK, false);
                 SetVisible(sender, SIGN_INVOICE_ABSENT, false);
                 SetVisible(sender, MERCHANDISE, false);
                 SetVisible(sender, SUPPLIER, false);
@@ -612,7 +607,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SetVisible(sender, "sep", false);
                 SetVisible(sender, REGRET_ARRIVAL_CONFIRMATION, false);
                 SetVisible(sender, REGRET_CONFRIRM_ORDER, false);
-                SetVisible(sender, REGRET_INVOICE_NOT_OK, false);
                 SetVisible(sender, REGRET_INVOICE_OK_AND_SENT, false);
                 SetVisible(sender, REGRET_COMPLETED, false);
                 SetVisible(sender, REGRET_ORDER_POST, false);
@@ -626,11 +620,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             SetVisible(sender, CONFIRM_ORDER, false);
             SetVisible(sender, CONFIRM_ARRIVAL, false);
             SetVisible(sender, SIGN_INVOICE_OK_AND_SENT, false);
-            SetVisible(sender, SIGN_INVOICE_NOT_OK, false);
             SetVisible(sender, SIGN_INVOICE_ABSENT, false);
             SetVisible(sender, RESET_INVOICE_STATUS, false);
             SetVisible(sender, REGRET_ARRIVAL_CONFIRMATION, false);
-            SetVisible(sender, REGRET_INVOICE_NOT_OK, false);
             SetVisible(sender, REGRET_CONFRIRM_ORDER, false);
             SetVisible(sender, REGRET_INVOICE_OK_AND_SENT, false);
             SetVisible(sender, REGRET_COMPLETED, false);
@@ -655,7 +647,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (IsSelectedStatusOnlyConfirmed())
             {
                 SetVisible(sender, SIGN_INVOICE_OK_AND_SENT, true);
-                SetVisible(sender, SIGN_INVOICE_NOT_OK, true);
                 SetVisible(sender, SIGN_INVOICE_ABSENT, true);
                 SetVisible(sender, REGRET_ARRIVAL_CONFIRMATION, true);
             }
@@ -667,10 +658,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 if (IsSelectedStatusOnlyInvoiceOkAndSent())
                 {
                     SetVisible(sender, REGRET_INVOICE_OK_AND_SENT, true);
-                }
-                else if (IsSelectedStatusOnlyInvoiceNotOk())
-                {
-                    SetVisible(sender, REGRET_INVOICE_NOT_OK, true);
                 }
                 else
                 {
@@ -732,19 +719,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 if (pViewItem.GetPost().GetPostStatus() != Post.PostStatus.Completed ||
                     pViewItem.GetPost().GetInvoiceStatus() != Post.InvoiceStatus.Ok ||
                     pViewItem.GetPost().IsInvoceAbsent())
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private bool IsSelectedStatusOnlyInvoiceNotOk()
-        {
-            foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
-            {
-                if (pViewItem.GetPost().GetPostStatus() != Post.PostStatus.Completed ||
-                    pViewItem.GetPost().GetInvoiceStatus() != Post.InvoiceStatus.NotOk)
                 {
                     return false;
                 }
@@ -1285,30 +1259,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 posts.Add(tmpPost);
             }
             return posts;
-        }
-
-        private void SignInvoiceNotOk_Click(object sender, EventArgs e)
-        {
-            PostList posts = new PostList();
-            try
-            {
-                if (IsInvoiceAbsent())
-                {
-                    return;
-                }
-                foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
-                {
-                    var tmpPost = pViewItem.GetPost();
-                    tmpPost.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.NotOk, false);
-                    posts.Add(tmpPost);
-                }
-                RedrawPosts(posts);
-                RestoreSortingButton.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                HandleError("Error when changing post status", ex);
-            }
         }
 
         private void SingInvoiceAbsent_Click(object sender, EventArgs e)
