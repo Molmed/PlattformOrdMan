@@ -19,17 +19,17 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="dbo.fGetAuthorityId.UserDefinedFunction.sql">
+        <FileNode Name="dbo.fGetAuthorityId.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MM-WCHS001:False:devel_edvard</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>MM-WCHS001</AssociatedConnSrvName>
           <AssociatedConnUserName>devel_edvard</AssociatedConnUserName>
-          <FullPath>dbo.fGetAuthorityId.UserDefinedFunction.sql</FullPath>
+          <FullPath>dbo.fGetAuthorityId.sql</FullPath>
         </FileNode>
-        <FileNode Name="dbo.fGetAuthorityIdFromSysUser.UserDefinedFunction.sql">
+        <FileNode Name="dbo.fGetAuthorityIdFromSysUser.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
-          <FullPath>dbo.fGetAuthorityIdFromSysUser.UserDefinedFunction.sql</FullPath>
+          <FullPath>dbo.fGetAuthorityIdFromSysUser.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

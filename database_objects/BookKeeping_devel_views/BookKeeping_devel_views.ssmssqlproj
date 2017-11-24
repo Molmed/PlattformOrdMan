@@ -6,29 +6,29 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="dbo.article_number_view.View.sql">
+        <FileNode Name="dbo.article_number_view.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
-          <FullPath>dbo.article_number_view.View.sql</FullPath>
+          <FullPath>dbo.article_number_view.sql</FullPath>
         </FileNode>
-        <FileNode Name="dbo.authority_view.View.sql">
+        <FileNode Name="dbo.authority_view.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
-          <FullPath>dbo.authority_view.View.sql</FullPath>
+          <FullPath>dbo.authority_view.sql</FullPath>
         </FileNode>
-        <FileNode Name="dbo.merchandise_view.View.sql">
+        <FileNode Name="dbo.merchandise_view.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
-          <FullPath>dbo.merchandise_view.View.sql</FullPath>
+          <FullPath>dbo.merchandise_view.sql</FullPath>
         </FileNode>
-        <FileNode Name="dbo.post_view.View.sql">
+        <FileNode Name="dbo.post_view.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
-          <FullPath>dbo.post_view.View.sql</FullPath>
+          <FullPath>dbo.post_view.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
