@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
-using Molmed.PlattformOrdMan.UI.Component;
-using PlattformOrdMan.Properties;
 using Molmed.PlattformOrdMan.UI.Controller;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
     public partial class ShowOrderHistoryDialog : OrdManForm, ISupplierForm, IMerchandiseForm, IPostForm
     {
-        private PostList MyPosts;
-        private Dictionary<int, PostList> MySupplierDict;
-        private Dictionary<int, PostList> MyProdDict;
-        private ToolTipHandler MyToolTipHandler;
+        private PostList _posts;
+        private Dictionary<int, PostList> _supplierDict;
+        private Dictionary<int, PostList> _prodDict;
+        private ToolTipHandler _toolTipHandler;
         private const String DELETE = "Delete";
         private const String UPDATE = "Update ...";
         private const String LOCK_COLUMN_WIDTH = "Lock column width";
@@ -37,26 +34,23 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private const String REGRET_ARRIVAL_CONFIRMATION = "Regret Arrival confirmation";
         private const String REGRET_INVOICE_OK_AND_SENT = "Regret Invoice OK and Sent";
         private const String REGRET_INVOICE_NOT_OK = "Regret Invoice not OK";
-        private const String REGRET_INVOICE_ABSENT = "Regret Invoice absent";
         private const String REGRET_COMPLETED = "Regret Completed";
         private const String RESET_INVOICE_STATUS = "Reset status";
         private const String SET_INVOICE_NUMBER = "Set invoice number ...";
         private const String CREATE_ORDER_FROM_PRODUCT = "Create new order ...";
         private const String FREE_TEXT_SEARCH = "Free text search ...";
+
         public ShowOrderHistoryDialog()
         {
             InitializeComponent();
             Init();
-
         }
 
         private void Init()
         {
-            DateTime start = DateTime.Now;
-            SupplierList suppliers;
             SupplierManager.RefreshCache();
             MerchandiseManager.RefreshCache();
-            suppliers = SupplierManager.GetSuppliersFromCache();
+            var suppliers = SupplierManager.GetSuppliersFromCache();
             SupplierCombobox.Init(suppliers, "supplier", true);
             SupplierCombobox.LoadIdentitiesWithInfoText();
             FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
@@ -69,27 +63,25 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             InvoiceNotCheckedPanel.BackColor = Color.Lime;
             userComboBox1.Init(true, "booker");
             userComboBox1.LoadIdentitiesWithInfoText();
-            userComboBox1.OnMyControlledSelectedIndexChanged += 
-                new Molmed.PlattformOrdMan.UI.Component.SearchingCombobox.MyControlledSelectedIndexChanged(userComboBox1_OnMyControlledSelectedIndexChanged);
+            userComboBox1.OnMyControlledSelectedIndexChanged +=
+                userComboBox1_OnMyControlledSelectedIndexChanged;
             merchandiseCombobox1.Enabled = true;
             RestoreSortingButton.Enabled = false;
             LoadPosts();
             InitListView();
-            SupplierCombobox.OnMyControlledSelectedIndexChanged += 
-                new Molmed.PlattformOrdMan.UI.Component.SearchingCombobox.MyControlledSelectedIndexChanged(SupplierCombobox_OnMyControlledSelectedIndexChanged);
-            merchandiseCombobox1.OnMyControlledSelectedIndexChanged += 
-                new Molmed.PlattformOrdMan.UI.Component.SearchingCombobox.MyControlledSelectedIndexChanged(merchandiseCombobox1_OnMyControlledSelectedIndexChanged);
-            FreeTextSearchTextBox.Enter += new EventHandler(FreeTextSearchTextBox_Enter);
-            this.FormClosing += ShowOrderHistoryDialog_FormClosing;
+            SupplierCombobox.OnMyControlledSelectedIndexChanged +=
+                SupplierCombobox_OnMyControlledSelectedIndexChanged;
+            merchandiseCombobox1.OnMyControlledSelectedIndexChanged +=
+                merchandiseCombobox1_OnMyControlledSelectedIndexChanged;
+            FreeTextSearchTextBox.Enter += FreeTextSearchTextBox_Enter;
+            FormClosing += ShowOrderHistoryDialog_FormClosing;
             //MessageBox.Show(DateTime.Now.Subtract(start).Milliseconds.ToString() + " ms");
         }
 
         public override void ReloadForm()
         {
-            SupplierList suppliers;
             SupplierManager.RefreshCache();
             MerchandiseManager.RefreshCache();
-            suppliers = SupplierManager.GetSuppliersFromCache();
             SupplierCombobox.LoadIdentitiesWithInfoText();
             FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
             merchandiseCombobox1.LoadIdentitiesWithInfoText();
@@ -114,20 +106,19 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         public bool HasPostLoaded(int postId)
         {
-            return IsNotNull(MyPosts.GetById(postId));
+            return IsNotNull(_posts.GetById(postId));
         }
 
         public void ReloadPost(Post post)
         {
-            int index;
             PostsListView.ReloadPost(post);
-            index = MyPosts.GetIndex(post);
-            MyPosts[index] = post;
+            var index = _posts.GetIndex(post);
+            _posts[index] = post;
         }
 
         public void AddCreatedPost(Post post)
         {
-            MyPosts.Add(post);
+            _posts.Add(post);
             PostsListView.AddViewItem(post);
             PostsListView.SelectedIndices.Clear();
             PostsListView.Items[0].Selected = true;
@@ -135,20 +126,20 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         public bool HasSupplierLoaded(int supplierId)
         {
-            return MySupplierDict.ContainsKey(supplierId);
+            return _supplierDict.ContainsKey(supplierId);
         }
 
         public bool HasMerchandiseLoaded(int merchandiseId)
         {
-            return MyProdDict.ContainsKey(merchandiseId);
+            return _prodDict.ContainsKey(merchandiseId);
         }
 
         public void ReloadSupplier(Supplier supplier)
         {
             PostsListView.ReloadSupplier(supplier);
-            if (IsNotNull(supplier) && MySupplierDict.ContainsKey(supplier.GetId()))
+            if (IsNotNull(supplier) && _supplierDict.ContainsKey(supplier.GetId()))
             {
-                foreach (Post post in MySupplierDict[supplier.GetId()])
+                foreach (Post post in _supplierDict[supplier.GetId()])
                 {
                     if (post.GetSupplierId() != supplier.GetId())
                     {
@@ -162,9 +153,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         public void ReloadMerchandise(Merchandise merchandise)
         {
             PostsListView.ReloadMerchandise(merchandise);
-            if (IsNotNull(merchandise) && MyProdDict.ContainsKey(merchandise.GetId()))
+            if (IsNotNull(merchandise) && _prodDict.ContainsKey(merchandise.GetId()))
             {
-                foreach (Post post in MyProdDict[merchandise.GetId()])
+                foreach (Post post in _prodDict[merchandise.GetId()])
                 {
                     if (post.GetMerchandiseId() != merchandise.GetId())
                     {
@@ -190,77 +181,49 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             //UpdateListView3();
         }
 
-        private void LoadViewItemsTimeMeasure()
-        {
-            DateTime time1, time2;
-            string str;
-            PostViewItem[] pwi;
-            int ind = 0;
-            time1 = new DateTime();
-            time2 = new DateTime();
-            time1 = DateTime.Now;
-            pwi = new PostViewItem[MyPosts.Count];
-            foreach (Post post in MyPosts)
-            {
-                pwi[ind++] = new PostViewItem(post);
-            }
-
-            time2 = DateTime.Now;
-            str = "LoadViewItems: " + ((time2.Ticks - time1.Ticks) / 10000).ToString() + "ms";
-            MessageBox.Show(str, "", MessageBoxButtons.OK);
-        }
-
         private void LoadPosts()
         {
-            DateTime today;
-            PostList tmpPosts, loadedPosts;
-            int monthsBack, i = 0;
-            bool timeRestrToCompletedPostsOnly;
-            today = DateTime.Now;
-            monthsBack = PlattformOrdManData.Configuration.TimeIntervalForPosts;
-            timeRestrToCompletedPostsOnly = PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly;
-            if (monthsBack == PlattformOrdManData.NO_COUNT)
-            {
-                loadedPosts = PostManager.GetPosts(today, false, timeRestrToCompletedPostsOnly);
-            }
-            else
-            {
-                loadedPosts = PostManager.GetPosts(today.AddMonths(-monthsBack), true, timeRestrToCompletedPostsOnly);                
-            }
-            MyPosts = new PostList();
-            MySupplierDict = new Dictionary<int, PostList>();
-            MyProdDict = new Dictionary<int, PostList>();
+            var today = DateTime.Now;
+            var monthsBack = PlattformOrdManData.Configuration.TimeIntervalForPosts;
+            var timeRestrToCompletedPostsOnly = PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly;
+            var loadedPosts = monthsBack == PlattformOrdManData.NO_COUNT
+                ? PostManager.GetPosts(today, false, timeRestrToCompletedPostsOnly)
+                : PostManager.GetPosts(today.AddMonths(-monthsBack), true, timeRestrToCompletedPostsOnly);
+            _posts = new PostList();
+            _supplierDict = new Dictionary<int, PostList>();
+            _prodDict = new Dictionary<int, PostList>();
             foreach (Post post in loadedPosts)
             {
-                if (PlattformOrdManData.Configuration.PlaceOfPurchaseFilter.Contains(post.GetPlaceOfPurchase().ToString()))
+                if (
+                    PlattformOrdManData.Configuration.PlaceOfPurchaseFilter.Contains(
+                        post.GetPlaceOfPurchase().ToString()))
                 {
-                    MyPosts.Add(post);
-                    if (!MySupplierDict.ContainsKey(post.GetSupplierId()) && 
+                    _posts.Add(post);
+                    PostList tmpPosts;
+                    if (!_supplierDict.ContainsKey(post.GetSupplierId()) &&
                         post.GetSupplierId() != PlattformOrdManData.NO_ID)
                     {
-                        tmpPosts = new PostList();
-                        tmpPosts.Add(post);
-                        MySupplierDict.Add(post.GetSupplierId(), tmpPosts);
+                        tmpPosts = new PostList {post};
+                        _supplierDict.Add(post.GetSupplierId(), tmpPosts);
                     }
-                    else if(post.GetSupplierId() != PlattformOrdManData.NO_ID)
+                    else if (post.GetSupplierId() != PlattformOrdManData.NO_ID)
                     {
-                        MySupplierDict[post.GetSupplierId()].Add(post);
+                        _supplierDict[post.GetSupplierId()].Add(post);
                     }
 
-                    if (!MyProdDict.ContainsKey(post.GetMerchandiseId()) &&
+                    if (!_prodDict.ContainsKey(post.GetMerchandiseId()) &&
                         post.GetMerchandiseId() != PlattformOrdManData.NO_ID)
                     {
-                        tmpPosts = new PostList();
-                        tmpPosts.Add(post);
-                        MyProdDict.Add(post.GetMerchandiseId(), tmpPosts);
+                        tmpPosts = new PostList {post};
+                        _prodDict.Add(post.GetMerchandiseId(), tmpPosts);
                     }
                     else if (post.GetMerchandiseId() != PlattformOrdManData.NO_ID)
                     {
-                        MyProdDict[post.GetMerchandiseId()].Add(post);
+                        _prodDict[post.GetMerchandiseId()].Add(post);
                     }
                 }
             }
-            MyPosts.Sort();
+            _posts.Sort();
         }
 
         private void userComboBox1_OnMyControlledSelectedIndexChanged()
@@ -271,7 +234,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void merchandiseCombobox1_OnMyControlledSelectedIndexChanged()
         {
-            FilterPosts();        
+            FilterPosts();
         }
 
         void FreeTextSearchTextBox_Enter(object sender, EventArgs e)
@@ -284,25 +247,18 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void InitListView()
         {
-            DateTime start = DateTime.Now;
-            string sort;
-            DataRow[] rows;
-            string colHeader, colEnumName;
-            int colWidth;
-            PostListViewColumn postListViewColumn;
-            OrderManListView.ListDataType listDataType;
-            sort = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " ASC";
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " ASC";
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
 
             // Add columns to post according to personal configuration
             PostsListView.BeginUpdate();
             foreach (DataRow row in rows)
-            { 
-                colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colEnumName);
-                colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
-                colWidth = (int)row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
-                listDataType = PostListView.GetListDataType(postListViewColumn);
+            {
+                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
+                var postListViewColumn = (PostListViewColumn) Enum.Parse(typeof(PostListViewColumn), colEnumName);
+                var colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
+                var colWidth = (int) row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                var listDataType = PostListView.GetListDataType(postListViewColumn);
                 PostsListView.AddColumn(colHeader, colWidth, listDataType);
             }
             PostsListView.EndUpdate();
@@ -332,9 +288,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             AddMenuItem(PostsListView, SUPPLIER, SupplierMenuItem_Click);
             AddMenuItem2(PostsListView, "sep", null, true);
             new CopyListViewMenu(PostsListView);
-            PostsListView.DoubleClick += new EventHandler(UpdateMenuItem_Click);
-            PostsListView.ContextMenuStrip.Opening += new CancelEventHandler(ContextMenuStrip_Opening);
-            PostsListView.OnSortOrderSet += new OrderManListView.SortOrderSet(PostsListView_OnSortOrderSet);
+            PostsListView.DoubleClick += UpdateMenuItem_Click;
+            PostsListView.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
+            PostsListView.OnSortOrderSet += PostsListView_OnSortOrderSet;
             PostsListView.ShowItemToolTips = false;
             PostsListView.ItemMouseHover += PostsListView_ItemMouseHover;
 
@@ -342,27 +298,21 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         }
 
         private void ReInitListView()
-        { 
+        {
             // Updates columns and rows only
-            string sort;
-            DataRow[] rows;
-            string colHeader, colEnumName;
-            int colWidth;
-            PostListViewColumn postListViewColumn;
-            OrderManListView.ListDataType listDataType;
-            sort = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " ASC";
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " ASC";
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
 
             // Add columns to post according to personal configuration
             PostsListView.Clear();
             PostsListView.BeginUpdate();
             foreach (DataRow row in rows)
             {
-                colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                colWidth = (int)row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
-                postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colEnumName);
-                listDataType = PostListView.GetListDataType(postListViewColumn);
-                colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
+                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
+                var colWidth = (int) row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                var postListViewColumn = (PostListViewColumn) Enum.Parse(typeof(PostListViewColumn), colEnumName);
+                var listDataType = PostListView.GetListDataType(postListViewColumn);
+                var colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
                 PostsListView.AddColumn(colHeader, colWidth, listDataType);
             }
             PostsListView.EndUpdate();
@@ -372,29 +322,22 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void SetInvoiceNumberMenuItem_Click(object sender, EventArgs e)
         {
-            string invoiceNumber;
-            bool noInvoice;
-            SetInvoiceNumberDialog setInvoiceNumberDialog;
-            PostList posts;
-            int supplierId, customerNumberId;
-            GroupCategory commonGroup;
             bool hasCommonGroup = true, hasCommonSuplier = true;
             try
             {
-                posts = new PostList();
+                var posts = new PostList();
                 foreach (PostViewItem viewItem in PostsListView.SelectedItems)
                 {
                     posts.Add(viewItem.GetPost());
-
                 }
 
                 if (IsEmpty(posts))
                 {
                     return;
                 }
-                
-                supplierId = posts[0].GetSupplierId();
-                commonGroup = posts[0].GetGroupCategory();
+
+                var supplierId = posts[0].GetSupplierId();
+                var commonGroup = posts[0].GetGroupCategory();
                 foreach (Post post in posts)
                 {
                     if (post.GetSupplierId() != supplierId)
@@ -410,23 +353,26 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
                 if (!hasCommonSuplier)
                 {
-                    MessageBox.Show("Selected posts have different suppliers, it's not possible to set a common invoice number!", "Invoice number error",
+                    MessageBox.Show(
+                        "Selected posts have different suppliers, it's not possible to set a common invoice number!",
+                        "Invoice number error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (!hasCommonGroup)
                 {
-                    MessageBox.Show("Selected posts are assigned to different groups (Plattform or Research). Customer numbers for both groups are eligible",
+                    MessageBox.Show(
+                        "Selected posts are assigned to different groups (Plattform or Research). Customer numbers for both groups are eligible",
                         "Posts from both groups", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
-                setInvoiceNumberDialog = new SetInvoiceNumberDialog(posts);
+                var setInvoiceNumberDialog = new SetInvoiceNumberDialog(posts);
                 if (setInvoiceNumberDialog.ShowDialog() == DialogResult.OK)
                 {
-                    invoiceNumber = setInvoiceNumberDialog.InvoiceNumber;
-                    noInvoice = setInvoiceNumberDialog.NoInvoice;
-                    customerNumberId = setInvoiceNumberDialog.CustomerNumberId;
+                    var invoiceNumber = setInvoiceNumberDialog.InvoiceNumber;
+                    var noInvoice = setInvoiceNumberDialog.NoInvoice;
+                    var customerNumberId = setInvoiceNumberDialog.CustomerNumberId;
                     foreach (Post post in posts)
                     {
                         post.UpdateInvoiceNumber(invoiceNumber, customerNumberId, noInvoice);
@@ -434,7 +380,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     RedrawPosts(posts);
                 }
             }
-                        catch (Exception ex)
+            catch (Exception ex)
             {
                 HandleError("Error when setting invoice number", ex);
             }
@@ -444,8 +390,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             if (IsNotEmpty(e.Item.ToolTipText))
             {
-                MyToolTipHandler = new ToolTipHandler(this, e.Item.ToolTipText);
-                MyToolTipHandler.StartTimer();
+                _toolTipHandler = new ToolTipHandler(this, e.Item.ToolTipText);
+                _toolTipHandler.StartTimer();
             }
         }
 
@@ -502,28 +448,24 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void UnlockColumnWidth(int colIndex)
         {
-            DataRow[] rows;
-            string expr;
-            expr = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " = " + colIndex.ToString();
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
+            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] = 
+                rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
                     PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH;
                 ReInitColumnWidth(colIndex, true);
             }
             else
-            { 
-                throw new Data.Exception.DataException("Column sort order mis-match: "  + colIndex.ToString());
+            {
+                throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
             }
         }
 
         private void LockColumnWidth(int colIndex)
         {
-            DataRow[] rows;
-            string expr;
-            expr = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " = " + colIndex.ToString();
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
+            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
                 rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
@@ -531,22 +473,19 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex.ToString());
-            }            
+                throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
+            }
         }
 
         private void UpdateLockedColumnWidths()
         {
-            DataRow[] rows;
-            string expr;
-            int currentConfWidth;
             for (int colIndex = 0; colIndex < PostsListView.Columns.Count; colIndex++)
             {
-                expr = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " = " + colIndex.ToString();
-                rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
+                var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+                var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
                 if (rows.Length == 1)
                 {
-                    currentConfWidth = (int)rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                    var currentConfWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
                     if (currentConfWidth > 0)
                     {
                         rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
@@ -555,24 +494,20 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
                 else
                 {
-                    throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex.ToString());
+                    throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
                 }
-            }        
+            }
         }
 
         private int GetClickedColumnHeaderIndex(out bool isFixedWidth)
-        { 
+        {
             // Used to check if user right-clicked on a column header, and if so
             // determine which column was clicked
-            Point mousePosScreen;
-            Rectangle postListViewRect;
-            Point postListViewStart;
             Rectangle firstItemRect;
             isFixedWidth = false;
-            mousePosScreen = MousePosition;
-            postListViewRect = PostsListView.Bounds;
-            postListViewStart = PostsListView.PointToScreen(new Point(0, 0));
-            if(PostsListView.Items.Count == 0)
+            var mousePosScreen = MousePosition;
+            var postListViewStart = PostsListView.PointToScreen(new Point(0, 0));
+            if (PostsListView.Items.Count == 0)
             {
                 return PlattformOrdManData.NO_COUNT;
             }
@@ -615,31 +550,28 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         }
 
         private bool HasColumnFixedWidthInConfig(int colInd)
-        { 
-            string expr;
-            DataRow[] rows;
-            int colWidth = -1;
-            expr = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " = " + colInd.ToString();
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
+        {
+            int colWidth;
+            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colInd;
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                colWidth = (int)rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                colWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
             }
             else
             {
-                throw new Data.Exception.DataException("Column index mis-match: " + colInd.ToString());
+                throw new Data.Exception.DataException("Column index mis-match: " + colInd);
             }
             return colWidth > 0;
         }
 
         private void SetColumnConfMenus(object sender)
         {
-            int colInd;
             bool isFixedColWidth;
 
             SetVisible(sender, LOCK_COLUMN_WIDTH, false);
             SetVisible(sender, UN_LOCK_COLUMN_WIDTH, false);
-            colInd = GetClickedColumnHeaderIndex(out isFixedColWidth);
+            var colInd = GetClickedColumnHeaderIndex(out isFixedColWidth);
             if (colInd > PlattformOrdManData.NO_COUNT)
             {
                 SetVisible(sender, LOCK_COLUMN_WIDTH, true);
@@ -656,7 +588,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     SetEnable(sender, LOCK_COLUMN_WIDTH, true);
                     SetEnable(sender, UN_LOCK_COLUMN_WIDTH, false);
                 }
-            }            
+            }
         }
 
         private void ContextMenuStrip_Opening(object sender, CancelEventArgs e)
@@ -734,15 +666,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
                 if (IsSelectedStatusOnlyInvoiceOkAndSent())
                 {
-                    SetVisible(sender, REGRET_INVOICE_OK_AND_SENT, true);                                    
+                    SetVisible(sender, REGRET_INVOICE_OK_AND_SENT, true);
                 }
                 else if (IsSelectedStatusOnlyInvoiceNotOk())
                 {
-                    SetVisible(sender, REGRET_INVOICE_NOT_OK, true);                                        
+                    SetVisible(sender, REGRET_INVOICE_NOT_OK, true);
                 }
                 else
                 {
-                    SetVisible(sender, REGRET_COMPLETED, true);                                    
+                    SetVisible(sender, REGRET_COMPLETED, true);
                 }
             }
 
@@ -767,7 +699,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SetVisible(sender, SET_INVOICE_NUMBER, true);
                 SetVisible(sender, SET_ORDER_NR_SO, true);
             }
-
         }
 
         private bool IsSelectedStatusOnlyConfirmed()
@@ -865,19 +796,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void SetSalesOrderNo_Click(object sender, EventArgs e)
         {
-            Post tmpPost;
             PostList posts = new PostList();
-            GetValueDialog getValueDialog;
             try
             {
-                getValueDialog = new GetValueDialog(SET_ORDER_NR_SO, "Enter a sales order number, please.", "");
-                if (getValueDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                var getValueDialog = new GetValueDialog(SET_ORDER_NR_SO, "Enter a sales order number, please.", "");
+                if (getValueDialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
                 }
                 foreach (PostViewItem viewItem in PostsListView.SelectedItems)
                 {
-                    tmpPost = viewItem.GetPost();
+                    var tmpPost = viewItem.GetPost();
                     posts.Add(tmpPost);
                     tmpPost.SetSalesOrderNo(getValueDialog.GetText());
                 }
@@ -891,25 +820,26 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void ConfirmArrivalMenuItem_Click(object sender, EventArgs e)
         {
-            Post tmpPost;
             PostList posts = new PostList();
             try
             {
                 if (HasAnySelectedPostUnHandledCustomerNumber() &&
                     MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Cancel)
+                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
+                    DialogResult.Cancel)
                 {
                     return;
                 }
 
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
-                    tmpPost = pViewItem.GetPost();
+                    var tmpPost = pViewItem.GetPost();
                     posts.Add(tmpPost);
                     tmpPost.ConfirmPostArrival(UserManager.GetCurrentUser().GetId());
                     if (tmpPost.IsInvoceAbsent())
                     {
-                        tmpPost.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.Ok, tmpPost.IsInvoceAbsent());
+                        tmpPost.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.Ok,
+                            tmpPost.IsInvoceAbsent());
                     }
                 }
                 RedrawPosts(posts);
@@ -918,17 +848,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error when changing post status", ex);
             }
-
         }
 
         private void DeleteMenuItem_Click(object sender, EventArgs e)
         {
             PostList posts = new PostList();
-            String str;
             try
             {
-                str = "Are you sure to delete the " + PostsListView.SelectedItems.Count + " items?";
-                if (MessageBox.Show(str, "Delete posts", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                var str = "Are you sure to delete the " + PostsListView.SelectedItems.Count + " items?";
+                if (MessageBox.Show(str, "Delete posts", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) ==
+                    DialogResult.No)
                 {
                     return;
                 }
@@ -947,59 +876,52 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error when deleting posts!", ex);
             }
-
         }
 
 
         private void RemovePostFromList(Post post)
         {
-            MyPosts.Remove(post);
+            _posts.Remove(post);
         }
 
         private void SupplierMenuItem_Click(object sender, EventArgs e)
         {
-            EditSupplierDialog editSupplierDialog;
             try
             {
-                editSupplierDialog = new EditSupplierDialog(GetSelectedPost().GetSupplier(), UpdateMode.Edit);
-                editSupplierDialog.MdiParent = this.MdiParent;
+                var editSupplierDialog = new EditSupplierDialog(GetSelectedPost().GetSupplier(), UpdateMode.Edit)
+                {
+                    MdiParent = MdiParent
+                };
                 editSupplierDialog.Show();
             }
             catch (Exception ex)
             {
                 HandleError("Error when showing supplier", ex);
             }
-
-        }
-
-        private void editMerchandiseDialog_OnProductUpdated(object sender, EventArgs e)
-        {
-            RefreshListView();
-            this.Select();
         }
 
         private void MerchandiseMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                EditMerchandiseDialog editMerchandiseDialog;
-                editMerchandiseDialog = new EditMerchandiseDialog(GetSelectedPost().GetMerchandise(), UpdateMode.Edit);
-                editMerchandiseDialog.MdiParent = this.MdiParent;
+                var editMerchandiseDialog = new EditMerchandiseDialog(GetSelectedPost().GetMerchandise(),
+                    UpdateMode.Edit) {MdiParent = MdiParent};
                 editMerchandiseDialog.Show();
             }
             catch (Exception ex)
             {
                 HandleError("Error showing product", ex);
             }
-
         }
 
         private void NewOrderButton_Click(object sender, EventArgs e)
         {
             try
             {
-                CreatePostDialog createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create);
-                createPostDialog.MdiParent = this.MdiParent;
+                CreatePostDialog createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create)
+                {
+                    MdiParent = MdiParent
+                };
                 createPostDialog.Show();
             }
             catch (Exception ex)
@@ -1010,13 +932,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void LockColumnWidth_Click(object sender, EventArgs e)
         {
-            int colInd;
-            string colName;
             try
             {
-                colInd = (int)((ToolStripMenuItem)sender).Tag;
+                var colInd = (int) ((ToolStripMenuItem) sender).Tag;
                 LockColumnWidth(colInd);
-                colName = PostsListView.Columns[colInd].Text;
+                var colName = PostsListView.Columns[colInd].Text;
                 MessageBox.Show("Column width for column ''" + colName + "'' will be saved between sessions!",
                     "Colum width locked", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -1028,13 +948,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void UnlockColumnWidth_Click(object sender, EventArgs e)
         {
-            int colInd;
-            string colName;
             try
             {
-                colInd = (int)((ToolStripMenuItem)sender).Tag;
+                var colInd = (int) ((ToolStripMenuItem) sender).Tag;
                 UnlockColumnWidth(colInd);
-                colName = PostsListView.Columns[colInd].Text;
+                var colName = PostsListView.Columns[colInd].Text;
                 MessageBox.Show("Column width for column ''" + colName + "'' is un-locked", "Column width un-locked",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -1046,22 +964,22 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void UpdateMenuItem_Click(object sender, EventArgs e)
         {
-            CreatePostDialog createPostDialog;
             try
             {
                 if (IsNull(GetSelectedPost()))
                 {
                     return;
                 }
-                createPostDialog = new CreatePostDialog(GetSelectedPost(), PostUpdateMode.Edit);
-                createPostDialog.MdiParent = this.MdiParent;
+                var createPostDialog = new CreatePostDialog(GetSelectedPost(), PostUpdateMode.Edit)
+                {
+                    MdiParent = MdiParent
+                };
                 createPostDialog.Show();
             }
             catch (Exception ex)
             {
                 HandleError("Error updating order", ex);
             }
-
         }
 
         private bool HasActiveArticleNumber(out ColumnHeader[] columnHeaders, out ListViewItem[] listViewItems)
@@ -1086,9 +1004,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             return true;
         }
 
-        private void SetDeviantPostViewItems(PostList posts, out ColumnHeader[] columnHeaders, out ListViewItem[] listViewItems)
+        private void SetDeviantPostViewItems(PostList posts, out ColumnHeader[] columnHeaders,
+            out ListViewItem[] listViewItems)
         {
-            ListViewItem viewItem;
             int i = 0;
             columnHeaders = new ColumnHeader[4];
             listViewItems = new ListViewItem[posts.Count];
@@ -1106,7 +1024,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             columnHeaders[3].Width = PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH;
             foreach (Post post in posts)
             {
-                viewItem = new ListViewItem(post.GetBookerName());
+                var viewItem = new ListViewItem(post.GetBookerName());
                 viewItem.SubItems.Add(post.GetMerchandiseName());
                 viewItem.SubItems.Add(post.GetArticleNumberString());
                 viewItem.SubItems.Add(post.GetMerchandise().GetActiveArticleNumberString());
@@ -1128,26 +1046,26 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void OrderPostMenuItem_Click(object sender, EventArgs e)
         {
-            PostList posts;
-            ListDialog listDialog;
-            ColumnHeader[] columnHeaders;
-            ListViewItem[] listViewItems;
             try
             {
-                posts = new PostList();
+                var posts = new PostList();
+                ListViewItem[] listViewItems;
+                ColumnHeader[] columnHeaders;
                 if (!HasActiveArticleNumber(out columnHeaders, out listViewItems))
                 {
-                    listDialog = new ListDialog(columnHeaders, listViewItems, "Deviant article number", ListDialog.DialogMode.AcceptanceList,
+                    var listDialog = new ListDialog(columnHeaders, listViewItems, "Deviant article number",
+                        ListDialog.DialogMode.AcceptanceList,
                         "The folliwing posts have another article number than what is currently active for \nthat product, proceed anyway?");
                     listDialog.SetRowLimitFilterStatus(false);
-                    if (listDialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    if (listDialog.ShowDialog() == DialogResult.Cancel)
                     {
                         return;
                     }
                 }
                 if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?", 
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Cancel)
+                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
+                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
+                    DialogResult.Cancel)
                 {
                     return;
                 }
@@ -1162,18 +1080,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error when changing post status", ex);
             }
-
         }
 
         private void ConfirmOrderMenuItem_Click(object sender, EventArgs e)
         {
-            PostList posts;
-            posts = new PostList();
+            var posts = new PostList();
             try
             {
                 if (HasAnySelectedPostUnHandledCustomerNumber() &&
                     MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Cancel)
+                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
+                    DialogResult.Cancel)
                 {
                     return;
                 }
@@ -1188,34 +1105,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             catch (Exception ex)
             {
                 HandleError("Error when changing post status", ex);
-            }
-
-        }
-
-        private void createPostDialog_OnPostUpdate(object sender, UpdateHandlerEventArgs e)
-        {
-            Post tmpPost;
-            PostList posts;
-            // Cases:
-            // post is created
-            // post is updated
-            // post is ordered
-            tmpPost = ((Post)sender);
-            if (IsNull(MyPosts.GetById(tmpPost.GetId())))
-            {
-                // New post
-                AddCreatedPost(tmpPost);
-            }
-            else
-            {
-                posts = new PostList();
-                posts.Add(tmpPost);
-                RedrawPosts(posts);                
-            }
-
-            if (e.NewSortOrder)
-            {
-                RestoreSortingButton.Enabled = true;
             }
         }
 
@@ -1239,15 +1128,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             Post post = null;
             if (PostsListView.SelectedIndices.Count > 0 && PostsListView.SelectedIndices[0] > -1)
             {
-                post = ((PostViewItem)PostsListView.SelectedItems[0]).GetPost();
+                post = ((PostViewItem) PostsListView.SelectedItems[0]).GetPost();
             }
             return post;
         }
 
         private bool IsWithinFreeTextSearchCriteria(Post post)
         {
-            string searchStr;
-            searchStr = FreeTextSearchTextBox.Text.Trim();
+            var searchStr = FreeTextSearchTextBox.Text.Trim();
             if (searchStr.Length > 0 &&
                 searchStr != FREE_TEXT_SEARCH)
             {
@@ -1348,7 +1236,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private bool IsWithinSearchCriteria(Post post)
         {
-            if(SupplierCombobox.SelectedIndex >0 && 
+            if (SupplierCombobox.SelectedIndex > 0 &&
                 SupplierCombobox.GetSelectedIdentity().GetId() != post.GetSupplierId())
             {
                 return false;
@@ -1358,7 +1246,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 return false;
             }
-            if(userComboBox1.SelectedIndex > 0 && post.GetBooker() != null &&
+            if (userComboBox1.SelectedIndex > 0 && post.GetBooker() != null &&
                 userComboBox1.GetSelectedIdentity().GetId() != post.GetBooker().GetId())
             {
                 return false;
@@ -1368,13 +1256,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 return false;
             }
             return true;
-
         }
 
         private void FilterPosts()
         {
             PostList filteredPosts = new PostList();
-            foreach (Post post in MyPosts)
+            foreach (Post post in _posts)
             {
                 if (IsWithinSearchCriteria(post))
                 {
@@ -1391,11 +1278,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private PostList GetSelectedPosts()
         {
-            Post tmpPost;
             PostList posts = new PostList();
             foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
             {
-                tmpPost = pViewItem.GetPost();
+                var tmpPost = pViewItem.GetPost();
                 posts.Add(tmpPost);
             }
             return posts;
@@ -1403,7 +1289,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void SignInvoiceNotOk_Click(object sender, EventArgs e)
         {
-            Post tmpPost;
             PostList posts = new PostList();
             try
             {
@@ -1413,7 +1298,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
-                    tmpPost = pViewItem.GetPost();
+                    var tmpPost = pViewItem.GetPost();
                     tmpPost.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.NotOk, false);
                     posts.Add(tmpPost);
                 }
@@ -1424,18 +1309,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error when changing post status", ex);
             }
-
         }
 
         private void SingInvoiceAbsent_Click(object sender, EventArgs e)
         {
-            Post tmpPost;
             PostList posts = new PostList();
             try
             {
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
-                    tmpPost = pViewItem.GetPost();
+                    var tmpPost = pViewItem.GetPost();
                     tmpPost.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.Ok, true);
                     posts.Add(tmpPost);
                 }
@@ -1446,19 +1329,13 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error when signing invoice absent", ex);
             }
-
-
         }
 
         private void ReInitColumnWidth(int colInd, bool updateHandling)
         {
-            string expression;
-            DataRow[] rows;
-            int configWidth, colHeaderWidth;
-            ColumnHeader col;
-            col = PostsListView.Columns[colInd];
-            expression = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " = " + colInd.ToString();
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
+            var col = PostsListView.Columns[colInd];
+            var expression = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colInd;
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
             try
             {
                 if (rows.Length == 1)
@@ -1467,11 +1344,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     {
                         PostsListView.BeginUpdate();
                     }
-                    configWidth = (int)rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                    var configWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
                     if (configWidth == PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH)
                     {
                         col.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
-                        colHeaderWidth = col.Width;
+                        var colHeaderWidth = col.Width;
                         col.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
                         if (colHeaderWidth > col.Width)
                         {
@@ -1489,12 +1366,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 if (updateHandling)
                 {
                     PostsListView.EndUpdate();
-                }            
+                }
             }
         }
 
         private void ReInitAllColumnWidths()
-        { 
+        {
             // Loop through all columns
             // Check in config, which columns are fixed width or not
             // For not-fixed widths columns, check widest width between header and
@@ -1509,8 +1386,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private bool IsInvoiceAbsent()
         {
             MerchandiseList productsWithNoInvoiceCategory = new MerchandiseList();
-            PostList posts = new PostList();
-            String errStr;
             // Check that each product among the selected posts has an invoice number
             foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
             {
@@ -1521,7 +1396,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             if (IsNotEmpty(productsWithNoInvoiceCategory))
             {
-                errStr = "Please select invoice category for the following product(s):\n";
+                var errStr = "Please select invoice category for the following product(s):\n";
                 foreach (Merchandise merchandise in productsWithNoInvoiceCategory)
                 {
                     errStr += "\n" + merchandise.GetIdentifier();
@@ -1534,7 +1409,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void SignInvoiceOkAndSentMenuItem_Click(object sender, EventArgs e)
         {
-            Post tmpPost;
             PostList posts = new PostList();
             try
             {
@@ -1544,14 +1418,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
                 if (HasAnySelectedPostUnHandledCustomerNumber() &&
                     MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Cancel)
+                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
+                    DialogResult.Cancel)
                 {
                     return;
                 }
 
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
-                    tmpPost = pViewItem.GetPost();
+                    var tmpPost = pViewItem.GetPost();
                     tmpPost.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.Ok, false);
                     posts.Add(tmpPost);
                 }
@@ -1564,41 +1439,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
         }
 
-        private void RefreshPosts()
-        {
-            ResetSearchFields();
-            LoadPosts();
-            MyPosts.Sort();
-            UpdateListView();
-        }
-
-        private void RefreshPosts(Post post)
-        {
-            RefreshPosts();
-            SelectPost(post);
-        }
-
-        private void RefreshPosts(PostList posts)
-        {
-            RefreshPosts();
-            foreach (Post post in posts)
-            {
-                SelectPost(post, false);
-            }
-        }
-
         private void CreatePostFromSameProductMenuItem_Click(object sender, EventArgs e)
         {
-            Post post;
-            CreatePostDialog createPostDialog;
-            Merchandise merchandice;
-            bool isDoubtfulProd = false;
             try
             {
                 if (PostsListView.SelectedItems.Count > 0)
                 {
-                    post = ((PostViewItem)PostsListView.SelectedItems[0]).GetPost();
-                    merchandice = post.GetMerchandise();
+                    var post = ((PostViewItem) PostsListView.SelectedItems[0]).GetPost();
+                    var merchandice = post.GetMerchandise();
                     if (!merchandice.IsEnabled())
                     {
                         MessageBox.Show("The product has to be enabled before proceeding!",
@@ -1606,8 +1454,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                             MessageBoxIcon.Exclamation);
                         return;
                     }
-                    createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create, post.GetMerchandise(), isDoubtfulProd);
-                    createPostDialog.MdiParent = this.MdiParent;
+                    var createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create, post.GetMerchandise())
+                    {
+                        MdiParent = MdiParent
+                    };
                     createPostDialog.Show();
                 }
             }
@@ -1615,7 +1465,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error creating new order", ex);
             }
-
         }
 
         private void ResetInvoiceStatusMenuItem_Click(object sender, EventArgs e)
@@ -1641,52 +1490,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             FilterPosts();
         }
 
-        private void SelectPost(Post post)
-        {
-            SelectPost(post, true);
-        }
-
-        private void SelectPost(Post post, bool clearSelection)
-        {
-            System.Windows.Forms.ListView.SelectedIndexCollection selectedIndexCollection;
-            selectedIndexCollection = new ListView.SelectedIndexCollection(PostsListView);
-            foreach(PostViewItem pViewItem in PostsListView.Items)
-            {
-                if(pViewItem.GetPost().GetId() == post.GetId())
-                {
-                    if (clearSelection)
-                    {
-                        PostsListView.SelectedIndices.Clear();
-                    }
-                    PostsListView.SelectedIndices.Add(pViewItem.Index);
-                    PostsListView.EnsureVisible(pViewItem.Index);
-                    break;
-                }
-            }
-            PostsListView.Select();
-        }
-
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void RefreshListView()
-        {
-            MyPosts.ResetMerchandise();
-            foreach (PostViewItem pViewItem in PostsListView.Items)
-            {
-                pViewItem.UpdateViewItem();
-            }
-        }
-
         private void UpdateListView()
         {
-            MyPosts.ResetMerchandise();
-            PostsListView.BeginLoadItems(MyPosts.Count);
-            foreach (Post post in MyPosts)
+            _posts.ResetMerchandise();
+            PostsListView.BeginLoadItems(_posts.Count);
+            foreach (Post post in _posts)
             {
-
                 PostsListView.AddItem(new PostViewItem(post));
             }
 
@@ -1705,7 +1519,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 merchandiseCombobox1.SetSupplierId(PlattformOrdManData.NO_ID);
                 merchandiseCombobox1.LoadIdentitiesWithInfoText();
             }
-            FilterPosts();        
+            FilterPosts();
         }
 
         private void RestoreSortingButton_Click(object sender, EventArgs e)
@@ -1719,7 +1533,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error when restoring sort order", ex);
             }
-
         }
 
         private void ResetSearchFields()
@@ -1727,7 +1540,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             SupplierCombobox.LoadIdentitiesWithInfoText();
             merchandiseCombobox1.LoadIdentitiesWithInfoText();
             userComboBox1.LoadIdentitiesWithInfoText();
-            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;        
+            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -1741,24 +1554,20 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 HandleError("Error when clearing filter", ex);
             }
-
         }
 
         private void OptionsButton_Click(object sender, EventArgs e)
         {
             try
             {
-                OrderHistoryOptionsDialog orderHistoryOptionsDialog;
-                orderHistoryOptionsDialog = new OrderHistoryOptionsDialog();
-                orderHistoryOptionsDialog.MdiParent = this.MdiParent;
-                orderHistoryOptionsDialog.OnOrderHistoryOptionsOK += new OrderHistoryOptionOK(OrderHistoryOptions_OK);
+                var orderHistoryOptionsDialog = new OrderHistoryOptionsDialog {MdiParent = MdiParent};
+                orderHistoryOptionsDialog.OnOrderHistoryOptionsOK += OrderHistoryOptions_OK;
                 orderHistoryOptionsDialog.Show();
             }
             catch (Exception ex)
             {
                 HandleError("Error when setting options", ex);
             }
-
         }
 
         private void OrderHistoryOptions_OK(bool isColumnsUpdated)
@@ -1775,7 +1584,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
     }
