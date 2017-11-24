@@ -94,6 +94,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
+            this.AttentionCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -340,6 +341,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.AttentionCheckBox);
             this.groupBox1.Controls.Add(this.label19);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.ConfirmedOrderDateTextBox);
@@ -769,6 +771,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CustomerNumberComboBox.TabIndex = 48;
             this.CustomerNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.CustomerNumberComboBox_SelectedIndexChanged);
             // 
+            // AttentionCheckBox
+            // 
+            this.AttentionCheckBox.AutoSize = true;
+            this.AttentionCheckBox.Location = new System.Drawing.Point(110, 324);
+            this.AttentionCheckBox.Name = "AttentionCheckBox";
+            this.AttentionCheckBox.Size = new System.Drawing.Size(109, 17);
+            this.AttentionCheckBox.TabIndex = 21;
+            this.AttentionCheckBox.Text = "Mark for attention";
+            this.AttentionCheckBox.UseVisualStyleBackColor = true;
+            // 
             // CreatePostDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -895,5 +907,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.ComboBox OrderingUnitComboBox;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox CustomerNumberComboBox;
+        private System.Windows.Forms.CheckBox AttentionCheckBox;
     }
 }

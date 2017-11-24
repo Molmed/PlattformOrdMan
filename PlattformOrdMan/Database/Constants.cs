@@ -118,6 +118,7 @@ namespace Molmed.PlattformOrdMan.Database
         public const String CUSTOMER_NUMBER_DESCRIPTION = "customer_number_description";
         public const String CUSTOMER_NUMBER_IDENTIFIER = "customer_number_identifier";
         public const String INVOICE_CATEGORY_NUMBER = "invoice_category_number";
+        public const String ATTENTION_FLAG = "attention_flag";
     }
 
     public struct MerchandiseData

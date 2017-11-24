@@ -810,7 +810,8 @@ namespace Molmed.PlattformOrdMan.Database
                 int arrivalSignUserId, DateTime arrivalDate, int invoiceCheckerUserId, 
                 DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize,
                 DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation,
-                string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId)
+                string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
+                bool attentionFlag)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_UpdatePost");
@@ -876,6 +877,7 @@ namespace Molmed.PlattformOrdMan.Database
             {
                 commandBuilder.AddParameter(PostData.DELIVERY_DEVIATION, deliveryDeviation);
             }
+            commandBuilder.AddParameter(PostData.ATTENTION_FLAG, attentionFlag);
             return ExecuteCommand(commandBuilder);
         }
 
