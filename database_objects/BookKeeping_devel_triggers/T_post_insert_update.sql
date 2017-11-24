@@ -48,7 +48,8 @@ INSERT INTO post_history
 	 purchase_order_no,
 	 sales_order_no,
 	 place_of_purchase_id,
-	 customer_number_id)
+	 customer_number_id,
+	 attention_flag)
 SELECT
 	 post_id,
 	 article_number_id,
@@ -79,7 +80,8 @@ SELECT
 	 purchase_order_no,
 	 sales_order_no,
 	 place_of_purchase_id,
-	 customer_number_id
+	 customer_number_id,
+	 attention_flag
 FROM inserted
 	
 SET NOCOUNT OFF
