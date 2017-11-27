@@ -28,6 +28,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private const String MERCHANDISE = "Product ...";
         private const String SIGN_INVOICE_OK_AND_SENT = "Sign invoice Ok and sent";
         private const String SIGN_INVOICE_ABSENT = "Sign invoice absent";
+        private const String MARK_FOR_ATTENTION = "Mark for attention";
+        private const String UNMARK_FOR_ATTENTION = "Un-mark attention flag";
         private const String REGRET_ORDER_POST = "Regret Order post";
         private const String REGRET_CONFRIRM_ORDER = "Regret order confirmal";
         private const String REGRET_ARRIVAL_CONFIRMATION = "Regret Arrival confirmation";
@@ -265,6 +267,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             AddMenuItem(PostsListView, LOCK_COLUMN_WIDTH, LockColumnWidth_Click);
             AddMenuItem(PostsListView, UN_LOCK_COLUMN_WIDTH, UnlockColumnWidth_Click);
             AddMenuItem(PostsListView, UPDATE, UpdateMenuItem_Click);
+            AddMenuItem(PostsListView, MARK_FOR_ATTENTION, MarkForAttention_Click);
+            AddMenuItem(PostsListView, UNMARK_FOR_ATTENTION, UnmarkAttentionFlag);
             AddMenuItem(PostsListView, ORDER_POST, OrderPostMenuItem_Click);
             AddMenuItem(PostsListView, CONFIRM_ORDER, ConfirmOrderMenuItem_Click);
             AddMenuItem(PostsListView, CONFIRM_ARRIVAL, ConfirmArrivalMenuItem_Click);
@@ -602,6 +606,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SetVisible(sender, DELETE, false);
                 SetVisible(sender, SIGN_INVOICE_OK_AND_SENT, false);
                 SetVisible(sender, SIGN_INVOICE_ABSENT, false);
+                SetVisible(sender, MARK_FOR_ATTENTION, false);
+                SetVisible(sender, UNMARK_FOR_ATTENTION, false);
                 SetVisible(sender, MERCHANDISE, false);
                 SetVisible(sender, SUPPLIER, false);
                 SetVisible(sender, RESET_INVOICE_STATUS, false);
@@ -622,6 +628,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             SetVisible(sender, CONFIRM_ARRIVAL, false);
             SetVisible(sender, SIGN_INVOICE_OK_AND_SENT, false);
             SetVisible(sender, SIGN_INVOICE_ABSENT, false);
+            SetVisible(sender, MARK_FOR_ATTENTION, false);
+            SetVisible(sender, UNMARK_FOR_ATTENTION, false);
             SetVisible(sender, RESET_INVOICE_STATUS, false);
             SetVisible(sender, REGRET_ARRIVAL_CONFIRMATION, false);
             SetVisible(sender, REGRET_CONFRIRM_ORDER, false);
@@ -650,6 +658,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SetVisible(sender, SIGN_INVOICE_OK_AND_SENT, true);
                 SetVisible(sender, SIGN_INVOICE_ABSENT, true);
                 SetVisible(sender, REGRET_ARRIVAL_CONFIRMATION, true);
+            }
+            if (IsSelectedItemsOnlyUnflagged())
+            {
+                SetVisible(sender, MARK_FOR_ATTENTION, true);
+            }
+            if (IsSelectedItemsOnlyFlagged())
+            {
+                SetVisible(sender, UNMARK_FOR_ATTENTION, true);
             }
 
             if (IsSelectedStatusOnlyCompleted())
@@ -687,6 +703,30 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SetVisible(sender, SET_INVOICE_NUMBER, true);
                 SetVisible(sender, SET_ORDER_NR_SO, true);
             }
+        }
+
+        private bool IsSelectedItemsOnlyUnflagged()
+        {
+            foreach (PostViewItem selectedItem in PostsListView.SelectedItems)
+            {
+                if (selectedItem.GetPost().AttentionFlag)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool IsSelectedItemsOnlyFlagged()
+        {
+            foreach (PostViewItem selectedItem in PostsListView.SelectedItems)
+            {
+                if (!selectedItem.GetPost().AttentionFlag)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private bool IsSelectedStatusOnlyConfirmed()
@@ -1260,6 +1300,43 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 posts.Add(tmpPost);
             }
             return posts;
+        }
+
+        private void UnmarkAttentionFlag(object sender, EventArgs e)
+        {
+            try
+            {
+                SetMarkForAttention(false);
+            }
+            catch (Exception exception)
+            {
+                HandleError("Error when un-mark posts for attention", exception);
+                throw;
+            }
+        }
+
+        private void MarkForAttention_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SetMarkForAttention(true);
+            }
+            catch (Exception exception)
+            {
+                HandleError("Error when marking posts for attention", exception);
+            }
+        }
+
+        private void SetMarkForAttention(bool markForAttention)
+        {
+            PostList posts = new PostList();
+            foreach (PostViewItem selectedItem in PostsListView.SelectedItems)
+            {
+                var tmpPost = selectedItem.GetPost();
+                tmpPost.UpdateMarkForAttention(markForAttention);
+                posts.Add(tmpPost);
+            }
+            RedrawPosts(posts);
         }
 
         private void SingInvoiceAbsent_Click(object sender, EventArgs e)

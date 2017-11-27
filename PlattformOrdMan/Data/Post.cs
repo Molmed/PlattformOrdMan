@@ -27,6 +27,7 @@ namespace Molmed.PlattformOrdMan.Data
             Incoming,
             Ok
         }
+        public bool AttentionFlag { get; set; }
 
         private ArticleNumber _articleNumber;
         private int _articleNumberId;
@@ -69,7 +70,6 @@ namespace Molmed.PlattformOrdMan.Data
         private readonly int _id;
         private int _customerNumberId;
         private CustomerNumber _customerNumber;
-        private bool _attentionFlag;
         // These fields are metadata for faster loading time
         private string _merchandiseIdentifier;
         private string _merchandiseAmount;
@@ -83,7 +83,7 @@ namespace Molmed.PlattformOrdMan.Data
         public Post(DataReader dataReader)
         {
             _id = dataReader.GetInt32(DataIdentityData.ID);
-            _attentionFlag = dataReader.GetBoolean(PostData.ATTENTION_FLAG);
+            AttentionFlag = dataReader.GetBoolean(PostData.ATTENTION_FLAG);
             _comment = dataReader.GetString(DataCommentData.COMMENT);
             _bookerUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_BOOKER);
             _bookDate = dataReader.GetDateTime(PostData.BOOK_DATE);
@@ -1107,6 +1107,20 @@ namespace Molmed.PlattformOrdMan.Data
             _apprPrize = prize;
         }
 
+        public void UpdateMarkForAttention(bool markForAttention)
+        {
+            DateTime apprArrival;
+            DateTime.TryParse(GetPredictedArrival(), out apprArrival);
+
+            UpdatePost(GetComment(), GetApprPrizeDecimal(), GetAmount(), GetInvoiceClin(), GetInvoiceInst(),
+                apprArrival, GetInvoiceStatus().ToString(), IsInvoceAbsent(), GetCurrencyId(),
+                GetBookerId(), GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(),
+                GetArrivalDate(), GetInvoiceUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
+                GetInvoiceNumber(), GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(), 
+                GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(),
+                GetCustomerNumberId(), markForAttention);
+        }
+
         public void UpdateCustomerNumberId(int custNumId)
         {
             DateTime apprArrival;
@@ -1117,7 +1131,7 @@ namespace Molmed.PlattformOrdMan.Data
                 GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(), GetArrivalDate(),
                 GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(), GetInvoiceNumber(), GetFinalPrize(),
                 GetConfirmedOrderDate(), GetConfirmedOrderUserId(), GetDeliveryDeviation(), GetPurchaseOrderNo(), 
-                GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), custNumId, _attentionFlag);
+                GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), custNumId, AttentionFlag);
         }
 
         public void UpdateInvoiceNumber(string invoiceNumber, int customerNumberId,
@@ -1132,7 +1146,7 @@ namespace Molmed.PlattformOrdMan.Data
                 GetArrivalDate(), GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 invoiceNumber, GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(),
                 GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), customerNumberId,
-                _attentionFlag);
+                AttentionFlag);
         }
 
         public void UpdatePost(String comment, decimal apprPrize, int amount, bool invoiceClin, bool invoiceInst,
@@ -1150,7 +1164,7 @@ namespace Molmed.PlattformOrdMan.Data
                 invoiceNumber, finalPrize, confirmedOrderDate, confirmedOrderUserId, deliveryDeviation,
                 purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId, attentionFlag);
             SetComment(comment);
-            _attentionFlag = attentionFlag;
+            AttentionFlag = attentionFlag;
             _customerNumberId = customerNumberId;
             _customerNumber = null;
             _apprPrize = apprPrize;
