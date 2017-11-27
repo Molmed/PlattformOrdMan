@@ -14,6 +14,7 @@ namespace Molmed.PlattformOrdMan.Data
     {
         SNP,
         SEQ,
+        FoU,
         Research,
         Other
     }
@@ -229,9 +230,10 @@ namespace Molmed.PlattformOrdMan.Data
                 case PlaceOfPurchase.Other:
                 case PlaceOfPurchase.SEQ:
                 case PlaceOfPurchase.SNP:
+                case PlaceOfPurchase.FoU:
                     return GroupCategory.Plattform;
                 default:
-                    throw new Data.Exception.DataException("Unknwon plate of purchase: " + placeOfPurchase.ToString());
+                    throw new Data.Exception.DataException("Unknwon place of purchase: " + placeOfPurchase.ToString());
             }
         }
 
