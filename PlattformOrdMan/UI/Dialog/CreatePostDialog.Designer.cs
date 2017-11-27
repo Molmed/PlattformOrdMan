@@ -53,6 +53,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CurrencyCombobox = new Molmed.PlattformOrdMan.UI.Component.CurrencyCombobox();
             this.EditCurrencyButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.AttentionCheckBox = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.ConfirmedOrderDateTextBox = new System.Windows.Forms.TextBox();
@@ -340,6 +341,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.AttentionCheckBox);
             this.groupBox1.Controls.Add(this.label19);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.ConfirmedOrderDateTextBox);
@@ -369,6 +371,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Status information";
+            // 
+            // AttentionCheckBox
+            // 
+            this.AttentionCheckBox.AutoSize = true;
+            this.AttentionCheckBox.Location = new System.Drawing.Point(110, 324);
+            this.AttentionCheckBox.Name = "AttentionCheckBox";
+            this.AttentionCheckBox.Size = new System.Drawing.Size(109, 17);
+            this.AttentionCheckBox.TabIndex = 21;
+            this.AttentionCheckBox.Text = "Mark for attention";
+            this.AttentionCheckBox.UseVisualStyleBackColor = true;
+            this.AttentionCheckBox.CheckedChanged += new System.EventHandler(this.AttentionCheckBox_CheckedChanged);
             // 
             // label19
             // 
@@ -895,5 +908,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.ComboBox OrderingUnitComboBox;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox CustomerNumberComboBox;
+        private System.Windows.Forms.CheckBox AttentionCheckBox;
     }
 }

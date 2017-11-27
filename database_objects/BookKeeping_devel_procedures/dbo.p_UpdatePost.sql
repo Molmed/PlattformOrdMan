@@ -37,7 +37,8 @@ CREATE PROCEDURE [dbo].[p_UpdatePost](
 @purchase_order_no varchar(255) = null,
 @sales_order_no varchar(255) = null,
 @place_of_purchase varchar(30),
-@customer_number_id int = null)
+@customer_number_id int = null,
+@attention_flag bit = 0)
 
 AS
 BEGIN
@@ -78,7 +79,8 @@ SET
 	purchase_order_no = @purchase_order_no,
 	sales_order_no = @sales_order_no,
 	place_of_purchase_id = pop.place_of_purchase_id,
-	customer_number_id = @customer_number_id
+	customer_number_id = @customer_number_id,
+	attention_flag = @attention_flag
 FROM place_of_purchase pop 
 WHERE post_id = @id AND	pop.code = @place_of_purchase
 	

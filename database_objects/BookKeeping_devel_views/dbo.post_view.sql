@@ -39,6 +39,7 @@ SELECT
 	p.purchase_order_no,
 	p.sales_order_no,
 	p.customer_number_id,
+	p.attention_flag,
 	pop.code as place_of_purchase,
 	an.identifier as article_number_identifier,
 	an.active as article_number_active,
