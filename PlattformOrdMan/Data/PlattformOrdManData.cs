@@ -1,19 +1,16 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using Molmed.PlattformOrdMan.Database;
 using Molmed.PlattformOrdMan.Data.Exception;
 
 namespace Molmed.PlattformOrdMan.Data
 {
-    public delegate void DataDeletedEventHandler(IDataIdentifier data);
-    public delegate void DataUpdatedEventHandler(IDataIdentifier data);
-
     public enum PlaceOfPurchase
     {
         SNP,
         SEQ,
+        FoU,
         Research,
         Other
     }
@@ -55,23 +52,10 @@ namespace Molmed.PlattformOrdMan.Data
         CustomerNumber
     }
 
-    public interface ICustomerNumberTemplate
-    {
-        string GetIdentifier();
-        string GetDescription();
-        PlaceOfPurchase GetPlaceOfPurchase();
-        GroupCategory GetGroupCategory();
-        void SetIdentifier(string identifier);
-        void SetDescription(string description);
-        void SetIsEnabled(bool enabled);
-        void SetPlaceOfPurchase(PlaceOfPurchase placeOfPurchase);
-    }
-
     public class PlattformOrdManData : PlattformOrdManBase
     {
         public const Int32 NO_COUNT = -1;
         public const Int32 NO_ID = -1;
-        public const Byte NO_ID_TINY = 0;
         public const int LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH = -2;
         public const int LIST_VIEW_COLUMN_HEADER_AUTO_WIDTH = -1;
         // Search for file winuser.h for constant values 
@@ -81,35 +65,25 @@ namespace Molmed.PlattformOrdMan.Data
         public const Int32 SC_RESTORE = 0xF120;
         public const Int32 SC_MINIMIZE = 0XF020;
 
-        private static Database.Dataserver MyDatabase = null;
-        private static Hashtable MyColumnLenghtTable = null;
-        private static Hashtable MyEventHandlerTable = null;
-        private static OrdManEventHandler MyEventHandler = null;
-        private static TransactionCommitedEventHandler MyTransactionCommitedEventHandler = null;
-        private static TransactionRollbackedEventHandler MyTransactionRollbackedEventHandler = null;
-        private static CultureInfo MyCulture = new CultureInfo("sv-SE");
-        private static Configuration MyConfiguration;
-        private static DateTime MyCustomerNumberReformDate = new DateTime(2013, 12, 1);
-        private static int MyTempIdCounter;
+        private static Dataserver _database;
+        private static Hashtable _columnLenghtTable;
+        private static Hashtable _eventHandlerTable;
+        private static TransactionCommitedEventHandler _transactionCommitedEventHandler;
+        private static TransactionRollbackedEventHandler _transactionRollbackedEventHandler;
+        private static int _tempIdCounter;
 
         static PlattformOrdManData()
         {
-            MyTempIdCounter = NO_ID;
+            _tempIdCounter = NO_ID;
         }
 
-        public static int GetNewTempId()
+        protected static int GetNewTempId()
         {
-            MyTempIdCounter--;
-            return MyTempIdCounter;
+            _tempIdCounter--;
+            return _tempIdCounter;
         }
 
-        public static DateTime CustomerNumberReformDate
-        {
-            get
-            {
-                return MyCustomerNumberReformDate;
-            }
-        }
+        public static DateTime CustomerNumberReformDate { get; } = new DateTime(2013, 12, 1);
 
         public static string GetPlaceOfPurchaseString(PlaceOfPurchase pop)
         {
@@ -132,71 +106,45 @@ namespace Molmed.PlattformOrdMan.Data
                     return pop;
                 }
             }
-            throw new Data.Exception.DataException("String ''" + popStr + "'' does not match a valid defined PlaceOfPurchase enum");
+            throw new DataException("String ''" + popStr + "'' does not match a valid defined PlaceOfPurchase enum");
         }
 
-        public static CultureInfo MyCultureInfo
-        {
-            get
-            {
-                return MyCulture;
-            }
-        }
+        public static CultureInfo MyCultureInfo { get; } = new CultureInfo("sv-SE");
 
-        public static Configuration Configuration
+        public static Configuration Configuration { get; set; }
+
+        public static OrdManEventHandler OEventHandler { get; set; }
+
+        public static Dataserver Database
         {
-            get
-            {
-                return MyConfiguration;
-            }
+            get { return _database; }
             set
             {
-                MyConfiguration = value;
-            }
-        }
-
-        public static OrdManEventHandler OEventHandler
-        {
-            get
-            {
-                return MyEventHandler;
-            }
-            set
-            {
-                MyEventHandler = value;
-            }
-        }
-
-        public static Database.Dataserver Database
-        {
-            get { return MyDatabase; }
-            set
-            {
-                if (IsNotNull(MyDatabase))
+                if (IsNotNull(_database))
                 {
-                    MyDatabase.TransactionCommited -= MyTransactionCommitedEventHandler;
-                    MyDatabase.TransactionRollbacked -= MyTransactionRollbackedEventHandler;
+                    _database.TransactionCommited -= _transactionCommitedEventHandler;
+                    _database.TransactionRollbacked -= _transactionRollbackedEventHandler;
                 }
-                MyDatabase = value;
-                if (IsNotNull(MyDatabase))
+                _database = value;
+                if (IsNotNull(_database))
                 {
-                    MyTransactionCommitedEventHandler = new TransactionCommitedEventHandler(TransactionCommited);
-                    MyDatabase.TransactionCommited += MyTransactionCommitedEventHandler;
-                    MyTransactionRollbackedEventHandler = new TransactionRollbackedEventHandler(TransactionRollbacked);
-                    MyDatabase.TransactionRollbacked += MyTransactionRollbackedEventHandler;
-                    MyEventHandlerTable = new Hashtable();
+                    _transactionCommitedEventHandler = TransactionCommited;
+                    _database.TransactionCommited += _transactionCommitedEventHandler;
+                    _transactionRollbackedEventHandler = TransactionRollbacked;
+                    _database.TransactionRollbacked += _transactionRollbackedEventHandler;
+                    _eventHandlerTable = new Hashtable();
                 }
             }
         }
 
-        public static decimal ParsePrice(String priceString)
+        protected static decimal ParsePrice(String priceString)
         {
             int firstInd = -1, lastInd = -1;
-            string decimalSymbol = PlattformOrdManData.MyCultureInfo.NumberFormat.NumberDecimalSeparator;
+            string decimalSymbol = MyCultureInfo.NumberFormat.NumberDecimalSeparator;
             // Extract the numeric part of str
             NumberStyles style = NumberStyles.Float;
-            priceString.Replace(".", decimalSymbol);
-            priceString.Replace(",", decimalSymbol);
+            priceString = priceString.Replace(".", decimalSymbol);
+            priceString =  priceString.Replace(",", decimalSymbol);
             decimal price;
             // Find indices for numeric characters
             // Extract the numeric sequence and parse is to decimal
@@ -213,7 +161,7 @@ namespace Molmed.PlattformOrdMan.Data
             }
             if (firstInd > -1 && lastInd > -1 &&
                 decimal.TryParse(priceString.Substring(firstInd, lastInd - firstInd + 1), style,
-                PlattformOrdManData.MyCultureInfo, out price))
+                MyCultureInfo, out price))
             {
                 return price;
             }
@@ -229,9 +177,10 @@ namespace Molmed.PlattformOrdMan.Data
                 case PlaceOfPurchase.Other:
                 case PlaceOfPurchase.SEQ:
                 case PlaceOfPurchase.SNP:
+                case PlaceOfPurchase.FoU:
                     return GroupCategory.Plattform;
                 default:
-                    throw new Data.Exception.DataException("Unknwon plate of purchase: " + placeOfPurchase.ToString());
+                    throw new DataException("Unknwon place of purchase: " + placeOfPurchase);
             }
         }
 
@@ -244,20 +193,20 @@ namespace Molmed.PlattformOrdMan.Data
                 case GroupCategory.Research:
                     return PlaceOfPurchase.Research;
                 default:
-                    throw new Data.Exception.DataException("Unknown group category: " + groupCategory.ToString());
+                    throw new DataException("Unknown group category: " + groupCategory);
             }
         }
 
         public static decimal ParsePrice(String priceString, out string currencyString)
         {
             int firstInd = -1, lastInd = -1;
-            string decimalSymbol = PlattformOrdManData.MyCultureInfo.NumberFormat.NumberDecimalSeparator;
+            string decimalSymbol = MyCultureInfo.NumberFormat.NumberDecimalSeparator;
             // Extract the numeric part of str, return as decimal
             // Extract the non-numeric part as currency string
             // Look for currency string at beginning and at end
             NumberStyles style = NumberStyles.Float;
-            priceString.Replace(".", decimalSymbol);
-            priceString.Replace(",", decimalSymbol);
+            priceString = priceString.Replace(".", decimalSymbol);
+            priceString = priceString.Replace(",", decimalSymbol);
             decimal price;
             currencyString = "";
             priceString = priceString.Trim();
@@ -276,7 +225,7 @@ namespace Molmed.PlattformOrdMan.Data
             }
             if (firstInd > -1 && lastInd > -1 &&
                 decimal.TryParse(priceString.Substring(firstInd, lastInd - firstInd + 1), style,
-                PlattformOrdManData.MyCultureInfo, out price))
+                MyCultureInfo, out price))
             {
                 if (firstInd > 0)
                 {
@@ -291,7 +240,7 @@ namespace Molmed.PlattformOrdMan.Data
             return -1;
         }
 
-        public static Boolean AreEqual(IDataIdentifier object1, IDataIdentifier object2)
+        private static Boolean AreEqual(IDataIdentifier object1, IDataIdentifier object2)
         {
             // Check referenses.
             if (IsNull(object1) && IsNull(object2))
@@ -313,7 +262,7 @@ namespace Molmed.PlattformOrdMan.Data
             return AreEqual(object1.GetIdentifier(), object2.GetIdentifier());
         }
 
-        public static Boolean AreEqual(IDataIdentity object1, IDataIdentity object2)
+        private static Boolean AreEqual(IDataIdentity object1, IDataIdentity object2)
         {
             // Check referenses.
             if (IsNull(object1) && IsNull(object2))
@@ -350,16 +299,6 @@ namespace Molmed.PlattformOrdMan.Data
             }
         }
 
-        public static Boolean AreNotEqual(IDataIdentifier object1, IDataIdentifier object2)
-        {
-            return !AreEqual(object1, object2);
-        }
-
-        public static Boolean AreNotEqual(IDataIdentity object1, IDataIdentity object2)
-        {
-            return !AreEqual(object1, object2);
-        }
-
         protected static void CheckNotEmpty(String value, String argumentName)
         {
             if (IsEmpty(value))
@@ -368,41 +307,27 @@ namespace Molmed.PlattformOrdMan.Data
             }
         }
 
-        protected static void CheckNotNull(Object value, String argumentName)
-        {
-            if (IsNull(value))
-            {
-                throw new DataArgumentNullException(argumentName);
-            }
-        }
-
         protected static void CloseDataReader(DataReader dataReader)
         {
-            if (dataReader != null)
-            {
-                dataReader.Close();
-            }
+            dataReader?.Close();
         }
 
         private static Int32 LoopWithCharFirst(String string1, String string2)
         {
             // Belongs to CompareStringWithNumbers
-            int i = 0, j = 0, startInd1, startInd2;
-            String subString1, subString2, numberStr;
-            int output;
-            Int64 number1, number2;
+            int i = 0, j = 0;
             while (i < string1.Length && j < string2.Length)
             {
-                startInd1 = i;
-                startInd2 = j;
+                var startInd1 = i;
+                var startInd2 = j;
                 //separate the string part
                 while (++i < string1.Length && !char.IsNumber(string1[i]))
                 { }
                 while (++j < string2.Length && !char.IsNumber(string2[j]))
                 { }
-                subString1 = string1.Substring(startInd1, i - startInd1);
-                subString2 = string2.Substring(startInd2, j - startInd2);
-                output = subString1.CompareTo(subString2);
+                var subString1 = string1.Substring(startInd1, i - startInd1);
+                var subString2 = string2.Substring(startInd2, j - startInd2);
+                var output = String.Compare(subString1, subString2, StringComparison.Ordinal);
                 if (output != 0)
                 {
                     return output;
@@ -418,10 +343,10 @@ namespace Molmed.PlattformOrdMan.Data
                 { }
                 while (++j < string2.Length && char.IsNumber(string2[j]))
                 { }
-                numberStr = string1.Substring(startInd1, i - startInd1);
-                number1 = Convert.ToInt64(numberStr);
+                var numberStr = string1.Substring(startInd1, i - startInd1);
+                var number1 = Convert.ToInt64(numberStr);
                 numberStr = string2.Substring(startInd2, j - startInd2);
-                number2 = Convert.ToInt64(numberStr);
+                var number2 = Convert.ToInt64(numberStr);
                 if (number1 > number2)
                 {
                     return 1;
@@ -437,23 +362,20 @@ namespace Molmed.PlattformOrdMan.Data
         private static Int32 LoopWithNumberFirst(String string1, String string2)
         {
             // Belongs to CompareStringWithNumbers
-            int i = 0, j = 0, startInd1, startInd2;
-            String subString1, subString2, numberStr;
-            int output;
-            Int64 number1, number2;
+            int i = 0, j = 0;
             while (i < string1.Length && j < string2.Length)
             {
-                startInd1 = i;
-                startInd2 = j;
+                var startInd1 = i;
+                var startInd2 = j;
                 //handle the number part
                 while (++i < string1.Length && char.IsNumber(string1[i]))
                 { }
                 while (++j < string2.Length && char.IsNumber(string2[j]))
                 { }
-                numberStr = string1.Substring(startInd1, i - startInd1);
-                number1 = Convert.ToInt64(numberStr);
+                var numberStr = string1.Substring(startInd1, i - startInd1);
+                var number1 = Convert.ToInt64(numberStr);
                 numberStr = string2.Substring(startInd2, j - startInd2);
-                number2 = Convert.ToInt64(numberStr);
+                var number2 = Convert.ToInt64(numberStr);
                 if (number1 > number2)
                 {
                     return 1;
@@ -473,9 +395,9 @@ namespace Molmed.PlattformOrdMan.Data
                 { }
                 while (++j < string2.Length && !char.IsNumber(string2[j]))
                 { }
-                subString1 = string1.Substring(startInd1, i - startInd1);
-                subString2 = string2.Substring(startInd2, j - startInd2);
-                output = subString1.CompareTo(subString2);
+                var subString1 = string1.Substring(startInd1, i - startInd1);
+                var subString2 = string2.Substring(startInd2, j - startInd2);
+                var output = String.Compare(subString1, subString2, StringComparison.Ordinal);
                 if (output != 0)
                 {
                     return output;
@@ -512,51 +434,38 @@ namespace Molmed.PlattformOrdMan.Data
                     return output;
                 }
             }
-            return string1.CompareTo(string2);
+            return String.Compare(string1, string2, StringComparison.Ordinal);
 
 
         }
 
         protected static Int32 GetColumnLength(String tableName, String columnName)
         {
-            Int32 columnLength = -1;
-            String hashKey;
+            Int32 columnLength;
 
-            if (IsNull(MyColumnLenghtTable))
+            if (IsNull(_columnLenghtTable))
             {
                 // Create column length table.
-                MyColumnLenghtTable = new Hashtable();
+                _columnLenghtTable = new Hashtable();
             }
 
-            hashKey = "Table:" + tableName + "Column:" + columnName;
-            if (MyColumnLenghtTable.Contains(hashKey))
+            var hashKey = "Table:" + tableName + "Column:" + columnName;
+            if (_columnLenghtTable.Contains(hashKey))
             {
                 // Get cached value.
-                columnLength = (Int32)(MyColumnLenghtTable[hashKey]);
+                columnLength = (Int32)(_columnLenghtTable[hashKey]);
             }
             else
             {
                 // Get value from database.
                 columnLength = Database.GetColumnLength(tableName, columnName);
-                MyColumnLenghtTable.Add(hashKey, columnLength);
+                _columnLenghtTable.Add(hashKey, columnLength);
             }
             return columnLength;
         }
 
-        protected static Int32 GetId(IDataIdentity dataIdentity)
-        {
-            if (IsNull(dataIdentity))
-            {
-                return NO_ID;
-            }
-            else
-            {
-                return dataIdentity.GetId();
-            }
-        }
 
-
-        public static Boolean HasPendingTransaction()
+        private static Boolean HasPendingTransaction()
         {
             return Database.HasPendingTransaction();
         }
@@ -581,7 +490,7 @@ namespace Molmed.PlattformOrdMan.Data
 
         private static void TransactionCommited()
         {
-            foreach (EventHandler eventHandler in MyEventHandlerTable.Values)
+            foreach (EventHandler eventHandler in _eventHandlerTable.Values)
             {
                 eventHandler.TransactionCommited();
             }
@@ -589,7 +498,7 @@ namespace Molmed.PlattformOrdMan.Data
 
         private static void TransactionRollbacked()
         {
-            foreach (EventHandler eventHandler in MyEventHandlerTable.Values)
+            foreach (EventHandler eventHandler in _eventHandlerTable.Values)
             {
                 eventHandler.TransactionRollbacked();
             }
@@ -597,76 +506,71 @@ namespace Molmed.PlattformOrdMan.Data
 
         private class EventFire
         {
-            private IDataIdentifier MyData;
-            private Object[] MyArgs;
+            private readonly IDataIdentifier _data;
+            private readonly Object[] _args;
 
             public EventFire(IDataIdentifier data, Object[] args)
             {
-                MyArgs = args;
-                MyData = data;
+                _args = args;
+                _data = data;
             }
 
             public Object[] GetArgs()
             {
-                return MyArgs;
+                return _args;
             }
 
             public IDataIdentifier GetData()
             {
-                return MyData;
+                return _data;
             }
         }
 
         private class EventSubscription
         {
-            private Delegate MyDataDelegate;
-            private IDataIdentifier MyData;
+            private readonly Delegate _dataDelegate;
+            private readonly IDataIdentifier _data;
 
             public EventSubscription(IDataIdentifier data, Delegate dataDelegate)
             {
-                MyDataDelegate = dataDelegate;
-                MyData = data;
+                _dataDelegate = dataDelegate;
+                _data = data;
             }
 
             public IDataIdentifier GetData()
             {
-                return MyData;
+                return _data;
             }
 
             public Delegate GetDelegate()
             {
-                return MyDataDelegate;
+                return _dataDelegate;
             }
         }
 
 
         private class EventHandler
         {
-            private Type MyDelegateType;
-            private ArrayList MyEventSubscriptions;
-            private ArrayList MyPendingEvents;
+            private readonly Type _delegateType;
+            private readonly ArrayList _eventSubscriptions;
+            private readonly ArrayList _pendingEvents;
 
             public EventHandler(Type delegateType)
             {
-                MyDelegateType = delegateType;
-                MyEventSubscriptions = new ArrayList();
-                MyPendingEvents = new ArrayList();
+                _delegateType = delegateType;
+                _eventSubscriptions = new ArrayList();
+                _pendingEvents = new ArrayList();
             }
 
-            public void AddEventSubscription(IDataIdentifier data, Delegate dataDelegate)
-            {
-                MyEventSubscriptions.Add(new EventSubscription(data, dataDelegate));
-            }
-
-            public void FireEvent(IDataIdentifier data, Object[] args)
+            private void FireEvent(IDataIdentifier data, Object[] args)
             {
                 if (HasPendingTransaction())
                 {
-                    MyPendingEvents.Add(new EventFire(data, args));
+                    _pendingEvents.Add(new EventFire(data, args));
                 }
                 else
                 {
-                    foreach (EventSubscription eventSubscription in (ArrayList)(MyEventSubscriptions.Clone()))
+                    foreach (EventSubscription eventSubscription in (ArrayList)(_eventSubscriptions.Clone()))
                     {
                         // Compare if fired data object is same as
                         // subscribed data object.
@@ -685,55 +589,20 @@ namespace Molmed.PlattformOrdMan.Data
                 }
             }
 
-            public Type GetDelegateType()
-            {
-                return MyDelegateType;
-            }
-
-            public void RemoveEventSubscription(IDataIdentifier data, Delegate dataDelegate)
-            {
-                foreach (EventSubscription eventSubscription in MyEventSubscriptions)
-                {
-                    if (eventSubscription.GetDelegate() == dataDelegate)
-                    {
-                        MyEventSubscriptions.Remove(eventSubscription);
-                        break;
-                    }
-                }
-            }
-
             public void TransactionCommited()
             {
                 // Fire pending events.
-                foreach (EventFire eventFire in MyPendingEvents)
+                foreach (EventFire eventFire in _pendingEvents)
                 {
                     FireEvent(eventFire.GetData(), eventFire.GetArgs());
                 }
-                MyPendingEvents.Clear();
+                _pendingEvents.Clear();
             }
 
             public void TransactionRollbacked()
             {
-                MyPendingEvents.Clear();
+                _pendingEvents.Clear();
             }
         }
-    }
-
-    public abstract class UpdateField
-    {
-        String MyName;
-
-        public UpdateField(String name)
-        {
-            MyName = name;
-        }
-
-        public String GetName()
-        {
-            return MyName;
-        }
-
-        public abstract void SetSize(Int32 size);
-        public abstract Int32 GetSize();
     }
 }
