@@ -26,7 +26,7 @@ namespace Molmed.PlattformOrdMan.UI.Controller
             MyBarCodeString = null;
             MyForm.KeyPreview = true;
             MyForm.KeyDown += new KeyEventHandler(Form_KeyDown);
-            MyQuitAtInternalBarcodeLength = false;
+            MyQuitAtInternalBarcodeLength = true;
             MyActivityTimer = new System.Timers.Timer();
             MyActivityTimer.Interval = 1000;
             MyActivityTimer.Elapsed += new System.Timers.ElapsedEventHandler(ActivityTimer_Elapsed);
@@ -98,7 +98,7 @@ namespace Molmed.PlattformOrdMan.UI.Controller
                         IsNotNull(BarCodeReceived))
                     {
                         // Make a break to read the last termination character (if any) before barcode-received event
-                        MyActivityTimer.Enabled = true;
+                        BarCodeReceived(MyBarCodeString);
                     }
 
                     break;

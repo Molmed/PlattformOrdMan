@@ -296,7 +296,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                         MessageBoxIcon.Exclamation);
                     return;
                 }
-                createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create, merchandice, isDoubtfulProd);
+                createPostDialog = new CreatePostDialog(null, PostUpdateMode.Create, merchandice);
                 createPostDialog.MdiParent = this.MdiParent;
                 createPostDialog.Show();
             }            
