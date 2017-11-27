@@ -375,6 +375,17 @@ namespace Molmed.PlattformOrdMan.UI.View
 
         private void SetStatusColor()
         {
+            if (_post.AttentionFlag)
+            {
+                ForeColor = Color.Black;
+                BackColor = Color.Red;
+                return;
+            }
+            if (!_post.IsMerchandiseEnabled())
+            {
+                ForeColor = Color.Red;
+                ToolTipText = "This product is not up to date";
+            }
             switch (_post.GetPostStatus())
             {
                 case Post.PostStatus.Booked:
@@ -397,11 +408,6 @@ namespace Molmed.PlattformOrdMan.UI.View
                     BackColor = Color.White;
                     ForeColor = Color.Black;
                     break;
-            }
-            if (!_post.IsMerchandiseEnabled())
-            {
-                ForeColor = Color.Red;
-                ToolTipText = "This product is not up to date";
             }
         }
 
