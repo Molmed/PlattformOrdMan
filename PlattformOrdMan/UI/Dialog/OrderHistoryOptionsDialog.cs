@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
@@ -16,7 +12,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
     public partial class OrderHistoryOptionsDialog : OrdManForm
     {
         public event OrderHistoryOptionOK OnOrderHistoryOptionsOK;
-        private DataTable MyInitialIncludedColumns;
 
         public OrderHistoryOptionsDialog()
         {
@@ -30,7 +25,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             InitTimeRestrictionToCompletedPostsOnly();
             InitPlaceOfPurchaseFilteringListView();
             InitIncludedColumnsListView();
-            MyInitialIncludedColumns = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Copy();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             
         }
@@ -55,22 +49,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void GetNewIncludedColumns(out bool isUpdated)
         {
-            DataTable table;
-            DataRow row;
-            DataRow[] rowsNew;
-            DataRow[] rowsFromConfig;
-            string sort;
             int j = 0;
             isUpdated = false;
 
 
             // Create a new presumable config-table
-            table = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Clone();
+            var table = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Clone();
             foreach (IncludedColumnsListViewItem lvi in IncludedColumnsListView.Items)
             {
                 if (lvi.Checked)
                 {
-                    row = table.NewRow();
+                    var row = table.NewRow();
                     row[Configuration.PostListViewConfColumns.ColEnumName.ToString()] = lvi.GetPostListViewColumn().ToString();
                     row[Configuration.PostListViewConfColumns.ColSortOrder.ToString()] = j++;
                     row[Configuration.PostListViewConfColumns.ColWidth.ToString()] = GetColumnWith(lvi.GetPostListViewColumn());
@@ -79,9 +68,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
 
             // Check if the new presumable config-table is different from current config-table
-            sort = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " asc";
-            rowsNew = table.Select("", sort);
-            rowsFromConfig = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            var rowsNew = table.Select("", sort);
+            var rowsFromConfig = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
             if (rowsFromConfig.Length != rowsNew.Length)
             {
                 isUpdated = true;
@@ -105,10 +94,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private int GetColumnWith(PostListViewColumn col)
         {
-            DataRow[] rows;
-            string expression;
-            expression = Configuration.PostListViewConfColumns.ColEnumName.ToString() + " = '" + col.ToString() + "'";
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
+            var expression = Configuration.PostListViewConfColumns.ColEnumName + " = '" + col + "'";
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
             if (rows.Length > 0)
             {
                 return (int)rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
@@ -122,13 +109,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void InitIncludedColumnsListView()
         {
-            DataRow[] rows;
-            string sort, expression;
             IncludedColumnsListViewItem lvi;
-            PostListViewColumn postListViewColumn;
-            string colEnumName;
-            sort = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " asc";
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
 
             IncludedColumnsListView.EnableColumnSort = false;
             IncludedColumnsListView.Columns.Add("Columns to show", PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH);
@@ -136,22 +119,20 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // Get columns already included in personal configuration
             foreach (DataRow row in rows)
             {
-                colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colEnumName);
-                lvi = new IncludedColumnsListViewItem(postListViewColumn);
-                lvi.Checked = true;
+                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
+                var postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colEnumName);
+                lvi = new IncludedColumnsListViewItem(postListViewColumn) {Checked = true};
                 IncludedColumnsListView.Items.Add(lvi);
             }
 
             // Get columns not included in personal configuration
             foreach (PostListViewColumn col in Enum.GetValues(typeof(PostListViewColumn)))
             {
-                expression = Configuration.PostListViewConfColumns.ColEnumName.ToString() + " = '" + col.ToString() + "'";
+                var expression = Configuration.PostListViewConfColumns.ColEnumName + " = '" + col + "'";
                 rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
                 if (rows.Length == 0)
                 {
-                    lvi = new IncludedColumnsListViewItem(col);
-                    lvi.Checked = false;
+                    lvi = new IncludedColumnsListViewItem(col) {Checked = false};
                     IncludedColumnsListView.Items.Add(lvi);
                 }
             }
@@ -202,14 +183,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void InitPlaceOfPurchaseFilteringListView()
         {
-            ListViewItem lvi;
-            string popStr;
             PlaceOfPurchaseFilterListView.Columns.Add("Group", PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH);
             PlaceOfPurchaseFilterListView.BeginUpdate();
             foreach (PlaceOfPurchase pop in Enum.GetValues(typeof(PlaceOfPurchase)))
             {
-                popStr = PlattformOrdManData.GetPlaceOfPurchaseString(pop);
-                lvi = new ListViewItem(popStr);
+                var popStr = PlattformOrdManData.GetPlaceOfPurchaseString(pop);
+                var lvi = new ListViewItem(popStr);
                 PlaceOfPurchaseFilterListView.Items.Add(lvi);
                 if (PlattformOrdManData.Configuration.PlaceOfPurchaseFilter.Contains(pop.ToString()))
                 {
@@ -226,10 +205,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void LoadTimeIntervalsCombobox()
         {
-            TimeIntervalsForPostsList timeIntervals;
-            int defaultTimeInterval;
-            defaultTimeInterval = PlattformOrdManData.Configuration.TimeIntervalForPosts;
-            timeIntervals = TimeIntervalForPostsManager.GetTimeIntervalsForPosts();
+            var defaultTimeInterval = PlattformOrdManData.Configuration.TimeIntervalForPosts;
+            var timeIntervals = TimeIntervalForPostsManager.GetTimeIntervalsForPosts();
             foreach (TimeIntervalForPosts timeinterval in timeIntervals)
             {
                 TimeIntervalsComboBox.Items.Add(timeinterval);
@@ -260,14 +237,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private void SavePlaceOfPurchaseFiltering()
         {
             StringCollection popFilter = new StringCollection();
-            PlaceOfPurchase pop;
-            string popEnumStr;
             foreach (ListViewItem lvi in PlaceOfPurchaseFilterListView.Items)
             {
                 if (lvi.Checked)
                 {
-                    pop = PlattformOrdManData.GetPlaceOfPurchaseFromString(lvi.Text);
-                    popEnumStr = pop.ToString();
+                    var pop = PlattformOrdManData.GetPlaceOfPurchaseFromString(lvi.Text);
+                    var popEnumStr = pop.ToString();
                     popFilter.Add(popEnumStr);
                 }
             }
@@ -276,17 +251,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void MyOkButton_Click(object sender, EventArgs e)
         {
-            bool isColumnsUpdated;
             try
             {
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
                 SaveTimeSettings();
                 SavePlaceOfPurchaseFiltering();
+                bool isColumnsUpdated;
                 GetNewIncludedColumns(out isColumnsUpdated);
-                if (OnOrderHistoryOptionsOK != null)
-                {
-                    OnOrderHistoryOptionsOK(isColumnsUpdated);
-                }
+                OnOrderHistoryOptionsOK?.Invoke(isColumnsUpdated);
                 Close();
             }
             catch (Exception ex)
@@ -295,7 +267,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
 
@@ -306,12 +278,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void MoveUpButton_Click(object sender, EventArgs e)
         {
-            ListViewItem lvi;
-            int selectedInd;
             if(IncludedColumnsListView.SelectedIndices.Count == 1)
             {
-                selectedInd = IncludedColumnsListView.SelectedIndices[0];
-                lvi = IncludedColumnsListView.Items[selectedInd];
+                var selectedInd = IncludedColumnsListView.SelectedIndices[0];
+                var lvi = IncludedColumnsListView.Items[selectedInd];
                 IncludedColumnsListView.Items.RemoveAt(selectedInd);
                 IncludedColumnsListView.Items.Insert(selectedInd - 1, lvi);
                 lvi.Selected = true;
@@ -322,12 +292,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void MoveDownButton_Click(object sender, EventArgs e)
         {
-            ListViewItem lvi;
-            int selectedInd;
             if (IncludedColumnsListView.SelectedIndices.Count == 1)
             {
-                selectedInd = IncludedColumnsListView.SelectedIndices[0];
-                lvi = IncludedColumnsListView.Items[selectedInd];
+                var selectedInd = IncludedColumnsListView.SelectedIndices[0];
+                var lvi = IncludedColumnsListView.Items[selectedInd];
                 IncludedColumnsListView.Items.RemoveAt(selectedInd);
                 IncludedColumnsListView.Items.Insert(selectedInd + 1, lvi);
                 lvi.Selected = true;
@@ -338,17 +306,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private class IncludedColumnsListViewItem : ListViewItem
         {
-            PostListViewColumn MyPostListViewColumn;
+            PostListViewColumn _postListViewColumn;
 
             public IncludedColumnsListViewItem(PostListViewColumn col)
                 : base(PostListView.GetColumnHeaderName(col))
             {
-                MyPostListViewColumn = col;
+                _postListViewColumn = col;
             }
 
             public PostListViewColumn GetPostListViewColumn()
             {
-                return MyPostListViewColumn;
+                return _postListViewColumn;
             }
         }
     }
