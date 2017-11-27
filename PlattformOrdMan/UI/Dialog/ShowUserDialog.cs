@@ -81,8 +81,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private bool IsWithinSearchCriteria(User user)
         {
-            if (FilterTextBox.Text.Trim() != "" &&
-                !user.GetName().ToLower().Contains(FilterTextBox.Text.Trim().ToLower()))
+            if ((FilterTextBox.Text.Trim() != "" && !FilterTextBox.Text.Trim().StartsWith("Enter filter text")) 
+                && !user.GetName().ToLower().Contains(FilterTextBox.Text.Trim().ToLower()))
             {
                 return false;
             }
