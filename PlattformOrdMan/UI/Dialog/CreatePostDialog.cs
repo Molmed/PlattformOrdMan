@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Globalization;
 using Molmed.PlattformOrdMan.Data;
@@ -225,6 +226,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 case PostUpdateMode.Create:
                     SetDefaultCustomerNumber();
+                    AttentionCheckBox.Visible = false;
                     break;
                 case PostUpdateMode.Edit:
                     InitEditMode();
@@ -459,6 +461,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             InvoiceInstCheckBox.Checked = _post.GetInvoiceInst();
             InvoiceClinCheckBox.Checked = _post.GetInvoiceClin();
             NoInvoiceCheckBox.Checked = _post.IsInvoceAbsent();
+            AttentionCheckBox.Checked = _post.AttentionFlag;
             InitCustomerNumberCombobox();
             UpdateCustomerNumber();
         }
@@ -590,7 +593,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     SalesOrdernoTextBox.Text.Trim() != _post.GetSalesOrderNo() ||
                     customerNumberId != _post.GetCustomerNumberId() ||
                     IsOrderingUnitUpdated() ||
-                    IsSupplierUpdated()
+                    IsSupplierUpdated() ||
+                    AttentionCheckBox.Checked != _post.AttentionFlag
             );
         }
 
@@ -1668,6 +1672,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void CustomerNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            HandleSaveButtonEnabled();
+        }
+
+        private void AttentionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            AttentionCheckBox.BackColor = AttentionCheckBox.Checked ? Color.Red : BackColor;
             HandleSaveButtonEnabled();
         }
     }
