@@ -1,10 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Timers;
@@ -17,67 +12,56 @@ namespace Molmed.PlattformOrdMan.UI
     public partial class MainForm : Form
     {
 
-        private LoginDialog MyLoginForm;
-        private LoginWithBarcodeDialog MyLoginWithBarcodeDialog;
-        private MerchandiseList MyMerchandiseList;
+        private LoginDialog _loginForm;
+        private LoginWithBarcodeDialog _loginWithBarcodeDialog;
+        private MerchandiseList _merchandiseList;
         private const string RESEARCH_TAG = "Research";
         private const string PRACTICE_TAG = "practice";
         private const string DEVEL_TAG = "devel";
-        private System.Timers.Timer ActivityTimer;
+        private System.Timers.Timer _activityTimer;
 
-        private Int32 MyActivityCounter;
-        private Point MyLastMousePos;
+        private Int32 _activityCounter;
+        private Point _lastMousePos;
 
         public MainForm()
         {
             InitializeComponent();
             Init();
             PlattformOrdManData.OEventHandler = new OrdManEventHandler();
-            PlattformOrdManData.OEventHandler.MyOnSupplierUpdate += new OrdManEventHandler.SupplierUpdateReporter(ReloadSupplierForMDIChildren);
-            PlattformOrdManData.OEventHandler.MyOnSupplierCreate += new OrdManEventHandler.SupplierCreatedReporter(AddCreatedSupplierToMDIChildren);
-            PlattformOrdManData.OEventHandler.MyOnMerchandiseUpdate += new OrdManEventHandler.MerchandiseUpdateReporter(ReloadMerchandiseForMDIChildren);
-            PlattformOrdManData.OEventHandler.MyOnMerchandiseCreate += new OrdManEventHandler.MerchandiseCreatedReporter(AddCreatedMerchandiseToMDIChildren);
-            PlattformOrdManData.OEventHandler.MyOnPostUpdate += new OrdManEventHandler.PostUpdateReporter(ReloadPostForMDIChildren);
-            PlattformOrdManData.OEventHandler.MyOnPostCreate += new OrdManEventHandler.PostCreatedReporter(AddCreatedPostForMDIChildren);
-        }
-
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            Close();
+            PlattformOrdManData.OEventHandler.MyOnSupplierUpdate += ReloadSupplierForMDIChildren;
+            PlattformOrdManData.OEventHandler.MyOnSupplierCreate += AddCreatedSupplierToMDIChildren;
+            PlattformOrdManData.OEventHandler.MyOnMerchandiseUpdate += ReloadMerchandiseForMDIChildren;
+            PlattformOrdManData.OEventHandler.MyOnMerchandiseCreate += AddCreatedMerchandiseToMDIChildren;
+            PlattformOrdManData.OEventHandler.MyOnPostUpdate += ReloadPostForMDIChildren;
+            PlattformOrdManData.OEventHandler.MyOnPostCreate += AddCreatedPostForMDIChildren;
         }
 
         private void ReloadSupplierForMDIChildren(Supplier supplier)
         { 
             // Loop through all open forms
             // Check if the form has to be updated
-            foreach (Form form in this.MdiChildren)
+            foreach (Form form in MdiChildren)
             {
-                if (form is ISupplierForm)
-                {
-                    ((ISupplierForm)form).ReloadSupplier(supplier);
-                }
+                var supplierForm = form as ISupplierForm;
+                supplierForm?.ReloadSupplier(supplier);
             }
         }
 
         private void AddCreatedPostForMDIChildren(Post post)
         {
-            foreach (Form form in this.MdiChildren)
+            foreach (Form form in MdiChildren)
             {
-                if (form is IPostForm)
-                {
-                    ((IPostForm)form).AddCreatedPost(post);
-                }
+                var postForm = form as IPostForm;
+                postForm?.AddCreatedPost(post);
             }
         }
 
         private void ReloadPostForMDIChildren(Post post)
         {
-            foreach (Form form in this.MdiChildren)
+            foreach (Form form in MdiChildren)
             {
-                if (form is IPostForm)
-                {
-                    ((IPostForm)form).ReloadPost(post);
-                }
+                var postForm = form as IPostForm;
+                postForm?.ReloadPost(post);
             }
         }
 
@@ -85,30 +69,28 @@ namespace Molmed.PlattformOrdMan.UI
         {
             // Loop through all open forms
             // Check if the form has to be updated
-            foreach (Form form in this.MdiChildren)
+            foreach (Form form in MdiChildren)
             {
-                if (form is ISupplierForm)
-                {
-                    ((ISupplierForm)form).AddCreatedSupplier(supplier);
-                }
+                var supplierForm = form as ISupplierForm;
+                supplierForm?.AddCreatedSupplier(supplier);
             }            
         }
 
         private void ActivityTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             // Update activity information.
-            if (MousePosition == MyLastMousePos)
+            if (MousePosition == _lastMousePos)
             {
-                MyActivityCounter++;
+                _activityCounter++;
             }
             else
             {
-                MyLastMousePos = MousePosition;
-                MyActivityCounter = 0;
+                _lastMousePos = MousePosition;
+                _activityCounter = 0;
             }
 
             // Check if it is time for automatic logout.
-            if (MyActivityCounter > Config.GetAutomaticLogoutTimeLimit())
+            if (_activityCounter > Config.GetAutomaticLogoutTimeLimit())
             {
                 // Logout.
                 Logout();
@@ -126,23 +108,19 @@ namespace Molmed.PlattformOrdMan.UI
 
         private void ReloadMerchandiseForMDIChildren(Merchandise merchandise)
         {
-            foreach (Form form in this.MdiChildren)
+            foreach (Form form in MdiChildren)
             {
-                if (form is IMerchandiseForm)
-                {
-                    ((IMerchandiseForm)form).ReloadMerchandise(merchandise);
-                }
+                var merchandiseForm = form as IMerchandiseForm;
+                merchandiseForm?.ReloadMerchandise(merchandise);
             }
         }
 
         private void AddCreatedMerchandiseToMDIChildren(Merchandise merchandise)
         {
-            foreach (Form form in this.MdiChildren)
+            foreach (Form form in MdiChildren)
             {
-                if (form is IMerchandiseForm)
-                {
-                    ((IMerchandiseForm)form).AddCreatedMerchandise(merchandise);
-                }
+                var merchandiseForm = form as IMerchandiseForm;
+                merchandiseForm?.AddCreatedMerchandise(merchandise);
             }
         }
 
@@ -151,34 +129,36 @@ namespace Molmed.PlattformOrdMan.UI
             if (IsNotNull(PlattformOrdManData.Database))
             {
                 MerchandiseManager.RefreshCache();
-                MyMerchandiseList = MerchandiseManager.GetMerchandiseFromCache();
+                _merchandiseList = MerchandiseManager.GetMerchandiseFromCache();
                 authorityManagementToolStripMenuItem.Visible = UserManager.GetCurrentUser().HasAdministratorRights();
                 toolStripSeparator1.Visible = UserManager.GetCurrentUser().HasAdministratorRights();
             }
-            this.Text = Config.GetDialogTitleStandard();
+            Text = Config.GetDialogTitleStandard();
             if (Settings.Default.DataServerInitialCatalog.Contains(RESEARCH_TAG))
             {
-                this.Text = this.Text + " (Research)";
+                Text = Text + " (Research)";
             }
             else if(Settings.Default.DataServerInitialCatalog.Contains(PRACTICE_TAG))                
             {
-                this.Text += " (VALIDATAION)";
-                this.BackgroundImage = Resources.ValidationBackground;
+                Text += " (VALIDATAION)";
+                BackgroundImage = Resources.ValidationBackground;
             }
             else if (Settings.Default.DataServerInitialCatalog.Contains(DEVEL_TAG))
             {
-                this.Text += " (DEVELOPMENT)";
-                this.BackgroundImage = Resources.DevelBackground;
+                Text += " (DEVELOPMENT)";
+                BackgroundImage = Resources.DevelBackground;
             }
             else
             {
             }
-            this.FormClosed += new FormClosedEventHandler(MainForm_FormClosed);
-            ActivityTimer = new System.Timers.Timer();
-            ActivityTimer.Interval = 1000;
-            ActivityTimer.SynchronizingObject = this;
-            this.ActivityTimer.Elapsed += new System.Timers.ElapsedEventHandler(ActivityTimer_Elapsed);
-            this.KeyUp += MainForm_KeyUp;
+            FormClosed += MainForm_FormClosed;
+            _activityTimer = new System.Timers.Timer
+            {
+                Interval = 1000,
+                SynchronizingObject = this
+            };
+            _activityTimer.Elapsed += ActivityTimer_Elapsed;
+            KeyUp += MainForm_KeyUp;
         }
 
         void MainForm_KeyUp(object sender, KeyEventArgs e)
@@ -198,45 +178,18 @@ namespace Molmed.PlattformOrdMan.UI
             PlattformOrdManData.Configuration.SaveSettings();
         }
 
-        public static String GetApplicationPath()
-        {
-            return Application.StartupPath;
-        }
-
         public static void HandleError(String message, Exception exception)
         {
-            ShowErrorDialog errorDialog;
-
-            errorDialog = new ShowErrorDialog(message, exception);
+            var errorDialog = new ShowErrorDialog(message, exception);
             errorDialog.ShowDialog();
         }
 
-        protected static Boolean IsEmpty(ICollection collection)
-        {
-            return ((collection == null) || (collection.Count == 0));
-        }
-
-        protected static Boolean IsEmpty(String testString)
-        {
-            return (testString == null) || (testString.Trim().Length == 0);
-        }
-
-        protected static Boolean IsNotEmpty(ICollection collection)
-        {
-            return ((collection != null) && (collection.Count > 0));
-        }
-
-        protected static Boolean IsNotEmpty(String testString)
-        {
-            return (testString != null) && (testString.Trim().Length > 0);
-        }
-
-        protected static Boolean IsNotNull(Object testObject)
+        private static Boolean IsNotNull(Object testObject)
         {
             return (testObject != null);
         }
 
-        protected static Boolean IsNull(Object testObject)
+        private static Boolean IsNull(Object testObject)
         {
             return (testObject == null);
         }
@@ -244,8 +197,7 @@ namespace Molmed.PlattformOrdMan.UI
         private Boolean Login()
         {
 
-            Boolean isLoginOk = false;
-            string userBarcode = "";
+            Boolean isLoginOk;
 
             if (Config.GetApplicationMode() == Config.ApplicationMode.Lab)
             {
@@ -259,15 +211,16 @@ namespace Molmed.PlattformOrdMan.UI
                 {
                     return false;
                 }
+                string userBarcode;
                 do
                 {
                     // Get login information.
-                    MyLoginWithBarcodeDialog = new LoginWithBarcodeDialog();
+                    _loginWithBarcodeDialog = new LoginWithBarcodeDialog();
 
-                    if (MyLoginWithBarcodeDialog.ShowDialog() == DialogResult.OK)
+                    if (_loginWithBarcodeDialog.ShowDialog() == DialogResult.OK)
                     {
-                        userBarcode = MyLoginWithBarcodeDialog.Barcode;
-                        MyLoginWithBarcodeDialog = null;
+                        userBarcode = _loginWithBarcodeDialog.Barcode;
+                        _loginWithBarcodeDialog = null;
                     }
                     else
                     {
@@ -282,8 +235,8 @@ namespace Molmed.PlattformOrdMan.UI
                 Text += " - " + UserManager.GetCurrentUser().GetName();
 
                 // Start the activity timer. It is used for automatic logout in lab mode.
-                this.ActivityTimer.Enabled = true;
-                MyActivityCounter = 0;
+                _activityTimer.Enabled = true;
+                _activityCounter = 0;
                 isLoginOk = true;
             }
             else
@@ -309,62 +262,6 @@ namespace Molmed.PlattformOrdMan.UI
 
         }
 
-        private Boolean Login_old_with_user_name()
-        {
-            // BarCodeController barCodeController;
-            Boolean isLoginOk = false;
-            String userName;
-            String password;
-
-            if (Config.GetApplicationMode() == Config.ApplicationMode.Lab)
-            {
-                // LAB MODE
-                // Enable background bar code listening.
-                KeyPreview = true;
-
-                do
-                {
-                    // Get login information.
-                    MyLoginForm = new LoginDialog();
-
-                    // Login by bar code is currently not supported.
-                    // barCodeController = new BarCodeController(MyLoginForm);
-                    // barCodeController.BarCodeReceived += ExecuteBarCode;
-                    if (MyLoginForm.ShowDialog() == DialogResult.OK)
-                    {
-                        userName = MyLoginForm.GetUserName();
-                        password = MyLoginForm.GetPassword();
-                        MyLoginForm = null;
-                    }
-                    else
-                    {
-                        // The user cancelled.
-                        return false;
-                    }
-                }   // Try to login to the database.
-                while (!LoginDataBase(userName, password));
-
-                Text = Config.GetDialogTitleStandard() + " - " + UserManager.GetCurrentUser().GetName();
-
-                // Start the activity timer. It is used for automatic logout in lab mode.
-                isLoginOk = true;
-            }
-            else
-            {
-                // OFFICE MODE
-                isLoginOk = LoginDataBase();
-            }
-
-            if (isLoginOk)
-            {
-                // Cache data.
-                // This is done in order to avoid DateReader already open exception.
-
-                PlattformOrdManData.Refresh();
-            }
-            return isLoginOk;
-        }
-
         private bool SetAuthorityMappingForBarcode(string userBarcode)
         {
             if (!UserManager.IsUserBarcode(userBarcode))
@@ -379,7 +276,7 @@ namespace Molmed.PlattformOrdMan.UI
                 UserManager.SetAuthorityMappingFromBarcode(userBarcode);
                 PlattformOrdManData.CommitTransaction();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 PlattformOrdManData.RollbackTransaction();
                 HandleError("Could not logon to database", ex);
@@ -396,10 +293,7 @@ namespace Molmed.PlattformOrdMan.UI
 
         public Boolean Login(Boolean versionControl)
         {
-            Boolean isLoginOk = false;
-            string barcode;
-            String version;
-            String applicationName;
+            Boolean isLoginOk;
 
             if (Config.GetApplicationMode() == Config.ApplicationMode.Lab)
             {
@@ -412,15 +306,16 @@ namespace Molmed.PlattformOrdMan.UI
                     return false;
                 }
 
+                string barcode;
                 do
                 {
                     // Get login information.
-                    MyLoginWithBarcodeDialog = new LoginWithBarcodeDialog();
+                    _loginWithBarcodeDialog = new LoginWithBarcodeDialog();
 
-                    if (MyLoginWithBarcodeDialog.ShowDialog() == DialogResult.OK)
+                    if (_loginWithBarcodeDialog.ShowDialog() == DialogResult.OK)
                     {
-                        barcode = MyLoginWithBarcodeDialog.Barcode;
-                        MyLoginWithBarcodeDialog = null;
+                        barcode = _loginWithBarcodeDialog.Barcode;
+                        _loginWithBarcodeDialog = null;
                     }
                     else
                     {
@@ -437,8 +332,8 @@ namespace Molmed.PlattformOrdMan.UI
                 Text +=  " - " + UserManager.GetCurrentUser().GetName();
 
                 // Start the activity timer. It is used for automatic logout in lab mode.
-                this.ActivityTimer.Enabled = true;
-                MyActivityCounter = 0;
+                _activityTimer.Enabled = true;
+                _activityCounter = 0;
                 isLoginOk = true;
             }
             else
@@ -459,13 +354,13 @@ namespace Molmed.PlattformOrdMan.UI
                 if (versionControl)
                 {
                     // Get version number of the current assembly.
-                    version = Assembly.GetExecutingAssembly().GetName().Version.Major + "." +
-                              Assembly.GetExecutingAssembly().GetName().Version.Minor + "." +
-                              Assembly.GetExecutingAssembly().GetName().Version.Build + "." +
-                              Assembly.GetExecutingAssembly().GetName().Version.Revision;
+                    var version = Assembly.GetExecutingAssembly().GetName().Version.Major + "." +
+                                     Assembly.GetExecutingAssembly().GetName().Version.Minor + "." +
+                                     Assembly.GetExecutingAssembly().GetName().Version.Build + "." +
+                                     Assembly.GetExecutingAssembly().GetName().Version.Revision;
 
                     // Get the name of the current assembly.
-                    applicationName = Assembly.GetExecutingAssembly().GetName().Name;
+                    var applicationName = Assembly.GetExecutingAssembly().GetName().Name;
 
                     // Make sure the current application is allowed to connect.
                     if (!PlattformOrdManData.Database.AuthenticateApplication(applicationName, version))
@@ -485,89 +380,7 @@ namespace Molmed.PlattformOrdMan.UI
         }
 
 
-        public Boolean Login_old_with_user_name(Boolean versionControl)
-        {
-            // BarCodeController barCodeController;
-            Boolean isLoginOk = false;
-            String userName;
-            String password;
-            String version;
-            String applicationName;
-
-            if (Config.GetApplicationMode() == Config.ApplicationMode.Lab)
-            {
-                // LAB MODE
-                // Enable background bar code listening.
-                KeyPreview = true;
-
-                do
-                {
-                    // Get login information.
-                    MyLoginForm = new LoginDialog();
-
-                    // Login by bar code is currently not supported.
-                    // barCodeController = new BarCodeController(MyLoginForm);
-                    // barCodeController.BarCodeReceived += ExecuteBarCode;
-                    if (MyLoginForm.ShowDialog() == DialogResult.OK)
-                    {
-                        userName = MyLoginForm.GetUserName();
-                        password = MyLoginForm.GetPassword();
-                        MyLoginForm = null;
-                    }
-                    else
-                    {
-                        // The user cancelled.
-                        return false;
-                    }
-                }   // Try to login to the database.
-                while (!LoginDataBase(userName, password));
-
-                Text = Config.GetDialogTitleStandard() + " - " + UserManager.GetCurrentUser().GetName();
-
-                // Start the activity timer. It is used for automatic logout in lab mode.
-                isLoginOk = true;
-            }
-            else
-            {
-                // OFFICE MODE
-                isLoginOk = LoginDataBase();
-            }
-
-            if (isLoginOk)
-            {
-                // Cache data.
-                // This is done in order to avoid DateReader already open exception.
-
-                if (versionControl)
-                {
-                    // Get version number of the current assembly.
-                    version = Assembly.GetExecutingAssembly().GetName().Version.Major + "." +
-                              Assembly.GetExecutingAssembly().GetName().Version.Minor + "." +
-                              Assembly.GetExecutingAssembly().GetName().Version.Build + "." +
-                              Assembly.GetExecutingAssembly().GetName().Version.Revision;
-
-                    // Get the name of the current assembly.
-                    applicationName = Assembly.GetExecutingAssembly().GetName().Name;
-
-                    // Make sure the current application is allowed to connect.
-                    if (!PlattformOrdManData.Database.AuthenticateApplication(applicationName, version))
-                    {
-                        HandleError("The current version of this program is not allowed to connect to the database.", null);
-                        return false;
-                    }
-                }
-
-                PlattformOrdManData.Refresh();
-            }
-            return isLoginOk;
-        }
-
-        private Boolean LoginDataBase()
-        {
-            return LoginDataBase(null, null);
-        }
-
-        private Boolean LoginDataBase(String userName, String password)
+        private Boolean LoginDataBase(String userName = null, String password = null)
         {
             // Set newLoginInfo to "null" for integrated security, or to a user name and password for manual login.
 
@@ -599,7 +412,7 @@ namespace Molmed.PlattformOrdMan.UI
 
             LogoutDatabase();
             Text = Config.GetDialogTitleStandard();
-            ActivityTimer.Enabled = false;
+            _activityTimer.Enabled = false;
             // Reset the login information
         }
 
@@ -640,15 +453,13 @@ namespace Molmed.PlattformOrdMan.UI
 
         private void suppliersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowSuppliersDialog showSuppliersDialog;
             try
             {
                 if (!SetChildFocus(typeof(ShowSuppliersDialog)))
                 {
-                    this.Cursor = Cursors.WaitCursor;
-                    showSuppliersDialog = new ShowSuppliersDialog();
-                    showSuppliersDialog.MdiParent = this;
-                    this.Cursor = Cursors.Default;
+                    Cursor = Cursors.WaitCursor;
+                    var showSuppliersDialog = new ShowSuppliersDialog {MdiParent = this};
+                    Cursor = Cursors.Default;
                     showSuppliersDialog.Show();
                 }
             }
@@ -658,21 +469,20 @@ namespace Molmed.PlattformOrdMan.UI
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
 
         private void merchandiseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowMerchandiseDialog showMerchandiseDialog;
             try
             {
                 if (!SetChildFocus(typeof(ShowMerchandiseDialog)))
                 {
-                    this.Cursor = Cursors.WaitCursor;
-                    MyMerchandiseList = MerchandiseManager.GetMerchandiseFromCache();
-                    showMerchandiseDialog = new ShowMerchandiseDialog(MyMerchandiseList);
-                    this.Cursor = Cursors.Default;
+                    Cursor = Cursors.WaitCursor;
+                    _merchandiseList = MerchandiseManager.GetMerchandiseFromCache();
+                    var showMerchandiseDialog = new ShowMerchandiseDialog(_merchandiseList);
+                    Cursor = Cursors.Default;
                     showMerchandiseDialog.MdiParent = this;
                     showMerchandiseDialog.Show();
                 }
@@ -683,31 +493,28 @@ namespace Molmed.PlattformOrdMan.UI
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
 
         private void authorityManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowUserDialog showUserDialog;
             if (!SetChildFocus(typeof(ShowUserDialog)))
             {
-                showUserDialog = new ShowUserDialog();
-                showUserDialog.MdiParent = this;
+                var showUserDialog = new ShowUserDialog {MdiParent = this};
                 showUserDialog.Show();
             }
         }
 
         private void orderHistoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowOrderHistoryDialog showOrderHistoryDialog;
             try
             {
                 if (!SetChildFocus(typeof(ShowOrderHistoryDialog)))
                 {
-                    this.Cursor = Cursors.WaitCursor;
-                    showOrderHistoryDialog = new ShowOrderHistoryDialog();
-                    this.Cursor = Cursors.Default;
+                    Cursor = Cursors.WaitCursor;
+                    var showOrderHistoryDialog = new ShowOrderHistoryDialog();
+                    Cursor = Cursors.Default;
                     showOrderHistoryDialog.MdiParent = this;
                     showOrderHistoryDialog.Show();
                 }
@@ -718,18 +525,16 @@ namespace Molmed.PlattformOrdMan.UI
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
 
         public void ReloadAllChildren()
         { 
-            foreach(Form form in this.MdiChildren)
+            foreach(Form form in MdiChildren)
             {
-                if (form is OrdManForm)
-                {
-                    ((OrdManForm)form).ReloadForm();
-                }
+                var manForm = form as OrdManForm;
+                manForm?.ReloadForm();
             }
         }
 
@@ -737,7 +542,7 @@ namespace Molmed.PlattformOrdMan.UI
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
                 ReloadAllChildren();
             }
             catch (Exception ex)
@@ -746,7 +551,7 @@ namespace Molmed.PlattformOrdMan.UI
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
     }
