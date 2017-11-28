@@ -11,6 +11,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 {
     public partial class LoginWithBarcodeDialog : OrdManForm
     {
+        private delegate void BarcodeReceivedCallback(string barcode);
+
         private string MyBarcode;
         private int MyShrinkDistance;
 
@@ -58,9 +60,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void BarCodeReceived(string barcode)
         {
-            MyBarcode = barcode;
-            DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Close();
+            if (InvokeRequired)
+            {
+                BarcodeReceivedCallback c = new BarcodeReceivedCallback(BarCodeReceived);
+                Invoke(c, barcode);
+            }
+            else
+            {
+                MyBarcode = barcode;
+                DialogResult = System.Windows.Forms.DialogResult.OK;
+                Close();
+            }
         }
 
         public string Barcode

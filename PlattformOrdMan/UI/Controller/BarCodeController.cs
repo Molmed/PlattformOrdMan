@@ -28,7 +28,7 @@ namespace Molmed.PlattformOrdMan.UI.Controller
             MyForm.KeyDown += new KeyEventHandler(Form_KeyDown);
             MyQuitAtInternalBarcodeLength = true;
             MyActivityTimer = new System.Timers.Timer();
-            MyActivityTimer.Interval = 1000;
+            MyActivityTimer.Interval = 200;
             MyActivityTimer.Elapsed += new System.Timers.ElapsedEventHandler(ActivityTimer_Elapsed);
             MyActivityTimer.Enabled = false;
 
@@ -98,22 +98,12 @@ namespace Molmed.PlattformOrdMan.UI.Controller
                         IsNotNull(BarCodeReceived))
                     {
                         // Make a break to read the last termination character (if any) before barcode-received event
-                        BarCodeReceived(MyBarCodeString);
+                        //BarCodeReceived(MyBarCodeString);
+                        MyActivityTimer.Enabled = true;
                     }
 
                     break;
 
-                case Keys.Enter:
-                    if (MyBarCodeFlag)
-                    {
-                        // Fire bar code received event.
-                        if (IsNotNull(BarCodeReceived))
-                        {
-                            BarCodeReceived(MyBarCodeString);
-                        }
-                    }
-                    MyBarCodeFlag = false;
-                    break;
                 default:
                     MyBarCodeFlag = false;
                     break;
