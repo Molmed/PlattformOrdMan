@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="BookKeeping_devel_procedures">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="MM-WCHS001:devel_edvard">
+          <Created>2017-11-27T10:50:14.6757237+01:00</Created>
+          <Type>SQL</Type>
+          <Server>MM-WCHS001</Server>
+          <UserName>devel_edvard</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB>BookKeeping_devel</InitialDB>
+          <LoginTimeout>15</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="dbo.p_CleanAuthoritySessionMapping.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CleanAuthoritySessionMapping.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CompletePost.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CompletePost.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ConfirmPostArrival.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ConfirmPostArrival.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ConfirmPostOrdered.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ConfirmPostOrdered.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateArticleNumber.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateArticleNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateArticleNumberNoSelect.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateArticleNumberNoSelect.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateCurrency.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateCurrency.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateCustomerNumber.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateCustomerNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateInvoiceCategory.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateInvoiceCategory.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateMerchandise.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateMerchandise.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreatePost.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MM-WCHS001:False:devel_edvard</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>MM-WCHS001</AssociatedConnSrvName>
+          <AssociatedConnUserName>devel_edvard</AssociatedConnUserName>
+          <FullPath>dbo.p_CreatePost.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateSupplier.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateSupplier.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_CreateUser.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_CreateUser.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteArticleNumber.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteArticleNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteCurrency.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteCurrency.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteCustomerNumber.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteCustomerNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteInvoiceCategory.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteInvoiceCategory.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteMerchandise.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteMerchandise.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeletePost.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeletePost.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteSupplier.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteSupplier.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_DeleteUser.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_DeleteUser.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetArticleNumberById.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetArticleNumberById.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetArticleNumberByMerchandiseId.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetArticleNumberByMerchandiseId.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetArticleNumbers.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetArticleNumbers.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetColumnLength.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetColumnLength.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCurrencies.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCurrencies.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCustomerNumberById.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCustomerNumberById.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCustomerNumberBySupplierId.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCustomerNumberBySupplierId.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetCustomerNumbersAll.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetCustomerNumbersAll.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetInvoiceCategories.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetInvoiceCategories.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetInvoiceCategoryById.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetInvoiceCategoryById.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetMerchandise.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetMerchandise.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetMerchandiseById.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetMerchandiseById.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPlaceOfPurchases.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPlaceOfPurchases.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPostById.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPostById.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPosts.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPosts.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetPostsByCustomerNumberId.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetPostsByCustomerNumberId.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetSupplierById.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetSupplierById.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetSuppliers.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetSuppliers.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetTimeIntervalsForPosts.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetTimeIntervalsForPosts.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetUserCurrent.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetUserCurrent.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetUserFromBarcode.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetUserFromBarcode.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_GetUsers.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_GetUsers.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_OrderPost.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_OrderPost.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretArrivalConfirmation.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretArrivalConfirmation.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretCompleted.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretCompleted.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretOrderConfirmed.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretOrderConfirmed.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_RegretOrderPost.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_RegretOrderPost.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ReleaseAuthorityMapping.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ReleaseAuthorityMapping.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ResetArticleNumbersForMerchandise.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ResetArticleNumbersForMerchandise.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ResetPostInvoiceStatus.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ResetPostInvoiceStatus.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_ScheduledProcedureDisableProducts.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_ScheduledProcedureDisableProducts.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_SetAuthorityMappingFromBarcode.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_SetAuthorityMappingFromBarcode.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_SetAuthorityMappingFromSysUser.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_SetAuthorityMappingFromSysUser.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_SignPostInvoice.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_SignPostInvoice.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateArticleNumber.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateArticleNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateCurrency.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateCurrency.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateCustomerNumber.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateCustomerNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateInvoiceCategory.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateInvoiceCategory.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateMerchandise.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateMerchandise.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdatePost.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MM-WCHS001:False:devel_edvard</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>MM-WCHS001</AssociatedConnSrvName>
+          <AssociatedConnUserName>devel_edvard</AssociatedConnUserName>
+          <FullPath>dbo.p_UpdatePost.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdatePostSalesOrderNumber.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdatePostSalesOrderNumber.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateSupplier.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateSupplier.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo.p_UpdateUser.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo.p_UpdateUser.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

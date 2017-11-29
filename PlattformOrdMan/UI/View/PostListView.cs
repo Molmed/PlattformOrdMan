@@ -1,44 +1,40 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Globalization;
 using System.ComponentModel;
 using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.Controller;
 
 namespace Molmed.PlattformOrdMan.UI.View
 {
     public partial class PostListView : OrderManListView
     {
-        private Dictionary<int, List<PostViewItem>> MySupplierDict;
-        private Dictionary<int, List<PostViewItem>> MyProdDict;
-        private Dictionary<int, PostViewItem> MyPostDict;
+        private Dictionary<int, List<PostViewItem>> _supplierDict;
+        private Dictionary<int, List<PostViewItem>> _prodDict;
+        private Dictionary<int, PostViewItem> _postDict;
         public PostListView()
         {
             InitializeComponent();
-            MySupplierDict = new Dictionary<int, List<PostViewItem>>();
-            MyProdDict = new Dictionary<int, List<PostViewItem>>();
-            MyPostDict = new Dictionary<int, PostViewItem>();
+            _supplierDict = new Dictionary<int, List<PostViewItem>>();
+            _prodDict = new Dictionary<int, List<PostViewItem>>();
+            _postDict = new Dictionary<int, PostViewItem>();
         }
 
         public PostListView(IContainer container)
         {
             container.Add(this);
             InitializeComponent();
-            MySupplierDict = new Dictionary<int, List<PostViewItem>>();
-            MyProdDict = new Dictionary<int, List<PostViewItem>>();
-            MyPostDict = new Dictionary<int, PostViewItem>();
+            _supplierDict = new Dictionary<int, List<PostViewItem>>();
+            _prodDict = new Dictionary<int, List<PostViewItem>>();
+            _postDict = new Dictionary<int, PostViewItem>();
         }
 
         public override void BeginLoadChunk(int chunkSize)
         {
             base.BeginLoadChunk(chunkSize);
-            MySupplierDict = new Dictionary<int, List<PostViewItem>>();
-            MyProdDict = new Dictionary<int, List<PostViewItem>>();
-            MyPostDict = new Dictionary<int, PostViewItem>();
+            _supplierDict = new Dictionary<int, List<PostViewItem>>();
+            _prodDict = new Dictionary<int, List<PostViewItem>>();
+            _postDict = new Dictionary<int, PostViewItem>();
         }
 
 
@@ -82,7 +78,7 @@ namespace Molmed.PlattformOrdMan.UI.View
                     return ListDataType.String;
         
                 default:
-                    throw new Data.Exception.DataException("Unknown enum type: " + col.ToString());
+                    throw new Data.Exception.DataException("Unknown enum type: " + col);
             }
         }
 
@@ -143,13 +139,8 @@ namespace Molmed.PlattformOrdMan.UI.View
                 case PostListViewColumn.CustomerNumber:
                     return "Customer number";
                 default:
-                    throw new Data.Exception.DataException("Unknown enum type: " + col.ToString());
+                    throw new Data.Exception.DataException("Unknown enum type: " + col);
             }
-        }
-
-        public bool HasSupplierLoaded(int supplierId)
-        {
-            return MySupplierDict.ContainsKey(supplierId);
         }
 
         public void AddViewItem(Post post)
@@ -158,49 +149,28 @@ namespace Molmed.PlattformOrdMan.UI.View
             BeginAddItems(1);
             AddItem(pViewItem);
             EndAddItems();
-            this.Sort();
+            Sort();
             pViewItem.Selected = true;
             EnsureVisible(pViewItem.Index);
-            this.Select();
-        }
-
-        public bool HasMerchanidseLoaded(int merchId)
-        {
-            return MyProdDict.ContainsKey(merchId);
-        }
-
-        public bool HasPostLoaded(int postId)
-        {
-            return MyPostDict.ContainsKey(postId);
+            Select();
         }
 
         public void ReloadPost(Post post)
         { 
             if(IsNotNull(post))
             {
-                if (MyPostDict.ContainsKey(post.GetId()))
+                if (_postDict.ContainsKey(post.GetId()))
                 {
-                    ((PostViewItem)MyPostDict[post.GetId()]).ReloadPost(post);
-                }
-            }
-        }
-
-        public void ReloadSupplier(int supplierId)
-        {
-            if (MySupplierDict.ContainsKey(supplierId))
-            {
-                foreach (PostViewItem viewItem in MySupplierDict[supplierId])
-                {
-                    viewItem.ReloadSupplier();
+                    _postDict[post.GetId()].ReloadPost(post);
                 }
             }
         }
 
         public void ReloadSupplier(Supplier supplier)
         {
-            if (IsNotNull(supplier) && MySupplierDict.ContainsKey(supplier.GetId()))
+            if (IsNotNull(supplier) && _supplierDict.ContainsKey(supplier.GetId()))
             {
-                foreach (PostViewItem viewItem in MySupplierDict[supplier.GetId()])
+                foreach (PostViewItem viewItem in _supplierDict[supplier.GetId()])
                 {
                     viewItem.ReloadSupplier(supplier);
                 }
@@ -209,9 +179,9 @@ namespace Molmed.PlattformOrdMan.UI.View
 
         public void ReloadMerchandise(Merchandise merchandise)
         {
-            if (IsNotNull(merchandise) && MyProdDict.ContainsKey(merchandise.GetId()))
+            if (IsNotNull(merchandise) && _prodDict.ContainsKey(merchandise.GetId()))
             {
-                foreach (PostViewItem viewItem in MyProdDict[merchandise.GetId()])
+                foreach (PostViewItem viewItem in _prodDict[merchandise.GetId()])
                 {
                     viewItem.ReloadMerchandise(merchandise);
                 }
@@ -220,50 +190,50 @@ namespace Molmed.PlattformOrdMan.UI.View
 
         private void UpdateDictionaries()
         {
-            int supplierId, merchId, postId;
-            foreach (PostViewItem viewItem in MyAddListViewItems)
+            foreach (var listViewItem in MyAddListViewItems)
             {
+                var viewItem = (PostViewItem) listViewItem;
                 if (viewItem == null)
                 {
                     continue;
                 }
-                supplierId = viewItem.GetPost().GetSupplierId();
-                if (MySupplierDict.ContainsKey(supplierId))
+                var supplierId = viewItem.GetPost().GetSupplierId();
+                if (_supplierDict.ContainsKey(supplierId))
                 {
-                    MySupplierDict[supplierId].Add(viewItem);
+                    _supplierDict[supplierId].Add(viewItem);
                 }
                 else
                 {
-                    MySupplierDict.Add(supplierId, new List<PostViewItem> { viewItem });
+                    _supplierDict.Add(supplierId, new List<PostViewItem> { viewItem });
                 }
                 
-                merchId = viewItem.GetPost().GetMerchandiseId();
-                if (MyProdDict.ContainsKey(merchId))
+                var merchId = viewItem.GetPost().GetMerchandiseId();
+                if (_prodDict.ContainsKey(merchId))
                 {
-                    MyProdDict[merchId].Add(viewItem);
+                    _prodDict[merchId].Add(viewItem);
                 }
                 else
                 {
-                    MyProdDict.Add(merchId, new List<PostViewItem> { viewItem });
+                    _prodDict.Add(merchId, new List<PostViewItem> { viewItem });
                 }
 
-                postId = viewItem.GetPost().GetId();
-                if (MyPostDict.ContainsKey(postId))
+                var postId = viewItem.GetPost().GetId();
+                if (_postDict.ContainsKey(postId))
                 {
-                    MyPostDict[postId] = viewItem;
+                    _postDict[postId] = viewItem;
                 }
                 else
                 {
-                    MyPostDict.Add(postId, viewItem);
+                    _postDict.Add(postId, viewItem);
                 }
             }        
         }
 
         public override void BeginLoadItems(int itemCount)
         {
-            MyProdDict = new Dictionary<int, List<PostViewItem>>();
-            MySupplierDict = new Dictionary<int, List<PostViewItem>>();
-            MyProdDict = new Dictionary<int, List<PostViewItem>>();
+            _prodDict = new Dictionary<int, List<PostViewItem>>();
+            _supplierDict = new Dictionary<int, List<PostViewItem>>();
+            _prodDict = new Dictionary<int, List<PostViewItem>>();
             base.BeginLoadItems(itemCount);
         }
 
@@ -288,34 +258,28 @@ namespace Molmed.PlattformOrdMan.UI.View
         public override void InitList()
         {
             base.InitList();
-            this.ListViewItemSorter = new ListViewComparerDefault();
+            ListViewItemSorter = new ListViewComparerDefault();
         }
 
         public override void ResetSortOrder()
         {
-            this.ListViewItemSorter = new ListViewComparerDefault();
+            ListViewItemSorter = new ListViewComparerDefault();
             MySortColumnIndex = NO_COLUMN_INDEX;
         }
 
 
         private class ListViewComparerDefault : ListViewComparerChiasma
         {
-            public ListViewComparerDefault()
-                : base()
-            {
-
-            }
-
             public override int Compare(object object1, object object2)
             {
-                PostViewItem listViewItem1, listViewItem2;
-                Post post1, post2;
+                Post post1 = null;
 
-                listViewItem1 = (PostViewItem)object1;
-                listViewItem2 = (PostViewItem)object2;
+                var listViewItem1 = (PostViewItem)object1;
+                var listViewItem2 = (PostViewItem)object2;
 
-                post1 = listViewItem1.GetPost();
-                post2 = listViewItem2.GetPost();
+                if (listViewItem1 != null) post1 = listViewItem1.GetPost();
+                if (listViewItem2 == null) return 0;
+                var post2 = listViewItem2.GetPost();
 
 
                 if (post1 != null && post2 != null)
@@ -358,57 +322,27 @@ namespace Molmed.PlattformOrdMan.UI.View
 
     public class PostViewItem : ListViewItem
     {
-        private Post MyPost;
-        private enum ListIndex : int
-        {
-            BookDate = 0,
-            Booker = 1,
-            Product = 2,
-            ArtNr = 3,
-            Amount = 4,
-            Supplier = 5,
-            InvoiceCategoryCode = 6,
-            ApprPrize = 7,
-            FinalPrize = 8,
-            TotalPrize = 9,
-            ApprArrival = 10,
-            InvoiceInst = 11,
-            InvoiceClin = 12,
-            InvoiceNumber = 13,
-            InvoiceStatus = 14,
-            DeliveryDeviation = 15,
-            OrderDate = 16,
-            OrderSign = 17,
-            ArrivalDate = 18,
-            ArrivalSign = 19,
-            InvoiceDate = 20,
-            InvoiceSender = 21,
-            PurchaseOrderNo = 22,
-            SalesOrderNo = 23,
-            Comment = 24
-        }
+        private Post _post;
+
         public PostViewItem(Post post)
             : base("")
         {
-            DataRow[] rows;
-            string sort, colName;
-            PostListViewColumn col;
-            MyPost = post;
-            sort = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " asc";
+            _post = post;
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
 
             // Loop through columns in personal config datatable
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
             for (int i = 0; i < rows.Length; i++)
             {
-                colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
-                col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
+                var colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
+                var col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
                 if (i == 0)
                 {
-                    this.Text = post.GetStringForListViewColumn(col);
+                    Text = post.GetStringForListViewColumn(col);
                 }
                 else
                 { 
-                    this.SubItems.Add(post.GetStringForListViewColumn(col));
+                    SubItems.Add(post.GetStringForListViewColumn(col));
                 }
             }
             //this.UseItemStyleForSubItems = false;
@@ -418,100 +352,78 @@ namespace Molmed.PlattformOrdMan.UI.View
 
         public void ReloadPost(Post post)
         {
-            MyPost = post;
-            UpdateViewItem();
-        }
-
-        public void ReloadSupplier()
-        {
-            MyPost.ResetSupplierLocal();
+            _post = post;
             UpdateViewItem();
         }
 
         public void ReloadSupplier(Supplier supplier)
         {
-            MyPost.ReloadSupplier(supplier);
-            UpdateViewItem();
-        }
-
-        public void ReloadMerchandise()
-        {
-            MyPost.ResetMerchandiseLocal();
+            _post.ReloadSupplier(supplier);
             UpdateViewItem();
         }
 
         public void ReloadMerchandise(Merchandise merchandise)
         {
-            MyPost.ReloadMerchandise(merchandise);
+            _post.ReloadMerchandise(merchandise);
             UpdateViewItem();
         }
 
         public Post GetPost()
         {
-            return MyPost;
+            return _post;
         }
 
         private void SetStatusColor()
         {
-            switch (MyPost.GetPostStatus())
+            if (_post.AttentionFlag)
+            {
+                ForeColor = Color.Black;
+                BackColor = Color.Red;
+                return;
+            }
+            if (!_post.IsMerchandiseEnabled())
+            {
+                ForeColor = Color.Red;
+                ToolTipText = "This product is not up to date";
+            }
+            switch (_post.GetPostStatus())
             {
                 case Post.PostStatus.Booked:
-                    this.BackColor = Color.LightCoral;
-                    this.ForeColor = Color.Black;
+                    BackColor = Color.LightCoral;
+                    ForeColor = Color.Black;
                     break;
                 case Post.PostStatus.Ordered:
-                    this.BackColor = Color.Yellow;
-                    this.ForeColor = Color.Black;
+                    BackColor = Color.Yellow;
+                    ForeColor = Color.Black;
                     break;
                 case Post.PostStatus.ConfirmedOrder:
-                    this.BackColor = Color.LightBlue;
-                    this.ForeColor = Color.Black;
+                    BackColor = Color.LightBlue;
+                    ForeColor = Color.Black;
                     break;
                 case Post.PostStatus.Confirmed:
-                    this.BackColor = Color.Lime;
-                    this.ForeColor = Color.Black;
+                    BackColor = Color.Lime;
+                    ForeColor = Color.Black;
                     break;
                 case Post.PostStatus.Completed:
-                    if (MyPost.GetInvoiceStatus() == Post.InvoiceStatus.NotOk)
-                    {
-                        this.BackColor = Color.Black;
-                        this.ForeColor = Color.LightSalmon;
-                    }
-                    else
-                    {
-                        this.BackColor = Color.White;
-                        this.ForeColor = Color.Black;
-                    }
+                    BackColor = Color.White;
+                    ForeColor = Color.Black;
                     break;
             }
-            if (!MyPost.IsMerchandiseEnabled())
-            {
-                this.ForeColor = Color.Red;
-                this.ToolTipText = "This product is not up to date";
-            }
-        }
-
-        protected bool IsNotEmpty(string str)
-        {
-            return str != null && str.Length > 0;
         }
 
         public void UpdateViewItem()
         {
-            DataRow[] rows;
-            string sort, colName;
-            PostListViewColumn col;
-            sort = Configuration.PostListViewConfColumns.ColSortOrder.ToString() + " asc";
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
 
             // Loop through columns in personal config datatable
-            rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
             for (int i = 0; i < rows.Length; i++)
             {
-                colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
-                col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
+                var colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
+                var col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
                 
-                this.SubItems[(int)rows[i][Configuration.PostListViewConfColumns.ColSortOrder.ToString()]].Text = 
-                    MyPost.GetStringForListViewColumn(col);
+                SubItems[(int)rows[i][Configuration.PostListViewConfColumns.ColSortOrder.ToString()]].Text = 
+                    _post.GetStringForListViewColumn(col);
             }
             SetStatusColor();
         }

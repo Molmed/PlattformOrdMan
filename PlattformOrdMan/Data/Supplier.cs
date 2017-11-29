@@ -1,90 +1,39 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Molmed.PlattformOrdMan.Database;
 
 namespace Molmed.PlattformOrdMan.Data
 {
     public class Supplier : DataComment 
     {
-        private String MyTelNr;
-        private String MyContractTerminate;
-        private String MyShortName;
-        private bool MyEnabled;
-        private MerchandiseList MyProducts;
-        private CustomerNumberList MyCustomerNumbers;
+        private String _telNr;
+        private String _contractTerminate;
+        private String _shortName;
+        private bool _enabled;
+        private CustomerNumberList _customerNumbers;
 
         public Supplier(DataReader datareader)
             : base(datareader)
         {
-            MyTelNr = datareader.GetString(SupplierData.TEL_NR, "");
-            MyContractTerminate = datareader.GetString(SupplierData.CONTRACT_TERMINATE, "");
-            MyShortName = datareader.GetString(SupplierData.SHORT_NAME, "");
-            MyEnabled = datareader.GetBoolean(SupplierData.ENABLED);
-            MyProducts = null;
-            MyCustomerNumbers = null;
-        }
-
-        public Supplier(int id, string identifier, string comment, string telnr, 
-            string contractTerminate, string shortName, bool isEnalbed, 
-            MerchandiseList products, CustomerNumberList customerNumbers)
-            : base(comment, identifier, id)
-        {
-            MyTelNr = telnr;
-            MyContractTerminate = contractTerminate;
-            MyShortName = shortName;
-            MyEnabled = isEnalbed;
-            MyProducts = products;
-            MyCustomerNumbers = customerNumbers;
+            _telNr = datareader.GetString(SupplierData.TEL_NR, "");
+            _contractTerminate = datareader.GetString(SupplierData.CONTRACT_TERMINATE, "");
+            _shortName = datareader.GetString(SupplierData.SHORT_NAME, "");
+            _enabled = datareader.GetBoolean(SupplierData.ENABLED);
+            _customerNumbers = null;
         }
 
         public CustomerNumberList GetCustomerNumbers()
         {
-            if (MyCustomerNumbers == null)
-            {
-                MyCustomerNumbers = CustomerNumberManager.GetCustomerNumbers(GetId());
-            }
-            return MyCustomerNumbers;
+            return _customerNumbers ?? (_customerNumbers = CustomerNumberManager.GetCustomerNumbers(GetId()));
         }
 
         public void ResetCustomerNumberLocal()
         {
-            MyCustomerNumbers = null;
+            _customerNumbers = null;
         }
 
         public void AddCustomerNumberLocal(CustomerNumber custNumber)
         {
             GetCustomerNumbers().Add(custNumber);
-        }
-
-        public Supplier Clone()
-        {
-            MerchandiseList products = null;
-            CustomerNumberList custNums = null;
-
-            if (MyProducts != null)
-            {
-                products = new MerchandiseList();
-                foreach (Merchandise merch in MyProducts)
-                {
-                    products.Add(merch.Clone());
-                }
-            }
-
-            if (MyCustomerNumbers != null)
-            {
-                custNums = new CustomerNumberList();
-                foreach (CustomerNumber custNum in MyCustomerNumbers)
-                {
-                    custNums.Add(custNum.Clone());
-                }
-            }
-
-            Supplier supplier = new Supplier(GetId(), GetIdentifier(),
-                GetComment(), GetTelNr(), GetContractTerminate(), 
-                GetShortName(), IsEnabled(), products, custNums);
-
-            return supplier;
         }
 
         public void RemoveCustomerNumberLocal(CustomerNumber custNumber)
@@ -95,11 +44,10 @@ namespace Molmed.PlattformOrdMan.Data
         public CustomerNumberList GetCustomerNumbersForCurrentUserGroup()
         {
             CustomerNumberList custNumbers = new CustomerNumberList();
-            GroupCategory currentGroup, group;
-            currentGroup = GetGroupCategory(UserManager.GetCurrentUser().GetPlaceOfPurchase());
+            var currentGroup = GetGroupCategory(UserManager.GetCurrentUser().GetPlaceOfPurchase());
             foreach (CustomerNumber custNum in GetCustomerNumbers())
             {
-                group = GetGroupCategory(custNum.GetPlaceOfPurchase());
+                var group = GetGroupCategory(custNum.GetPlaceOfPurchase());
                 if (currentGroup == group)
                 {
                     custNumbers.Add(custNum);
@@ -111,11 +59,10 @@ namespace Molmed.PlattformOrdMan.Data
         public CustomerNumberList GetCustomerNumbersForUserGroup(PlaceOfPurchase placeOfPurchase)
         {
             CustomerNumberList custNumbers = new CustomerNumberList();
-            GroupCategory currentGroup, group;
-            currentGroup = GetGroupCategory(placeOfPurchase);
+            var currentGroup = GetGroupCategory(placeOfPurchase);
             foreach (CustomerNumber custNum in GetCustomerNumbers())
             {
-                group = GetGroupCategory(custNum.GetPlaceOfPurchase());
+                var group = GetGroupCategory(custNum.GetPlaceOfPurchase());
                 if (currentGroup == group)
                 {
                     custNumbers.Add(custNum);
@@ -124,18 +71,9 @@ namespace Molmed.PlattformOrdMan.Data
             return custNumbers;
         }
 
-        public MerchandiseList GetProducts()
-        {
-            if (IsNull(MyProducts))
-            {
-                MyProducts = MerchandiseManager.GetMerchandiseForSupplier(GetId());
-            }
-            return MyProducts;
-        }
-
         public String GetTelNr()
         {
-            return MyTelNr;
+            return _telNr;
         }
 
         public bool HasMatchInCustomerNumber(string searchStr)
@@ -152,17 +90,17 @@ namespace Molmed.PlattformOrdMan.Data
 
         public String GetContractTerminate()
         {
-            return MyContractTerminate;
+            return _contractTerminate;
         }
 
         public String GetShortName()
         {
-            return MyShortName;
+            return _shortName;
         }
 
         public String GetEnabledString()
         {
-            if (MyEnabled)
+            if (_enabled)
             {
                 return "Yes";
             }
@@ -174,7 +112,7 @@ namespace Molmed.PlattformOrdMan.Data
 
         public bool IsEnabled()
         {
-            return MyEnabled;
+            return _enabled;
         }
 
         public override DataType GetDataType()
@@ -186,7 +124,7 @@ namespace Molmed.PlattformOrdMan.Data
         {
             Database.UpdateSupplier(GetId(), GetIdentifier(), GetShortName(), GetTelNr(), 
                                         GetComment(), GetContractTerminate(), IsEnabled());
-            PlattformOrdManData.OEventHandler.FireSupplierUpdate(this);
+            OEventHandler.FireSupplierUpdate(this);
         }
 
         public void SetIdentifier(String identifier)
@@ -196,27 +134,27 @@ namespace Molmed.PlattformOrdMan.Data
 
         public void SetTelNr(String telNr)
         {
-            MyTelNr = telNr;
+            _telNr = telNr;
         }
 
         public void SetCustomerNumbersLocal(CustomerNumberList custNumbs)
         {
-            MyCustomerNumbers = custNumbs;
+            _customerNumbers = custNumbs;
         }
 
         public void SetContractTermination(String contractTermination)
         {
-            MyContractTerminate = contractTermination;
+            _contractTerminate = contractTermination;
         }
 
         public void SetShortName(String shortName)
         {
-            MyShortName = shortName;
+            _shortName = shortName;
         }
 
         public void SetEnabled(bool enabled)
         {
-            MyEnabled = enabled;
+            _enabled = enabled;
         }
     }
 
@@ -229,23 +167,10 @@ namespace Molmed.PlattformOrdMan.Data
 
         public new Supplier this[Int32 index]
         {
-            get
-            {
-                return (Supplier)(base[index]);
-            }
             set
             {
                 base[index] = value;
             }
         }
-
-        public new Supplier this[String identifier]
-        {
-            get
-            {
-                return (Supplier)(base[identifier]);
-            }
-        }
-    
     }
 }

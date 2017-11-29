@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
 
@@ -11,23 +6,23 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 {
     public partial class EditUserDialog : OrdManForm
     {
-        User MyUser;
-        UpdateMode MyUpdateMode;
+        User _user;
+        readonly UpdateMode _updateMode;
         public EditUserDialog(User user, UpdateMode updateMode)
         {
             InitializeComponent();
-            MyUser = user;
-            MyUpdateMode = updateMode;
+            _user = user;
+            _updateMode = updateMode;
             foreach (User.UserType userType in Enum.GetValues(typeof(User.UserType)))
             {
                 // Don't show the developer user type.
-                if (!Enum.Equals(userType, User.UserType.Developer))
+                if (!Equals(userType, User.UserType.Developer))
                 {
                     UserTypeComboBox.Items.Add(userType);
                 }
             }
             InitOrderingUnitCombobox();
-            switch (MyUpdateMode)
+            switch (_updateMode)
             { 
                 case UpdateMode.Create:
                     InitCreateMode();
@@ -55,32 +50,31 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void CreateUser()
         {
-            String identifier, comment, name;
-            identifier = LoginTtextBox.Text.Trim();
-            comment = CommentTextBox.Text.Trim();
-            name = NameTextBox.Text.Trim();
+            var identifier = LoginTtextBox.Text.Trim();
+            var comment = CommentTextBox.Text.Trim();
+            var name = NameTextBox.Text.Trim();
             if (OrderingUnitComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select Group for the user before saving!", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            MyUser = UserManager.CreateUser(identifier, name, (User.UserType)UserTypeComboBox.SelectedItem, 
+            _user = UserManager.CreateUser(identifier, name, (User.UserType)UserTypeComboBox.SelectedItem, 
                 true, (PlaceOfPurchase)OrderingUnitComboBox.SelectedItem, comment);
         }
 
         private void InitEditMode()
         {
-            LoginTtextBox.Text = MyUser.GetIdentifier();
-            NameTextBox.Text = MyUser.GetName();
-            CommentTextBox.Text = MyUser.GetComment();
-            DisableCheckBox.Checked = !MyUser.IsAccountActive();
-            UserTypeComboBox.SelectedItem = MyUser.GetUserType();
-            OrderingUnitComboBox.SelectedItem = MyUser.GetPlaceOfPurchase();
+            LoginTtextBox.Text = _user.GetIdentifier();
+            NameTextBox.Text = _user.GetName();
+            CommentTextBox.Text = _user.GetComment();
+            DisableCheckBox.Checked = !_user.IsAccountActive();
+            UserTypeComboBox.SelectedItem = _user.GetUserType();
+            OrderingUnitComboBox.SelectedItem = _user.GetPlaceOfPurchase();
         }
 
         private void InitCreateMode()
         {
-            this.Text = "Create User";
+            Text = "Create User";
             SaveButton.Text = "Create";
             OrderingUnitComboBox.SelectedIndex = -1;
             DisableCheckBox.Visible = false;
@@ -92,11 +86,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 return false;
             }
-            return (MyUser.GetIdentifier() != LoginTtextBox.Text.Trim() ||
-                    MyUser.GetName() != NameTextBox.Text.Trim() ||
-                    MyUser.GetComment() != CommentTextBox.Text.Trim() ||
-                    MyUser.GetUserType() != (User.UserType)UserTypeComboBox.SelectedItem ||
-                    MyUser.IsAccountActive() == DisableCheckBox.Checked ||
+            return (_user.GetIdentifier() != LoginTtextBox.Text.Trim() ||
+                    _user.GetName() != NameTextBox.Text.Trim() ||
+                    _user.GetComment() != CommentTextBox.Text.Trim() ||
+                    _user.GetUserType() != (User.UserType)UserTypeComboBox.SelectedItem ||
+                    _user.IsAccountActive() == DisableCheckBox.Checked ||
                     IsPlaceOfPurchaseUpdated());
         }
 
@@ -108,7 +102,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                return (PlaceOfPurchase)OrderingUnitComboBox.SelectedItem != MyUser.GetPlaceOfPurchase();
+                return (PlaceOfPurchase)OrderingUnitComboBox.SelectedItem != _user.GetPlaceOfPurchase();
             }
         }
 
@@ -119,29 +113,18 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     UserTypeComboBox.SelectedIndex > -1);
         }
 
-        public User GetUser()
-        {
-            return MyUser;
-        }
-
-        private User.UserType GetUserType()
-        {
-            return (User.UserType)(UserTypeComboBox.SelectedItem);
-        }
-
         private void UpdateUser()
-        { 
-            String identifier, comment, name;
-            identifier = LoginTtextBox.Text.Trim();
-            comment = CommentTextBox.Text.Trim();
-            name = NameTextBox.Text.Trim();
-            MyUser.Set(identifier, name, (User.UserType)UserTypeComboBox.SelectedItem, !DisableCheckBox.Checked,
+        {
+            var identifier = LoginTtextBox.Text.Trim();
+            var comment = CommentTextBox.Text.Trim();
+            var name = NameTextBox.Text.Trim();
+            _user.Set(identifier, name, (User.UserType)UserTypeComboBox.SelectedItem, !DisableCheckBox.Checked,
                 (PlaceOfPurchase)OrderingUnitComboBox.SelectedItem, comment);
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            switch (MyUpdateMode)
+            switch (_updateMode)
             { 
                 case UpdateMode.Create:
                     CreateUser();
@@ -155,7 +138,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void LoginTtextBox_TextChanged(object sender, EventArgs e)
         {
-            if (MyUpdateMode == UpdateMode.Edit)
+            if (_updateMode == UpdateMode.Edit)
             {
                 SaveButton.Enabled = IsUpdated() && IsReadyToCreate();
             }
@@ -167,7 +150,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (MyUpdateMode == UpdateMode.Edit)
+            if (_updateMode == UpdateMode.Edit)
             {
                 SaveButton.Enabled = IsUpdated() && IsReadyToCreate();
             }
@@ -180,7 +163,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void UserTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (MyUpdateMode == UpdateMode.Edit)
+            if (_updateMode == UpdateMode.Edit)
             {
                 SaveButton.Enabled = IsUpdated() && IsReadyToCreate();
             }
@@ -193,7 +176,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void CommentTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (MyUpdateMode == UpdateMode.Edit)
+            if (_updateMode == UpdateMode.Edit)
             {
                 SaveButton.Enabled = IsUpdated() && IsReadyToCreate();
             }
@@ -205,7 +188,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void DisableCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (MyUpdateMode == UpdateMode.Edit)
+            if (_updateMode == UpdateMode.Edit)
             {
                 SaveButton.Enabled = IsUpdated() && IsReadyToCreate();
             }
@@ -213,7 +196,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void OrderingUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (MyUpdateMode == UpdateMode.Edit)
+            if (_updateMode == UpdateMode.Edit)
             {
                 SaveButton.Enabled = IsUpdated() && IsReadyToCreate();
             }
