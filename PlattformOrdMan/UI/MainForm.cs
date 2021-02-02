@@ -5,6 +5,9 @@ using System.Reflection;
 using System.Timers;
 using Molmed.PlattformOrdMan.UI.Dialog;
 using Molmed.PlattformOrdMan.Data;
+using Molmed.PlattformOrdMan.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.Repositories;
 using PlattformOrdMan.Properties;
 
 namespace Molmed.PlattformOrdMan.UI
@@ -387,7 +390,12 @@ namespace Molmed.PlattformOrdMan.UI
             try
             {
                 // Try to connect to the database.
-                PlattformOrdManData.Database = new Database.Dataserver(userName, password);
+                var dbProvider = new DatabaseReference(
+                    new InitialsProvider(new EnvironmentRepository()),
+                    Settings.Default.DataServerInitialCatalog);
+
+                PlattformOrdManData.Database = new Database.Dataserver(
+                    userName, password, dbProvider.GenerateDatabaseName());
                 if (!PlattformOrdManData.Database.Connect())
                 {
                     throw new Exception("Could not connect user " + userName + " to database");
