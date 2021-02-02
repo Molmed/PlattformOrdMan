@@ -13,7 +13,7 @@ namespace Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing
 
         public DatabaseReference() :
             this(new InitialsProvider(new EnvironmentRepository()),
-            SettingsProvider.Settings["DatabaseName"])
+            SettingsProvider.Settings["DataServerInitialCatalog"])
         {
         }
 
@@ -40,7 +40,7 @@ namespace Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing
 
         public static string DataServerInitialCatalogFromSettings()
         {
-            return Settings.Default.DatabaseName;
+            return Settings.Default.DataServerInitialCatalog;
         }
     }
 }

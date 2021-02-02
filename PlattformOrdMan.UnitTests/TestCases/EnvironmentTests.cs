@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Chiasma.SharedKernel.Repositories;
+using Molmed.PlattformOrdMan.DbConnection.Repositories;
 
 namespace Chiasma.UnitTest.TestCases
 {
