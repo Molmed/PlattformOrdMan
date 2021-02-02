@@ -1,4 +1,4 @@
-USE [BookKeeping]
+USE [BookKeeping_devel_ee]
 GO
 /****** Object:  StoredProcedure [dbo].[p_UpdatePost]    Script Date: 7/27/2017 1:42:18 PM ******/
 SET ANSI_NULLS OFF
@@ -8,7 +8,7 @@ GO
 
 
 
-CREATE PROCEDURE [dbo].[p_UpdatePost](
+alter PROCEDURE [dbo].[p_UpdatePost](
 @id INTEGER,
 @comment VARCHAR(1024) = NULL,
 @appr_prize MONEY = NULL,
@@ -38,7 +38,9 @@ CREATE PROCEDURE [dbo].[p_UpdatePost](
 @sales_order_no varchar(255) = null,
 @place_of_purchase varchar(30),
 @customer_number_id int = null,
-@attention_flag bit = 0)
+@attention_flag bit = 0,
+@account varchar(255) = null,
+@periodization varchar(255) = null)
 
 AS
 BEGIN
@@ -80,7 +82,9 @@ SET
 	sales_order_no = @sales_order_no,
 	place_of_purchase_id = pop.place_of_purchase_id,
 	customer_number_id = @customer_number_id,
-	attention_flag = @attention_flag
+	attention_flag = @attention_flag,
+	account = @account,
+	periodization = @periodization
 FROM place_of_purchase pop 
 WHERE post_id = @id AND	pop.code = @place_of_purchase
 	

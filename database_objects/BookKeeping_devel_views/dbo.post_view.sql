@@ -1,4 +1,4 @@
-USE [BookKeeping]
+USE [BookKeeping_devel_ee]
 GO
 /****** Object:  View [dbo].[post_view]    Script Date: 7/27/2017 1:42:18 PM ******/
 SET ANSI_NULLS ON
@@ -8,7 +8,7 @@ GO
 
 
 
-CREATE VIEW [dbo].[post_view] AS
+alter VIEW [dbo].[post_view] AS
 SELECT 
 	p.post_id AS id,
 	p.comment,
@@ -40,6 +40,8 @@ SELECT
 	p.sales_order_no,
 	p.customer_number_id,
 	p.attention_flag,
+	p.account,
+	p.periodization,
 	pop.code as place_of_purchase,
 	an.identifier as article_number_identifier,
 	an.active as article_number_active,

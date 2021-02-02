@@ -1,6 +1,6 @@
-USE [BookKeeping]
+USE [BookKeeping_devel_ee]
 GO
-CREATE TRIGGER [dbo].[T_post_delete] ON [dbo].[post]
+alter TRIGGER [dbo].[T_post_delete] ON [dbo].[post]
 AFTER DELETE
 
 AS
@@ -38,7 +38,9 @@ INSERT INTO post_history
 	 sales_order_no,
 	 place_of_purchase_id,
 	 customer_number_id,
-	 attention_flag)
+	 attention_flag,
+	 account,
+	 periodization)
 SELECT
 post_id,
 	 article_number_id,
@@ -70,7 +72,9 @@ post_id,
 	 sales_order_no,
 	 place_of_purchase_id,
 	 customer_number_id,
-	 attention_flag
+	 attention_flag,
+	 account,
+	 periodization
 FROM deleted
 	
 SET NOCOUNT OFF
