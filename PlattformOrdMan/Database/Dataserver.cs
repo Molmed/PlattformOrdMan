@@ -5,6 +5,9 @@ using System.Data;
 using System.Data.SqlClient;
 using PlattformOrdMan.Properties;
 using Molmed.PlattformOrdMan.Data;
+using Molmed.PlattformOrdMan.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.Repositories;
 
 namespace Molmed.PlattformOrdMan.Database
 {
@@ -23,7 +26,7 @@ namespace Molmed.PlattformOrdMan.Database
         public event TransactionRollbackedEventHandler TransactionRollbacked;
 
         public Dataserver(String userName, String password)
-            : this(userName, password, Settings.Default.DataServerInitialCatalog)
+            : this(userName, password, Settings.Default.DatabaseName)
         {
         }
 

@@ -5,6 +5,9 @@ using System.Reflection;
 using System.Timers;
 using Molmed.PlattformOrdMan.UI.Dialog;
 using Molmed.PlattformOrdMan.Data;
+using Molmed.PlattformOrdMan.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.Repositories;
 using PlattformOrdMan.Properties;
 
 namespace Molmed.PlattformOrdMan.UI
@@ -134,16 +137,16 @@ namespace Molmed.PlattformOrdMan.UI
                 toolStripSeparator1.Visible = UserManager.GetCurrentUser().HasAdministratorRights();
             }
             Text = Config.GetDialogTitleStandard();
-            if (Settings.Default.DataServerInitialCatalog.Contains(RESEARCH_TAG))
+            if (Settings.Default.DatabaseName.Contains(RESEARCH_TAG))
             {
                 Text = Text + " (Research)";
             }
-            else if(Settings.Default.DataServerInitialCatalog.Contains(PRACTICE_TAG))                
+            else if(Settings.Default.DatabaseName.Contains(PRACTICE_TAG))                
             {
                 Text += " (VALIDATAION)";
                 BackgroundImage = Resources.ValidationBackground;
             }
-            else if (Settings.Default.DataServerInitialCatalog.Contains(DEVEL_TAG))
+            else if (Settings.Default.DatabaseName.Contains(DEVEL_TAG))
             {
                 Text += " (DEVELOPMENT)";
                 BackgroundImage = Resources.DevelBackground;
@@ -387,7 +390,12 @@ namespace Molmed.PlattformOrdMan.UI
             try
             {
                 // Try to connect to the database.
-                PlattformOrdManData.Database = new Database.Dataserver(userName, password);
+                var dbProvider = new DatabaseReference(
+                    new InitialsProvider(new EnvironmentRepository()),
+                    Settings.Default.DatabaseName);
+
+                PlattformOrdManData.Database = new Database.Dataserver(
+                    userName, password, dbProvider.GenerateDatabaseName());
                 if (!PlattformOrdManData.Database.Connect())
                 {
                     throw new Exception("Could not connect user " + userName + " to database");
