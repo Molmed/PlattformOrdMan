@@ -1,25 +1,25 @@
 using System;
-using Chiasma.SharedKernel.Repositories;
+using Molmed.PlattformOrdMan.DbConnection.Repositories;
 
-namespace Chiasma.SharedKernel.DatabaseReferencing
+namespace Molmed.PlattformOrdMan.DatabaseReferencing
 {
     public class InitialsProvider
     {
-        const string InitialsEnvVar = "INITIALS";
+        const string INITIALS_ENV_VAR = "INITIALS";
 
-        private readonly IEnvironmentRepository repository;
+        private readonly IEnvironmentRepository _repository;
 
         public InitialsProvider(IEnvironmentRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         public string ProvideInitials()
         {
-            var devInitials = repository.GetValue(InitialsEnvVar);
+            var devInitials = _repository.GetValue(INITIALS_ENV_VAR);
             if (String.IsNullOrEmpty(devInitials))
             {
-                throw new NoEnvironentVariableForInitialsException(InitialsEnvVar);
+                throw new NoEnvironentVariableForInitialsException(INITIALS_ENV_VAR);
             }
             return devInitials;
         }

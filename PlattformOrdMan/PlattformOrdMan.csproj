@@ -84,6 +84,10 @@
     <Compile Include="Data\TimeIntervalForPostsManager.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Data\UserManager.cs" />
+    <Compile Include="DbConnection\DatabaseReferencing\DatabaseReference.cs" />
+    <Compile Include="DbConnection\DatabaseReferencing\InitialsProvider.cs" />
+    <Compile Include="DbConnection\Repositories\EnvironmentRepository.cs" />
+    <Compile Include="DbConnection\Repositories\NoEnvironentVariableForInitialsException.cs" />
     <Compile Include="IO\Export.cs" />
     <Compile Include="IO\ExportDelimitedText.cs" />
     <Compile Include="IO\PathPersistFileDialog.cs" />

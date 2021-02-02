@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chiasma.SharedKernel.Repositories
+namespace Molmed.PlattformOrdMan.DbConnection.Repositories
 {
     public class EnvironmentRepository : IEnvironmentRepository
     {

@@ -1,7 +1,9 @@
-using Chiasma.SharedKernel.Properties;
-using Chiasma.SharedKernel.Repositories;
+using System.Configuration;
+using Molmed.PlattformOrdMan.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.Repositories;
+using PlattformOrdMan.Properties;
 
-namespace Chiasma.SharedKernel.DatabaseReferencing
+namespace Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing
 {
     public class DatabaseReference
     {

@@ -1,9 +1,9 @@
-using Chiasma.SharedKernel.DatabaseReferencing;
-using Chiasma.SharedKernel.Repositories;
-using Moq;
+using Molmed.PlattformOrdMan.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
+using Molmed.PlattformOrdMan.DbConnection.Repositories;
 using NUnit.Framework;
 
-namespace UnitTests.TestCases
+namespace PlattformOrdMan.UnitTests.TestCases
 {
 
     [TestFixture]
