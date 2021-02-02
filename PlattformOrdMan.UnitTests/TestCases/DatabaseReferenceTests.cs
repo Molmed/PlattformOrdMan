@@ -15,7 +15,7 @@ namespace PlattformOrdMan.UnitTests.TestCases
         public void CheckDataServerInitialCatalogValue()
         {
             var dataServerInitialCatalog = DatabaseReference.DataServerInitialCatalogFromSettings();
-            Assert.AreEqual("GTDB2_devel_{INITIALS}", dataServerInitialCatalog);
+            Assert.AreEqual("BookKeeping_devel_{INITIALS}", dataServerInitialCatalog);
         }
 
         private InitialsProvider CreateMockInitialsProvider(string retValue)
