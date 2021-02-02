@@ -26,9 +26,9 @@ namespace PlattformOrdMan.UnitTests {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("BookKeeping_devel_{INITIALS}")]
-        public string DataServerInitialCatalog {
+        public string DatabaseName {
             get {
-                return ((string)(this["DataServerInitialCatalog"]));
+                return ((string)(this["DatabaseName"]));
             }
         }
     }

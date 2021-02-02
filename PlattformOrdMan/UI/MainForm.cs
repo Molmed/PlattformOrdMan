@@ -137,16 +137,16 @@ namespace Molmed.PlattformOrdMan.UI
                 toolStripSeparator1.Visible = UserManager.GetCurrentUser().HasAdministratorRights();
             }
             Text = Config.GetDialogTitleStandard();
-            if (Settings.Default.DataServerInitialCatalog.Contains(RESEARCH_TAG))
+            if (Settings.Default.DatabaseName.Contains(RESEARCH_TAG))
             {
                 Text = Text + " (Research)";
             }
-            else if(Settings.Default.DataServerInitialCatalog.Contains(PRACTICE_TAG))                
+            else if(Settings.Default.DatabaseName.Contains(PRACTICE_TAG))                
             {
                 Text += " (VALIDATAION)";
                 BackgroundImage = Resources.ValidationBackground;
             }
-            else if (Settings.Default.DataServerInitialCatalog.Contains(DEVEL_TAG))
+            else if (Settings.Default.DatabaseName.Contains(DEVEL_TAG))
             {
                 Text += " (DEVELOPMENT)";
                 BackgroundImage = Resources.DevelBackground;
@@ -392,7 +392,7 @@ namespace Molmed.PlattformOrdMan.UI
                 // Try to connect to the database.
                 var dbProvider = new DatabaseReference(
                     new InitialsProvider(new EnvironmentRepository()),
-                    Settings.Default.DataServerInitialCatalog);
+                    Settings.Default.DatabaseName);
 
                 PlattformOrdManData.Database = new Database.Dataserver(
                     userName, password, dbProvider.GenerateDatabaseName());

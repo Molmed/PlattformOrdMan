@@ -40,7 +40,7 @@ namespace Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing
 
         public static string DataServerInitialCatalogFromSettings()
         {
-            return Settings.Default.DataServerInitialCatalog;
+            return Settings.Default.DatabaseName;
         }
     }
 }
