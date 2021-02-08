@@ -95,13 +95,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
+            this.demandAnswerField1 = new Molmed.PlattformOrdMan.UI.Component.DemandAnswerField();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SaveButton.Location = new System.Drawing.Point(12, 685);
+            this.SaveButton.Location = new System.Drawing.Point(12, 816);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(86, 24);
             this.SaveButton.TabIndex = 0;
@@ -113,7 +114,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.MyCloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.MyCloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.MyCloseButton.Location = new System.Drawing.Point(879, 685);
+            this.MyCloseButton.Location = new System.Drawing.Point(879, 816);
             this.MyCloseButton.Name = "MyCloseButton";
             this.MyCloseButton.Size = new System.Drawing.Size(86, 24);
             this.MyCloseButton.TabIndex = 1;
@@ -162,7 +163,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // CommentLabel
             // 
             this.CommentLabel.AutoSize = true;
-            this.CommentLabel.Location = new System.Drawing.Point(9, 581);
+            this.CommentLabel.Location = new System.Drawing.Point(9, 709);
             this.CommentLabel.Name = "CommentLabel";
             this.CommentLabel.Size = new System.Drawing.Size(51, 13);
             this.CommentLabel.TabIndex = 8;
@@ -194,10 +195,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CommentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CommentTextBox.Location = new System.Drawing.Point(9, 597);
+            this.CommentTextBox.Location = new System.Drawing.Point(9, 725);
             this.CommentTextBox.Multiline = true;
             this.CommentTextBox.Name = "CommentTextBox";
-            this.CommentTextBox.Size = new System.Drawing.Size(950, 71);
+            this.CommentTextBox.Size = new System.Drawing.Size(950, 74);
             this.CommentTextBox.TabIndex = 11;
             this.CommentTextBox.TextChanged += new System.EventHandler(this.CommentTextBox_TextChanged);
             // 
@@ -782,12 +783,21 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CustomerNumberComboBox.TabIndex = 48;
             this.CustomerNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.CustomerNumberComboBox_SelectedIndexChanged);
             // 
+            // demandAnswerField1
+            // 
+            this.demandAnswerField1.Caption = "<name>";
+            this.demandAnswerField1.Location = new System.Drawing.Point(312, 607);
+            this.demandAnswerField1.Name = "demandAnswerField1";
+            this.demandAnswerField1.Size = new System.Drawing.Size(392, 77);
+            this.demandAnswerField1.TabIndex = 49;
+            // 
             // CreatePostDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.MyCloseButton;
-            this.ClientSize = new System.Drawing.Size(977, 721);
+            this.ClientSize = new System.Drawing.Size(977, 852);
+            this.Controls.Add(this.demandAnswerField1);
             this.Controls.Add(this.CustomerNumberComboBox);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.OrderingUnitComboBox);
@@ -909,5 +919,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox CustomerNumberComboBox;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
+        private Component.DemandAnswerField demandAnswerField1;
     }
 }
