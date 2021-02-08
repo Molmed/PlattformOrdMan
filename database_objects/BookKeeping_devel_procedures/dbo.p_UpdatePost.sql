@@ -40,7 +40,11 @@ alter PROCEDURE [dbo].[p_UpdatePost](
 @customer_number_id int = null,
 @attention_flag bit = 0,
 @account varchar(255) = null,
-@periodization varchar(255) = null)
+@periodization varchar(255) = null,
+@periodization_answered bit = 0,
+@has_periodization bit = 0,
+@account_answered bit = 0,
+@has_had_ordered_status bit = 0)
 
 AS
 BEGIN
@@ -84,7 +88,11 @@ SET
 	customer_number_id = @customer_number_id,
 	attention_flag = @attention_flag,
 	account = @account,
-	periodization = @periodization
+	periodization = @periodization,
+	periodization_answered = @periodization_answered,
+	has_periodization = @has_periodization,
+	account_answered = @account_answered,
+	has_had_ordered_status = @has_had_ordered_status
 FROM place_of_purchase pop 
 WHERE post_id = @id AND	pop.code = @place_of_purchase
 	

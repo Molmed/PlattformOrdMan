@@ -51,7 +51,11 @@ INSERT INTO post_history
 	 customer_number_id,
 	 attention_flag,
 	 account,
-	 periodization)
+	 periodization,
+	 periodization_answered,
+	 has_periodization,
+	 account_answered,
+	 has_had_ordered_status)
 SELECT
 	 post_id,
 	 article_number_id,
@@ -85,7 +89,11 @@ SELECT
 	 customer_number_id,
 	 attention_flag,
 	 account,
-	 periodization
+	 periodization,
+	 periodization_answered,
+	 has_periodization,
+	 account_answered,
+	 has_had_ordered_status
 FROM inserted
 	
 SET NOCOUNT OFF
