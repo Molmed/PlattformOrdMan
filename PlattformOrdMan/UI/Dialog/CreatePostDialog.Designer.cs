@@ -1,3 +1,5 @@
+using System;
+
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
     partial class CreatePostDialog
@@ -790,6 +792,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.Periodization.Name = "Periodization";
             this.Periodization.Size = new System.Drawing.Size(563, 77);
             this.Periodization.TabIndex = 49;
+            this.Periodization.EnquiryChanged += new EventHandler(Periodization_Changed);
             // 
             // CreatePostDialog
             // 

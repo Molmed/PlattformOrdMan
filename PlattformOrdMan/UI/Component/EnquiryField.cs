@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 using PlattformOrdMan.Data;
 
@@ -11,6 +7,8 @@ namespace Molmed.PlattformOrdMan.UI.Component
 {
     public partial class EnquiryField : UserControl
     {
+        [Category("Action")]
+        public event EventHandler EnquiryChanged;
 
         public EnquiryField()
         {
@@ -58,6 +56,18 @@ namespace Molmed.PlattformOrdMan.UI.Component
                 ValueTextBox.Enabled = true;
                 ActiveControl = ValueTextBox;
             }
+
+            EnquiryChanged?.Invoke(sender, e);
+        }
+
+        private void YesRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            EnquiryChanged?.Invoke(sender, e);
+        }
+
+        private void ValueTextBox_TextChanged(object sender, EventArgs e)
+        {
+            EnquiryChanged?.Invoke(sender, e);
         }
     }
 }

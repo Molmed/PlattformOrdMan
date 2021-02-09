@@ -56,6 +56,7 @@
             this.ValueTextBox.Name = "ValueTextBox";
             this.ValueTextBox.Size = new System.Drawing.Size(337, 20);
             this.ValueTextBox.TabIndex = 2;
+            this.ValueTextBox.TextChanged += new System.EventHandler(this.ValueTextBox_TextChanged);
             // 
             // YesRadioButton
             // 
@@ -67,6 +68,7 @@
             this.YesRadioButton.TabStop = true;
             this.YesRadioButton.Text = "Yes";
             this.YesRadioButton.UseVisualStyleBackColor = true;
+            this.YesRadioButton.CheckedChanged += new System.EventHandler(this.YesRadioButton_CheckedChanged);
             // 
             // NoRadioButton
             // 
@@ -80,12 +82,12 @@
             this.NoRadioButton.UseVisualStyleBackColor = true;
             this.NoRadioButton.CheckedChanged += new System.EventHandler(this.NoRadioButton_CheckedChanged);
             // 
-            // Enquiry
+            // EnquiryField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
-            this.Name = "DemandAnswerField";
+            this.Name = "EnquiryField";
             this.Size = new System.Drawing.Size(392, 77);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

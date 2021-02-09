@@ -570,6 +570,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 currencyId = CurrencyCombobox.GetSelectedCurrency().GetId();
             }
 
+            var dummy = Periodization.Enquiry;
+            var dummy2 = _post.Periodization;
             return (amount != _post.GetAmount() ||
                     CommentTextBox.Text != _post.GetComment() ||
                     DeliveryDeviationTextBox.Text != _post.GetDeliveryDeviation() ||
@@ -596,7 +598,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     customerNumberId != _post.GetCustomerNumberId() ||
                     IsOrderingUnitUpdated() ||
                     IsSupplierUpdated() ||
-                    AttentionCheckBox.Checked != _post.AttentionFlag
+                    AttentionCheckBox.Checked != _post.AttentionFlag || 
+                    Periodization.Enquiry != _post.Periodization
             );
         }
 
@@ -1680,6 +1683,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private void AttentionCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             AttentionCheckBox.BackColor = AttentionCheckBox.Checked ? Color.Red : BackColor;
+            HandleSaveButtonEnabled();
+        }
+
+        protected void Periodization_Changed(object sender, EventArgs e)
+        {
             HandleSaveButtonEnabled();
         }
     }
