@@ -30,5 +30,37 @@ namespace PlattformOrdMan.UnitTests.TestCases
         {
             Assert.Throws<ValidationException>(() => { new Enquiry(true, false, "value"); });
         }
+
+        [Test]
+        public void TestEqualityTrue()
+        {
+            var e1 = new Enquiry(true, false, "");
+            var e2 = new Enquiry(true, false, "");
+            Assert.IsTrue(e1 == e2);
+        }
+
+        [Test]
+        public void TestEqualityFalse()
+        {
+            var e1 = new Enquiry(true, false, "");
+            var e2 = new Enquiry(false, false, "");
+            Assert.IsFalse(e1 == e2);
+        }
+
+        [Test]
+        public void TestInEqualityTrue()
+        {
+            var e1 = new Enquiry(true, false, "");
+            var e2 = new Enquiry(false, false, "");
+            Assert.IsTrue(e1 != e2);
+        }
+
+        [Test]
+        public void TestInEqualityFalse()
+        {
+            var e1 = new Enquiry(true, false, "");
+            var e2 = new Enquiry(true, false, "");
+            Assert.IsFalse(e1 != e2);
+        }
     }
 }

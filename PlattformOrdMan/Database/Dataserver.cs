@@ -984,6 +984,5 @@ namespace Molmed.PlattformOrdMan.Database
 
             return ExecuteCommand(commandBuilder);
         }
-
     }
 }

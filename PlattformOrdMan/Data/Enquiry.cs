@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Molmed.PlattformOrdMan;
 using PlattformOrdMan.Data.Exception;
 
 namespace PlattformOrdMan.Data
 {
-    public class Enquiry
+    public class Enquiry : PlattformOrdManBase
     {
         /// <summary>
         /// Enquiry contain a value together with a flag telling if 
@@ -30,6 +31,12 @@ namespace PlattformOrdMan.Data
                    (!_hasAnswered && !string.IsNullOrEmpty(_value)) ||
                    (!_hasValue && !string.IsNullOrEmpty(_value));
 
+        }
+
+        protected override bool OverrideEquals(object other)
+        {
+            var otherr = (Enquiry) other;
+            return _hasAnswered == otherr.HasAnswered && _hasValue == otherr.HasValue && _value == otherr.Value;
         }
 
         public bool HasAnswered => _hasAnswered;

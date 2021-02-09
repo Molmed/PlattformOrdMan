@@ -86,5 +86,48 @@ namespace Molmed.PlattformOrdMan
                 return trimString.Trim();
             }
         }
+
+        public override bool Equals(object other)
+        {
+            // If parameter is null, return false
+            if (ReferenceEquals(other, null))
+                return false;
+
+            // Optimization for common success case
+            if (ReferenceEquals(other, this))
+                return true;
+            // If run-time types are not exactly the same, return false.
+            if (GetType() != other.GetType())
+                return false;
+            return OverrideEquals(other);
+        }
+
+        protected virtual bool OverrideEquals(object other)
+        {
+            return true;
+        }
+
+        public static bool operator ==(PlattformOrdManBase lhs, PlattformOrdManBase rhs)
+        {
+            // Check for null on left side.
+            if (ReferenceEquals(lhs, null))
+            {
+                if (ReferenceEquals(rhs, null))
+                {
+                    // null == null = true.
+                    return true;
+                }
+
+                // Only the left side is null.
+                return false;
+            }
+
+            return lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(PlattformOrdManBase lhs, PlattformOrdManBase rhs)
+        {
+            return !(lhs == rhs);
+        }
     }
 }
