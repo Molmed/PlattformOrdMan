@@ -59,7 +59,7 @@
     <Compile Include="Data\ArticleNumber.cs" />
     <Compile Include="Data\CustomerNumber.cs" />
     <Compile Include="Data\CustomerNumberManager.cs" />
-    <Compile Include="Data\DemandAnswerField.cs" />
+    <Compile Include="Data\DemandAnswerValue.cs" />
     <Compile Include="Data\OrdManEventHandler.cs" />
     <Compile Include="Data\Configuration.cs" />
     <Compile Include="Data\Currency.cs" />

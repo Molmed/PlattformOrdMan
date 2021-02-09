@@ -95,7 +95,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
-            this.demandAnswerField1 = new Molmed.PlattformOrdMan.UI.Component.DemandAnswerField();
+            this.Per = new Molmed.PlattformOrdMan.UI.Component.DemandAnswerField();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -614,7 +614,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.DeliveryDeviationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeliveryDeviationTextBox.Location = new System.Drawing.Point(9, 512);
+            this.DeliveryDeviationTextBox.Location = new System.Drawing.Point(9, 642);
             this.DeliveryDeviationTextBox.Multiline = true;
             this.DeliveryDeviationTextBox.Name = "DeliveryDeviationTextBox";
             this.DeliveryDeviationTextBox.Size = new System.Drawing.Size(950, 64);
@@ -624,7 +624,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(9, 496);
+            this.label20.Location = new System.Drawing.Point(12, 626);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(91, 13);
             this.label20.TabIndex = 33;
@@ -783,13 +783,13 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CustomerNumberComboBox.TabIndex = 48;
             this.CustomerNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.CustomerNumberComboBox_SelectedIndexChanged);
             // 
-            // demandAnswerField1
+            // Per
             // 
-            this.demandAnswerField1.Caption = "<name>";
-            this.demandAnswerField1.Location = new System.Drawing.Point(312, 607);
-            this.demandAnswerField1.Name = "demandAnswerField1";
-            this.demandAnswerField1.Size = new System.Drawing.Size(392, 77);
-            this.demandAnswerField1.TabIndex = 49;
+            this.Per.Caption = "<name>";
+            this.Per.Location = new System.Drawing.Point(9, 489);
+            this.Per.Name = "Per";
+            this.Per.Size = new System.Drawing.Size(563, 77);
+            this.Per.TabIndex = 49;
             // 
             // CreatePostDialog
             // 
@@ -797,7 +797,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.MyCloseButton;
             this.ClientSize = new System.Drawing.Size(977, 852);
-            this.Controls.Add(this.demandAnswerField1);
+            this.Controls.Add(this.Per);
             this.Controls.Add(this.CustomerNumberComboBox);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.OrderingUnitComboBox);
@@ -919,6 +919,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox CustomerNumberComboBox;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
-        private Component.DemandAnswerField demandAnswerField1;
+        private Component.DemandAnswerField Per;
     }
 }

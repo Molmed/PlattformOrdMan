@@ -54,7 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ValueTextBox.Location = new System.Drawing.Point(55, 42);
             this.ValueTextBox.Name = "ValueTextBox";
-            this.ValueTextBox.Size = new System.Drawing.Size(323, 20);
+            this.ValueTextBox.Size = new System.Drawing.Size(337, 20);
             this.ValueTextBox.TabIndex = 2;
             // 
             // YesRadioButton
@@ -80,7 +80,7 @@
             this.NoRadioButton.UseVisualStyleBackColor = true;
             this.NoRadioButton.CheckedChanged += new System.EventHandler(this.NoRadioButton_CheckedChanged);
             // 
-            // DemandAnswerField
+            // DemandAnswerValue
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
