@@ -1133,7 +1133,7 @@ namespace Molmed.PlattformOrdMan.Data
                 GetArrivalDate(), GetInvoiceUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 GetInvoiceNumber(), GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(), 
                 GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(),
-                GetCustomerNumberId(), markForAttention);
+                GetCustomerNumberId(), markForAttention, _periodization);
         }
 
         public void UpdateCustomerNumberId(int custNumId)
@@ -1146,7 +1146,8 @@ namespace Molmed.PlattformOrdMan.Data
                 GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(), GetArrivalDate(),
                 GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(), GetInvoiceNumber(), GetFinalPrize(),
                 GetConfirmedOrderDate(), GetConfirmedOrderUserId(), GetDeliveryDeviation(), GetPurchaseOrderNo(), 
-                GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), custNumId, AttentionFlag);
+                GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), custNumId, AttentionFlag,
+                _periodization);
         }
 
         public void UpdateInvoiceNumber(string invoiceNumber, int customerNumberId,
@@ -1161,7 +1162,7 @@ namespace Molmed.PlattformOrdMan.Data
                 GetArrivalDate(), GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 invoiceNumber, GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(),
                 GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), customerNumberId,
-                AttentionFlag);
+                AttentionFlag, _periodization);
         }
 
         public void UpdatePost(String comment, decimal apprPrize, int amount, bool invoiceClin, bool invoiceInst,
@@ -1171,14 +1172,16 @@ namespace Molmed.PlattformOrdMan.Data
             int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize, 
             DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation,
             string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
-            bool attentionFlag)
+            bool attentionFlag, Enquiry periodization)
         {
             Database.UpdatePost(GetId(), comment, apprPrize, amount, invoiceClin, invoiceInst, apprArrival, 
                 invoiceStatus, isInvoiceAbsent, currencyId, bookerUserId, bookDate, orderUserId, orderDate,
                 arrivalSignUserId, arrivalDate, invoiceCheckerUserId, invoiceDate, articleNumberId, supplierId,
                 invoiceNumber, finalPrize, confirmedOrderDate, confirmedOrderUserId, deliveryDeviation,
-                purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId, attentionFlag);
+                purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId, attentionFlag, 
+                periodization.Value, periodization.HasValue, periodization.HasAnswered);
             SetComment(comment);
+            _periodization = periodization;
             AttentionFlag = attentionFlag;
             _customerNumberId = customerNumberId;
             _customerNumber = null;

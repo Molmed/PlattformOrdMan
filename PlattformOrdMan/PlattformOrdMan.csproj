@@ -60,6 +60,7 @@
     <Compile Include="Data\CustomerNumber.cs" />
     <Compile Include="Data\CustomerNumberManager.cs" />
     <Compile Include="Data\Enquiry.cs" />
+    <Compile Include="Data\Exception\ValidationException.cs" />
     <Compile Include="Data\OrdManEventHandler.cs" />
     <Compile Include="Data\Configuration.cs" />
     <Compile Include="Data\Currency.cs" />

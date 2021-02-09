@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Globalization;
 using Molmed.PlattformOrdMan.Data;
+using Molmed.PlattformOrdMan.UI.Component;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
@@ -1040,7 +1041,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
                 PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, popStr,
-                customerNumberId, AttentionCheckBox.Checked);
+                customerNumberId, AttentionCheckBox.Checked, Periodization.Enquiry);
             if (_post.IsInvoceAbsent() && _post.GetPostStatus() == Post.PostStatus.Confirmed)
             {
                 _post.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.Ok, _post.IsInvoceAbsent());

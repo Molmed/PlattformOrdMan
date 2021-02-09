@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PlattformOrdMan.Data.Exception;
 
 namespace PlattformOrdMan.Data
 {
@@ -19,6 +20,16 @@ namespace PlattformOrdMan.Data
             _hasAnswered = hasAnswered;
             _hasValue = hasValue;
             _value = value;
+            if (HasIllegalCombination())
+                throw new ValidationException("There is an illegal combination in Enquiry");
+        }
+
+        private bool HasIllegalCombination()
+        {
+            return (!_hasAnswered && _hasValue) ||
+                   (!_hasAnswered && !string.IsNullOrEmpty(_value)) ||
+                   (!_hasValue && !string.IsNullOrEmpty(_value));
+
         }
 
         public bool HasAnswered => _hasAnswered;

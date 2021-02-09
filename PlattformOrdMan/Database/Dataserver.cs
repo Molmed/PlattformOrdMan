@@ -818,7 +818,7 @@ namespace Molmed.PlattformOrdMan.Database
                 DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize,
                 DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation,
                 string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
-                bool attentionFlag)
+                bool attentionFlag, string periodizationValue, bool hasPeriodization, bool periodizationAnswered)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_UpdatePost");
@@ -836,6 +836,9 @@ namespace Molmed.PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.FINAL_PRIZE, finalPrize);
             commandBuilder.AddParameter(PostData.INVOICE_NUMBER, invoiceNumber);
             commandBuilder.AddParameter(PostData.PLACE_OF_PURCHASE, placeOfPurchase);
+            commandBuilder.AddParameter(PostData.PERIODIZATION, periodizationValue);
+            commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodizationAnswered);
+            commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, hasPeriodization);
             if (customerNumberId != PlattformOrdManData.NO_ID)
             {
                 commandBuilder.AddParameter(PostData.CUSTOMER_NUMBER_ID, customerNumberId);
