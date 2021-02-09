@@ -9,11 +9,11 @@ using PlattformOrdMan.Data;
 
 namespace Molmed.PlattformOrdMan.UI.Component
 {
-    public partial class DemandAnswerField : UserControl
+    public partial class EnquiryField : UserControl
     {
-        private DemandAnswerValue _enquiry;
+        private Enquiry _enquiry;
 
-        public DemandAnswerField()
+        public EnquiryField()
         {
             InitializeComponent();
         }
@@ -24,7 +24,7 @@ namespace Molmed.PlattformOrdMan.UI.Component
             set => groupBox1.Text = value;
         }
 
-        public DemandAnswerValue Enquiry
+        public Enquiry Enquiry
         {
             set
             {

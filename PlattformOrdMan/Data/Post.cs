@@ -80,7 +80,7 @@ namespace Molmed.PlattformOrdMan.Data
         private string _customerNumberDescription;
         private string _customerNumberIdentifier;
         private readonly int _invoiceCategoryNumber;
-        private DemandAnswerValue _periodization;
+        private Enquiry _periodization;
 
 
         public Post(DataReader dataReader)
@@ -215,13 +215,13 @@ namespace Molmed.PlattformOrdMan.Data
             var hasPeriodization = false;
             if (!dataReader.IsDBNull(PostData.HAS_PERIODIZATION))
                 hasPeriodization = dataReader.GetBoolean(PostData.HAS_PERIODIZATION);
-            _periodization = new DemandAnswerValue(
+            _periodization = new Enquiry(
                 hasPeriodization, periodizationAnswered, periodizationValue);
 
             SetPostStatus();
         }
 
-        public DemandAnswerValue Periodization => _periodization;
+        public Enquiry Periodization => _periodization;
 
         public CustomerNumber GetCustomerNumber()
         {

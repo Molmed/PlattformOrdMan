@@ -95,7 +95,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
-            this.Periodization = new Molmed.PlattformOrdMan.UI.Component.DemandAnswerField();
+            this.Periodization = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -919,6 +919,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox CustomerNumberComboBox;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
-        private Component.DemandAnswerField Periodization;
+        private Component.EnquiryField Periodization;
     }
 }

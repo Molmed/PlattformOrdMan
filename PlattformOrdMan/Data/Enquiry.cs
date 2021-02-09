@@ -4,17 +4,17 @@ using System.Text;
 
 namespace PlattformOrdMan.Data
 {
-    public class DemandAnswerValue
+    public class Enquiry
     {
         /// <summary>
-        /// DemandAnswerValue contain a value together with a flag telling if 
+        /// Enquiry contain a value together with a flag telling if 
         /// an empty field was intentionally or not.
         /// </summary>
         private readonly bool _hasAnswered;
         private readonly bool _hasValue;
         private readonly string _value;
 
-        public DemandAnswerValue(bool hasAnswered, bool hasValue, string value)
+        public Enquiry(bool hasAnswered, bool hasValue, string value)
         {
             _hasAnswered = hasAnswered;
             _hasValue = hasValue;
