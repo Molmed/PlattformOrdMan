@@ -802,7 +802,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
                 InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
                 finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text,
-                popStr, customerNumberId);
+                popStr, customerNumberId, Periodization.Enquiry);
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
                 OrdererUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
             {

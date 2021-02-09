@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using Molmed.PlattformOrdMan.Database;
 using Molmed.PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Data;
 
 namespace Molmed.PlattformOrdMan.Data
 {
@@ -17,7 +18,8 @@ namespace Molmed.PlattformOrdMan.Data
         public static Post CreatePost(int articleNumberId, int bookerUserId, String comment, int merchandiseId, int supplierId,
                         int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, 
                         bool invoiceAbsent, string invoiceNumber, decimal finalPrize, string deliveryDeviation,
-                        string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId)
+                        string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
+                        Enquiry periodization)
         {
             DataReader dataReader = null;
             Post post = null;
@@ -25,7 +27,8 @@ namespace Molmed.PlattformOrdMan.Data
             {
                 dataReader = Database.CreatePost(articleNumberId, bookerUserId, comment, merchandiseId, supplierId, amount, 
                     apprPrize, currencyId, invoiceInst, invoiceClin, invoiceAbsent, invoiceNumber, finalPrize, 
-                    deliveryDeviation, purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId);
+                    deliveryDeviation, purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId,
+                    periodization.HasAnswered, periodization.HasValue, periodization.Value);
                 if (dataReader.Read())
                 {
                     post = new Post(dataReader);

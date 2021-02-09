@@ -220,7 +220,8 @@ namespace Molmed.PlattformOrdMan.Database
         public DataReader CreatePost(int articleNumberId, int bookerId, String comment, int merchandiseId, int supplierId, 
             int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, bool invoiceAbsent,
             string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseOrderNo, 
-            string salesOrderNo, string placeOfPurchase, int customerNumberId)
+            string salesOrderNo, string placeOfPurchase, int customerNumberId, bool periodizationAnswered,
+            bool hasPeriodization, string periodizationValue)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_CreatePost");
@@ -228,6 +229,9 @@ namespace Molmed.PlattformOrdMan.Database
             {
                 commandBuilder.AddParameter(PostData.ARTICLE_NUMBER_ID, articleNumberId);
             }
+            commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodizationAnswered);
+            commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, hasPeriodization);
+            commandBuilder.AddParameter(PostData.PERIODIZATION, periodizationValue);
             commandBuilder.AddParameter(PostData.AUTHORITY_ID_BOOKER, bookerId);
             commandBuilder.AddParameter(PostData.COMMENT, comment);
             commandBuilder.AddParameter(PostData.MERCHANDISE_ID, merchandiseId);

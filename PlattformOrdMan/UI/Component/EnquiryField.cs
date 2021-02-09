@@ -11,7 +11,6 @@ namespace Molmed.PlattformOrdMan.UI.Component
 {
     public partial class EnquiryField : UserControl
     {
-        private Enquiry _enquiry;
 
         public EnquiryField()
         {
@@ -26,19 +25,21 @@ namespace Molmed.PlattformOrdMan.UI.Component
 
         public Enquiry Enquiry
         {
-            set
+            set => InitEnquiry(value);
+            get
             {
-                _enquiry = value;
-                InitEnquiry();
+                var hasAnswered = NoRadioButton.Checked || YesRadioButton.Checked;
+                var hasValue = YesRadioButton.Checked;
+                return new Enquiry(hasAnswered, hasValue, ValueTextBox.Text);
             }
         }
 
-        private void InitEnquiry()
+        private void InitEnquiry(Enquiry enquiry)
         {
-            if (_enquiry.HasAnswered)
+            if (enquiry.HasAnswered)
             {
-                YesRadioButton.Checked = _enquiry.HasValue;
-                ValueTextBox.Text = _enquiry.Value;
+                YesRadioButton.Checked = enquiry.HasValue;
+                ValueTextBox.Text = enquiry.Value;
             }
         }
 
