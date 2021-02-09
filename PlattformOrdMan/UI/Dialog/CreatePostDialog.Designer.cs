@@ -95,7 +95,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
-            this.Per = new Molmed.PlattformOrdMan.UI.Component.DemandAnswerField();
+            this.Periodization = new Molmed.PlattformOrdMan.UI.Component.DemandAnswerField();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -783,13 +783,13 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CustomerNumberComboBox.TabIndex = 48;
             this.CustomerNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.CustomerNumberComboBox_SelectedIndexChanged);
             // 
-            // Per
+            // Periodization
             // 
-            this.Per.Caption = "<name>";
-            this.Per.Location = new System.Drawing.Point(9, 489);
-            this.Per.Name = "Per";
-            this.Per.Size = new System.Drawing.Size(563, 77);
-            this.Per.TabIndex = 49;
+            this.Periodization.Caption = "Periodization";
+            this.Periodization.Location = new System.Drawing.Point(9, 489);
+            this.Periodization.Name = "Periodization";
+            this.Periodization.Size = new System.Drawing.Size(563, 77);
+            this.Periodization.TabIndex = 49;
             // 
             // CreatePostDialog
             // 
@@ -797,7 +797,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.MyCloseButton;
             this.ClientSize = new System.Drawing.Size(977, 852);
-            this.Controls.Add(this.Per);
+            this.Controls.Add(this.Periodization);
             this.Controls.Add(this.CustomerNumberComboBox);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.OrderingUnitComboBox);
@@ -919,6 +919,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox CustomerNumberComboBox;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
-        private Component.DemandAnswerField Per;
+        private Component.DemandAnswerField Periodization;
     }
 }

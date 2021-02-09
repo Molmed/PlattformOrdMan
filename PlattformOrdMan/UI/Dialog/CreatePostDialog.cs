@@ -464,7 +464,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             AttentionCheckBox.Checked = _post.AttentionFlag;
             InitCustomerNumberCombobox();
             UpdateCustomerNumber();
-            //_post.Periodization;
+            Periodization.Enquiry = _post.Periodization;
         }
 
         private void FixComboboxSelection()
