@@ -119,6 +119,9 @@ namespace Molmed.PlattformOrdMan.Database
         public const String CUSTOMER_NUMBER_IDENTIFIER = "customer_number_identifier";
         public const String INVOICE_CATEGORY_NUMBER = "invoice_category_number";
         public const String ATTENTION_FLAG = "attention_flag";
+        public const String PERIODIZATION = "periodization";
+        public const String HAS_PERIODIZATION = "has_periodization";
+        public const String PERIODIZATION_ANSWERED = "periodization_answered";
     }
 
     public struct MerchandiseData

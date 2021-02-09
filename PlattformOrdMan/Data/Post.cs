@@ -1,5 +1,6 @@
 using System;
 using Molmed.PlattformOrdMan.Database;
+using PlattformOrdMan.Data;
 
 namespace Molmed.PlattformOrdMan.Data
 {
@@ -79,6 +80,8 @@ namespace Molmed.PlattformOrdMan.Data
         private string _customerNumberDescription;
         private string _customerNumberIdentifier;
         private readonly int _invoiceCategoryNumber;
+        private DemandAnswerField _periodization;
+
 
         public Post(DataReader dataReader)
         {
@@ -204,6 +207,16 @@ namespace Molmed.PlattformOrdMan.Data
             {
                 LoadArticleNumber(dataReader);
             }
+
+            var periodizationValue = dataReader.GetString(PostData.PERIODIZATION);
+            var periodizationAnswered = false;
+            if (!dataReader.IsDBNull(PostData.PERIODIZATION_ANSWERED))
+                periodizationAnswered = dataReader.GetBoolean(PostData.PERIODIZATION_ANSWERED);
+            var hasPeriodization = false;
+            if (!dataReader.IsDBNull(PostData.HAS_PERIODIZATION))
+                hasPeriodization = dataReader.GetBoolean(PostData.HAS_PERIODIZATION);
+            _periodization = new DemandAnswerField(
+                hasPeriodization, periodizationAnswered, periodizationValue);
 
             SetPostStatus();
         }
