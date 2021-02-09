@@ -39,6 +39,7 @@ namespace Molmed.PlattformOrdMan.UI.Component
             if (enquiry.HasAnswered)
             {
                 YesRadioButton.Checked = enquiry.HasValue;
+                NoRadioButton.Checked = !enquiry.HasValue;
                 ValueTextBox.Text = enquiry.Value;
             }
         }

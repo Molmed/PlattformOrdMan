@@ -216,7 +216,7 @@ namespace Molmed.PlattformOrdMan.Data
             if (!dataReader.IsDBNull(PostData.HAS_PERIODIZATION))
                 hasPeriodization = dataReader.GetBoolean(PostData.HAS_PERIODIZATION);
             _periodization = new Enquiry(
-                hasPeriodization, periodizationAnswered, periodizationValue);
+                periodizationAnswered, hasPeriodization, periodizationValue);
 
             SetPostStatus();
         }
