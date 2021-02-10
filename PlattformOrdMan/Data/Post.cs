@@ -232,6 +232,7 @@ namespace Molmed.PlattformOrdMan.Data
         }
 
         public Enquiry Periodization => _periodization;
+        public Enquiry Account => _account;
 
         public CustomerNumber GetCustomerNumber()
         {

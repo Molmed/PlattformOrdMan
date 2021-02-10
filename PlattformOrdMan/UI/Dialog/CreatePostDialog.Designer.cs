@@ -98,6 +98,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label26 = new System.Windows.Forms.Label();
             this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
             this.Periodization = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
+            this.Account = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -790,9 +791,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.Periodization.Caption = "Periodization";
             this.Periodization.Location = new System.Drawing.Point(9, 489);
             this.Periodization.Name = "Periodization";
-            this.Periodization.Size = new System.Drawing.Size(563, 77);
+            this.Periodization.Size = new System.Drawing.Size(367, 77);
             this.Periodization.TabIndex = 49;
-            this.Periodization.EnquiryChanged += new EventHandler(Periodization_Changed);
+            this.Periodization.EnquiryChanged += new System.EventHandler(this.Periodization_Changed);
+            // 
+            // Account
+            // 
+            this.Account.Caption = "Account";
+            this.Account.Location = new System.Drawing.Point(384, 489);
+            this.Account.Name = "Account";
+            this.Account.Size = new System.Drawing.Size(392, 77);
+            this.Account.TabIndex = 50;
             // 
             // CreatePostDialog
             // 
@@ -800,6 +809,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.MyCloseButton;
             this.ClientSize = new System.Drawing.Size(977, 852);
+            this.Controls.Add(this.Account);
             this.Controls.Add(this.Periodization);
             this.Controls.Add(this.CustomerNumberComboBox);
             this.Controls.Add(this.label26);
@@ -923,5 +933,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.ComboBox CustomerNumberComboBox;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
         private Component.EnquiryField Periodization;
+        private Component.EnquiryField Account;
     }
 }

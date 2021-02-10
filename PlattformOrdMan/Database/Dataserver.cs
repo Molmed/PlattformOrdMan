@@ -221,7 +221,8 @@ namespace Molmed.PlattformOrdMan.Database
             int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, bool invoiceAbsent,
             string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseOrderNo, 
             string salesOrderNo, string placeOfPurchase, int customerNumberId, bool periodizationAnswered,
-            bool hasPeriodization, string periodizationValue)
+            bool hasPeriodization, string periodizationValue, bool accountAnswered, bool hasAccount, 
+            string accountValue)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_CreatePost");
@@ -232,6 +233,9 @@ namespace Molmed.PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodizationAnswered);
             commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, hasPeriodization);
             commandBuilder.AddParameter(PostData.PERIODIZATION, periodizationValue);
+            commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, accountAnswered);
+            commandBuilder.AddParameter(PostData.HAS_ACCOUNT, hasAccount);
+            commandBuilder.AddParameter(PostData.ACCOUNT, accountValue);
             commandBuilder.AddParameter(PostData.AUTHORITY_ID_BOOKER, bookerId);
             commandBuilder.AddParameter(PostData.COMMENT, comment);
             commandBuilder.AddParameter(PostData.MERCHANDISE_ID, merchandiseId);

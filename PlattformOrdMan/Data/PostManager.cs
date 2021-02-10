@@ -19,7 +19,7 @@ namespace Molmed.PlattformOrdMan.Data
                         int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, 
                         bool invoiceAbsent, string invoiceNumber, decimal finalPrize, string deliveryDeviation,
                         string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
-                        Enquiry periodization)
+                        Enquiry periodization, Enquiry account)
         {
             DataReader dataReader = null;
             Post post = null;
@@ -28,7 +28,8 @@ namespace Molmed.PlattformOrdMan.Data
                 dataReader = Database.CreatePost(articleNumberId, bookerUserId, comment, merchandiseId, supplierId, amount, 
                     apprPrize, currencyId, invoiceInst, invoiceClin, invoiceAbsent, invoiceNumber, finalPrize, 
                     deliveryDeviation, purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId,
-                    periodization.HasAnswered, periodization.HasValue, periodization.Value);
+                    periodization.HasAnswered, periodization.HasValue, periodization.Value, 
+                    account.HasAnswered, account.HasValue, account.Value);
                 if (dataReader.Read())
                 {
                     post = new Post(dataReader);

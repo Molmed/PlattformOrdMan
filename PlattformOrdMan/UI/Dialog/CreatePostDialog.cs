@@ -466,6 +466,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             InitCustomerNumberCombobox();
             UpdateCustomerNumber();
             Periodization.Enquiry = _post.Periodization;
+            Account.Enquiry = _post.Account;
         }
 
         private void FixComboboxSelection()
@@ -806,7 +807,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
                 InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
                 finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text,
-                popStr, customerNumberId, Periodization.Enquiry);
+                popStr, customerNumberId, Periodization.Enquiry, Account.Enquiry);
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
                 OrdererUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
             {
