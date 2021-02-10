@@ -465,8 +465,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             AttentionCheckBox.Checked = _post.AttentionFlag;
             InitCustomerNumberCombobox();
             UpdateCustomerNumber();
-            Periodization.Enquiry = _post.Periodization;
-            Account.Enquiry = _post.Account;
+            Periodization.SetEnquiry(_post.Periodization);
+            Account.SetEnquiry(_post.Account);
         }
 
         private void FixComboboxSelection()
@@ -571,8 +571,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 currencyId = CurrencyCombobox.GetSelectedCurrency().GetId();
             }
 
-            var dummy = Account.Enquiry;
-            var dummy2 = _post.Account;
             return (amount != _post.GetAmount() ||
                     CommentTextBox.Text != _post.GetComment() ||
                     DeliveryDeviationTextBox.Text != _post.GetDeliveryDeviation() ||
@@ -600,8 +598,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     IsOrderingUnitUpdated() ||
                     IsSupplierUpdated() ||
                     AttentionCheckBox.Checked != _post.AttentionFlag || 
-                    Periodization.Enquiry != _post.Periodization ||
-                    Account.Enquiry != _post.Account
+                    Periodization.GetEnquiry() != _post.Periodization ||
+                    Account.GetEnquiry() != _post.Account
             );
         }
 
@@ -808,7 +806,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
                 InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
                 finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text,
-                popStr, customerNumberId, Periodization.Enquiry, Account.Enquiry);
+                popStr, customerNumberId, Periodization.GetEnquiry(), Account.GetEnquiry());
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
                 OrdererUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
             {
@@ -1046,8 +1044,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
                 PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, popStr,
-                customerNumberId, AttentionCheckBox.Checked, Periodization.Enquiry,
-                Account.Enquiry);
+                customerNumberId, AttentionCheckBox.Checked, Periodization.GetEnquiry(),
+                Account.GetEnquiry());
             if (_post.IsInvoceAbsent() && _post.GetPostStatus() == Post.PostStatus.Confirmed)
             {
                 _post.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.Ok, _post.IsInvoceAbsent());

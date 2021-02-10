@@ -21,15 +21,16 @@ namespace Molmed.PlattformOrdMan.UI.Component
             set => groupBox1.Text = value;
         }
 
-        public Enquiry Enquiry
+        public Enquiry GetEnquiry()
         {
-            set => InitEnquiry(value);
-            get
-            {
-                var hasAnswered = NoRadioButton.Checked || YesRadioButton.Checked;
-                var hasValue = YesRadioButton.Checked;
-                return new Enquiry(hasAnswered, hasValue, ValueTextBox.Text);
-            }
+            var hasAnswered = NoRadioButton.Checked || YesRadioButton.Checked;
+            var hasValue = YesRadioButton.Checked;
+            return new Enquiry(hasAnswered, hasValue, ValueTextBox.Text);
+        }
+
+        public void SetEnquiry(Enquiry value)
+        {
+            InitEnquiry(value);
         }
 
         private void InitEnquiry(Enquiry enquiry)
