@@ -8,7 +8,7 @@ GO
 
 
 
-CREATE PROCEDURE [dbo].[p_CreatePost](
+alter PROCEDURE [dbo].[p_CreatePost](
 @article_number_id int = null,
 @authority_id_booker INTEGER,
 @comment VARCHAR(1024) = NULL,
@@ -29,7 +29,10 @@ CREATE PROCEDURE [dbo].[p_CreatePost](
 @customer_number_id int = null,
 @periodization varchar(255) = null,
 @has_periodization BIT = null,
-@periodization_answered bit = null
+@periodization_answered bit = null,
+@account varchar(255) = null,
+@account_answered bit = null,
+@has_account bit = null
 )
 
 AS
@@ -66,7 +69,10 @@ INSERT INTO post
 		customer_number_id,
 		periodization,
 		has_periodization,
-		periodization_answered
+		periodization_answered,
+		account,
+		account_answered,
+		has_account
 	)
 VALUES
 	(
@@ -91,7 +97,10 @@ VALUES
 		@customer_number_id,
 		@periodization,
 		@has_periodization,
-		@periodization_answered
+		@periodization_answered,
+		@account,
+		@account_answered,
+		@has_account
 	)
 
 IF @@ERROR <> 0

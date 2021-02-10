@@ -45,6 +45,7 @@ SELECT
 	p.periodization_answered,
 	p.has_periodization,
 	p.account_answered,
+	p.has_account,
 	p.has_had_ordered_status,
 	pop.code as place_of_purchase,
 	an.identifier as article_number_identifier,
