@@ -6,11 +6,11 @@ using PlattformOrdMan.Data.Exception;
 
 namespace PlattformOrdMan.Data
 {
-    public class Enquiry : PlattformOrdManBase
+    public class Enquiry : ValueObject<Enquiry>
     {
         /// <summary>
         /// Enquiry contain a value together with a flag telling if 
-        /// an empty field was intentionally or not.
+        /// an empty field was intentionally empty or not.
         /// </summary>
         private readonly bool _hasAnswered;
         private readonly bool _hasValue;
@@ -33,16 +33,19 @@ namespace PlattformOrdMan.Data
 
         }
 
-        protected override bool OverrideEquals(object other)
-        {
-            var otherr = (Enquiry) other;
-            return _hasAnswered == otherr.HasAnswered && _hasValue == otherr.HasValue && _value == otherr.Value;
-        }
-
         public bool HasAnswered => _hasAnswered;
 
         public bool HasValue => _hasValue;
 
         public string Value => _value;
+        protected override bool EqualsCore(Enquiry other)
+        {
+            return _hasAnswered == other.HasAnswered && _hasValue == other.HasValue && _value == other.Value;
+        }
+
+        protected override int GetHashCodeCore()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

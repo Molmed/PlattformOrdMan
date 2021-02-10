@@ -89,6 +89,7 @@
     <Compile Include="Data\TimeIntervalForPostsManager.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Data\UserManager.cs" />
+    <Compile Include="Data\ValueObject.cs" />
     <Compile Include="DbConnection\DatabaseReferencing\DatabaseReference.cs" />
     <Compile Include="DbConnection\DatabaseReferencing\InitialsProvider.cs" />
     <Compile Include="DbConnection\Repositories\EnvironmentRepository.cs" />
