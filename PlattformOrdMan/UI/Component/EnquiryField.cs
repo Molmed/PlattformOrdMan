@@ -49,6 +49,7 @@ namespace Molmed.PlattformOrdMan.UI.Component
                 ValueTextBox.Text = "";
                 ValueTextBox.ReadOnly = true;
                 ValueTextBox.Enabled = false;
+                EnquiryChanged?.Invoke(sender, e);
             }
             else
             {
@@ -56,13 +57,14 @@ namespace Molmed.PlattformOrdMan.UI.Component
                 ValueTextBox.Enabled = true;
                 ActiveControl = ValueTextBox;
             }
-
-            EnquiryChanged?.Invoke(sender, e);
         }
 
         private void YesRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            EnquiryChanged?.Invoke(sender, e);
+            if (((RadioButton) sender).Checked)
+            {
+                EnquiryChanged?.Invoke(sender, e); 
+            }
         }
 
         private void ValueTextBox_TextChanged(object sender, EventArgs e)

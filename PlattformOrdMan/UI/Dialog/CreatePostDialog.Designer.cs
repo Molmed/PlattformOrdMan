@@ -802,6 +802,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.Account.Name = "Account";
             this.Account.Size = new System.Drawing.Size(392, 77);
             this.Account.TabIndex = 50;
+            this.Account.EnquiryChanged += new EventHandler(this.Account_Changed);
             // 
             // CreatePostDialog
             // 

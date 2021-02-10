@@ -571,8 +571,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 currencyId = CurrencyCombobox.GetSelectedCurrency().GetId();
             }
 
-            var dummy = Periodization.Enquiry;
-            var dummy2 = _post.Periodization;
+            var dummy = Account.Enquiry;
+            var dummy2 = _post.Account;
             return (amount != _post.GetAmount() ||
                     CommentTextBox.Text != _post.GetComment() ||
                     DeliveryDeviationTextBox.Text != _post.GetDeliveryDeviation() ||
@@ -600,7 +600,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     IsOrderingUnitUpdated() ||
                     IsSupplierUpdated() ||
                     AttentionCheckBox.Checked != _post.AttentionFlag || 
-                    Periodization.Enquiry != _post.Periodization
+                    Periodization.Enquiry != _post.Periodization ||
+                    Account.Enquiry != _post.Account
             );
         }
 
@@ -1045,7 +1046,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
                 PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, popStr,
-                customerNumberId, AttentionCheckBox.Checked, Periodization.Enquiry);
+                customerNumberId, AttentionCheckBox.Checked, Periodization.Enquiry,
+                Account.Enquiry);
             if (_post.IsInvoceAbsent() && _post.GetPostStatus() == Post.PostStatus.Confirmed)
             {
                 _post.SignPostInvoice(UserManager.GetCurrentUser(), Post.InvoiceStatus.Ok, _post.IsInvoceAbsent());
@@ -1688,6 +1690,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         }
 
         protected void Periodization_Changed(object sender, EventArgs e)
+        {
+            HandleSaveButtonEnabled();
+        }
+
+        protected void Account_Changed(object sender, EventArgs e)
         {
             HandleSaveButtonEnabled();
         }

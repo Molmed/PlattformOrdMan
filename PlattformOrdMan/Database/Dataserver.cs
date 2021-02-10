@@ -816,13 +816,15 @@ namespace Molmed.PlattformOrdMan.Database
         }
 
         public Int32 UpdatePost(int postId, String comment, decimal apprPrize, int amount, bool invoiceClin, bool invoiceInst,
-            DateTime apprArrival, String invoiceStatus, bool isInvoiceAbsent, int currencyId,
-                int bookerUserId, DateTime bookDate, int orderUserId, DateTime orderDate, 
-                int arrivalSignUserId, DateTime arrivalDate, int invoiceCheckerUserId, 
-                DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize,
-                DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation,
-                string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
-                bool attentionFlag, string periodizationValue, bool hasPeriodization, bool periodizationAnswered)
+            DateTime apprArrival, String invoiceStatus, bool isInvoiceAbsent, int currencyId, 
+            int bookerUserId, DateTime bookDate, int orderUserId, DateTime orderDate, 
+            int arrivalSignUserId, DateTime arrivalDate, int invoiceCheckerUserId, 
+            DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize, 
+            DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation, 
+            string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId, 
+            bool attentionFlag, string periodizationValue, bool hasPeriodization, bool periodizationAnswered, 
+            string accountValue, bool hasAccount, bool accountAnswered
+            )
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_UpdatePost");
@@ -843,6 +845,9 @@ namespace Molmed.PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.PERIODIZATION, periodizationValue);
             commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodizationAnswered);
             commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, hasPeriodization);
+            commandBuilder.AddParameter(PostData.ACCOUNT, accountValue);
+            commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, accountAnswered);
+            commandBuilder.AddParameter(PostData.HAS_ACCOUNT, hasAccount);
             if (customerNumberId != PlattformOrdManData.NO_ID)
             {
                 commandBuilder.AddParameter(PostData.CUSTOMER_NUMBER_ID, customerNumberId);
