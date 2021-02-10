@@ -122,6 +122,9 @@ namespace Molmed.PlattformOrdMan.Database
         public const String PERIODIZATION = "periodization";
         public const String HAS_PERIODIZATION = "has_periodization";
         public const String PERIODIZATION_ANSWERED = "periodization_answered";
+        public const String ACCOUNT = "account";
+        public const String HAS_ACCOUNT = "has_account";
+        public const String ACCOUNT_ANSWERED = "account_answered";
     }
 
     public struct MerchandiseData

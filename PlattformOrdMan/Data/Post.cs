@@ -81,6 +81,7 @@ namespace Molmed.PlattformOrdMan.Data
         private string _customerNumberIdentifier;
         private readonly int _invoiceCategoryNumber;
         private Enquiry _periodization;
+        private Enquiry _account;
 
 
         public Post(DataReader dataReader)
@@ -217,6 +218,15 @@ namespace Molmed.PlattformOrdMan.Data
                 hasPeriodization = dataReader.GetBoolean(PostData.HAS_PERIODIZATION);
             _periodization = new Enquiry(
                 periodizationAnswered, hasPeriodization, periodizationValue);
+
+            var accountValue = dataReader.GetString(PostData.ACCOUNT);
+            var accountAnswered = false;
+            if (!dataReader.IsDBNull(PostData.ACCOUNT_ANSWERED))
+                accountAnswered = dataReader.GetBoolean(PostData.ACCOUNT_ANSWERED);
+            var hasAccount = false;
+            if (!dataReader.IsDBNull(PostData.HAS_ACCOUNT))
+                hasAccount = dataReader.GetBoolean(PostData.HAS_ACCOUNT);
+            _account = new Enquiry(accountAnswered, hasAccount, accountValue);
 
             SetPostStatus();
         }
