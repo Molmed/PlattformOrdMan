@@ -38,7 +38,6 @@ SELECT
 	p.delivery_deviation,
 	p.purchase_order_no,
 	p.sales_order_no,
-	p.customer_number_id,
 	p.attention_flag,
 	p.account,
 	p.periodization,
@@ -56,15 +55,12 @@ SELECT
 	m.enabled as merchandise_enabled,
 	m.comment as merchandise_comment,
 	s.identifier as supplier_identifier,
-	cn.description as customer_number_description,
-	cn.identifier as customer_number_identifier,
 	ic.number as invoice_category_number
 FROM post p
 INNER JOIN place_of_purchase pop on p.place_of_purchase_id = pop.place_of_purchase_id
 LEFT OUTER JOIN article_number an ON (an.article_number_id = p.article_number_id)
 LEFT OUTER JOIN merchandise m on m.merchandise_id = p.merchandise_id
 LEFT OUTER JOIN supplier s on s.supplier_id = p.supplier_id
-LEFT OUTER JOIN customer_number cn on cn.customer_number_id = p.customer_number_id
 LEFT OUTER JOIN invoice_category ic on m.invoice_category_id = ic.invoice_category_id
 
 

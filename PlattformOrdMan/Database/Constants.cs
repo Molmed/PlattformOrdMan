@@ -115,8 +115,6 @@ namespace Molmed.PlattformOrdMan.Database
         public const String MERCHANDISE_ENABLED = "merchandise_enabled";
         public const String MERCHANDISE_COMMENT = "merchandise_comment";
         public const String SUPPLIER_IDENTIFIER = "supplier_identifier";
-        public const String CUSTOMER_NUMBER_DESCRIPTION = "customer_number_description";
-        public const String CUSTOMER_NUMBER_IDENTIFIER = "customer_number_identifier";
         public const String INVOICE_CATEGORY_NUMBER = "invoice_category_number";
         public const String ATTENTION_FLAG = "attention_flag";
         public const String PERIODIZATION = "periodization";
