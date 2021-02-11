@@ -1,9 +1,9 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Globalization;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.Component;
+using System;
+using System.Drawing;
+using System.Globalization;
+using System.Windows.Forms;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
@@ -188,7 +188,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 CheckComboxesSelectedCallback c = IsComboboxesSelected;
                 if (!IsDisposed)
                 {
-                    return (bool) Invoke(c);
+                    return (bool)Invoke(c);
                 }
             }
             else
@@ -495,10 +495,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     GetConfirmedOrderDate().Date != _post.GetConfirmedOrderDate().Date ||
                     PurchaseOrderNoTextBox.Text.Trim() != _post.GetPurchaseOrderNo() ||
                     SalesOrdernoTextBox.Text.Trim() != _post.GetSalesOrderNo() ||
-                    customerNumberId != _post.GetCustomerNumberId() ||
                     IsOrderingUnitUpdated() ||
                     IsSupplierUpdated() ||
-                    AttentionCheckBox.Checked != _post.AttentionFlag || 
+                    AttentionCheckBox.Checked != _post.AttentionFlag ||
                     Periodization.GetEnquiry() != _post.Periodization ||
                     Account.GetEnquiry() != _post.Account
             );
@@ -508,7 +507,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             if (OrderingUnitComboBox.SelectedIndex > PlattformOrdManData.NO_COUNT)
             {
-                return ((string) OrderingUnitComboBox.SelectedItem) != _post.GetPlaceOfPurchaseString();
+                return ((string)OrderingUnitComboBox.SelectedItem) != _post.GetPlaceOfPurchaseString();
             }
             else
             {
@@ -618,7 +617,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             decimal prize, finalPrize;
             int currencyId = PlattformOrdManData.NO_ID, supplierId = PlattformOrdManData.NO_ID;
-            int customerNumberId = PlattformOrdManData.NO_ID;
             string popStr;
             if (IsNotNull(CurrencyCombobox.GetSelectedCurrency()))
             {
@@ -643,7 +641,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 return false;
             }
 
-            var supplier = (Supplier) SupplierComboBox.GetSelectedIdentity();
+            var supplier = (Supplier)SupplierComboBox.GetSelectedIdentity();
             if (IsNotNull(supplier))
             {
                 supplierId = supplier.GetId();
@@ -671,7 +669,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 // Want to have the string repr of the enum 'Other' not 'Plattform unspec.'
                 popStr =
-                    PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem)
+                    PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem)
                         .ToString();
             }
 
@@ -680,16 +678,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
                 InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
                 finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text,
-                popStr, customerNumberId, Periodization.GetEnquiry(), Account.GetEnquiry());
+                popStr, Periodization.GetEnquiry(), Account.GetEnquiry());
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
                 OrdererUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
             {
                 bool dummy;
-                return UpdatePost(out dummy, false);
+                return UpdatePost(out dummy);
             }
-            var placeOfPurchase = (string) OrderingUnitComboBox.SelectedItem;
+            var placeOfPurchase = (string)OrderingUnitComboBox.SelectedItem;
             PlattformOrdManData.Configuration.PlaceOfPurchase =
-                PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem);
+                PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem);
             if (!PlattformOrdManData.Configuration.PlaceOfPurchaseFilter.Contains(placeOfPurchase))
             {
                 PlattformOrdManData.Configuration.PlaceOfPurchaseFilter.Add(placeOfPurchase);
@@ -826,15 +824,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             return _post.GetMerchandise().GetInvoiceCagegoryId() == PlattformOrdManData.NO_ID;
         }
 
-        private bool UpdatePost(out bool newSortOrder, bool askCustNumberHandling)
+        private bool UpdatePost(out bool newSortOrder)
         {
             decimal prize, finalPrize;
             newSortOrder = false;
             int currencyId = PlattformOrdManData.NO_ID;
-            int customerNumberId = PlattformOrdManData.NO_ID;
 
             var popStr =
-                PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem).ToString();
+                PlattformOrdManData.GetPlaceOfPurchaseFromString((string)OrderingUnitComboBox.SelectedItem).ToString();
             if (IsNotNull(CurrencyCombobox.GetSelectedCurrency()))
             {
                 currencyId = CurrencyCombobox.GetSelectedCurrency().GetId();
@@ -899,7 +896,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
                 PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, popStr,
-                customerNumberId, AttentionCheckBox.Checked, Periodization.GetEnquiry(),
+                AttentionCheckBox.Checked, Periodization.GetEnquiry(),
                 Account.GetEnquiry());
             if (_post.IsInvoceAbsent() && _post.GetPostStatus() == Post.PostStatus.Confirmed)
             {
@@ -1012,7 +1009,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private bool SignPost(out bool newSortOrder)
         {
-            if (!UpdatePost(out newSortOrder, true))
+            if (!UpdatePost(out newSortOrder))
             {
                 return false;
             }
@@ -1081,7 +1078,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                         }
                         break;
                     case PostUpdateMode.Edit:
-                        if (!UpdatePost(out newSortOrder, true))
+                        if (!UpdatePost(out newSortOrder))
                         {
                             Cursor = Cursors.Default;
                             return;

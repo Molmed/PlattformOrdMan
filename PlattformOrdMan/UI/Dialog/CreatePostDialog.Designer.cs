@@ -84,7 +84,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label24 = new System.Windows.Forms.Label();
             this.PurchaseOrderNoTextBox = new System.Windows.Forms.TextBox();
             this.SalesOrdernoTextBox = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
             this.Periodization = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.Account = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -555,7 +554,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(17, 44);
+            this.label17.Location = new System.Drawing.Point(17, 17);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(80, 13);
             this.label17.TabIndex = 30;
@@ -566,7 +565,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.InvoiceNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.InvoiceNumberTextBox.Location = new System.Drawing.Point(134, 41);
+            this.InvoiceNumberTextBox.Location = new System.Drawing.Point(134, 14);
             this.InvoiceNumberTextBox.Name = "InvoiceNumberTextBox";
             this.InvoiceNumberTextBox.Size = new System.Drawing.Size(386, 20);
             this.InvoiceNumberTextBox.TabIndex = 31;
@@ -638,7 +637,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(17, 70);
+            this.label23.Location = new System.Drawing.Point(17, 43);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(97, 13);
             this.label23.TabIndex = 41;
@@ -648,7 +647,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(17, 96);
+            this.label24.Location = new System.Drawing.Point(17, 69);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(78, 13);
             this.label24.TabIndex = 42;
@@ -659,7 +658,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.PurchaseOrderNoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PurchaseOrderNoTextBox.Location = new System.Drawing.Point(134, 67);
+            this.PurchaseOrderNoTextBox.Location = new System.Drawing.Point(134, 40);
             this.PurchaseOrderNoTextBox.Name = "PurchaseOrderNoTextBox";
             this.PurchaseOrderNoTextBox.Size = new System.Drawing.Size(386, 20);
             this.PurchaseOrderNoTextBox.TabIndex = 43;
@@ -669,27 +668,18 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.SalesOrdernoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SalesOrdernoTextBox.Location = new System.Drawing.Point(134, 93);
+            this.SalesOrdernoTextBox.Location = new System.Drawing.Point(134, 66);
             this.SalesOrdernoTextBox.Name = "SalesOrdernoTextBox";
             this.SalesOrdernoTextBox.Size = new System.Drawing.Size(386, 20);
             this.SalesOrdernoTextBox.TabIndex = 44;
             this.SalesOrdernoTextBox.TextChanged += new System.EventHandler(this.SalesOrdernoTextBox_TextChanged);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(17, 17);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(92, 13);
-            this.label26.TabIndex = 47;
-            this.label26.Text = "Customer number:";
             // 
             // Periodization
             // 
             this.Periodization.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Periodization.Caption = "Periodization";
-            this.Periodization.Location = new System.Drawing.Point(20, 255);
+            this.Periodization.Location = new System.Drawing.Point(23, 183);
             this.Periodization.Name = "Periodization";
             this.Periodization.Size = new System.Drawing.Size(876, 67);
             this.Periodization.TabIndex = 49;
@@ -700,7 +690,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.Account.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Account.Caption = "Account";
-            this.Account.Location = new System.Drawing.Point(20, 325);
+            this.Account.Location = new System.Drawing.Point(23, 253);
             this.Account.Name = "Account";
             this.Account.Size = new System.Drawing.Size(876, 70);
             this.Account.TabIndex = 50;
@@ -792,7 +782,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.label23);
             this.panel2.Controls.Add(this.Account);
-            this.panel2.Controls.Add(this.label26);
             this.panel2.Controls.Add(this.label24);
             this.panel2.Controls.Add(this.PurchaseOrderNoTextBox);
             this.panel2.Controls.Add(this.Periodization);
@@ -834,16 +823,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.TotalPrizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TotalPrizeTextBox.Location = new System.Drawing.Point(134, 154);
+            this.TotalPrizeTextBox.Location = new System.Drawing.Point(134, 120);
             this.TotalPrizeTextBox.Name = "TotalPrizeTextBox";
             this.TotalPrizeTextBox.ReadOnly = true;
-            this.TotalPrizeTextBox.Size = new System.Drawing.Size(521, 20);
+            this.TotalPrizeTextBox.Size = new System.Drawing.Size(386, 20);
             this.TotalPrizeTextBox.TabIndex = 58;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(17, 157);
+            this.label22.Location = new System.Drawing.Point(17, 123);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(56, 13);
             this.label22.TabIndex = 57;
@@ -853,15 +842,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.FinalPrizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FinalPrizeTextBox.Location = new System.Drawing.Point(134, 128);
+            this.FinalPrizeTextBox.Location = new System.Drawing.Point(134, 94);
             this.FinalPrizeTextBox.Name = "FinalPrizeTextBox";
-            this.FinalPrizeTextBox.Size = new System.Drawing.Size(521, 20);
+            this.FinalPrizeTextBox.Size = new System.Drawing.Size(386, 20);
             this.FinalPrizeTextBox.TabIndex = 56;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(17, 131);
+            this.label16.Location = new System.Drawing.Point(17, 97);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(74, 13);
             this.label16.TabIndex = 55;
@@ -870,7 +859,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // EditCurrencyButton
             // 
             this.EditCurrencyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditCurrencyButton.Location = new System.Drawing.Point(456, 180);
+            this.EditCurrencyButton.Location = new System.Drawing.Point(445, 144);
             this.EditCurrencyButton.Name = "EditCurrencyButton";
             this.EditCurrencyButton.Size = new System.Drawing.Size(75, 23);
             this.EditCurrencyButton.TabIndex = 54;
@@ -883,15 +872,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrencyCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CurrencyCombobox.FormattingEnabled = true;
-            this.CurrencyCombobox.Location = new System.Drawing.Point(134, 180);
+            this.CurrencyCombobox.Location = new System.Drawing.Point(134, 146);
             this.CurrencyCombobox.Name = "CurrencyCombobox";
-            this.CurrencyCombobox.Size = new System.Drawing.Size(316, 21);
+            this.CurrencyCombobox.Size = new System.Drawing.Size(300, 21);
             this.CurrencyCombobox.TabIndex = 53;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 183);
+            this.label7.Location = new System.Drawing.Point(20, 149);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(49, 13);
             this.label7.TabIndex = 52;
@@ -1094,7 +1083,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox PurchaseOrderNoTextBox;
         private System.Windows.Forms.TextBox SalesOrdernoTextBox;
-        private System.Windows.Forms.Label label26;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
         private Component.EnquiryField Periodization;
         private Component.EnquiryField Account;

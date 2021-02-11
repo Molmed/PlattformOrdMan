@@ -21,19 +21,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void InitCustomerNumberCombobox()
         {
-            int supplierId, commonCustNumId;
-            Supplier commonSupplier;
-            GroupCategory commonGroup;
-            CustomerNumber commonCustomerNumber = null;
-            bool hasCommonGroupCategory = true, hasCommonCustomerNumber = true;
+            int supplierId;
             if(IsEmpty(MyPosts))
             {
                 throw new Data.Exception.DataException("Empty post list");
             }
             supplierId = MyPosts[0].GetSupplierId();
-            commonGroup = MyPosts[0].GetGroupCategory();
-            commonCustNumId = MyPosts[0].GetCustomerNumberId();
-            commonCustomerNumber = MyPosts[0].GetCustomerNumber();
 
             foreach (Post post in MyPosts)
             {
@@ -41,40 +34,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     throw new Data.Exception.DataException("Posts with different suppliers selected");
                 }
-                if (post.GetGroupCategory() != commonGroup)
-                {
-                    hasCommonGroupCategory = false;
-                }
-                if (post.GetCustomerNumberId() != commonCustNumId)
-                {
-                    hasCommonCustomerNumber = false;
-                }
-            }
-            commonSupplier = SupplierManager.GetSupplierById(supplierId);
-
-            foreach (CustomerNumber cust in commonSupplier.GetCustomerNumbers())
-            {
-                if (!hasCommonGroupCategory || cust.GetGroupCategory() == commonGroup)
-                {
-                    CustomerNumberComboBox.Items.Add(cust);
-                }
-            }
-            if (CustomerNumberComboBox.Items.Count == 0)
-            {
-                CustomerNumberComboBox.Enabled = false;
-            }
-            if (hasCommonCustomerNumber && IsNotNull(commonCustomerNumber))
-            {
-                CustomerNumberComboBox.SelectedItem = commonCustomerNumber;
-            }
-            if (hasCommonGroupCategory)
-            {
-                CustNumLabel.Text = "Customer number from " + commonGroup.ToString() + " group";
-            }
-            else
-            {
-                CustNumLabel.Text = "Customer number from both " + GroupCategory.Plattform.ToString() + " and " +
-                    GroupCategory.Research.ToString() + " groups";
             }
         }
 
@@ -141,37 +100,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             get
             {
                 return InvoiceNumberTextBox.Text.Trim();
-            }
-        }
-
-        public CustomerNumber CustomerNumber
-        {
-            get
-            {
-                if (CustomerNumberComboBox.SelectedIndex > -1)
-                {
-                    return (CustomerNumber)CustomerNumberComboBox.SelectedItem;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        public int CustomerNumberId
-        {
-            get
-            {
-                if (CustomerNumberComboBox.SelectedIndex > -1)
-                {
-                    return ((CustomerNumber)CustomerNumberComboBox.SelectedItem).GetId();
-                }
-                else
-                {
-                    return PlattformOrdManData.NO_ID;
-                }
-                
             }
         }
     }

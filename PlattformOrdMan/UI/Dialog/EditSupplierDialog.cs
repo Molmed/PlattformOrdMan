@@ -545,21 +545,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             CreateCustomerNumbers(false);
             MySupplier.ResetCustomerNumberLocal();
             MySupplier.Set();
-            UpdateInLinePosts();
-        }
-
-        private void UpdateInLinePosts()
-        {
-            foreach (CustomerNumberLocal custLocal in MyLocalCustomerNumbers)
-            {
-                if (custLocal.HasPendingPostsUpdate())
-                {
-                    foreach (Post post in custLocal.GetPendingUpdatePosts())
-                    {
-                        post.UpdateCustomerNumberId(custLocal.GetId());
-                    }
-                }
-            }
         }
 
         private void HandleEnableStatus()
