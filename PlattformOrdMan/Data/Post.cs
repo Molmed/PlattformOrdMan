@@ -69,8 +69,6 @@ namespace Molmed.PlattformOrdMan.Data
         private PlaceOfPurchase _placeOfPurchase;
         private string _comment;
         private readonly int _id;
-        private int _customerNumberId;
-        private CustomerNumber _customerNumber;
         // These fields are metadata for faster loading time
         private string _merchandiseIdentifier;
         private string _merchandiseAmount;
@@ -199,9 +197,6 @@ namespace Molmed.PlattformOrdMan.Data
             _customerNumberIdentifier = dataReader.GetString(PostData.CUSTOMER_NUMBER_IDENTIFIER);
             _invoiceCategoryNumber = dataReader.GetInt32(PostData.INVOICE_CATEGORY_NUMBER, NO_COUNT);
 
-            _customerNumberId = dataReader.GetInt32(PostData.CUSTOMER_NUMBER_ID, NO_ID);
-            _customerNumber = null;
-
             _articleNumber = null;
             _articleNumberId = dataReader.GetInt32(PostData.ARTICLE_NUMBER_ID, NO_ID);
             if (IsValidId(_articleNumberId))
@@ -234,28 +229,9 @@ namespace Molmed.PlattformOrdMan.Data
         public Enquiry Periodization => _periodization;
         public Enquiry Account => _account;
 
-        public CustomerNumber GetCustomerNumber()
-        {
-            if (_customerNumber == null && _customerNumberId != NO_ID)
-            {
-                _customerNumber = CustomerNumberManager.GetCustomerNumberById(_customerNumberId);
-            }
-            return _customerNumber;
-        }
-
-        public bool HasCustomerNumber()
-        {
-            return IsNotNull(GetCustomerNumber());
-        }
-
         public bool IsMerchandiseEnabled()
         {
             return _isMerchandiseEnabled;
-        }
-
-        public int GetCustomerNumberId()
-        {
-            return _customerNumberId;
         }
 
         public int GetId()
@@ -1105,17 +1081,6 @@ namespace Molmed.PlattformOrdMan.Data
             SetPostStatus();
         }
 
-        public bool IsCustomerNumberHandled()
-        {
-            if (IsNotNull(GetSupplier()) &&
-                GetSupplier().GetCustomerNumbersForCurrentUserGroup().Count > 0 &&
-                GetCustomerNumberId() == NO_ID)
-            {
-                return false;
-            }
-            return true;
-        }
-
         public void SignPostInvoice(User signer, InvoiceStatus status, bool isInvoiceAbsent)
         {
             Database.SignPostInvoice(GetId(), signer.GetId(), status.ToString(), isInvoiceAbsent);
@@ -1144,25 +1109,10 @@ namespace Molmed.PlattformOrdMan.Data
                 GetArrivalDate(), GetInvoiceUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 GetInvoiceNumber(), GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(), 
                 GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(),
-                GetCustomerNumberId(), markForAttention, _periodization, _account);
+                markForAttention, _periodization, _account);
         }
 
-        public void UpdateCustomerNumberId(int custNumId)
-        {
-            DateTime apprArrival;
-            DateTime.TryParse(GetPredictedArrival(), out apprArrival);
-
-            UpdatePost(GetComment(), GetApprPrizeDecimal(), GetAmount(), GetInvoiceClin(), GetInvoiceInst(),
-                apprArrival, GetInvoiceStatus().ToString(), IsInvoceAbsent(), GetCurrencyId(), GetBookerId(),
-                GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(), GetArrivalDate(),
-                GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(), GetInvoiceNumber(), GetFinalPrize(),
-                GetConfirmedOrderDate(), GetConfirmedOrderUserId(), GetDeliveryDeviation(), GetPurchaseOrderNo(), 
-                GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), custNumId, AttentionFlag,
-                _periodization, _account);
-        }
-
-        public void UpdateInvoiceNumber(string invoiceNumber, int customerNumberId,
-            bool isNoInvoice)
+        public void UpdateInvoiceNumber(string invoiceNumber, bool isNoInvoice)
         { 
             DateTime apprArrival;
             DateTime.TryParse(GetPredictedArrival(), out apprArrival);
@@ -1172,7 +1122,7 @@ namespace Molmed.PlattformOrdMan.Data
                 GetBookerId(), GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(),
                 GetArrivalDate(), GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 invoiceNumber, GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(),
-                GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), customerNumberId,
+                GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), 
                 AttentionFlag, _periodization, _account);
         }
 
@@ -1182,22 +1132,20 @@ namespace Molmed.PlattformOrdMan.Data
             DateTime arrivalDate, int invoiceCheckerUserId, DateTime invoiceDate, 
             int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize, 
             DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation,
-            string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
+            string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, 
             bool attentionFlag, Enquiry periodization, Enquiry account)
         {
             Database.UpdatePost(GetId(), comment, apprPrize, amount, invoiceClin, invoiceInst, apprArrival, 
                 invoiceStatus, isInvoiceAbsent, currencyId, bookerUserId, bookDate, orderUserId, orderDate,
                 arrivalSignUserId, arrivalDate, invoiceCheckerUserId, invoiceDate, articleNumberId, supplierId,
                 invoiceNumber, finalPrize, confirmedOrderDate, confirmedOrderUserId, deliveryDeviation,
-                purchaseOrderNo, salesOrderNo, placeOfPurchase, customerNumberId, attentionFlag, 
+                purchaseOrderNo, salesOrderNo, placeOfPurchase, attentionFlag, 
                 periodization.Value, periodization.HasValue, periodization.HasAnswered, account.Value,
                 account.HasValue, account.HasAnswered);
             SetComment(comment);
             _periodization = periodization;
             _account = account;
             AttentionFlag = attentionFlag;
-            _customerNumberId = customerNumberId;
-            _customerNumber = null;
             _apprPrize = apprPrize;
             _amount = amount;
             _invoiceClin = invoiceClin;
@@ -1232,16 +1180,6 @@ namespace Molmed.PlattformOrdMan.Data
             // Metadata update
             // Merchandise + invoice number metadata need not to be updated
             _supplierIdentifier = GetSupplierName();
-            if (IsNotNull(GetCustomerNumber()))
-            {
-                _customerNumberDescription = GetCustomerNumber().GetDescription();
-                _customerNumberIdentifier = GetCustomerNumber().GetIdentifier();
-            }
-            else
-            {
-                _customerNumberDescription = "";
-                _customerNumberIdentifier = "";
-            }
 
             SetPostStatus();
             OEventHandler.FirePostUpdate(this);

@@ -373,10 +373,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     var invoiceNumber = setInvoiceNumberDialog.InvoiceNumber;
                     var noInvoice = setInvoiceNumberDialog.NoInvoice;
-                    var customerNumberId = setInvoiceNumberDialog.CustomerNumberId;
                     foreach (Post post in posts)
                     {
-                        post.UpdateInvoiceNumber(invoiceNumber, customerNumberId, noInvoice);
+                        post.UpdateInvoiceNumber(invoiceNumber, noInvoice);
                     }
                     RedrawPosts(posts);
                 }
@@ -838,14 +837,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             PostList posts = new PostList();
             try
             {
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
-                {
-                    return;
-                }
-
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
                     var tmpPost = pViewItem.GetPost();
@@ -1047,18 +1038,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
         }
 
-        private bool HasAnySelectedPostUnHandledCustomerNumber()
-        {
-            foreach (PostViewItem viewItem in PostsListView.SelectedItems)
-            {
-                if (!viewItem.GetPost().IsCustomerNumberHandled())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private void OrderPostMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -1076,13 +1055,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     {
                         return;
                     }
-                }
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
-                {
-                    return;
                 }
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
@@ -1102,14 +1074,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             var posts = new PostList();
             try
             {
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
-                {
-                    return;
-                }
-
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
                     pViewItem.GetPost().ConfirmPostOrdered(UserManager.GetCurrentUser().GetId());
@@ -1444,14 +1408,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     return;
                 }
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
-                {
-                    return;
-                }
-
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
                     var tmpPost = pViewItem.GetPost();

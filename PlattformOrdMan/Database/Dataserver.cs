@@ -220,7 +220,7 @@ namespace Molmed.PlattformOrdMan.Database
         public DataReader CreatePost(int articleNumberId, int bookerId, String comment, int merchandiseId, int supplierId, 
             int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, bool invoiceAbsent,
             string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseOrderNo, 
-            string salesOrderNo, string placeOfPurchase, int customerNumberId, bool periodizationAnswered,
+            string salesOrderNo, string placeOfPurchase, bool periodizationAnswered,
             bool hasPeriodization, string periodizationValue, bool accountAnswered, bool hasAccount, 
             string accountValue)
         {
@@ -263,10 +263,6 @@ namespace Molmed.PlattformOrdMan.Database
             if (IsNotEmpty(deliveryDeviation))
             {
                 commandBuilder.AddParameter(PostData.DELIVERY_DEVIATION, deliveryDeviation);
-            }
-            if (customerNumberId != PlattformOrdManData.NO_ID)
-            {
-                commandBuilder.AddParameter(PostData.CUSTOMER_NUMBER_ID, customerNumberId);
             }
             return GetRow(commandBuilder);
         }
@@ -821,7 +817,7 @@ namespace Molmed.PlattformOrdMan.Database
             int arrivalSignUserId, DateTime arrivalDate, int invoiceCheckerUserId, 
             DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize, 
             DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation, 
-            string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId, 
+            string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, 
             bool attentionFlag, string periodizationValue, bool hasPeriodization, bool periodizationAnswered, 
             string accountValue, bool hasAccount, bool accountAnswered
             )
@@ -848,10 +844,6 @@ namespace Molmed.PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.ACCOUNT, accountValue);
             commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, accountAnswered);
             commandBuilder.AddParameter(PostData.HAS_ACCOUNT, hasAccount);
-            if (customerNumberId != PlattformOrdManData.NO_ID)
-            {
-                commandBuilder.AddParameter(PostData.CUSTOMER_NUMBER_ID, customerNumberId);
-            }
             if (IsNotEmpty(purchaseOrderNo))
             {
                 commandBuilder.AddParameter(PostData.PURCHASE_ORDER_NO, purchaseOrderNo);
