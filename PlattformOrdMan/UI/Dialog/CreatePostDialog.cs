@@ -45,95 +45,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             merchandiseCombobox1.SetSelectedIdentity(merchandice);
         }
 
-        private bool IsLoadedInCombobox(CustomerNumber custNum)
-        {
-            foreach (CustomerNumber cust in CustomerNumberComboBox.Items)
-            {
-                if (cust.GetId() == custNum.GetId())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void InitCustomerNumberCombobox()
-        {
-            if (SupplierComboBox.HasSelectedSupplier() && OrderingUnitComboBox.SelectedIndex >= 0)
-            {
-                var placeOfPurchase =
-                    PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem);
-                var supplier = SupplierComboBox.GetSelectedSupplier();
-                CustomerNumberComboBox.Items.Clear();
-                foreach (CustomerNumber custNum in supplier.GetCustomerNumbersForUserGroup(placeOfPurchase))
-                    //foreach (CustomerNumber custNum in supplier.GetCustomerNumbersForCurrentUserGroup())
-                {
-                    if (custNum.IsEnabled())
-                    {
-                        CustomerNumberComboBox.Items.Add(custNum);
-                    }
-                }
-                // Add disabled customer number if it exists for this post
-                if (IsNotNull(_post) && _post.HasCustomerNumber() &&
-                    !IsLoadedInCombobox(_post.GetCustomerNumber()))
-                {
-                    CustomerNumberComboBox.Items.Add(_post.GetCustomerNumber());
-                }
-            }
-
-            if (CustomerNumberComboBox.Items.Count == 0)
-            {
-                CustomerNumberComboBox.Enabled = false;
-            }
-            else if (CustomerNumberComboBox.Items.Count == 1)
-            {
-                CustomerNumberComboBox.Enabled = true;
-                CustomerNumberComboBox.SelectedIndex = 0;
-            }
-            else
-            {
-                CustomerNumberComboBox.Enabled = true;
-            }
-        }
-
-        private void SetDefaultCustomerNumber()
-        {
-            if (CustomerNumberComboBox.Items.Count == 1)
-            {
-                CustomerNumberComboBox.SelectedIndex = 0;
-            }
-            else if (CustomerNumberComboBox.Items.Count > 1)
-            {
-                CustomerNumberComboBox.Text = "Please select customer number";
-            }
-            else if (CustomerNumberComboBox.Items.Count == 0)
-            {
-                CustomerNumberComboBox.Text = "No customer number available!";
-            }
-        }
-
-        private void UpdateCustomerNumber()
-        {
-            if (_post != null &&
-                _post.GetCustomerNumberId() != PlattformOrdManData.NO_ID)
-            {
-                foreach (object o in CustomerNumberComboBox.Items)
-                {
-                    var number = o as CustomerNumber;
-                    if (number != null &&
-                        number.GetId() == _post.GetCustomerNumberId())
-                    {
-                        CustomerNumberComboBox.SelectedItem = o;
-                        return;
-                    }
-                }
-                if (CustomerNumberComboBox.SelectedIndex == -1)
-                {
-                    throw new Data.Exception.DataException("Unable to find customer number for this product!");
-                }
-            }
-        }
-
         void CreatePostDialog_ResizeEnd(object sender, EventArgs e)
         {
             FixComboboxSelection();
@@ -226,7 +137,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             switch (_updateMode)
             {
                 case PostUpdateMode.Create:
-                    SetDefaultCustomerNumber();
                     AttentionCheckBox.Visible = false;
                     break;
                 case PostUpdateMode.Edit:
@@ -329,7 +239,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     merchandiseCombobox1.LoadIdentitiesWithInfoText();
                 }
             }
-            InitCustomerNumberCombobox();
             HandleSaveButtonEnabled();
         }
 
@@ -463,8 +372,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             InvoiceClinCheckBox.Checked = _post.GetInvoiceClin();
             NoInvoiceCheckBox.Checked = _post.IsInvoceAbsent();
             AttentionCheckBox.Checked = _post.AttentionFlag;
-            InitCustomerNumberCombobox();
-            UpdateCustomerNumber();
             Periodization.SetEnquiry(_post.Periodization);
             Account.SetEnquiry(_post.Account);
         }
@@ -544,12 +451,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 amount = PlattformOrdManData.NO_COUNT;
             }
 
-            if (CustomerNumberComboBox.SelectedIndex > -1 &&
-                CustomerNumberComboBox.SelectedItem is CustomerNumber)
-            {
-                customerNumberId = ((CustomerNumber) CustomerNumberComboBox.SelectedItem).GetId();
-            }
-
             if (ApprPrizeTextBox.Text.Trim() == "")
             {
                 prize = -1;
@@ -601,15 +502,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     Periodization.GetEnquiry() != _post.Periodization ||
                     Account.GetEnquiry() != _post.Account
             );
-        }
-
-        private bool IsCustomerNumberNotHandled()
-        {
-            return SupplierComboBox.HasSelectedSupplier() &&
-                   SupplierComboBox.GetSelectedSupplier().GetCustomerNumbersForCurrentUserGroup().Count > 0 &&
-                   (CustomerNumberComboBox.SelectedIndex == -1 ||
-                    (CustomerNumberComboBox.SelectedIndex > -1 &&
-                     !(CustomerNumberComboBox.SelectedItem is CustomerNumber)));
         }
 
         private bool IsOrderingUnitUpdated()
@@ -733,15 +625,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 currencyId = CurrencyCombobox.GetSelectedCurrency().GetId();
             }
             DialogResult = DialogResult.Cancel;
-            if (CustomerNumberComboBox.SelectedIndex > -1 &&
-                CustomerNumberComboBox.SelectedItem is CustomerNumber)
-            {
-                var custNum = (CustomerNumber) CustomerNumberComboBox.SelectedItem;
-                if (custNum != null)
-                {
-                    customerNumberId = custNum.GetId();
-                }
-            }
             if (ApprPrizeTextBox.Text.Trim() == "")
             {
             }
@@ -777,15 +660,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (IsNull(merchandise) || IsNull(currentUser))
             {
                 ShowWarning("Error, either the supplier, merchandise or the active user were not set, create canceled!");
-                return false;
-            }
-
-            if (IsCustomerNumberNotHandled() &&
-                OrdererUserComboBox.HasSelectedIdentity() &&
-                MessageBox.Show("Customer number has not been chosen, continue anyway?",
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                DialogResult.Cancel)
-            {
                 return false;
             }
 
@@ -965,15 +839,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 currencyId = CurrencyCombobox.GetSelectedCurrency().GetId();
             }
-            if (CustomerNumberComboBox.SelectedIndex > -1 &&
-                CustomerNumberComboBox.SelectedItem is CustomerNumber)
-            {
-                var custNum = (CustomerNumber) CustomerNumberComboBox.SelectedItem;
-                if (custNum != null)
-                {
-                    customerNumberId = custNum.GetId();
-                }
-            }
 
             if (ApprPrizeTextBox.Text.Trim() == "")
             {
@@ -1015,16 +880,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (!IsAmountNumeric())
             {
                 ShowWarning("Error, the amount is not numeric, update canceled!");
-                return false;
-            }
-
-            if (askCustNumberHandling &&
-                IsCustomerNumberNotHandled() &&
-                OrdererUserComboBox.HasSelectedIdentity() &&
-                MessageBox.Show("Customer number has not been chosen, continue anyway?",
-                    "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                DialogResult.Cancel)
-            {
                 return false;
             }
 
@@ -1654,22 +1509,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void label23_Click(object sender, EventArgs e)
         {
-        }
-
-        private void OrderingUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (OrderingUnitComboBox.SelectedIndex >= 0)
-            {
-                var pop = PlattformOrdManData.GetPlaceOfPurchaseFromString((string) OrderingUnitComboBox.SelectedItem);
-                if (_popPrevSel == PlattformOrdManData.NO_COUNT ||
-                    PlattformOrdManData.GetGroupCategory(pop) !=
-                    PlattformOrdManData.GetGroupCategory((PlaceOfPurchase) _popPrevSel))
-                {
-                    InitCustomerNumberCombobox();
-                }
-            }
-            HandleSaveButtonEnabled();
-            _popPrevSel = OrderingUnitComboBox.SelectedIndex;
         }
 
         private void SupplierComboBox_SelectedIndexChanged(object sender, EventArgs e)
