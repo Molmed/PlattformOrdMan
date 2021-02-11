@@ -74,7 +74,6 @@ namespace Molmed.PlattformOrdMan.UI.View
                 case PostListViewColumn.SalesOrderNo:
                 case PostListViewColumn.Supplier:
                 case PostListViewColumn.PlaceOfPurchase:
-                case PostListViewColumn.CustomerNumber:
                     return ListDataType.String;
         
                 default:
@@ -136,8 +135,6 @@ namespace Molmed.PlattformOrdMan.UI.View
                     return "SO";
                 case PostListViewColumn.PlaceOfPurchase:
                     return "Group";
-                case PostListViewColumn.CustomerNumber:
-                    return "Customer number";
                 default:
                     throw new Data.Exception.DataException("Unknown enum type: " + col);
             }

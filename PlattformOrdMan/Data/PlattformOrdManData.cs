@@ -49,7 +49,6 @@ namespace Molmed.PlattformOrdMan.Data
         SalesOrderNo,
         Comment,
         PlaceOfPurchase,
-        CustomerNumber
     }
 
     public class PlattformOrdManData : PlattformOrdManBase

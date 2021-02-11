@@ -75,8 +75,6 @@ namespace Molmed.PlattformOrdMan.Data
         private bool _isMerchandiseEnabled;
         private string _merchandiseComment;
         private string _supplierIdentifier;
-        private string _customerNumberDescription;
-        private string _customerNumberIdentifier;
         private readonly int _invoiceCategoryNumber;
         private Enquiry _periodization;
         private Enquiry _account;
@@ -193,8 +191,6 @@ namespace Molmed.PlattformOrdMan.Data
             _isMerchandiseEnabled = dataReader.GetBoolean(PostData.MERCHANDISE_ENABLED);
             _merchandiseComment = dataReader.GetString(PostData.MERCHANDISE_COMMENT);
             _supplierIdentifier = dataReader.GetString(PostData.SUPPLIER_IDENTIFIER);
-            _customerNumberDescription = dataReader.GetString(PostData.CUSTOMER_NUMBER_DESCRIPTION);
-            _customerNumberIdentifier = dataReader.GetString(PostData.CUSTOMER_NUMBER_IDENTIFIER);
             _invoiceCategoryNumber = dataReader.GetInt32(PostData.INVOICE_CATEGORY_NUMBER, NO_COUNT);
 
             _articleNumber = null;
@@ -473,25 +469,9 @@ namespace Molmed.PlattformOrdMan.Data
                     return GetSupplierName2();
                 case PostListViewColumn.PlaceOfPurchase:
                     return GetPlaceOfPurchaseString();
-                case PostListViewColumn.CustomerNumber:
-                    return GetCustomerNumberString2();
                 default:
                     throw new Exception.DataException("Unknwon post list view column: " + column);
             }
-        }
-
-        private string GetCustomerNumberString2()
-        {
-            string str = "";
-            if (IsNotEmpty(_customerNumberDescription))
-            {
-                str += _customerNumberDescription + ", ";
-            }
-            if (IsNotEmpty(_customerNumberIdentifier))
-            {
-                str += _customerNumberIdentifier;
-            }
-            return str;
         }
 
         private string GetCommentForListView()
