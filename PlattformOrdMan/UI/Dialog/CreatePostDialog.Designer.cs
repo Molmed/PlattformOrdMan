@@ -85,7 +85,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.PurchaseOrderNoTextBox = new System.Windows.Forms.TextBox();
             this.SalesOrdernoTextBox = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
             this.Periodization = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.Account = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -685,18 +684,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label26.TabIndex = 47;
             this.label26.Text = "Customer number:";
             // 
-            // CustomerNumberComboBox
-            // 
-            this.CustomerNumberComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CustomerNumberComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CustomerNumberComboBox.FormattingEnabled = true;
-            this.CustomerNumberComboBox.Location = new System.Drawing.Point(134, 14);
-            this.CustomerNumberComboBox.Name = "CustomerNumberComboBox";
-            this.CustomerNumberComboBox.Size = new System.Drawing.Size(386, 21);
-            this.CustomerNumberComboBox.TabIndex = 48;
-            this.CustomerNumberComboBox.SelectedIndexChanged += new System.EventHandler(this.CustomerNumberComboBox_SelectedIndexChanged);
-            // 
             // Periodization
             // 
             this.Periodization.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -804,7 +791,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.label23);
-            this.panel2.Controls.Add(this.CustomerNumberComboBox);
             this.panel2.Controls.Add(this.Account);
             this.panel2.Controls.Add(this.label26);
             this.panel2.Controls.Add(this.label24);
@@ -1109,7 +1095,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.TextBox PurchaseOrderNoTextBox;
         private System.Windows.Forms.TextBox SalesOrdernoTextBox;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.ComboBox CustomerNumberComboBox;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
         private Component.EnquiryField Periodization;
         private Component.EnquiryField Account;
