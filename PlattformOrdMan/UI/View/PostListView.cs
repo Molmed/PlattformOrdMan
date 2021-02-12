@@ -325,11 +325,22 @@ namespace Molmed.PlattformOrdMan.UI.View
             : base("")
         {
             _post = post;
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            var columns = GetColumns();
+            foreach (var postListViewColumn in GetColumns())
+            {
+                
+            }
+            SetStatusColor();
 
+        }
+
+        private List<PostListViewColumn> GetColumns()
+        {
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
             // Loop through columns in personal config datatable
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
             PostListViewColumn postListViewColumn;
+            List<PostListViewColumn> ret = new List<PostListViewColumn>();
             for (int i = 0; i < rows.Length; i++)
             {
                 var colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
@@ -343,18 +354,10 @@ namespace Molmed.PlattformOrdMan.UI.View
 
                     continue;
                 }
-                if (i == 0)
-                {
-                    Text = post.GetStringForListViewColumn(postListViewColumn);
-                }
-                else
-                { 
-                    SubItems.Add(post.GetStringForListViewColumn(postListViewColumn));
-                }
+                ret.Add(postListViewColumn);
             }
-            //this.UseItemStyleForSubItems = false;
-            SetStatusColor();
 
+            return ret;
         }
 
         public void ReloadPost(Post post)
