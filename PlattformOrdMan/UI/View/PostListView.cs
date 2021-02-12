@@ -329,17 +329,27 @@ namespace Molmed.PlattformOrdMan.UI.View
 
             // Loop through columns in personal config datatable
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            PostListViewColumn postListViewColumn;
             for (int i = 0; i < rows.Length; i++)
             {
                 var colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
-                var col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
+                try
+                {
+                    postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
+
+                }
+                catch (ArgumentException)
+                {
+
+                    continue;
+                }
                 if (i == 0)
                 {
-                    Text = post.GetStringForListViewColumn(col);
+                    Text = post.GetStringForListViewColumn(postListViewColumn);
                 }
                 else
                 { 
-                    SubItems.Add(post.GetStringForListViewColumn(col));
+                    SubItems.Add(post.GetStringForListViewColumn(postListViewColumn));
                 }
             }
             //this.UseItemStyleForSubItems = false;
