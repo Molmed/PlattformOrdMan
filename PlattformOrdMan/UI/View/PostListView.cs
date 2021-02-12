@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Data;
+using System.Linq;
 using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.UI.View;
 
 namespace Molmed.PlattformOrdMan.UI.View
 {
@@ -27,6 +30,39 @@ namespace Molmed.PlattformOrdMan.UI.View
             _supplierDict = new Dictionary<int, List<PostViewItem>>();
             _prodDict = new Dictionary<int, List<PostViewItem>>();
             _postDict = new Dictionary<int, PostViewItem>();
+        }
+        public static List<PostColumn> GetColumns()
+        {
+            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            // Loop through columns in personal config datatable
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
+            PostListViewColumn postListViewColumn;
+            List<PostColumn> ret = new List<PostColumn>();
+            foreach (var row in rows)
+            {
+                var colName = (string)row[Configuration.PostListViewConfColumns.ColEnumName.ToString()];
+                var colWidth = (int)row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                try
+                {
+                    postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
+
+                }
+                catch (ArgumentException)
+                {
+
+                    continue;
+                }
+
+                var postColumn = new PostColumn(postListViewColumn, colWidth);
+                ret.Add(postColumn);
+            }
+
+            return ret;
+        }
+
+        public void AddColumn(PostColumn col)
+        {
+            AddColumn(col.GetHeader(), col.Width, col.GetListDataType());
         }
 
         public override void BeginLoadChunk(int chunkSize)
@@ -315,8 +351,6 @@ namespace Molmed.PlattformOrdMan.UI.View
 
     }
 
-
-
     public class PostViewItem : ListViewItem
     {
         private Post _post;
@@ -325,39 +359,10 @@ namespace Molmed.PlattformOrdMan.UI.View
             : base("")
         {
             _post = post;
-            var columns = GetColumns();
-            foreach (var postListViewColumn in GetColumns())
-            {
-                
-            }
+            var columns = PostListView.GetColumns();
+            Text = columns.First().GetString(post);
+            columns.Skip(1).ToList().ForEach((c) => { SubItems.Add(c.GetString(post));});
             SetStatusColor();
-
-        }
-
-        private List<PostListViewColumn> GetColumns()
-        {
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
-            // Loop through columns in personal config datatable
-            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
-            PostListViewColumn postListViewColumn;
-            List<PostListViewColumn> ret = new List<PostListViewColumn>();
-            for (int i = 0; i < rows.Length; i++)
-            {
-                var colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
-                try
-                {
-                    postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
-
-                }
-                catch (ArgumentException)
-                {
-
-                    continue;
-                }
-                ret.Add(postListViewColumn);
-            }
-
-            return ret;
         }
 
         public void ReloadPost(Post post)

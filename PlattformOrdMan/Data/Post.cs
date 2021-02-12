@@ -474,7 +474,7 @@ namespace Molmed.PlattformOrdMan.Data
             }
         }
 
-        private string GetCommentForListView()
+        public string GetCommentForListView()
         {
             var commentText = "";
             if (IsNotEmpty(_merchandiseComment))
@@ -588,7 +588,7 @@ namespace Molmed.PlattformOrdMan.Data
             return _merchandiseId;
         }
 
-        private string GetMerchandiseName2()
+        public string GetMerchandiseName2()
         {
             if (IsEmpty(_merchandiseIdentifier))
             {
@@ -724,7 +724,7 @@ namespace Molmed.PlattformOrdMan.Data
             return _supplierId;
         }
 
-        private string GetSupplierName2()
+        public string GetSupplierName2()
         {
             if (IsEmpty(_supplierIdentifier))
             {
@@ -891,7 +891,7 @@ namespace Molmed.PlattformOrdMan.Data
             }
         }
 
-        private string GetTotalPrizeWithCurrencyString()
+        public string GetTotalPrizeWithCurrencyString()
         {
             var prize = GetTotalPrize();
             if (prize != NO_COUNT)
@@ -919,7 +919,7 @@ namespace Molmed.PlattformOrdMan.Data
             return _isInvoiceAbsent;
         }
 
-        private String GetInvoiceInstString()
+        public String GetInvoiceInstString()
         {
             if (_invoiceInst)
             {
@@ -944,7 +944,7 @@ namespace Molmed.PlattformOrdMan.Data
         }
 
 
-        private String GetInvoiceClinString()
+        public String GetInvoiceClinString()
         {
             if (_invoiceClin)
             {

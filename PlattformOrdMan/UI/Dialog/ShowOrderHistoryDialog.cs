@@ -248,27 +248,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void InitListView()
         {
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " ASC";
-            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
-
+            var columns = PostListView.GetColumns();
             // Add columns to post according to personal configuration
             PostsListView.BeginUpdate();
-            PostListViewColumn postListViewColumn;
-            foreach (DataRow row in rows)
+            foreach (var col in columns)
             {
-                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                try
-                {
-                    postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colEnumName);
-                }
-                catch (ArgumentException)
-                {
-                    continue;
-                }
-                var colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
-                var colWidth = (int) row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
-                var listDataType = PostListView.GetListDataType(postListViewColumn);
-                PostsListView.AddColumn(colHeader, colWidth, listDataType);
+                PostsListView.AddColumn(col);
             }
             PostsListView.EndUpdate();
 
