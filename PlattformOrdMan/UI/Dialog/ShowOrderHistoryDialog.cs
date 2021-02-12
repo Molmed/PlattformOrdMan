@@ -253,10 +253,18 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
             // Add columns to post according to personal configuration
             PostsListView.BeginUpdate();
+            PostListViewColumn postListViewColumn;
             foreach (DataRow row in rows)
             {
                 var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                var postListViewColumn = (PostListViewColumn) Enum.Parse(typeof(PostListViewColumn), colEnumName);
+                try
+                {
+                    postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colEnumName);
+                }
+                catch (ArgumentException)
+                {
+                    continue;
+                }
                 var colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
                 var colWidth = (int) row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
                 var listDataType = PostListView.GetListDataType(postListViewColumn);
