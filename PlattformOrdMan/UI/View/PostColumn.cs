@@ -11,6 +11,7 @@ namespace PlattformOrdMan.UI.View
         private readonly int _width;
 
         public int Width => _width;
+        public PostListViewColumn ColEnum => _colEnum;
 
         public PostColumn(PostListViewColumn colEnum, int width)
         {

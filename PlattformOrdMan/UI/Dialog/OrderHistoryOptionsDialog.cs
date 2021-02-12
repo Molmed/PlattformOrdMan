@@ -109,33 +109,25 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void InitIncludedColumnsListView()
         {
-            IncludedColumnsListViewItem lvi;
             var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
 
             IncludedColumnsListView.EnableColumnSort = false;
             IncludedColumnsListView.Columns.Add("Columns to show", PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH);
-
-            // Get columns already included in personal configuration
-            foreach (DataRow row in rows)
+            var personalColumns = PostListView.GetColumns();
+            personalColumns.ForEach(c =>
             {
-                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                var postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colEnumName);
-                lvi = new IncludedColumnsListViewItem(postListViewColumn) {Checked = true};
-                IncludedColumnsListView.Items.Add(lvi);
-            }
+                var lvi2 = new IncludedColumnsListViewItem(c.ColEnum){Checked = true};
+                IncludedColumnsListView.Items.Add(lvi2);
+            });
 
             // Get columns not included in personal configuration
-            foreach (PostListViewColumn col in Enum.GetValues(typeof(PostListViewColumn)))
+            var excludedColumns = PostListView.GetExcudedColumns();
+            excludedColumns.ForEach(c =>
             {
-                var expression = Configuration.PostListViewConfColumns.ColEnumName + " = '" + col + "'";
-                rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
-                if (rows.Length == 0)
-                {
-                    lvi = new IncludedColumnsListViewItem(col) {Checked = false};
-                    IncludedColumnsListView.Items.Add(lvi);
-                }
-            }
+                var lvi = new IncludedColumnsListViewItem(c.ColEnum){Checked = false};
+                IncludedColumnsListView.Items.Add(lvi);
+            });
             DisableMoveButtons();
             IncludedColumnsListView.SelectedIndexChanged += IncludedColumnsListView_SelectedIndexChanged;
             IncludedColumnsListView.GotFocus += IncludedColumnsListView_GotFocus;

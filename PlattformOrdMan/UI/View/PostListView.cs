@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using Molmed.PlattformOrdMan.Data;
+using Molmed.PlattformOrdMan.UI.Dialog;
 using PlattformOrdMan.UI.View;
 
 namespace Molmed.PlattformOrdMan.UI.View
@@ -30,6 +31,23 @@ namespace Molmed.PlattformOrdMan.UI.View
             _supplierDict = new Dictionary<int, List<PostViewItem>>();
             _prodDict = new Dictionary<int, List<PostViewItem>>();
             _postDict = new Dictionary<int, PostViewItem>();
+        }
+
+        public static List<PostColumn> GetExcudedColumns()
+        {
+            List<PostColumn> excluded = new List<PostColumn>();
+            foreach (PostListViewColumn col in Enum.GetValues(typeof(PostListViewColumn)))
+            {
+                var expression = Configuration.PostListViewConfColumns.ColEnumName + " = '" + col + "'";
+                var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
+                if (rows.Length == 0)
+                {
+                    var column = new PostColumn(col, -1);
+                    excluded.Add(column);
+                }
+            }
+
+            return excluded;
         }
         public static List<PostColumn> GetColumns()
         {
