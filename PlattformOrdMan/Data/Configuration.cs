@@ -13,12 +13,6 @@ namespace Molmed.PlattformOrdMan.Data
     {
         private StringDictionary MyItems;
         private const string ConfigFileName = "Order_config.XML";
-        private bool MyShowOnlyEnabledProducts;
-        private bool MyTimeRestrictionForCompletedPostsOnly;
-        private int MyTimeIntervalForPosts;
-        private PlaceOfPurchase MyPlaceOfPurchase;
-        private StringCollection MyPlaceOfPurchaseFilter;
-        private DataTable MyPostListViewSelectedColumns;
 
         public enum PostListViewConfColumns
         { 
@@ -37,8 +31,8 @@ namespace Molmed.PlattformOrdMan.Data
         public Configuration()
         {
             MyItems = new StringDictionary();
-            MyPlaceOfPurchaseFilter = new StringCollection();
-            MyPostListViewSelectedColumns = GetPostListViewSelectedColumnsTable(ConfTables.PostListViewSelectedColumns.ToString());
+            PlaceOfPurchaseFilter = new StringCollection();
+            PostListViewSelectedColumns = GetPostListViewSelectedColumnsTable(ConfTables.PostListViewSelectedColumns.ToString());
 
             //			SAVED FOR CREATING THE CONFIGURATION FILE.
             //			MyItems.Add("VersionControlFlag", "true");
@@ -93,78 +87,18 @@ namespace Molmed.PlattformOrdMan.Data
             return table;
         }
 
-        public StringCollection PlaceOfPurchaseFilter
-        {
-            get
-            {
-                return MyPlaceOfPurchaseFilter;
-            }
-            set
-            {
-                MyPlaceOfPurchaseFilter = value;
-            }
-        }
+        public StringCollection PlaceOfPurchaseFilter { get; set; }
 
-        public DataTable PostListViewSelectedColumns
-        {
-            get
-            {
-                return MyPostListViewSelectedColumns;
-            }
-            set
-            {
-                MyPostListViewSelectedColumns = value;
-            }
-        }
+        public DataTable PostListViewSelectedColumns { get; set; }
 
-        public int TimeIntervalForPosts
-        {
-            get
-            {
-                return MyTimeIntervalForPosts;
-            }
-            set
-            {
-                MyTimeIntervalForPosts = value;
-            }
-        }
+        public int TimeIntervalForPosts { get; set; }
 
-        public PlaceOfPurchase PlaceOfPurchase
-        {
-            get
-            {
-                return MyPlaceOfPurchase;
-            }
-            set
-            {
-                MyPlaceOfPurchase = value;
-            }
-        }
+        public PlaceOfPurchase PlaceOfPurchase { get; set; }
 
-        public bool TimeRestrictionForCompletedPostsOnly
-        {
-            get
-            {
-                return MyTimeRestrictionForCompletedPostsOnly;
-            }
-            set
-            {
-                MyTimeRestrictionForCompletedPostsOnly = value;
-            }
-        }
+        public bool TimeRestrictionForCompletedPostsOnly { get; set; }
 
 
-        public bool ShowOnlyEnabledProducts
-        {
-            get
-            {
-                return MyShowOnlyEnabledProducts;
-            }
-            set
-            {
-                MyShowOnlyEnabledProducts = value;
-            }
-        }
+        public bool ShowOnlyEnabledProducts { get; set; }
 
         public void SaveSettings()
         {
@@ -182,7 +116,7 @@ namespace Molmed.PlattformOrdMan.Data
                 dSet.Tables[ConfTables.Item.ToString()].Rows.Add(rowValues);
             }
 
-            foreach (string pop in MyPlaceOfPurchaseFilter)
+            foreach (string pop in PlaceOfPurchaseFilter)
             {
                 rowValues = new object[1];
                 rowValues[0] = pop;
@@ -193,7 +127,7 @@ namespace Molmed.PlattformOrdMan.Data
             {
                 dSet.Tables.Remove(ConfTables.PostListViewSelectedColumns.ToString());
             }
-            dSet.Tables.Add(MyPostListViewSelectedColumns.Copy());
+            dSet.Tables.Add(PostListViewSelectedColumns.Copy());
 
             dSet.WriteXml(System.Windows.Forms.Application.StartupPath + "\\" + ConfigFileName, XmlWriteMode.IgnoreSchema);
         }
@@ -214,8 +148,8 @@ namespace Molmed.PlattformOrdMan.Data
             config.MyItems.Add(ConfigurationData.TIME_INTERVAL_FOR_POSTS, ConfigurationData.DEFAULT_TIME_INTERVAL_FOR_POSTS.ToString());
             config.MyItems.Add(ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY, ConfigurationData.DEFAULT_TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY.ToString());
             config.MyItems.Add(ConfigurationData.PLACE_OF_PURCHASE, UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
-            config.MyPlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
-            if (!config.MyPlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
+            config.PlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
+            if (!config.PlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
                 UserManager.GetCurrentUser().GetPlaceOfPurchase() != PlaceOfPurchase.Research)
             {
                 config.PlaceOfPurchaseFilter.Add(PlaceOfPurchase.Other.ToString());
@@ -248,21 +182,21 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 foreach (DataRow tempRow in dSet.Tables[ConfTables.PlaceOfPurchaseFilter.ToString()].Rows)
                 {
-                    config.MyPlaceOfPurchaseFilter.Add(tempRow["Value"].ToString());
+                    config.PlaceOfPurchaseFilter.Add(tempRow["Value"].ToString());
                 }
-                if (config.MyPlaceOfPurchaseFilter.Count == 0)
+                if (config.PlaceOfPurchaseFilter.Count == 0)
                 {
-                    config.MyPlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
-                    if (!config.MyPlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
+                    config.PlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
+                    if (!config.PlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
                         UserManager.GetCurrentUser().GetPlaceOfPurchase() != PlaceOfPurchase.Research)
                     {
-                        config.MyPlaceOfPurchaseFilter.Add(PlaceOfPurchase.Other.ToString());
+                        config.PlaceOfPurchaseFilter.Add(PlaceOfPurchase.Other.ToString());
                     }
                 }
-                config.MyPostListViewSelectedColumns = dSet.Tables[ConfTables.PostListViewSelectedColumns.ToString()];
-                if (config.MyPostListViewSelectedColumns.Rows.Count == 0)
+                config.PostListViewSelectedColumns = dSet.Tables[ConfTables.PostListViewSelectedColumns.ToString()];
+                if (config.PostListViewSelectedColumns.Rows.Count == 0)
                 {
-                    config.MyPostListViewSelectedColumns = GetDefaultPostListViewColumns();
+                    config.PostListViewSelectedColumns = GetDefaultPostListViewColumns();
                 }
             }
             config.SetWorkingVariables();
