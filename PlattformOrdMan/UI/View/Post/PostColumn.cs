@@ -1,9 +1,8 @@
-﻿using System;
-using Molmed.PlattformOrdMan.Data;
+﻿using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.Data.Exception;
 using Molmed.PlattformOrdMan.UI.View;
 
-namespace PlattformOrdMan.UI.View
+namespace PlattformOrdMan.UI.View.Post
 {
     public class PostColumn
     {
@@ -120,7 +119,7 @@ namespace PlattformOrdMan.UI.View
             }
         }
 
-        public string GetString(Post post)
+        public string GetString(Molmed.PlattformOrdMan.Data.Post post)
         {
             switch (_colEnum)
             {

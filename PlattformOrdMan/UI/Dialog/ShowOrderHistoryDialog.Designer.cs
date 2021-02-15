@@ -1,3 +1,5 @@
+using PlattformOrdMan.UI.View.Post;
+
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
     partial class ShowOrderHistoryDialog
@@ -30,7 +32,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowOrderHistoryDialog));
-            this.PostsListView = new Molmed.PlattformOrdMan.UI.View.PostListView(this.components);
+            this.PostsListView = new PostListView(this.components);
             this.NewOrderButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.PostOrderInfoLabel = new System.Windows.Forms.Panel();
@@ -324,7 +326,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         #endregion
 
         //private System.Windows.Forms.ListView PostsListView;
-        private Molmed.PlattformOrdMan.UI.View.PostListView PostsListView;
+        private PostListView PostsListView;
         private System.Windows.Forms.Button NewOrderButton;
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Panel PostOrderInfoLabel;

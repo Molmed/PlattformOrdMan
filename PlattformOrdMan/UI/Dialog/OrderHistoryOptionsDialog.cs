@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
 using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.UI.View.Post;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {

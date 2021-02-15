@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using System.ComponentModel;
-using System.Data;
-using System.Linq;
 using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.Dialog;
+using Molmed.PlattformOrdMan.UI.View;
 using PlattformOrdMan.Data.Conf;
-using PlattformOrdMan.UI.View;
 
-namespace Molmed.PlattformOrdMan.UI.View
+namespace PlattformOrdMan.UI.View.Post
 {
     public partial class PostListView : OrderManListView
     {
@@ -132,7 +127,7 @@ namespace Molmed.PlattformOrdMan.UI.View
                     return ListDataType.String;
         
                 default:
-                    throw new Data.Exception.DataException("Unknown enum type: " + col);
+                    throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Unknown enum type: " + col);
             }
         }
 
@@ -191,11 +186,11 @@ namespace Molmed.PlattformOrdMan.UI.View
                 case PostListViewColumn.PlaceOfPurchase:
                     return "Group";
                 default:
-                    throw new Data.Exception.DataException("Unknown enum type: " + col);
+                    throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Unknown enum type: " + col);
             }
         }
 
-        public void AddViewItem(Post post)
+        public void AddViewItem(Molmed.PlattformOrdMan.Data.Post post)
         {
             PostViewItem pViewItem = new PostViewItem(post);
             BeginAddItems(1);
@@ -207,7 +202,7 @@ namespace Molmed.PlattformOrdMan.UI.View
             Select();
         }
 
-        public void ReloadPost(Post post)
+        public void ReloadPost(Molmed.PlattformOrdMan.Data.Post post)
         { 
             if(IsNotNull(post))
             {
@@ -318,149 +313,5 @@ namespace Molmed.PlattformOrdMan.UI.View
             ListViewItemSorter = new ListViewComparerDefault();
             MySortColumnIndex = NO_COLUMN_INDEX;
         }
-
-
-        private class ListViewComparerDefault : ListViewComparerChiasma
-        {
-            public override int Compare(object object1, object object2)
-            {
-                Post post1 = null;
-
-                var listViewItem1 = (PostViewItem)object1;
-                var listViewItem2 = (PostViewItem)object2;
-
-                if (listViewItem1 != null) post1 = listViewItem1.GetPost();
-                if (listViewItem2 == null) return 0;
-                var post2 = listViewItem2.GetPost();
-
-
-                if (post1 != null && post2 != null)
-                {
-                    if (post1 > post2)
-                    {
-                        return 1;
-                    }
-                    else if (post1 == post2)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
-                }
-                else
-                {
-                    // post1 and/or post2 is null
-                    if (post1 != null && post2 == null)
-                    {
-                        return 1;
-                    }
-                    else if (post1 == null && post2 != null)
-                    {
-                        return -1;
-                    }
-                    else
-                    {
-                        return 0;
-                    }
-                }
-            }
-        }
-
     }
-
-    public class PostViewItem : ListViewItem
-    {
-        private Post _post;
-
-        public PostViewItem(Post post)
-            : base("")
-        {
-            _post = post;
-            var columns = PostListView.GetColumns();
-            Text = columns.First().GetString(post);
-            columns.Skip(1).ToList().ForEach((c) => { SubItems.Add(c.GetString(post));});
-            SetStatusColor();
-        }
-
-        public void ReloadPost(Post post)
-        {
-            _post = post;
-            UpdateViewItem();
-        }
-
-        public void ReloadSupplier(Supplier supplier)
-        {
-            _post.ReloadSupplier(supplier);
-            UpdateViewItem();
-        }
-
-        public void ReloadMerchandise(Merchandise merchandise)
-        {
-            _post.ReloadMerchandise(merchandise);
-            UpdateViewItem();
-        }
-
-        public Post GetPost()
-        {
-            return _post;
-        }
-
-        private void SetStatusColor()
-        {
-            if (_post.AttentionFlag)
-            {
-                ForeColor = Color.Black;
-                BackColor = Color.Red;
-                return;
-            }
-            if (!_post.IsMerchandiseEnabled())
-            {
-                ForeColor = Color.Red;
-                ToolTipText = "This product is not up to date";
-            }
-            switch (_post.GetPostStatus())
-            {
-                case Post.PostStatus.Booked:
-                    BackColor = Color.LightCoral;
-                    ForeColor = Color.Black;
-                    break;
-                case Post.PostStatus.Ordered:
-                    BackColor = Color.Yellow;
-                    ForeColor = Color.Black;
-                    break;
-                case Post.PostStatus.ConfirmedOrder:
-                    BackColor = Color.LightBlue;
-                    ForeColor = Color.Black;
-                    break;
-                case Post.PostStatus.Confirmed:
-                    BackColor = Color.Lime;
-                    ForeColor = Color.Black;
-                    break;
-                case Post.PostStatus.Completed:
-                    BackColor = Color.White;
-                    ForeColor = Color.Black;
-                    break;
-            }
-        }
-
-        public void UpdateViewItem()
-        {
-            var sort = PostListViewConfColumns.ColSortOrder + " asc";
-
-            // Loop through columns in personal config datatable
-            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
-            for (int i = 0; i < rows.Length; i++)
-            {
-                var colName = (string)rows[i][PostListViewConfColumns.ColEnumName.ToString()];
-                var col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
-                
-                SubItems[(int)rows[i][PostListViewConfColumns.ColSortOrder.ToString()]].Text = 
-                    _post.GetStringForListViewColumn(col);
-            }
-            SetStatusColor();
-        }
-    }
-
 }

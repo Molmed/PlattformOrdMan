@@ -147,13 +147,15 @@
     <Compile Include="UI\Dialog\SetInvoiceNumberDialog.Designer.cs">
       <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\View\PostListView.cs">
+    <Compile Include="UI\View\Post\ListViewComparerDefault.cs" />
+    <Compile Include="UI\View\Post\PostListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\View\PostListView.Designer.cs">
+    <Compile Include="UI\View\Post\PostListView.Designer.cs">
       <DependentUpon>PostListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\View\PostColumn.cs" />
+    <Compile Include="UI\View\Post\PostColumn.cs" />
+    <Compile Include="UI\View\Post\PostViewItem.cs" />
     <Compile Include="UI\View\SortedListView.cs">
       <SubType>UserControl</SubType>
     </Compile>

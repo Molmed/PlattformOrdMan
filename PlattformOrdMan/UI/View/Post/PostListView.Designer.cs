@@ -1,4 +1,4 @@
-﻿namespace Molmed.PlattformOrdMan.UI.View
+﻿namespace PlattformOrdMan.UI.View.Post
 {
     partial class PostListView
     {

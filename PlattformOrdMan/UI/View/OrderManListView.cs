@@ -489,8 +489,8 @@ namespace Molmed.PlattformOrdMan.UI.View
                 return compareValue * GetSortOrder();
             }
         }
-        
-        protected abstract class ListViewComparerChiasma : IComparer
+
+        public abstract class ListViewComparerChiasma : IComparer
         {
             private SortOrder MySortOrder;
 
