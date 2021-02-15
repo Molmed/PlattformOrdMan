@@ -115,6 +115,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             _popPrevSel = -1;
             _controlledSelectedIndexChangedForMerchanidse =
                 merchandiseCombobox1_OnMyControlledSelectedIndexChanged;
+            Periodization.EnquiryChanged += Periodization_Changed;
+            Account.EnquiryChanged += Account_Changed;
             var suppliers = SupplierManager.GetActiveSuppliersOnly();
             SupplierComboBox.Init(suppliers, "supplier", true);
             SupplierComboBox.LoadIdentitiesWithInfoText();

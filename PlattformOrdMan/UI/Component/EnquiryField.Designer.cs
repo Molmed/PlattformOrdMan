@@ -1,4 +1,6 @@
-﻿namespace Molmed.PlattformOrdMan.UI.Component
+﻿using System.Windows.Forms;
+
+namespace Molmed.PlattformOrdMan.UI.Component
 {
     partial class EnquiryField
     {
@@ -43,7 +45,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(392, 77);
+            this.groupBox1.Size = new System.Drawing.Size(398, 44);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "<name>";
@@ -52,16 +54,17 @@
             // 
             this.ValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ValueTextBox.Location = new System.Drawing.Point(55, 42);
+            this.ValueTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.ValueTextBox.Location = new System.Drawing.Point(100, 18);
             this.ValueTextBox.Name = "ValueTextBox";
-            this.ValueTextBox.Size = new System.Drawing.Size(337, 20);
+            this.ValueTextBox.Size = new System.Drawing.Size(295, 20);
             this.ValueTextBox.TabIndex = 2;
-            this.ValueTextBox.TextChanged += new System.EventHandler(this.ValueTextBox_TextChanged);
+            this.ValueTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ValueTextbox_Keydown);
             // 
             // YesRadioButton
             // 
             this.YesRadioButton.AutoSize = true;
-            this.YesRadioButton.Location = new System.Drawing.Point(6, 42);
+            this.YesRadioButton.Location = new System.Drawing.Point(51, 19);
             this.YesRadioButton.Name = "YesRadioButton";
             this.YesRadioButton.Size = new System.Drawing.Size(43, 17);
             this.YesRadioButton.TabIndex = 1;
@@ -87,8 +90,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "EnquiryField";
-            this.Size = new System.Drawing.Size(392, 77);
+            this.Size = new System.Drawing.Size(398, 44);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
