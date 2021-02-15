@@ -8,6 +8,7 @@ using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
 using Molmed.PlattformOrdMan.UI.Controller;
 using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.UI.Dialog.OptionsDialog;
 using PlattformOrdMan.UI.View.Post;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog

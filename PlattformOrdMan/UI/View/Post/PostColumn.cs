@@ -1,6 +1,7 @@
 ﻿using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.Data.Exception;
 using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.UI.View.Base;
 
 namespace PlattformOrdMan.UI.View.Post
@@ -12,6 +13,22 @@ namespace PlattformOrdMan.UI.View.Post
 
         public int Width => _width;
         public PostListViewColumn ColEnum => _colEnum;
+
+        public int GetColumnWith()
+        {
+            var col = _colEnum;
+            var expression = PostListViewConfColumns.ColEnumName + " = '" + col + "'";
+            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
+            if (rows.Length > 0)
+            {
+                return (int)rows[0][PostListViewConfColumns.ColWidth.ToString()];
+            }
+            else
+            {
+                rows = Configuration.GetDefaultPostListViewColumns().Select(expression);
+                return (int)rows[0][PostListViewConfColumns.ColWidth.ToString()];
+            }
+        }
 
         public PostColumn(PostListViewColumn colEnum, int width)
         {

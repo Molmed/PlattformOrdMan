@@ -135,10 +135,12 @@
     <Compile Include="UI\Dialog\LoginWithBarcodeDialog.Designer.cs">
       <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Dialog\OrderHistoryOptionsDialog.cs">
+    <Compile Include="UI\Dialog\OptionsDialog\IncludedColumnsListViewItem.cs" />
+    <Compile Include="UI\Dialog\OptionsDialog\OrderHistoryOptionOK.cs" />
+    <Compile Include="UI\Dialog\OptionsDialog\OrderHistoryOptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Dialog\OrderHistoryOptionsDialog.Designer.cs">
+    <Compile Include="UI\Dialog\OptionsDialog\OrderHistoryOptionsDialog.Designer.cs">
       <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialog\SetInvoiceNumberDialog.cs">
@@ -225,7 +227,7 @@
     <EmbeddedResource Include="UI\Dialog\LoginWithBarcodeDialog.resx">
       <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialog\OrderHistoryOptionsDialog.resx">
+    <EmbeddedResource Include="UI\Dialog\OptionsDialog\OrderHistoryOptionsDialog.resx">
       <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\SetInvoiceNumberDialog.resx">

@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Data;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.View;
+using Molmed.PlattformOrdMan.UI;
 using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.UI.View.Post;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog.OptionsDialog
 {
-    public delegate void OrderHistoryOptionOK(bool isIncludedColumnsUpdated);
-
     public partial class OrderHistoryOptionsDialog : OrdManForm
     {
         public event OrderHistoryOptionOK OnOrderHistoryOptionsOK;
@@ -62,7 +59,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 if (lvi.Checked)
                 {
                     var row = table.NewRow();
-                    row[PostListViewConfColumns.ColEnumName.ToString()] = lvi.GetPostListViewColumn().ToString();
+                    row[PostListViewConfColumns.ColEnumName.ToString()] = lvi.EnumName;
                     row[PostListViewConfColumns.ColSortOrder.ToString()] = j++;
                     row[PostListViewConfColumns.ColWidth.ToString()] = lvi.GetColumnWith();
                     table.Rows.Add(row);
@@ -280,40 +277,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 lvi.Selected = true;
                 lvi.EnsureVisible();
                 IncludedColumnsListView.Select();
-            }
-        }
-
-        private class IncludedColumnsListViewItem : ListViewItem
-        {
-            private readonly PostColumn _column;
-            PostListViewColumn _postListViewColumn;
-
-            public IncludedColumnsListViewItem(PostColumn column)
-                : base( column.GetHeader())
-            {
-                _column = column;
-                _postListViewColumn = column.ColEnum;
-            }
-
-            public int GetColumnWith()
-            {
-                var col = _postListViewColumn;
-                var expression = PostListViewConfColumns.ColEnumName + " = '" + col + "'";
-                var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
-                if (rows.Length > 0)
-                {
-                    return (int)rows[0][PostListViewConfColumns.ColWidth.ToString()];
-                }
-                else
-                {
-                    rows = Configuration.GetDefaultPostListViewColumns().Select(expression);
-                    return (int)rows[0][PostListViewConfColumns.ColWidth.ToString()];
-                }
-            }
-
-            public PostListViewColumn GetPostListViewColumn()
-            {
-                return _postListViewColumn;
             }
         }
     }
