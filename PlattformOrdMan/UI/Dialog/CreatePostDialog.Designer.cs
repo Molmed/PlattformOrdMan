@@ -105,10 +105,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.topPanel = new System.Windows.Forms.Panel();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.commentPanel = new System.Windows.Forms.Panel();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -117,17 +115,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.tabPage2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.topPanel.SuspendLayout();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
             this.commentPanel.SuspendLayout();
+            this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -145,7 +138,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             this.MyCloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.MyCloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.MyCloseButton.Location = new System.Drawing.Point(879, 19);
+            this.MyCloseButton.Location = new System.Drawing.Point(873, 19);
             this.MyCloseButton.Name = "MyCloseButton";
             this.MyCloseButton.Size = new System.Drawing.Size(86, 24);
             this.MyCloseButton.TabIndex = 1;
@@ -206,7 +199,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AmountTextBox.Location = new System.Drawing.Point(130, 69);
             this.AmountTextBox.Name = "AmountTextBox";
-            this.AmountTextBox.Size = new System.Drawing.Size(460, 20);
+            this.AmountTextBox.Size = new System.Drawing.Size(454, 20);
             this.AmountTextBox.TabIndex = 9;
             this.AmountTextBox.TextChanged += new System.EventHandler(this.AmountTextBox_TextChanged);
             // 
@@ -217,7 +210,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.ApprPrizeTextBox.Location = new System.Drawing.Point(128, 118);
             this.ApprPrizeTextBox.Name = "ApprPrizeTextBox";
             this.ApprPrizeTextBox.ReadOnly = true;
-            this.ApprPrizeTextBox.Size = new System.Drawing.Size(435, 20);
+            this.ApprPrizeTextBox.Size = new System.Drawing.Size(429, 20);
             this.ApprPrizeTextBox.TabIndex = 10;
             this.ApprPrizeTextBox.TextChanged += new System.EventHandler(this.ApprPrizeTextBox_TextChanged);
             // 
@@ -229,7 +222,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CommentTextBox.Location = new System.Drawing.Point(9, 25);
             this.CommentTextBox.Multiline = true;
             this.CommentTextBox.Name = "CommentTextBox";
-            this.CommentTextBox.Size = new System.Drawing.Size(965, 76);
+            this.CommentTextBox.Size = new System.Drawing.Size(959, 114);
             this.CommentTextBox.TabIndex = 11;
             this.CommentTextBox.TextChanged += new System.EventHandler(this.CommentTextBox_TextChanged);
             // 
@@ -271,7 +264,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ApprArrivalTextBox.Location = new System.Drawing.Point(128, 144);
             this.ApprArrivalTextBox.Name = "ApprArrivalTextBox";
-            this.ApprArrivalTextBox.Size = new System.Drawing.Size(435, 20);
+            this.ApprArrivalTextBox.Size = new System.Drawing.Size(429, 20);
             this.ApprArrivalTextBox.TabIndex = 17;
             this.ApprArrivalTextBox.TextChanged += new System.EventHandler(this.ApprArrivalTextBox_TextChanged);
             // 
@@ -292,7 +285,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.MerchandiseCommentTextBox.Multiline = true;
             this.MerchandiseCommentTextBox.Name = "MerchandiseCommentTextBox";
             this.MerchandiseCommentTextBox.ReadOnly = true;
-            this.MerchandiseCommentTextBox.Size = new System.Drawing.Size(435, 57);
+            this.MerchandiseCommentTextBox.Size = new System.Drawing.Size(429, 57);
             this.MerchandiseCommentTextBox.TabIndex = 19;
             // 
             // NoInvoiceCheckBox
@@ -313,7 +306,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.SupplierComboBox.FormattingEnabled = true;
             this.SupplierComboBox.Location = new System.Drawing.Point(130, 15);
             this.SupplierComboBox.Name = "SupplierComboBox";
-            this.SupplierComboBox.Size = new System.Drawing.Size(423, 21);
+            this.SupplierComboBox.Size = new System.Drawing.Size(417, 21);
             this.SupplierComboBox.TabIndex = 21;
             this.SupplierComboBox.SelectedIndexChanged += new System.EventHandler(this.SupplierComboBox_SelectedIndexChanged);
             // 
@@ -324,7 +317,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.merchandiseCombobox1.FormattingEnabled = true;
             this.merchandiseCombobox1.Location = new System.Drawing.Point(130, 42);
             this.merchandiseCombobox1.Name = "merchandiseCombobox1";
-            this.merchandiseCombobox1.Size = new System.Drawing.Size(423, 21);
+            this.merchandiseCombobox1.Size = new System.Drawing.Size(417, 21);
             this.merchandiseCombobox1.TabIndex = 22;
             // 
             // groupBox1
@@ -347,7 +340,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.groupBox1.Controls.Add(this.OrdererUserComboBox);
             this.groupBox1.Controls.Add(this.BookDateTextBox);
             this.groupBox1.Controls.Add(this.BookerUserComboBox);
-            this.groupBox1.Location = new System.Drawing.Point(577, 3);
+            this.groupBox1.Location = new System.Drawing.Point(571, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(373, 273);
             this.groupBox1.TabIndex = 26;
@@ -579,7 +572,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.DeliveryDeviationTextBox.Location = new System.Drawing.Point(8, 289);
             this.DeliveryDeviationTextBox.Multiline = true;
             this.DeliveryDeviationTextBox.Name = "DeliveryDeviationTextBox";
-            this.DeliveryDeviationTextBox.Size = new System.Drawing.Size(942, 120);
+            this.DeliveryDeviationTextBox.Size = new System.Drawing.Size(936, 153);
             this.DeliveryDeviationTextBox.TabIndex = 32;
             this.DeliveryDeviationTextBox.TextChanged += new System.EventHandler(this.DeliveryDeviationTextBox_TextChanged);
             // 
@@ -609,13 +602,13 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.StorageTextBox.Multiline = true;
             this.StorageTextBox.Name = "StorageTextBox";
             this.StorageTextBox.ReadOnly = true;
-            this.StorageTextBox.Size = new System.Drawing.Size(435, 46);
+            this.StorageTextBox.Size = new System.Drawing.Size(429, 46);
             this.StorageTextBox.TabIndex = 35;
             // 
             // ShowSupplierButton
             // 
             this.ShowSupplierButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ShowSupplierButton.Location = new System.Drawing.Point(559, 15);
+            this.ShowSupplierButton.Location = new System.Drawing.Point(553, 15);
             this.ShowSupplierButton.Name = "ShowSupplierButton";
             this.ShowSupplierButton.Size = new System.Drawing.Size(31, 23);
             this.ShowSupplierButton.TabIndex = 36;
@@ -626,7 +619,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // ShowProductButton
             // 
             this.ShowProductButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ShowProductButton.Location = new System.Drawing.Point(559, 40);
+            this.ShowProductButton.Location = new System.Drawing.Point(553, 40);
             this.ShowProductButton.Name = "ShowProductButton";
             this.ShowProductButton.Size = new System.Drawing.Size(31, 23);
             this.ShowProductButton.TabIndex = 37;
@@ -713,13 +706,13 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(963, 412);
+            this.panel1.Size = new System.Drawing.Size(957, 445);
             this.panel1.TabIndex = 51;
             // 
             // OrderingUnitComboBox
             // 
             this.OrderingUnitComboBox.FormattingEnabled = true;
-            this.OrderingUnitComboBox.Location = new System.Drawing.Point(442, 234);
+            this.OrderingUnitComboBox.Location = new System.Drawing.Point(388, 232);
             this.OrderingUnitComboBox.Name = "OrderingUnitComboBox";
             this.OrderingUnitComboBox.Size = new System.Drawing.Size(121, 21);
             this.OrderingUnitComboBox.TabIndex = 41;
@@ -727,12 +720,13 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             // bottomPanel
             // 
+            this.bottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bottomPanel.Controls.Add(this.SaveButton);
             this.bottomPanel.Controls.Add(this.MyCloseButton);
-            this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 0);
+            this.bottomPanel.Location = new System.Drawing.Point(2, 738);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(977, 55);
+            this.bottomPanel.Size = new System.Drawing.Size(971, 55);
             this.bottomPanel.TabIndex = 53;
             // 
             // tabStatusType
@@ -743,7 +737,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.tabStatusType.Location = new System.Drawing.Point(0, 0);
             this.tabStatusType.Name = "tabStatusType";
             this.tabStatusType.SelectedIndex = 0;
-            this.tabStatusType.Size = new System.Drawing.Size(977, 444);
+            this.tabStatusType.Size = new System.Drawing.Size(971, 477);
             this.tabStatusType.TabIndex = 52;
             // 
             // tabDeliveryStatus
@@ -752,7 +746,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.tabDeliveryStatus.Location = new System.Drawing.Point(4, 22);
             this.tabDeliveryStatus.Name = "tabDeliveryStatus";
             this.tabDeliveryStatus.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDeliveryStatus.Size = new System.Drawing.Size(969, 418);
+            this.tabDeliveryStatus.Size = new System.Drawing.Size(963, 451);
             this.tabDeliveryStatus.TabIndex = 0;
             this.tabDeliveryStatus.Text = "Delivery status";
             this.tabDeliveryStatus.UseVisualStyleBackColor = true;
@@ -911,73 +905,23 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(2, 109);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel1.Controls.Add(this.tabStatusType);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.bottomPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(977, 717);
-            this.splitContainer1.SplitterDistance = 658;
+            this.splitContainer1.Panel2.Controls.Add(this.commentPanel);
+            this.splitContainer1.Size = new System.Drawing.Size(971, 623);
+            this.splitContainer1.SplitterDistance = 477;
             this.splitContainer1.TabIndex = 54;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.topPanel);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(977, 658);
-            this.splitContainer2.SplitterDistance = 102;
-            this.splitContainer2.TabIndex = 53;
-            // 
-            // topPanel
-            // 
-            this.topPanel.Controls.Add(this.ShowSupplierButton);
-            this.topPanel.Controls.Add(this.SupplierComboBox);
-            this.topPanel.Controls.Add(this.label1);
-            this.topPanel.Controls.Add(this.ShowProductButton);
-            this.topPanel.Controls.Add(this.merchandiseCombobox1);
-            this.topPanel.Controls.Add(this.label2);
-            this.topPanel.Controls.Add(this.AmountTextBox);
-            this.topPanel.Controls.Add(this.label3);
-            this.topPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.topPanel.Location = new System.Drawing.Point(0, 0);
-            this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(977, 102);
-            this.topPanel.TabIndex = 0;
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.tabStatusType);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.commentPanel);
-            this.splitContainer3.Size = new System.Drawing.Size(977, 552);
-            this.splitContainer3.SplitterDistance = 444;
-            this.splitContainer3.TabIndex = 53;
             // 
             // commentPanel
             // 
@@ -986,15 +930,34 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.commentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.commentPanel.Location = new System.Drawing.Point(0, 0);
             this.commentPanel.Name = "commentPanel";
-            this.commentPanel.Size = new System.Drawing.Size(977, 104);
+            this.commentPanel.Size = new System.Drawing.Size(971, 142);
             this.commentPanel.TabIndex = 0;
+            // 
+            // topPanel
+            // 
+            this.topPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.topPanel.Controls.Add(this.ShowSupplierButton);
+            this.topPanel.Controls.Add(this.SupplierComboBox);
+            this.topPanel.Controls.Add(this.label1);
+            this.topPanel.Controls.Add(this.ShowProductButton);
+            this.topPanel.Controls.Add(this.merchandiseCombobox1);
+            this.topPanel.Controls.Add(this.label2);
+            this.topPanel.Controls.Add(this.AmountTextBox);
+            this.topPanel.Controls.Add(this.label3);
+            this.topPanel.Location = new System.Drawing.Point(2, 1);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(971, 102);
+            this.topPanel.TabIndex = 0;
             // 
             // CreatePostDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.MyCloseButton;
-            this.ClientSize = new System.Drawing.Size(977, 717);
+            this.ClientSize = new System.Drawing.Size(975, 796);
+            this.Controls.Add(this.topPanel);
+            this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreatePostDialog";
@@ -1014,17 +977,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.groupBox2.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.ResumeLayout(false);
-            this.topPanel.ResumeLayout(false);
-            this.topPanel.PerformLayout();
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            this.splitContainer3.ResumeLayout(false);
             this.commentPanel.ResumeLayout(false);
             this.commentPanel.PerformLayout();
+            this.topPanel.ResumeLayout(false);
+            this.topPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1095,9 +1053,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Panel topPanel;
-        private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Panel commentPanel;
         private System.Windows.Forms.ComboBox OrderingUnitComboBox;
         private System.Windows.Forms.TextBox TotalPrizeTextBox;
