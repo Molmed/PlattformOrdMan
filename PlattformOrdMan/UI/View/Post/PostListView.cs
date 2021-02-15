@@ -74,7 +74,15 @@ namespace PlattformOrdMan.UI.View.Post
             return ret;
         }
 
-        public void AddColumn(PostColumn col)
+        public void AddColumns()
+        {
+            BeginUpdate();
+            GetColumns().ForEach(AddColumn);
+            EndUpdate();
+
+        }
+
+        private void AddColumn(PostColumn col)
         {
             AddColumn(col.GetHeader(), col.Width, col.GetListDataType());
         }

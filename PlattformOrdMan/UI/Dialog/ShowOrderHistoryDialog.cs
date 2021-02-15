@@ -250,14 +250,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void InitListView()
         {
-            var columns = PostListView.GetColumns();
-            // Add columns to post according to personal configuration
-            PostsListView.BeginUpdate();
-            foreach (var col in columns)
-            {
-                PostsListView.AddColumn(col);
-            }
-            PostsListView.EndUpdate();
+            PostsListView.AddColumns();
 
             AddMenuItem(PostsListView, LOCK_COLUMN_WIDTH, LockColumnWidth_Click);
             AddMenuItem(PostsListView, UN_LOCK_COLUMN_WIDTH, UnlockColumnWidth_Click);
@@ -297,12 +290,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             // Updates columns and rows only
             PostsListView.Clear();
-            PostsListView.BeginUpdate();
-            PostListView.GetColumns().ForEach(c =>
-            {
-                PostsListView.AddColumn(c);
-            });
-            PostsListView.EndUpdate();
+            PostsListView.AddColumns();
             UpdateListView();
             ReInitAllColumnWidths();
         }
