@@ -119,7 +119,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             var personalColumns = PostListView.GetColumns();
             personalColumns.ForEach(c =>
             {
-                var lvi2 = new IncludedColumnsListViewItem(c.ColEnum){Checked = true};
+                var lvi2 = new IncludedColumnsListViewItem(c){Checked = true};
                 IncludedColumnsListView.Items.Add(lvi2);
             });
 
@@ -127,7 +127,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             var excludedColumns = PostListView.GetExcudedColumns();
             excludedColumns.ForEach(c =>
             {
-                var lvi = new IncludedColumnsListViewItem(c.ColEnum){Checked = false};
+                var lvi = new IncludedColumnsListViewItem(c){Checked = false};
                 IncludedColumnsListView.Items.Add(lvi);
             });
             DisableMoveButtons();
@@ -302,10 +302,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             PostListViewColumn _postListViewColumn;
 
-            public IncludedColumnsListViewItem(PostListViewColumn col)
-                : base(PostListView.GetColumnHeaderName(col))
+            public IncludedColumnsListViewItem(PostColumn col)
+                : base( col.GetHeader())
             {
-                _postListViewColumn = col;
+                _postListViewColumn = col.ColEnum;
             }
 
             public PostListViewColumn GetPostListViewColumn()
