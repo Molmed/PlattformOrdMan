@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
 using Molmed.PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.Data.Conf;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
@@ -294,7 +295,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private void ReInitListView()
         {
             // Updates columns and rows only
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " ASC";
+            var sort = PostListViewConfColumns.ColSortOrder + " ASC";
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
 
             // Add columns to post according to personal configuration
@@ -302,8 +303,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             PostsListView.BeginUpdate();
             foreach (DataRow row in rows)
             {
-                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                var colWidth = (int) row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                var colEnumName = row[PostListViewConfColumns.ColEnumName.ToString()].ToString();
+                var colWidth = (int) row[PostListViewConfColumns.ColWidth.ToString()];
                 var postListViewColumn = (PostListViewColumn) Enum.Parse(typeof(PostListViewColumn), colEnumName);
                 var listDataType = PostListView.GetListDataType(postListViewColumn);
                 var colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
@@ -441,11 +442,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void UnlockColumnWidth(int colIndex)
         {
-            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+            var expr = PostListViewConfColumns.ColSortOrder + " = " + colIndex;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
+                rows[0][PostListViewConfColumns.ColWidth.ToString()] =
                     PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH;
                 ReInitColumnWidth(colIndex, true);
             }
@@ -457,11 +458,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void LockColumnWidth(int colIndex)
         {
-            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+            var expr = PostListViewConfColumns.ColSortOrder + " = " + colIndex;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
+                rows[0][PostListViewConfColumns.ColWidth.ToString()] =
                     PostsListView.Columns[colIndex].Width;
             }
             else
@@ -474,14 +475,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             for (int colIndex = 0; colIndex < PostsListView.Columns.Count; colIndex++)
             {
-                var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+                var expr = PostListViewConfColumns.ColSortOrder + " = " + colIndex;
                 var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
                 if (rows.Length == 1)
                 {
-                    var currentConfWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                    var currentConfWidth = (int) rows[0][PostListViewConfColumns.ColWidth.ToString()];
                     if (currentConfWidth > 0)
                     {
-                        rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
+                        rows[0][PostListViewConfColumns.ColWidth.ToString()] =
                             PostsListView.Columns[colIndex].Width;
                     }
                 }
@@ -545,11 +546,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private bool HasColumnFixedWidthInConfig(int colInd)
         {
             int colWidth;
-            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colInd;
+            var expr = PostListViewConfColumns.ColSortOrder + " = " + colInd;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                colWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                colWidth = (int) rows[0][PostListViewConfColumns.ColWidth.ToString()];
             }
             else
             {
@@ -1319,7 +1320,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private void ReInitColumnWidth(int colInd, bool updateHandling)
         {
             var col = PostsListView.Columns[colInd];
-            var expression = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colInd;
+            var expression = PostListViewConfColumns.ColSortOrder + " = " + colInd;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
             try
             {
@@ -1329,7 +1330,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     {
                         PostsListView.BeginUpdate();
                     }
-                    var configWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                    var configWidth = (int) rows[0][PostListViewConfColumns.ColWidth.ToString()];
                     if (configWidth == PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH)
                     {
                         col.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);

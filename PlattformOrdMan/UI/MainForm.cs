@@ -8,6 +8,7 @@ using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.DatabaseReferencing;
 using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
 using Molmed.PlattformOrdMan.DbConnection.Repositories;
+using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.Properties;
 
 namespace Molmed.PlattformOrdMan.UI

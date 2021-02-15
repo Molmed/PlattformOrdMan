@@ -65,12 +65,13 @@
     <Compile Include="Database\Dataserver.cs" />
     <Compile Include="Database\SqlCommandBuilder.cs" />
     <Compile Include="Data\ArticleNumber.cs" />
+    <Compile Include="Data\Conf\Configuration.cs" />
+    <Compile Include="Data\Conf\PostListViewConfColumns.cs" />
     <Compile Include="Data\CustomerNumber.cs" />
     <Compile Include="Data\CustomerNumberManager.cs" />
     <Compile Include="Data\Enquiry.cs" />
     <Compile Include="Data\Exception\ValidationException.cs" />
     <Compile Include="Data\OrdManEventHandler.cs" />
-    <Compile Include="Data\Configuration.cs" />
     <Compile Include="Data\Currency.cs" />
     <Compile Include="Data\CurrencyManager.cs" />
     <Compile Include="Data\DataComment.cs" />
@@ -458,6 +459,7 @@
     <None Include="Resources\Oxygen-Icons.org-Oxygen-Actions-go-up.ico" />
     <None Include="Resources\Oxygen-Icons.org-Oxygen-Actions-go-down.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

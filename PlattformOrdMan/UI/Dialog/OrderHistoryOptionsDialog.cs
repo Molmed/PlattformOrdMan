@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.Data.Conf;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
@@ -60,15 +61,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 if (lvi.Checked)
                 {
                     var row = table.NewRow();
-                    row[Configuration.PostListViewConfColumns.ColEnumName.ToString()] = lvi.GetPostListViewColumn().ToString();
-                    row[Configuration.PostListViewConfColumns.ColSortOrder.ToString()] = j++;
-                    row[Configuration.PostListViewConfColumns.ColWidth.ToString()] = GetColumnWith(lvi.GetPostListViewColumn());
+                    row[PostListViewConfColumns.ColEnumName.ToString()] = lvi.GetPostListViewColumn().ToString();
+                    row[PostListViewConfColumns.ColSortOrder.ToString()] = j++;
+                    row[PostListViewConfColumns.ColWidth.ToString()] = GetColumnWith(lvi.GetPostListViewColumn());
                     table.Rows.Add(row);
                 }
             }
 
             // Check if the new presumable config-table is different from current config-table
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            var sort = PostListViewConfColumns.ColSortOrder + " asc";
             var rowsNew = table.Select("", sort);
             var rowsFromConfig = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
             if (rowsFromConfig.Length != rowsNew.Length)
@@ -79,8 +80,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 for (int i = 0; i < rowsNew.Length; i++)
                 {
-                    if (rowsNew[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()] !=
-                        rowsFromConfig[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()])
+                    if (rowsNew[i][PostListViewConfColumns.ColEnumName.ToString()] !=
+                        rowsFromConfig[i][PostListViewConfColumns.ColEnumName.ToString()])
                     {
                         isUpdated = true;
                     }
@@ -94,22 +95,22 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private int GetColumnWith(PostListViewColumn col)
         {
-            var expression = Configuration.PostListViewConfColumns.ColEnumName + " = '" + col + "'";
+            var expression = PostListViewConfColumns.ColEnumName + " = '" + col + "'";
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
             if (rows.Length > 0)
             {
-                return (int)rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                return (int)rows[0][PostListViewConfColumns.ColWidth.ToString()];
             }
             else
             {
                 rows = Configuration.GetDefaultPostListViewColumns().Select(expression);
-                return (int)rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                return (int)rows[0][PostListViewConfColumns.ColWidth.ToString()];
             }
         }
 
         private void InitIncludedColumnsListView()
         {
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            var sort = PostListViewConfColumns.ColSortOrder + " asc";
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
 
             IncludedColumnsListView.EnableColumnSort = false;

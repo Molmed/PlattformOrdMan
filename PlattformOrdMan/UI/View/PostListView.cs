@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.Dialog;
+using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.UI.View;
 
 namespace Molmed.PlattformOrdMan.UI.View
@@ -38,7 +39,7 @@ namespace Molmed.PlattformOrdMan.UI.View
             List<PostColumn> excluded = new List<PostColumn>();
             foreach (PostListViewColumn col in Enum.GetValues(typeof(PostListViewColumn)))
             {
-                var expression = Configuration.PostListViewConfColumns.ColEnumName + " = '" + col + "'";
+                var expression = PostListViewConfColumns.ColEnumName + " = '" + col + "'";
                 var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
                 if (rows.Length == 0)
                 {
@@ -51,15 +52,15 @@ namespace Molmed.PlattformOrdMan.UI.View
         }
         public static List<PostColumn> GetColumns()
         {
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            var sort = PostListViewConfColumns.ColSortOrder + " asc";
             // Loop through columns in personal config datatable
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
             PostListViewColumn postListViewColumn;
             List<PostColumn> ret = new List<PostColumn>();
             foreach (var row in rows)
             {
-                var colName = (string)row[Configuration.PostListViewConfColumns.ColEnumName.ToString()];
-                var colWidth = (int)row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                var colName = (string)row[PostListViewConfColumns.ColEnumName.ToString()];
+                var colWidth = (int)row[PostListViewConfColumns.ColWidth.ToString()];
                 try
                 {
                     postListViewColumn = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
@@ -446,16 +447,16 @@ namespace Molmed.PlattformOrdMan.UI.View
 
         public void UpdateViewItem()
         {
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " asc";
+            var sort = PostListViewConfColumns.ColSortOrder + " asc";
 
             // Loop through columns in personal config datatable
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
             for (int i = 0; i < rows.Length; i++)
             {
-                var colName = (string)rows[i][Configuration.PostListViewConfColumns.ColEnumName.ToString()];
+                var colName = (string)rows[i][PostListViewConfColumns.ColEnumName.ToString()];
                 var col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
                 
-                SubItems[(int)rows[i][Configuration.PostListViewConfColumns.ColSortOrder.ToString()]].Text = 
+                SubItems[(int)rows[i][PostListViewConfColumns.ColSortOrder.ToString()]].Text = 
                     _post.GetStringForListViewColumn(col);
             }
             SetStatusColor();

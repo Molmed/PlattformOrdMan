@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
 using System.Data;
 using System.IO;
+using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.UI.View;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data.Conf
 {
     public class Configuration
     {
         private StringDictionary MyItems;
         private const string ConfigFileName = "Order_config.XML";
-
-        public enum PostListViewConfColumns
-        { 
-            ColEnumName,
-            ColSortOrder,
-            ColWidth
-        }
 
         private enum ConfTables
         { 
@@ -228,7 +219,7 @@ namespace Molmed.PlattformOrdMan.Data
         {
             if (!MyItems.ContainsKey(key))
             {
-                throw new Exception.DataException("Attempting to retrieve unknown configuration item " + key + ".");            
+                throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Attempting to retrieve unknown configuration item " + key + ".");            
             }
             MyItems[key] = value;
         }
@@ -253,7 +244,7 @@ namespace Molmed.PlattformOrdMan.Data
             }
             else
             {
-                throw new Exception.DataException("Attempting to retrieve unknown configuration item " + key + ".");
+                throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Attempting to retrieve unknown configuration item " + key + ".");
             }
         }
 
@@ -275,7 +266,7 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 else
                 {
-                    throw new Exception.DataException("Unable to parse setting " + key + " to an int");
+                    throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Unable to parse setting " + key + " to an int");
                 }
             }
             else if (type == typeof(bool))
@@ -286,7 +277,7 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 else
                 {
-                    throw new Exception.DataException("Unable to parse setting " + key + "to a boolean");                
+                    throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Unable to parse setting " + key + "to a boolean");                
                 }
             }
             else if (type == typeof(PlaceOfPurchase))
@@ -297,7 +288,7 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 catch (ArgumentException ex)
                 {
-                    throw new Exception.DataException("Unable to parse setting " + key + " to the enumerable PlaceOfPurchase", ex);
+                    throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Unable to parse setting " + key + " to the enumerable PlaceOfPurchase", ex);
                 }
             }
             else if (type == typeof(string))
@@ -306,7 +297,7 @@ namespace Molmed.PlattformOrdMan.Data
             }
             else
             {
-                throw new Exception.DataException("No handling for type: " + type.ToString());
+                throw new Molmed.PlattformOrdMan.Data.Exception.DataException("No handling for type: " + type.ToString());
             }
             return result;
         }
