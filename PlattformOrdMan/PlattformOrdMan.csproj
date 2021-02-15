@@ -147,6 +147,13 @@
     <Compile Include="UI\Dialog\SetInvoiceNumberDialog.Designer.cs">
       <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\View\Base\ListDataType.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerChiasma.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerCurrency.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerDouble.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerInt32.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerString.cs" />
+    <Compile Include="UI\View\Base\SortOrderSet.cs" />
     <Compile Include="UI\View\Post\ListViewComparerDefault.cs" />
     <Compile Include="UI\View\Post\PostListView.cs">
       <SubType>Component</SubType>
@@ -436,10 +443,10 @@
     <Compile Include="UI\View\MerchandiseListView.Designer.cs">
       <DependentUpon>MerchandiseListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\View\OrderManListView.cs">
+    <Compile Include="UI\View\Base\OrderManListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\View\OrderManListView.Designer.cs">
+    <Compile Include="UI\View\Base\OrderManListView.Designer.cs">
       <DependentUpon>OrderManListView.cs</DependentUpon>
     </Compile>
   </ItemGroup>

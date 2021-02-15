@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan;
 using Molmed.PlattformOrdMan.Data;
+using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.UI.View.Base;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
@@ -261,12 +263,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 CustomerNumberListView.Columns.Clear();
             }
-            CustomerNumberListView.AddColumn("Customer number", -2, View.OrderManListView.ListDataType.String);
-            CustomerNumberListView.AddColumn("Description", -2, View.OrderManListView.ListDataType.String);
-            CustomerNumberListView.AddColumn("Used by Group", -2, View.OrderManListView.ListDataType.String);
+            CustomerNumberListView.AddColumn("Customer number", -2, ListDataType.String);
+            CustomerNumberListView.AddColumn("Description", -2, ListDataType.String);
+            CustomerNumberListView.AddColumn("Used by Group", -2, ListDataType.String);
             if (showArchived)
             {
-                CustomerNumberListView.AddColumn("Archived", -2, View.OrderManListView.ListDataType.String);
+                CustomerNumberListView.AddColumn("Archived", -2, ListDataType.String);
             }
 
         }

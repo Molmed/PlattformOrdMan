@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.UI.View.Base;
 
 namespace Molmed.PlattformOrdMan.UI.View
 {

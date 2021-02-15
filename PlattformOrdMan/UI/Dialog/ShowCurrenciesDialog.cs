@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
+using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.UI.View.Base;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
@@ -28,9 +30,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             int width;
             width = PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH;
-            CurrencyListView.AddColumn("Description", width, Molmed.PlattformOrdMan.UI.View.OrderManListView.ListDataType.String);
-            CurrencyListView.AddColumn("Currency code", width, Molmed.PlattformOrdMan.UI.View.OrderManListView.ListDataType.String);
-            CurrencyListView.AddColumn("Symbol", width, Molmed.PlattformOrdMan.UI.View.OrderManListView.ListDataType.String);
+            CurrencyListView.AddColumn("Description", width, ListDataType.String);
+            CurrencyListView.AddColumn("Currency code", width, ListDataType.String);
+            CurrencyListView.AddColumn("Symbol", width, ListDataType.String);
             UpdateListView();
             AddMenuItem(CurrencyListView, DELETE, DeleteMenuItem_Click);
             AddMenuItem(CurrencyListView, PROPERTIES, PropertiesMenuItem_Click);

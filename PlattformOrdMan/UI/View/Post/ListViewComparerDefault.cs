@@ -1,8 +1,9 @@
 ﻿using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.UI.View.Base;
 
 namespace PlattformOrdMan.UI.View.Post
 {
-    public class ListViewComparerDefault : OrderManListView.ListViewComparerChiasma
+    public class ListViewComparerDefault : ListViewComparerChiasma
     {
         public override int Compare(object object1, object object2)
         {

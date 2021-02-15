@@ -1,4 +1,6 @@
-﻿namespace Molmed.PlattformOrdMan.UI.Dialog
+﻿using PlattformOrdMan.UI.View.Base;
+
+namespace Molmed.PlattformOrdMan.UI.Dialog
 {
     partial class OrderHistoryOptionsDialog
     {
@@ -44,7 +46,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MoveDownButton = new System.Windows.Forms.Button();
             this.MoveUpButton = new System.Windows.Forms.Button();
-            this.IncludedColumnsListView = new Molmed.PlattformOrdMan.UI.View.OrderManListView();
+            this.IncludedColumnsListView = new OrderManListView();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -262,7 +264,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private View.OrderManListView IncludedColumnsListView;
+        private OrderManListView IncludedColumnsListView;
         private System.Windows.Forms.Button MoveDownButton;
         private System.Windows.Forms.Button MoveUpButton;
         private System.Windows.Forms.PictureBox pictureBox1;

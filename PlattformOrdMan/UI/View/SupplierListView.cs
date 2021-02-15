@@ -8,6 +8,7 @@ using System.Globalization;
 using System.ComponentModel;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.UI.View.Base;
 
 namespace Molmed.PlattformOrdMan.UI.View
 {

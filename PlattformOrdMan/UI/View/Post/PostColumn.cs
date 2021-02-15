@@ -1,6 +1,7 @@
 ﻿using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.Data.Exception;
 using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.UI.View.Base;
 
 namespace PlattformOrdMan.UI.View.Post
 {
@@ -17,25 +18,25 @@ namespace PlattformOrdMan.UI.View.Post
             _colEnum = colEnum;
             _width = width;
         }
-        public OrderManListView.ListDataType GetListDataType()
+        public ListDataType GetListDataType()
         {
             switch (_colEnum)
             {
                 case PostListViewColumn.Amount:
                 case PostListViewColumn.InvoiceCategoryCode:
-                    return OrderManListView.ListDataType.Int32;
+                    return ListDataType.Int32;
 
                 case PostListViewColumn.ApprArrival:
                 case PostListViewColumn.ArrivalDate:
                 case PostListViewColumn.BookDate:
                 case PostListViewColumn.InvoiceDate:
                 case PostListViewColumn.OrderDate:
-                    return OrderManListView.ListDataType.DateTime;
+                    return ListDataType.DateTime;
 
                 case PostListViewColumn.ApprPrize:
                 case PostListViewColumn.FinalPrize:
                 case PostListViewColumn.TotalPrize:
-                    return OrderManListView.ListDataType.Currency;
+                    return ListDataType.Currency;
 
                 case PostListViewColumn.ArrivalSign:
                 case PostListViewColumn.ArtNr:
@@ -53,7 +54,7 @@ namespace PlattformOrdMan.UI.View.Post
                 case PostListViewColumn.SalesOrderNo:
                 case PostListViewColumn.Supplier:
                 case PostListViewColumn.PlaceOfPurchase:
-                    return OrderManListView.ListDataType.String;
+                    return ListDataType.String;
 
                 default:
                     throw new DataException("Unknown enum type: " + _colEnum);
