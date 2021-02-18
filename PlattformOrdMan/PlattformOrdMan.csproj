@@ -109,11 +109,23 @@
     <Compile Include="IO\PathPersistFileDialog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Component\AccountField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Component\AccountField.Designer.cs">
+      <DependentUpon>AccountField.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Component\EnquiryField.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\Component\EnquiryField.Designer.cs">
       <DependentUpon>EnquiryField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\PeriodizationField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Component\PeriodizationField.Designer.cs">
+      <DependentUpon>PeriodizationField.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controller\BarCodeController.cs" />
     <Compile Include="UI\Controller\ToolTipHandler.cs" />
@@ -149,6 +161,12 @@
     <Compile Include="UI\Dialog\SetInvoiceNumberDialog.Designer.cs">
       <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialog\SignOrderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\SignOrderDialog.Designer.cs">
+      <DependentUpon>SignOrderDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\View\Base\ListDataType.cs" />
     <Compile Include="UI\View\Base\ListViewComparerChiasma.cs" />
     <Compile Include="UI\View\Base\ListViewComparerCurrency.cs" />
@@ -182,8 +200,14 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\AccountField.resx">
+      <DependentUpon>AccountField.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Component\EnquiryField.resx">
       <DependentUpon>EnquiryField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\PeriodizationField.resx">
+      <DependentUpon>PeriodizationField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\AboutDialog.resx">
       <SubType>Designer</SubType>
@@ -260,6 +284,9 @@
     <EmbeddedResource Include="UI\Dialog\SignInvoiceDialog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SignInvoiceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\SignOrderDialog.resx">
+      <DependentUpon>SignOrderDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>

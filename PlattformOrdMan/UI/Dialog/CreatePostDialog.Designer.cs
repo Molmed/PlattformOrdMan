@@ -106,8 +106,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.commentPanel = new System.Windows.Forms.Panel();
             this.topPanel = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.Periodization = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
-            this.Account = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
+            this.Periodization = new Molmed.PlattformOrdMan.UI.Component.PeriodizationField();
+            this.Account = new Molmed.PlattformOrdMan.UI.Component.AccountField();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -941,31 +941,35 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.Account);
             this.splitContainer2.Panel2.Controls.Add(this.Periodization);
+            this.splitContainer2.Panel2.Controls.Add(this.Account);
             this.splitContainer2.Size = new System.Drawing.Size(971, 157);
             this.splitContainer2.SplitterDistance = 479;
             this.splitContainer2.TabIndex = 42;
             // 
             // Periodization
             // 
+            this.Periodization.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Periodization.Caption = "Periodization";
             this.Periodization.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Periodization.Location = new System.Drawing.Point(3, 60);
+            this.Periodization.Location = new System.Drawing.Point(3, 62);
             this.Periodization.Name = "Periodization";
             this.Periodization.PlaceholderText = null;
-            this.Periodization.Size = new System.Drawing.Size(478, 44);
-            this.Periodization.TabIndex = 3;
+            this.Periodization.Size = new System.Drawing.Size(481, 44);
+            this.Periodization.TabIndex = 1;
             // 
             // Account
             // 
+            this.Account.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Account.Caption = "Account to be used for payment";
             this.Account.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Account.Location = new System.Drawing.Point(3, 10);
+            this.Account.Location = new System.Drawing.Point(3, 12);
             this.Account.Name = "Account";
             this.Account.PlaceholderText = "Fill in if other than SNP&SEQ standard operational";
-            this.Account.Size = new System.Drawing.Size(478, 44);
-            this.Account.TabIndex = 4;
+            this.Account.Size = new System.Drawing.Size(482, 44);
+            this.Account.TabIndex = 0;
             // 
             // CreatePostDialog
             // 
@@ -1085,7 +1089,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.TextBox ArticleNumberTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private Component.EnquiryField Periodization;
-        private Component.EnquiryField Account;
+        private Component.PeriodizationField Periodization;
+        private Component.AccountField Account;
     }
 }
