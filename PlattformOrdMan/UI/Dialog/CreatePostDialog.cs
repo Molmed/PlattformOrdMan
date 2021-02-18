@@ -826,6 +826,29 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             return _post.GetMerchandise().GetInvoiceCagegoryId() == PlattformOrdManData.NO_ID;
         }
 
+        private bool UpdatesToOrdered()
+        {
+            return !string.IsNullOrEmpty(OrderDateTextBox.Text) &&
+                   (_post == null || _post.GetPostStatus() < Post.PostStatus.Ordered);
+        }
+
+        private bool HasMandatoryFields()
+        {
+            var hasFields = true;
+            if (UpdatesToOrdered() && !Account.GetEnquiry().HasAnswered)
+            {
+                hasFields = false;
+                Account.SetMarkColor(Color.Red);
+            }
+
+            if (UpdatesToOrdered() && !Periodization.GetEnquiry().HasAnswered)
+            {
+                hasFields = false;
+                Periodization.SetMarkColor(Color.Red);
+            }
+            return hasFields;
+        }
+
         private bool UpdatePost(out bool newSortOrder)
         {
             decimal prize, finalPrize;
@@ -879,6 +902,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (!IsAmountNumeric())
             {
                 ShowWarning("Error, the amount is not numeric, update canceled!");
+                return false;
+            }
+
+            if (!HasMandatoryFields())
+            {
+                ShowWarning("Please, fill in the missing fields marked with red. ");
                 return false;
             }
 

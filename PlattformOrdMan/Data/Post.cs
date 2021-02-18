@@ -1,6 +1,7 @@
 using System;
 using Molmed.PlattformOrdMan.Database;
 using PlattformOrdMan.Data;
+using PlattformOrdMan.Data.Exception;
 
 namespace Molmed.PlattformOrdMan.Data
 {

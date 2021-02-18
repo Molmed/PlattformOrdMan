@@ -106,8 +106,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.commentPanel = new System.Windows.Forms.Panel();
             this.topPanel = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.Account = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.Periodization = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
+            this.Account = new Molmed.PlattformOrdMan.UI.Component.EnquiryField();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -941,21 +941,11 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.Periodization);
             this.splitContainer2.Panel2.Controls.Add(this.Account);
+            this.splitContainer2.Panel2.Controls.Add(this.Periodization);
             this.splitContainer2.Size = new System.Drawing.Size(971, 157);
             this.splitContainer2.SplitterDistance = 479;
             this.splitContainer2.TabIndex = 42;
-            // 
-            // Account
-            // 
-            this.Account.Caption = "Account to be used for payment";
-            this.Account.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Account.Location = new System.Drawing.Point(3, 10);
-            this.Account.Name = "Account";
-            this.Account.PlaceholderText = "Fill in if other than SNP&SEQ standard operational";
-            this.Account.Size = new System.Drawing.Size(478, 44);
-            this.Account.TabIndex = 2;
             // 
             // Periodization
             // 
@@ -966,6 +956,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.Periodization.PlaceholderText = null;
             this.Periodization.Size = new System.Drawing.Size(478, 44);
             this.Periodization.TabIndex = 3;
+            // 
+            // Account
+            // 
+            this.Account.Caption = "Account to be used for payment";
+            this.Account.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Account.Location = new System.Drawing.Point(3, 10);
+            this.Account.Name = "Account";
+            this.Account.PlaceholderText = "Fill in if other than SNP&SEQ standard operational";
+            this.Account.Size = new System.Drawing.Size(478, 44);
+            this.Account.TabIndex = 4;
             // 
             // CreatePostDialog
             // 
@@ -1085,7 +1085,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.TextBox ArticleNumberTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private Component.EnquiryField Account;
         private Component.EnquiryField Periodization;
+        private Component.EnquiryField Account;
     }
 }
