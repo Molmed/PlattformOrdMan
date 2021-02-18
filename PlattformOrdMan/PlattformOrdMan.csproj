@@ -71,6 +71,7 @@
     <Compile Include="Data\CustomerNumberManager.cs" />
     <Compile Include="Data\Enquiry.cs" />
     <Compile Include="Data\Exception\ValidationException.cs" />
+    <Compile Include="Data\OrderPostDto.cs" />
     <Compile Include="Data\OrdManEventHandler.cs" />
     <Compile Include="Data\Currency.cs" />
     <Compile Include="Data\CurrencyManager.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Data\PlattformOrdManData.cs" />
     <Compile Include="Data\Post.cs" />
     <Compile Include="Data\PostManager.cs" />
+    <Compile Include="Data\OrderSelection.cs" />
     <Compile Include="Data\Supplier.cs" />
     <Compile Include="Data\SupplierManager.cs" />
     <Compile Include="Data\TimeIntervalForPosts.cs" />

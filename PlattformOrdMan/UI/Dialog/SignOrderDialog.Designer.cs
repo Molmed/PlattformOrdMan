@@ -30,8 +30,8 @@
         {
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.accountField1 = new Molmed.PlattformOrdMan.UI.Component.AccountField();
             this.periodizationField1 = new Molmed.PlattformOrdMan.UI.Component.PeriodizationField();
+            this.accountField1 = new Molmed.PlattformOrdMan.UI.Component.AccountField();
             this.SuspendLayout();
             // 
             // OkButton
@@ -43,28 +43,18 @@
             this.OkButton.TabIndex = 0;
             this.OkButton.Text = "OK";
             this.OkButton.UseVisualStyleBackColor = true;
+            this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // CancelButton
             // 
             this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelButton.Location = new System.Drawing.Point(391, 163);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 1;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
-            // 
-            // accountField1
-            // 
-            this.accountField1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.accountField1.Caption = "Account to be used for payment";
-            this.accountField1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.accountField1.Location = new System.Drawing.Point(12, 12);
-            this.accountField1.Name = "accountField1";
-            this.accountField1.PlaceholderText = "Fill in if other than SNP&SEQ standard operational";
-            this.accountField1.Size = new System.Drawing.Size(454, 44);
-            this.accountField1.TabIndex = 2;
             // 
             // periodizationField1
             // 
@@ -78,11 +68,24 @@
             this.periodizationField1.Size = new System.Drawing.Size(454, 44);
             this.periodizationField1.TabIndex = 3;
             // 
+            // accountField1
+            // 
+            this.accountField1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.accountField1.Caption = "Account to be used for payment";
+            this.accountField1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.accountField1.Location = new System.Drawing.Point(12, 12);
+            this.accountField1.Name = "accountField1";
+            this.accountField1.PlaceholderText = "Fill in if other than SNP&SEQ standard operational";
+            this.accountField1.Size = new System.Drawing.Size(454, 44);
+            this.accountField1.TabIndex = 2;
+            // 
             // SignOrderDialog
             // 
             this.AcceptButton = this.OkButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(478, 198);
             this.Controls.Add(this.periodizationField1);
             this.Controls.Add(this.accountField1);

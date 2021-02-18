@@ -7,7 +7,9 @@ using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
 using Molmed.PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.UI.Dialog;
 using PlattformOrdMan.UI.Dialog.OptionsDialog;
 using PlattformOrdMan.UI.View.Post;
 
@@ -1013,6 +1015,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
         }
 
+        private List<Post> GetSelectedList()
+        {
+            List<Post> ret = new List<Post>();
+            foreach (Post selectedPost in GetSelectedPosts())
+            {
+                ret.Add(selectedPost);
+            }
+
+            return ret;
+        }
+
         private void OrderPostMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -1031,12 +1044,30 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                         return;
                     }
                 }
-                foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
+
+                var postList = GetSelectedList();
+                var selection = new OrderSelection(postList);
+                List<OrderPostDto> bags;
+                if (selection.AllPostsEmpty())
                 {
-                    pViewItem.GetPost().OrderPost(UserManager.GetCurrentUser().GetId());
-                    posts.Add(pViewItem.GetPost());
+                    SignOrderDialog dialog = new SignOrderDialog();
+                    if (dialog.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    bags = selection.GenerateFromCommonInput(dialog.Account, dialog.Periodization);
                 }
-                RedrawPosts(posts);
+                else if (selection.AllHasMandatory())
+                {
+                    bags = selection.GenerateFromCurrent();
+                }
+                else
+                {
+                    ShowWarning("The selected posts have different values on Account and Periodization, " +
+                                "and some of them have missing values. " +
+                                "Please update posts one by one. ");
+                    return;
+                }
+                selection.SignAsOrdered(bags);
+                RedrawPosts(selection.PostList());
             }
             catch (Exception ex)
             {

@@ -1047,18 +1047,18 @@ namespace Molmed.PlattformOrdMan.Data
             }
         }
 
-        public void OrderPost(int ordererUserId)
+        public void OrderPost(OrderPostDto bag)
         {
             CheckOrderSign();
-            Database.OrderPost(GetId(), ordererUserId, Account, Periodization);
+            Database.OrderPost(GetId(),  bag.OrderedUserId, bag.Account, bag.Periodization);
             var tmpPost = PostManager.GetPostById(GetId());
             _orderDate = tmpPost.GetOrderDate();
-            _ordererUserId = ordererUserId;
+            _ordererUserId = bag.OrderedUserId;
             _orderer = null;
             SetPostStatus();
             if (_isInvoiceAbsent)
             {
-                SignPostInvoice(UserManager.GetUser(ordererUserId), InvoiceStatus.Ok, _isInvoiceAbsent);
+                SignPostInvoice(UserManager.GetUser(bag.OrderedUserId), InvoiceStatus.Ok, _isInvoiceAbsent);
             }
         }
 
