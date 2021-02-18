@@ -1,4 +1,5 @@
 using System;
+using Molmed.PlattformOrdMan.Data.Exception;
 using Molmed.PlattformOrdMan.Database;
 using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Exception;
@@ -1038,9 +1039,18 @@ namespace Molmed.PlattformOrdMan.Data
             return selANId == activeAnId;
         }
 
+        private void CheckOrderSign()
+        {
+            if (Account == null || Periodization == null)
+            {
+                throw new DataException("Mandatory fields 'Account' or 'Periodization' is not set!");
+            }
+        }
+
         public void OrderPost(int ordererUserId)
         {
-            Database.OrderPost(GetId(), ordererUserId);
+            CheckOrderSign();
+            Database.OrderPost(GetId(), ordererUserId, Account, Periodization);
             var tmpPost = PostManager.GetPostById(GetId());
             _orderDate = tmpPost.GetOrderDate();
             _ordererUserId = ordererUserId;

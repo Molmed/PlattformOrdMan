@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using Molmed.PlattformOrdMan.Data.Exception;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {
@@ -1038,16 +1039,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             return dateTime;
         }
 
-        private bool SignPost(out bool newSortOrder)
-        {
-            if (!UpdatePost(out newSortOrder))
-            {
-                return false;
-            }
-            _post.OrderPost(UserManager.GetCurrentUser().GetId());
-            return true;
-        }
-
         private void UpdateMerchandisePrize(decimal prize, int currencyId, out decimal newApprPrize)
         {
             var merchandise = merchandiseCombobox1.GetSelectedMerchandise();
@@ -1115,13 +1106,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                             return;
                         }
                         break;
-                    case PostUpdateMode.OrderSign:
-                        if (!SignPost(out newSortOrder))
-                        {
-                            Cursor = Cursors.Default;
-                            return;
-                        }
-                        break;
+                    default:
+                        throw  new DataException($"Unknown choice: {_updateMode}");
                 }
                 if (IsNotNull(OnPostUpdate))
                 {

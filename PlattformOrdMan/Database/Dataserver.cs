@@ -8,6 +8,7 @@ using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.DatabaseReferencing;
 using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
 using Molmed.PlattformOrdMan.DbConnection.Repositories;
+using PlattformOrdMan.Data;
 
 namespace Molmed.PlattformOrdMan.Database
 {
@@ -630,12 +631,18 @@ namespace Molmed.PlattformOrdMan.Database
             return (MyTransaction != null);
         }
 
-        public Int32 OrderPost(int postId, int userId)
+        public Int32 OrderPost(int postId, int userId, Enquiry account, Enquiry periodization)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_OrderPost");
             commandBuilder.AddParameter(PostData.POST_ID, postId);
             commandBuilder.AddParameter(PostData.AUTHORITY_ID_ORDERER, userId);
+            commandBuilder.AddParameter(PostData.ACCOUNT, account.Value);
+            commandBuilder.AddParameter(PostData.HAS_ACCOUNT, account.HasValue);
+            commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, account.HasAnswered);
+            commandBuilder.AddParameter(PostData.PERIODIZATION, periodization.Value);
+            commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, periodization.HasValue);
+            commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodization.HasAnswered);
             return ExecuteCommand(commandBuilder);            
         }
 
