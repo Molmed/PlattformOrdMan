@@ -43,8 +43,7 @@ alter PROCEDURE [dbo].[p_UpdatePost](
 @periodization_answered bit = 0,
 @has_periodization bit = 0,
 @account_answered bit = 0,
-@has_account bit = 0,
-@has_had_ordered_status bit = 0)
+@has_account bit = 0)
 
 AS
 BEGIN
@@ -91,8 +90,7 @@ SET
 	periodization_answered = @periodization_answered,
 	has_periodization = @has_periodization,
 	account_answered = @account_answered,
-	has_account = @has_account,
-	has_had_ordered_status = @has_had_ordered_status
+	has_account = @has_account
 FROM place_of_purchase pop 
 WHERE post_id = @id AND	pop.code = @place_of_purchase
 	

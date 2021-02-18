@@ -55,8 +55,7 @@ INSERT INTO post_history
 	 periodization_answered,
 	 has_periodization,
 	 account_answered,
-	 has_account,
-	 has_had_ordered_status)
+	 has_account)
 SELECT
 	 post_id,
 	 article_number_id,
@@ -94,8 +93,7 @@ SELECT
 	 periodization_answered,
 	 has_periodization,
 	 account_answered,
-	 has_account,
-	 has_had_ordered_status
+	 has_account
 FROM inserted
 	
 SET NOCOUNT OFF

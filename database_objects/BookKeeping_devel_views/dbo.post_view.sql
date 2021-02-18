@@ -45,7 +45,6 @@ SELECT
 	p.has_periodization,
 	p.account_answered,
 	p.has_account,
-	p.has_had_ordered_status,
 	pop.code as place_of_purchase,
 	an.identifier as article_number_identifier,
 	an.active as article_number_active,
