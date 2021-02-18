@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.Data.Exception;
-using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data.PostData
 {
     class PostManager : PlattformOrdManData
     {

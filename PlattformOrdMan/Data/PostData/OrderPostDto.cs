@@ -1,4 +1,4 @@
-﻿namespace PlattformOrdMan.Data
+﻿namespace PlattformOrdMan.Data.PostData
 {
     public class OrderPostDto
     {

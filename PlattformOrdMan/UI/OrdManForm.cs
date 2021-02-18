@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.Dialog;
+using PlattformOrdMan.Data.PostData;
 
 namespace Molmed.PlattformOrdMan.UI
 {

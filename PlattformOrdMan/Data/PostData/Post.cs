@@ -1,10 +1,9 @@
 using System;
+using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.Data.Exception;
 using Molmed.PlattformOrdMan.Database;
-using PlattformOrdMan.Data;
-using PlattformOrdMan.Data.Exception;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data.PostData
 {
     public class UpdateHandlerEventArgs : EventArgs
     {
@@ -85,18 +84,18 @@ namespace Molmed.PlattformOrdMan.Data
         public Post(DataReader dataReader)
         {
             _id = dataReader.GetInt32(DataIdentityData.ID);
-            AttentionFlag = dataReader.GetBoolean(PostData.ATTENTION_FLAG);
+            AttentionFlag = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.ATTENTION_FLAG);
             _comment = dataReader.GetString(DataCommentData.COMMENT);
-            _bookerUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_BOOKER);
-            _bookDate = dataReader.GetDateTime(PostData.BOOK_DATE);
-            _merchandiseId = dataReader.GetInt32(PostData.MERCHANDISE_ID);
+            _bookerUserId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.AUTHORITY_ID_BOOKER);
+            _bookDate = dataReader.GetDateTime(Molmed.PlattformOrdMan.Database.PostData.BOOK_DATE);
+            _merchandiseId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.MERCHANDISE_ID);
             _supplierId = NO_ID;
-            if (!dataReader.IsDBNull(PostData.SUPPLIER_ID))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.SUPPLIER_ID))
             {
-                _supplierId = dataReader.GetInt32(PostData.SUPPLIER_ID);
+                _supplierId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.SUPPLIER_ID);
             }
-            _isInvoiceAbsent = dataReader.GetBoolean(PostData.INVOICE_ABSENT);
-            _deliveryDeviation = dataReader.GetString(PostData.DELIVERY_DEVIATION);
+            _isInvoiceAbsent = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.INVOICE_ABSENT);
+            _deliveryDeviation = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.DELIVERY_DEVIATION);
             _booker = null;
             _merchandise = null;
             _supplier = null;
@@ -112,113 +111,113 @@ namespace Molmed.PlattformOrdMan.Data
             _currency = null;
             _currencyId = NO_ID;
             _confirmedOrderDate = new DateTime();
-            if (!dataReader.IsDBNull(PostData.CURRENCY_ID))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.CURRENCY_ID))
             {
-                _currencyId = dataReader.GetInt32(PostData.CURRENCY_ID);
+                _currencyId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.CURRENCY_ID);
             }
-            SetInvoiceStatus(dataReader.GetString(PostData.INVOICE_STATUS));
+            SetInvoiceStatus(dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.INVOICE_STATUS));
             _invoiceDate = new DateTime();
             _predictedArrival = new DateTime();
-            _invoiceNumber = dataReader.GetString(PostData.INVOICE_NUMBER);
-            _finalPrize = dataReader.GetDecimal(PostData.FINAL_PRIZE, NO_COUNT);
-            _confirmedOrderUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_CONFIRMED_ORDER, NO_ID);
+            _invoiceNumber = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.INVOICE_NUMBER);
+            _finalPrize = dataReader.GetDecimal(Molmed.PlattformOrdMan.Database.PostData.FINAL_PRIZE, NO_COUNT);
+            _confirmedOrderUserId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.AUTHORITY_ID_CONFIRMED_ORDER, NO_ID);
             _purchaseOrderNo = "";
             _salesOrderNo = "";
-            if (!dataReader.IsDBNull(PostData.CONFIRMED_ORDER_DATE))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.CONFIRMED_ORDER_DATE))
             {
-                _confirmedOrderDate = dataReader.GetDateTime(PostData.CONFIRMED_ORDER_DATE);
+                _confirmedOrderDate = dataReader.GetDateTime(Molmed.PlattformOrdMan.Database.PostData.CONFIRMED_ORDER_DATE);
             }
-            if (!dataReader.IsDBNull(PostData.APPR_PRIZE))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.APPR_PRIZE))
             {
-                _apprPrize = dataReader.GetDecimal(PostData.APPR_PRIZE);
+                _apprPrize = dataReader.GetDecimal(Molmed.PlattformOrdMan.Database.PostData.APPR_PRIZE);
             }
-            if (!dataReader.IsDBNull(PostData.ORDER_DATE))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.ORDER_DATE))
             {
-                _orderDate = dataReader.GetDateTime(PostData.ORDER_DATE);
+                _orderDate = dataReader.GetDateTime(Molmed.PlattformOrdMan.Database.PostData.ORDER_DATE);
             }
-            if (!dataReader.IsDBNull(PostData.AUTHORITY_ID_ORDERER))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.AUTHORITY_ID_ORDERER))
             {
-                _ordererUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_ORDERER);
+                _ordererUserId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.AUTHORITY_ID_ORDERER);
             }
-            if (!dataReader.IsDBNull(PostData.AUTHORITY_ID_INVOICER))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.AUTHORITY_ID_INVOICER))
             {
-                _invoicerUserId = dataReader.GetInt32(PostData.AUTHORITY_ID_INVOICER);
+                _invoicerUserId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.AUTHORITY_ID_INVOICER);
             }
-            if (!dataReader.IsDBNull(PostData.INVOICE_DATE))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.INVOICE_DATE))
             {
-                _invoiceDate = dataReader.GetDateTime(PostData.INVOICE_DATE);
+                _invoiceDate = dataReader.GetDateTime(Molmed.PlattformOrdMan.Database.PostData.INVOICE_DATE);
             }
-            if (!dataReader.IsDBNull(PostData.PREDICTED_ARRIVAL))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.PREDICTED_ARRIVAL))
             {
-                _predictedArrival = dataReader.GetDateTime(PostData.PREDICTED_ARRIVAL);
+                _predictedArrival = dataReader.GetDateTime(Molmed.PlattformOrdMan.Database.PostData.PREDICTED_ARRIVAL);
             }
-            if (!dataReader.IsDBNull(PostData.INVOICE_INST))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.INVOICE_INST))
             {
-                _invoiceInst = dataReader.GetBoolean(PostData.INVOICE_INST);
+                _invoiceInst = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.INVOICE_INST);
             }
-            if (!dataReader.IsDBNull(PostData.INVOICE_CLIN))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.INVOICE_CLIN))
             {
-                _invoiceClin = dataReader.GetBoolean(PostData.INVOICE_CLIN);
+                _invoiceClin = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.INVOICE_CLIN);
             }
-            if (!dataReader.IsDBNull(PostData.ARRIVAL_DATE))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.ARRIVAL_DATE))
             {
-                _arrivalDate = dataReader.GetDateTime(PostData.ARRIVAL_DATE);
+                _arrivalDate = dataReader.GetDateTime(Molmed.PlattformOrdMan.Database.PostData.ARRIVAL_DATE);
             }
-            if (!dataReader.IsDBNull(PostData.ARRIVAL_SIGN))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.ARRIVAL_SIGN))
             {
-                _arrivalSignUserId = dataReader.GetInt32(PostData.ARRIVAL_SIGN);
+                _arrivalSignUserId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.ARRIVAL_SIGN);
             }
-            if (!dataReader.IsDBNull(PostData.AMOUNT))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.AMOUNT))
             {
-                _amount = dataReader.GetInt32(PostData.AMOUNT);
+                _amount = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.AMOUNT);
             }
-            if (!dataReader.IsDBNull(PostData.PURCHASE_ORDER_NO))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.PURCHASE_ORDER_NO))
             {
-                _purchaseOrderNo = dataReader.GetString(PostData.PURCHASE_ORDER_NO);
-            }
-
-            if (!dataReader.IsDBNull(PostData.SALES_ORDER_NO))
-            {
-                _salesOrderNo = dataReader.GetString(PostData.SALES_ORDER_NO);
+                _purchaseOrderNo = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.PURCHASE_ORDER_NO);
             }
 
-            if (!dataReader.IsDBNull(PostData.PLACE_OF_PURCHASE))
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.SALES_ORDER_NO))
             {
-                var placeOfPurchase = dataReader.GetString(PostData.PLACE_OF_PURCHASE);
+                _salesOrderNo = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.SALES_ORDER_NO);
+            }
+
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.PLACE_OF_PURCHASE))
+            {
+                var placeOfPurchase = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.PLACE_OF_PURCHASE);
                 _placeOfPurchase = (PlaceOfPurchase)(Enum.Parse(typeof(PlaceOfPurchase), placeOfPurchase));
             }
 
-            _merchandiseIdentifier = dataReader.GetString(PostData.MERCHANDISE_IDENTIFIER);
-            _merchandiseAmount = dataReader.GetString(PostData.MERCHANDISE_AMOUNT);
-            _isMerchandiseEnabled = dataReader.GetBoolean(PostData.MERCHANDISE_ENABLED);
-            _merchandiseComment = dataReader.GetString(PostData.MERCHANDISE_COMMENT);
-            _supplierIdentifier = dataReader.GetString(PostData.SUPPLIER_IDENTIFIER);
-            _invoiceCategoryNumber = dataReader.GetInt32(PostData.INVOICE_CATEGORY_NUMBER, NO_COUNT);
+            _merchandiseIdentifier = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.MERCHANDISE_IDENTIFIER);
+            _merchandiseAmount = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.MERCHANDISE_AMOUNT);
+            _isMerchandiseEnabled = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.MERCHANDISE_ENABLED);
+            _merchandiseComment = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.MERCHANDISE_COMMENT);
+            _supplierIdentifier = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.SUPPLIER_IDENTIFIER);
+            _invoiceCategoryNumber = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.INVOICE_CATEGORY_NUMBER, NO_COUNT);
 
             _articleNumber = null;
-            _articleNumberId = dataReader.GetInt32(PostData.ARTICLE_NUMBER_ID, NO_ID);
+            _articleNumberId = dataReader.GetInt32(Molmed.PlattformOrdMan.Database.PostData.ARTICLE_NUMBER_ID, NO_ID);
             if (IsValidId(_articleNumberId))
             {
                 LoadArticleNumber(dataReader);
             }
 
-            var periodizationValue = dataReader.GetString(PostData.PERIODIZATION);
+            var periodizationValue = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.PERIODIZATION);
             var periodizationAnswered = false;
-            if (!dataReader.IsDBNull(PostData.PERIODIZATION_ANSWERED))
-                periodizationAnswered = dataReader.GetBoolean(PostData.PERIODIZATION_ANSWERED);
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.PERIODIZATION_ANSWERED))
+                periodizationAnswered = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.PERIODIZATION_ANSWERED);
             var hasPeriodization = false;
-            if (!dataReader.IsDBNull(PostData.HAS_PERIODIZATION))
-                hasPeriodization = dataReader.GetBoolean(PostData.HAS_PERIODIZATION);
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.HAS_PERIODIZATION))
+                hasPeriodization = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.HAS_PERIODIZATION);
             _periodization = new Enquiry(
                 periodizationAnswered, hasPeriodization, periodizationValue);
 
-            var accountValue = dataReader.GetString(PostData.ACCOUNT);
+            var accountValue = dataReader.GetString(Molmed.PlattformOrdMan.Database.PostData.ACCOUNT);
             var accountAnswered = false;
-            if (!dataReader.IsDBNull(PostData.ACCOUNT_ANSWERED))
-                accountAnswered = dataReader.GetBoolean(PostData.ACCOUNT_ANSWERED);
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.ACCOUNT_ANSWERED))
+                accountAnswered = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.ACCOUNT_ANSWERED);
             var hasAccount = false;
-            if (!dataReader.IsDBNull(PostData.HAS_ACCOUNT))
-                hasAccount = dataReader.GetBoolean(PostData.HAS_ACCOUNT);
+            if (!dataReader.IsDBNull(Molmed.PlattformOrdMan.Database.PostData.HAS_ACCOUNT))
+                hasAccount = dataReader.GetBoolean(Molmed.PlattformOrdMan.Database.PostData.HAS_ACCOUNT);
             _account = new Enquiry(accountAnswered, hasAccount, accountValue);
 
             SetPostStatus();
@@ -348,7 +347,7 @@ namespace Molmed.PlattformOrdMan.Data
 
         private void LoadArticleNumber(DataReader reader)
         {
-            reader.SetColumnNamePrefix(PostData.ARTICLE_NUMBER_PREFIX);
+            reader.SetColumnNamePrefix(Molmed.PlattformOrdMan.Database.PostData.ARTICLE_NUMBER_PREFIX);
             _articleNumber = new ArticleNumber(reader);
             reader.ResetColumnNamePrefix();
         }
@@ -472,7 +471,7 @@ namespace Molmed.PlattformOrdMan.Data
                 case PostListViewColumn.PlaceOfPurchase:
                     return GetPlaceOfPurchaseString();
                 default:
-                    throw new Exception.DataException("Unknwon post list view column: " + column);
+                    throw new Molmed.PlattformOrdMan.Data.Exception.DataException("Unknwon post list view column: " + column);
             }
         }
 
@@ -1260,7 +1259,7 @@ namespace Molmed.PlattformOrdMan.Data
                     break;
                 default:
                     var str = "Error, invoice status not set to proper value: ''" + status + "''";
-                    throw new Exception.DataException(str);
+                    throw new Molmed.PlattformOrdMan.Data.Exception.DataException(str);
             }
         }
 

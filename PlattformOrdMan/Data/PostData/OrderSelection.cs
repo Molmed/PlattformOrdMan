@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Molmed.PlattformOrdMan.Data;
 
-namespace PlattformOrdMan.Data
+namespace PlattformOrdMan.Data.PostData
 {
     public class OrderSelection
     {

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Molmed.PlattformOrdMan;
 using Molmed.PlattformOrdMan.Data;
 using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.Data.PostData;
 using PlattformOrdMan.UI.View.Base;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog

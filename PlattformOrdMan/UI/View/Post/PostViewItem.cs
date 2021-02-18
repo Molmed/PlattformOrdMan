@@ -9,9 +9,9 @@ namespace PlattformOrdMan.UI.View.Post
 {
     public class PostViewItem : ListViewItem
     {
-        private Molmed.PlattformOrdMan.Data.Post _post;
+        private Data.PostData.Post _post;
 
-        public PostViewItem(Molmed.PlattformOrdMan.Data.Post post)
+        public PostViewItem(Data.PostData.Post post)
             : base("")
         {
             _post = post;
@@ -21,7 +21,7 @@ namespace PlattformOrdMan.UI.View.Post
             SetStatusColor();
         }
 
-        public void ReloadPost(Molmed.PlattformOrdMan.Data.Post post)
+        public void ReloadPost(Data.PostData.Post post)
         {
             _post = post;
             UpdateViewItem();
@@ -39,7 +39,7 @@ namespace PlattformOrdMan.UI.View.Post
             UpdateViewItem();
         }
 
-        public Molmed.PlattformOrdMan.Data.Post GetPost()
+        public Data.PostData.Post GetPost()
         {
             return _post;
         }
@@ -59,23 +59,23 @@ namespace PlattformOrdMan.UI.View.Post
             }
             switch (_post.GetPostStatus())
             {
-                case Molmed.PlattformOrdMan.Data.Post.PostStatus.Booked:
+                case Data.PostData.Post.PostStatus.Booked:
                     BackColor = Color.LightCoral;
                     ForeColor = Color.Black;
                     break;
-                case Molmed.PlattformOrdMan.Data.Post.PostStatus.Ordered:
+                case Data.PostData.Post.PostStatus.Ordered:
                     BackColor = Color.Yellow;
                     ForeColor = Color.Black;
                     break;
-                case Molmed.PlattformOrdMan.Data.Post.PostStatus.ConfirmedOrder:
+                case Data.PostData.Post.PostStatus.ConfirmedOrder:
                     BackColor = Color.LightBlue;
                     ForeColor = Color.Black;
                     break;
-                case Molmed.PlattformOrdMan.Data.Post.PostStatus.Confirmed:
+                case Data.PostData.Post.PostStatus.Confirmed:
                     BackColor = Color.Lime;
                     ForeColor = Color.Black;
                     break;
-                case Molmed.PlattformOrdMan.Data.Post.PostStatus.Completed:
+                case Data.PostData.Post.PostStatus.Completed:
                     BackColor = Color.White;
                     ForeColor = Color.Black;
                     break;

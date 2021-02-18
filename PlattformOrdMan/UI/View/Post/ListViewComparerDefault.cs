@@ -7,7 +7,7 @@ namespace PlattformOrdMan.UI.View.Post
     {
         public override int Compare(object object1, object object2)
         {
-            Molmed.PlattformOrdMan.Data.Post post1 = null;
+            Data.PostData.Post post1 = null;
 
             var listViewItem1 = (PostViewItem)object1;
             var listViewItem2 = (PostViewItem)object2;

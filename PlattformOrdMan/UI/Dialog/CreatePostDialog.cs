@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using Molmed.PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Data.PostData;
 
 namespace Molmed.PlattformOrdMan.UI.Dialog
 {

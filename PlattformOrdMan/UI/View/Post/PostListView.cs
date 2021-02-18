@@ -96,7 +96,7 @@ namespace PlattformOrdMan.UI.View.Post
         }
 
 
-        public void AddViewItem(Molmed.PlattformOrdMan.Data.Post post)
+        public void AddViewItem(Data.PostData.Post post)
         {
             PostViewItem pViewItem = new PostViewItem(post);
             BeginAddItems(1);
@@ -108,7 +108,7 @@ namespace PlattformOrdMan.UI.View.Post
             Select();
         }
 
-        public void ReloadPost(Molmed.PlattformOrdMan.Data.Post post)
+        public void ReloadPost(Data.PostData.Post post)
         { 
             if(IsNotNull(post))
             {

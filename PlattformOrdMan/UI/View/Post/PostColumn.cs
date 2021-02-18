@@ -137,7 +137,7 @@ namespace PlattformOrdMan.UI.View.Post
             }
         }
 
-        public string GetString(Molmed.PlattformOrdMan.Data.Post post)
+        public string GetString(Data.PostData.Post post)
         {
             switch (_colEnum)
             {
