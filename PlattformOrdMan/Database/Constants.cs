@@ -1,4 +1,5 @@
 using System;
+using PlattformOrdMan.Data.Conf;
 
 namespace PlattformOrdMan.Database
 {
@@ -148,6 +149,8 @@ namespace PlattformOrdMan.Database
         public const bool DEFAULT_TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY = false;
         public const string TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY = "time_restriction_for_completed_posts_only";
         public const string PLACE_OF_PURCHASE = "place_of_purchase";
+        public const string EDIT_POST_TAB = "edit_post_tab";
+        public const EditPostTab DEFAULT_EDIT_POST_TAB = EditPostTab.Delivery;
     }
 
     public struct SupplierData

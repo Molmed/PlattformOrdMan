@@ -3,8 +3,10 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using PlattformOrdMan.Data;
+using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.Data.PostData;
+using PlattformOrdMan.Database;
 using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
 namespace PlattformOrdMan.UI.Dialog
@@ -114,6 +116,12 @@ namespace PlattformOrdMan.UI.Dialog
         private void Init()
         {
             InitInvoiceCheckboxes();
+            InitStatusTab();
+            FormClosed += (sender, args) =>
+            {
+                int selectedIndex = tabStatusType.SelectedIndex;
+                PlattformOrdManData.Configuration.EditPostTab = (EditPostTab) selectedIndex;
+            };
             _popPrevSel = -1;
             _controlledSelectedIndexChangedForMerchanidse =
                 merchandiseCombobox1_OnMyControlledSelectedIndexChanged;
@@ -849,6 +857,11 @@ namespace PlattformOrdMan.UI.Dialog
                 Periodization.SetMarkColor(Color.Red);
             }
             return hasFields;
+        }
+
+        private void InitStatusTab()
+        {
+            tabStatusType.SelectedIndex = (int) PlattformOrdManData.Configuration.EditPostTab;
         }
 
         private bool UpdatePost(out bool newSortOrder)

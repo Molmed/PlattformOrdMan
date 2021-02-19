@@ -66,6 +66,8 @@
     <Compile Include="Database\SqlCommandBuilder.cs" />
     <Compile Include="Data\ArticleNumber.cs" />
     <Compile Include="Data\Conf\Configuration.cs" />
+    <Compile Include="Data\Conf\ConfTables.cs" />
+    <Compile Include="Data\Conf\EditPostTab.cs" />
     <Compile Include="Data\Conf\PostListViewConfColumns.cs" />
     <Compile Include="Data\CustomerNumber.cs" />
     <Compile Include="Data\CustomerNumberManager.cs" />

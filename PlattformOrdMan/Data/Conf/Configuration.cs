@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Specialized;
 using System.Data;
 using System.IO;
@@ -11,13 +12,6 @@ namespace PlattformOrdMan.Data.Conf
     {
         private StringDictionary MyItems;
         private const string ConfigFileName = "Order_config.XML";
-
-        private enum ConfTables
-        { 
-            Item,
-            PlaceOfPurchaseFilter,
-            PostListViewSelectedColumns
-        }
 
         public Configuration()
         {
@@ -91,6 +85,8 @@ namespace PlattformOrdMan.Data.Conf
 
         public bool ShowOnlyEnabledProducts { get; set; }
 
+        public EditPostTab EditPostTab { get; set; }
+
         public void SaveSettings()
         {
             DataSet dSet;
@@ -129,6 +125,7 @@ namespace PlattformOrdMan.Data.Conf
             Set(ConfigurationData.TIME_INTERVAL_FOR_POSTS, TimeIntervalForPosts.ToString());
             Set(ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY, TimeRestrictionForCompletedPostsOnly.ToString());
             Set(ConfigurationData.PLACE_OF_PURCHASE, PlaceOfPurchase.ToString());
+            Set(ConfigurationData.EDIT_POST_TAB, EditPostTab.ToString());
         }
 
         private static Configuration GetDefaultSettings()
@@ -138,6 +135,7 @@ namespace PlattformOrdMan.Data.Conf
             config.MyItems.Add(ConfigurationData.SHOW_ENABLED_PRODUCTS_ONLY, ConfigurationData.DEFAULT_SHOW_ENABLED_PRODUCTS_ONLY.ToString());
             config.MyItems.Add(ConfigurationData.TIME_INTERVAL_FOR_POSTS, ConfigurationData.DEFAULT_TIME_INTERVAL_FOR_POSTS.ToString());
             config.MyItems.Add(ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY, ConfigurationData.DEFAULT_TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY.ToString());
+            config.MyItems.Add(ConfigurationData.EDIT_POST_TAB, ConfigurationData.DEFAULT_EDIT_POST_TAB.ToString());
             config.MyItems.Add(ConfigurationData.PLACE_OF_PURCHASE, UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
             config.PlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
             if (!config.PlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
@@ -200,19 +198,7 @@ namespace PlattformOrdMan.Data.Conf
             TimeIntervalForPosts = (int)Get(ConfigurationData.TIME_INTERVAL_FOR_POSTS, typeof(int));
             TimeRestrictionForCompletedPostsOnly = (bool)Get(ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY, typeof(bool));
             PlaceOfPurchase = (PlaceOfPurchase)Get(ConfigurationData.PLACE_OF_PURCHASE, typeof(PlaceOfPurchase));
-        }
-
-        private object Get(string key)
-        {
-            if (MyItems.ContainsKey(key))
-            {
-                return MyItems[key];
-            }
-            else
-            {
-                MyItems.Add(key, GetDefaultValue(key).ToString());
-                return GetDefaultValue(key);
-            }
+            EditPostTab = (EditPostTab) Get(ConfigurationData.EDIT_POST_TAB, typeof(EditPostTab));
         }
 
         private void Set(string key, string value)
@@ -237,6 +223,10 @@ namespace PlattformOrdMan.Data.Conf
             else if (key == ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY)
             {
                 return ConfigurationData.DEFAULT_TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY;
+            }
+            else if (key == ConfigurationData.EDIT_POST_TAB)
+            {
+                return ConfigurationData.DEFAULT_EDIT_POST_TAB;
             }
             else if (key == ConfigurationData.PLACE_OF_PURCHASE)
             {
@@ -288,7 +278,20 @@ namespace PlattformOrdMan.Data.Conf
                 }
                 catch (ArgumentException ex)
                 {
-                    throw new DataException("Unable to parse setting " + key + " to the enumerable PlaceOfPurchase", ex);
+                    throw new DataException(
+                        "Unable to parse setting " + key + " to the enumerable PlaceOfPurchase", ex);
+                }
+            }
+            else if (type == typeof(EditPostTab))
+            {
+                try
+                {
+                    result = (EditPostTab)Enum.Parse(typeof(EditPostTab), MyItems[key]);
+                }
+                catch (ArgumentException e)
+                {
+                    throw new DataException(
+                        "Unable to parse setting " + key + " to the enumerable EditPostTab", e);
                 }
             }
             else if (type == typeof(string))
