@@ -33,7 +33,7 @@ namespace PlattformOrdMan.UI.Dialog
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowOrderHistoryDialog));
-            this.PostsListView = new PostListView(this.components);
+            this.PostsListView = new PlattformOrdMan.UI.View.Post.PostListView(this.components);
             this.NewOrderButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.PostOrderInfoLabel = new System.Windows.Forms.Panel();
@@ -44,10 +44,10 @@ namespace PlattformOrdMan.UI.Dialog
             this.OptionsButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
-            this.userComboBox1 = new UserComboBox();
-            this.SupplierCombobox = new SupplierCombobox();
+            this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
+            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
             this.SearchButton = new System.Windows.Forms.Button();
-            this.merchandiseCombobox1 = new MerchandiseCombobox();
+            this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
             this.CompletedPostPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.InvoiceNotCheckedPanel = new System.Windows.Forms.Panel();
@@ -57,6 +57,8 @@ namespace PlattformOrdMan.UI.Dialog
             this.label6 = new System.Windows.Forms.Label();
             this.AttentionPanel = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.PeriodizationPanel = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +70,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.PostsListView.EnableColumnSort = true;
             this.PostsListView.FullRowSelect = true;
             this.PostsListView.GridLines = true;
+            this.PostsListView.HideSelection = false;
             this.PostsListView.Location = new System.Drawing.Point(12, 170);
             this.PostsListView.Name = "PostsListView";
             this.PostsListView.Size = new System.Drawing.Size(1048, 390);
@@ -288,6 +291,24 @@ namespace PlattformOrdMan.UI.Dialog
             this.label5.TabIndex = 15;
             this.label5.Text = "This post is marked for attention";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(614, 134);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(165, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Completed post with Periodization";
+            // 
+            // PeriodizationPanel
+            // 
+            this.PeriodizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PeriodizationPanel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.PeriodizationPanel.Location = new System.Drawing.Point(570, 134);
+            this.PeriodizationPanel.Name = "PeriodizationPanel";
+            this.PeriodizationPanel.Size = new System.Drawing.Size(38, 14);
+            this.PeriodizationPanel.TabIndex = 10;
+            // 
             // ShowOrderHistoryDialog
             // 
             this.AcceptButton = this.SearchButton;
@@ -295,6 +316,8 @@ namespace PlattformOrdMan.UI.Dialog
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1072, 630);
+            this.Controls.Add(this.PeriodizationPanel);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.AttentionPanel);
             this.Controls.Add(this.label6);
@@ -351,5 +374,7 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Button OptionsButton;
         private System.Windows.Forms.Panel AttentionPanel;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel PeriodizationPanel;
     }
 }

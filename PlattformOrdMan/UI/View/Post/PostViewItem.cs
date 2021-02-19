@@ -76,9 +76,16 @@ namespace PlattformOrdMan.UI.View.Post
                     ForeColor = Color.Black;
                     break;
                 case Data.PostData.Post.PostStatus.Completed:
-                    BackColor = Color.White;
-                    ForeColor = Color.Black;
-                    break;
+                    if (_post.Periodization.HasValue)
+                    {
+                        BackColor = Color.DarkMagenta;
+                        ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        BackColor = Color.White;
+                        ForeColor = Color.Black;
+                    }                    break;
             }
         }
 

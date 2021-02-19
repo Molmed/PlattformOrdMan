@@ -65,6 +65,7 @@ namespace PlattformOrdMan.UI.Dialog
             CompletedPostPanel.BackColor = Color.White;
             InvoiceNotCheckedPanel.BackColor = Color.Lime;
             AttentionPanel.BackColor = Color.Red;
+            PeriodizationPanel.BackColor = Color.DarkMagenta;
             userComboBox1.Init(true, "booker");
             userComboBox1.LoadIdentitiesWithInfoText();
             userComboBox1.OnMyControlledSelectedIndexChanged +=
