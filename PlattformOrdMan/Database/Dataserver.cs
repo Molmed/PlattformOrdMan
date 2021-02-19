@@ -1,16 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
-using PlattformOrdMan.Properties;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.DatabaseReferencing;
-using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
-using Molmed.PlattformOrdMan.DbConnection.Repositories;
 using PlattformOrdMan.Data;
+using PlattformOrdMan.Properties;
 
-namespace Molmed.PlattformOrdMan.Database
+namespace PlattformOrdMan.Database
 {
     public delegate void TransactionCommitedEventHandler();
     public delegate void TransactionRollbackedEventHandler();

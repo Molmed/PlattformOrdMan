@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
 
 namespace PlattformOrdMan.UI.View.Post

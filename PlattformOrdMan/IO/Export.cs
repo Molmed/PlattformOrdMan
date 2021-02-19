@@ -1,11 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan;
+using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.IO
+namespace PlattformOrdMan.IO
 {
     public class Export : PlattformOrdManBase
     {

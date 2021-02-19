@@ -1,7 +1,7 @@
 using System;
-using Molmed.PlattformOrdMan.DbConnection.Repositories;
+using PlattformOrdMan.DbConnection.Repositories;
 
-namespace Molmed.PlattformOrdMan.DatabaseReferencing
+namespace PlattformOrdMan.DbConnection.DatabaseReferencing
 {
     public class InitialsProvider
     {

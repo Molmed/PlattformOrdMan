@@ -1,4 +1,4 @@
-namespace Molmed.PlattformOrdMan.UI
+namespace PlattformOrdMan.UI
 {
     partial class OrdManForm
     {

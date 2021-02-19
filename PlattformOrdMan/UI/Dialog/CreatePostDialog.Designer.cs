@@ -1,6 +1,6 @@
-using System;
+using PlattformOrdMan.UI.Component;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class CreatePostDialog
     {
@@ -48,14 +48,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label5 = new System.Windows.Forms.Label();
             this.MerchandiseCommentTextBox = new System.Windows.Forms.TextBox();
             this.NoInvoiceCheckBox = new System.Windows.Forms.CheckBox();
-            this.SupplierComboBox = new Molmed.PlattformOrdMan.UI.Component.SupplierCombobox();
-            this.merchandiseCombobox1 = new Molmed.PlattformOrdMan.UI.Component.MerchandiseCombobox();
+            this.SupplierComboBox = new SupplierCombobox();
+            this.merchandiseCombobox1 = new MerchandiseCombobox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.AttentionCheckBox = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.ConfirmedOrderDateTextBox = new System.Windows.Forms.TextBox();
-            this.ConfirmedOrderUserComboBox = new Molmed.PlattformOrdMan.UI.Component.UserComboBox();
+            this.ConfirmedOrderUserComboBox = new UserComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -63,15 +63,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.ArrivalDateTextBox = new System.Windows.Forms.TextBox();
-            this.ArrivalSignUserComboBox = new Molmed.PlattformOrdMan.UI.Component.UserComboBox();
+            this.ArrivalSignUserComboBox = new UserComboBox();
             this.OrderDateTextBox = new System.Windows.Forms.TextBox();
-            this.OrdererUserComboBox = new Molmed.PlattformOrdMan.UI.Component.UserComboBox();
+            this.OrdererUserComboBox = new UserComboBox();
             this.BookDateTextBox = new System.Windows.Forms.TextBox();
-            this.BookerUserComboBox = new Molmed.PlattformOrdMan.UI.Component.UserComboBox();
+            this.BookerUserComboBox = new UserComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.InvoiceCheckDateTextBox = new System.Windows.Forms.TextBox();
-            this.InvoiceCheckerUserComboBox = new Molmed.PlattformOrdMan.UI.Component.UserComboBox();
+            this.InvoiceCheckerUserComboBox = new UserComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.InvoiceNumberTextBox = new System.Windows.Forms.TextBox();
             this.DeliveryDeviationTextBox = new System.Windows.Forms.TextBox();
@@ -98,7 +98,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.FinalPrizeTextBox = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.EditCurrencyButton = new System.Windows.Forms.Button();
-            this.CurrencyCombobox = new Molmed.PlattformOrdMan.UI.Component.CurrencyCombobox();
+            this.CurrencyCombobox = new CurrencyCombobox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
@@ -106,8 +106,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.commentPanel = new System.Windows.Forms.Panel();
             this.topPanel = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.Periodization = new Molmed.PlattformOrdMan.UI.Component.PeriodizationField();
-            this.Account = new Molmed.PlattformOrdMan.UI.Component.AccountField();
+            this.Periodization = new PeriodizationField();
+            this.Account = new AccountField();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -1031,17 +1031,17 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox MerchandiseCommentTextBox;
         private System.Windows.Forms.CheckBox NoInvoiceCheckBox;
-        private Molmed.PlattformOrdMan.UI.Component.SupplierCombobox SupplierComboBox;
-        private Molmed.PlattformOrdMan.UI.Component.MerchandiseCombobox merchandiseCombobox1;
+        private SupplierCombobox SupplierComboBox;
+        private MerchandiseCombobox merchandiseCombobox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox InvoiceCheckDateTextBox;
-        private Molmed.PlattformOrdMan.UI.Component.UserComboBox InvoiceCheckerUserComboBox;
+        private UserComboBox InvoiceCheckerUserComboBox;
         private System.Windows.Forms.TextBox ArrivalDateTextBox;
-        private Molmed.PlattformOrdMan.UI.Component.UserComboBox ArrivalSignUserComboBox;
+        private UserComboBox ArrivalSignUserComboBox;
         private System.Windows.Forms.TextBox OrderDateTextBox;
-        private Molmed.PlattformOrdMan.UI.Component.UserComboBox OrdererUserComboBox;
+        private UserComboBox OrdererUserComboBox;
         private System.Windows.Forms.TextBox BookDateTextBox;
-        private Molmed.PlattformOrdMan.UI.Component.UserComboBox BookerUserComboBox;
+        private UserComboBox BookerUserComboBox;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
@@ -1052,7 +1052,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox InvoiceNumberTextBox;
-        private Molmed.PlattformOrdMan.UI.Component.UserComboBox ConfirmedOrderUserComboBox;
+        private UserComboBox ConfirmedOrderUserComboBox;
         private System.Windows.Forms.TextBox ConfirmedOrderDateTextBox;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;

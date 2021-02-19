@@ -1,5 +1,4 @@
-﻿using Molmed.PlattformOrdMan.UI.View;
-using PlattformOrdMan.UI.View.Base;
+﻿using PlattformOrdMan.UI.View.Base;
 
 namespace PlattformOrdMan.UI.View.Post
 {

@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Database;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public class SupplierManager : PlattformOrdManData
     {

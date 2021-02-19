@@ -1,6 +1,6 @@
 using System;
 
-namespace Molmed.PlattformOrdMan.Data.Exception
+namespace PlattformOrdMan.Data.Exception
 {
     public class DataArgumentEmptyException : DataArgumentException
     {

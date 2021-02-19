@@ -1,6 +1,4 @@
-﻿using Molmed.PlattformOrdMan.UI.Component;
-
-namespace Molmed.PlattformOrdMan.UI.Component
+﻿namespace PlattformOrdMan.UI.Component
 {
     public partial class PeriodizationField : EnquiryField
     {

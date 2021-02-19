@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace Molmed.PlattformOrdMan.UI.Component
+﻿namespace PlattformOrdMan.UI.Component
 {
     partial class EnquiryField
     {

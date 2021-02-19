@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Database;
 using PlattformOrdMan.Properties;
 
-
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public class CurrencyManager : PlattformOrdManData
     {

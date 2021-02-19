@@ -1,4 +1,6 @@
-namespace Molmed.PlattformOrdMan.UI.Dialog
+using PlattformOrdMan.UI.Component;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class EditMerchandiseDialog
     {
@@ -47,14 +49,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.CloseButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.invoiceCategoryCombobox1 = new Molmed.PlattformOrdMan.UI.Component.InvoiceCategoryCombobox();
+            this.invoiceCategoryCombobox1 = new InvoiceCategoryCombobox();
             this.label10 = new System.Windows.Forms.Label();
             this.InvoiceCategoryNumberTextBox = new System.Windows.Forms.TextBox();
             this.EditInvoiceCategoryButton = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.EditCurrencyButton = new System.Windows.Forms.Button();
-            this.CurrencyCombobox = new Molmed.PlattformOrdMan.UI.Component.CurrencyCombobox();
-            this.SupplierCombobox = new Molmed.PlattformOrdMan.UI.Component.SupplierCombobox();
+            this.CurrencyCombobox = new CurrencyCombobox();
+            this.SupplierCombobox = new SupplierCombobox();
             this.ArticleNumberComboBox = new System.Windows.Forms.ComboBox();
             this.MakeOrderButton = new System.Windows.Forms.Button();
             this.ShowSupplierButton = new System.Windows.Forms.Button();
@@ -411,14 +413,14 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private Molmed.PlattformOrdMan.UI.Component.InvoiceCategoryCombobox invoiceCategoryCombobox1;
+        private InvoiceCategoryCombobox invoiceCategoryCombobox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox InvoiceCategoryNumberTextBox;
         private System.Windows.Forms.Button EditInvoiceCategoryButton;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button EditCurrencyButton;
-        private Molmed.PlattformOrdMan.UI.Component.CurrencyCombobox CurrencyCombobox;
-        private Molmed.PlattformOrdMan.UI.Component.SupplierCombobox SupplierCombobox;
+        private CurrencyCombobox CurrencyCombobox;
+        private SupplierCombobox SupplierCombobox;
         private System.Windows.Forms.ComboBox ArticleNumberComboBox;
         private System.Windows.Forms.Button MakeOrderButton;
         private System.Windows.Forms.Button ShowSupplierButton;

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using Molmed.PlattformOrdMan;
 
-namespace Molmed.PlattformOrdMan.IO
+namespace PlattformOrdMan.IO
 {
     public class PathPersistFileDialog
     {

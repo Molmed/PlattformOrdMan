@@ -1,17 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Globalization;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.Dialog;
+using System.Windows.Forms;
+using Molmed.PlattformOrdMan;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.PostData;
+using PlattformOrdMan.UI.Dialog;
 
-namespace Molmed.PlattformOrdMan.UI
+namespace PlattformOrdMan.UI
 {
 
     public interface ISupplierForm

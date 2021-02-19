@@ -1,6 +1,5 @@
 using System;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.Database;
+using PlattformOrdMan.Database;
 
 namespace PlattformOrdMan.Data.PostData
 {

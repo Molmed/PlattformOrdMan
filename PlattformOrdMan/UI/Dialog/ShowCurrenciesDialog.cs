@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.UI.View.Base;
+using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ShowCurrenciesDialog : OrdManForm
     {
@@ -22,7 +17,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         public ShowCurrenciesDialog()
         {
             InitializeComponent();
-            MyCurrencies = PlattformOrdMan.Data.CurrencyManager.GetCurrencies();
+            MyCurrencies = CurrencyManager.GetCurrencies();
             Init();
         }
 
@@ -53,7 +48,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 currencies.Add(cViewItem.GetCurrency());
             }
-            if (Data.CurrencyManager.DeleteCurrencies(currencies))
+            if (CurrencyManager.DeleteCurrencies(currencies))
             {
                 foreach (Currency currency in currencies)
                 {
@@ -154,7 +149,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             editCurrencyDialog = new EditCurrencyDialog(null, UpdateMode.Create);
             if (editCurrencyDialog.ShowDialog() == DialogResult.OK)
             {
-                MyCurrencies = Data.CurrencyManager.GetCurrencies();
+                MyCurrencies = CurrencyManager.GetCurrencies();
                 currency = editCurrencyDialog.GetCurrency();
                 UpdateListView();
                 SetSelected(currency);

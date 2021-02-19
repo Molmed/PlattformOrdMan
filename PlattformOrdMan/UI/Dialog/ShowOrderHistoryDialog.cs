@@ -1,20 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.View;
-using Molmed.PlattformOrdMan.UI.Controller;
 using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.Data.PostData;
-using PlattformOrdMan.UI.Dialog;
+using PlattformOrdMan.UI.Controller;
 using PlattformOrdMan.UI.Dialog.OptionsDialog;
 using PlattformOrdMan.UI.View.Post;
+using DataException = PlattformOrdMan.Data.Exception.DataException;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ShowOrderHistoryDialog : OrdManForm, ISupplierForm, IMerchandiseForm, IPostForm
     {
@@ -150,7 +147,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     if (post.GetSupplierId() != supplier.GetId())
                     {
-                        throw new Data.Exception.DataException("Supplier id mismatch!");
+                        throw new DataException("Supplier id mismatch!");
                     }
                     post.ReloadSupplier(supplier);
                 }
@@ -166,7 +163,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     if (post.GetMerchandiseId() != merchandise.GetId())
                     {
-                        throw new Data.Exception.DataException("Merchandise id mismatch!");
+                        throw new DataException("Merchandise id mismatch!");
                     }
                     post.ReloadMerchandise(merchandise);
                 }
@@ -436,7 +433,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
+                throw new DataException("Column sort order mis-match: " + colIndex);
             }
         }
 
@@ -451,7 +448,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
+                throw new DataException("Column sort order mis-match: " + colIndex);
             }
         }
 
@@ -472,7 +469,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
                 else
                 {
-                    throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
+                    throw new DataException("Column sort order mis-match: " + colIndex);
                 }
             }
         }
@@ -538,7 +535,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                throw new Data.Exception.DataException("Column index mis-match: " + colInd);
+                throw new DataException("Column index mis-match: " + colInd);
             }
             return colWidth > 0;
         }
@@ -1357,7 +1354,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
                 else
                 {
-                    throw new Data.Exception.DataException("Column name mismatch in configuration: " + col.Text);
+                    throw new DataException("Column name mismatch in configuration: " + col.Text);
                 }
             }
             finally

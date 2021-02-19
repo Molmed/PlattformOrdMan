@@ -1,4 +1,6 @@
-﻿namespace PlattformOrdMan.UI.Dialog
+﻿using PlattformOrdMan.UI.Component;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class SignOrderDialog
     {
@@ -30,8 +32,8 @@
         {
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.periodizationField1 = new Molmed.PlattformOrdMan.UI.Component.PeriodizationField();
-            this.accountField1 = new Molmed.PlattformOrdMan.UI.Component.AccountField();
+            this.periodizationField1 = new PeriodizationField();
+            this.accountField1 = new AccountField();
             this.SuspendLayout();
             // 
             // OkButton
@@ -101,7 +103,7 @@
 
         private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Button CancelButton;
-        private Molmed.PlattformOrdMan.UI.Component.AccountField accountField1;
-        private Molmed.PlattformOrdMan.UI.Component.PeriodizationField periodizationField1;
+        private AccountField accountField1;
+        private PeriodizationField periodizationField1;
     }
 }

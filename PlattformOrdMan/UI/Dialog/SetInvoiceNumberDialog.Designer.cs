@@ -1,4 +1,4 @@
-﻿namespace Molmed.PlattformOrdMan.UI.Dialog
+﻿namespace PlattformOrdMan.UI.Dialog
 {
     partial class SetInvoiceNumberDialog
     {

@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.View;
-using Molmed.PlattformOrdMan.UI.Controller;
-using Molmed.PlattformOrdMan.UI.Component;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.UI.View;
 using PlattformOrdMan.UI.View.Base;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ShowMerchandiseDialog : OrdManForm, ISupplierForm, IMerchandiseForm
     {

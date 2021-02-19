@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Globalization;
-using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Database;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public enum PlaceOfPurchase
     {

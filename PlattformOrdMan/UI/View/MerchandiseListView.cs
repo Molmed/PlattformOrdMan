@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
-using Molmed.PlattformOrdMan.Data;
+using System.Windows.Forms;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.UI.View.Base;
 
-namespace Molmed.PlattformOrdMan.UI.View
+namespace PlattformOrdMan.UI.View
 {
     public partial class MerchandiseListView : OrderManListView
     {

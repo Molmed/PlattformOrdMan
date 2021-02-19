@@ -1,13 +1,13 @@
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.Component;
 using System;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.Data.PostData;
+using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class CreatePostDialog : OrdManForm, ISupplierForm, IMerchandiseForm
     {
@@ -547,7 +547,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             ApprArrivalTextBox.Text = "";
             CommentTextBox.Text = "";
             DeliveryDeviationTextBox.Text = "";
-            CurrencyCombobox.SetSelectedCurrency(Data.CurrencyManager.GetDefaultCurrency());
+            CurrencyCombobox.SetSelectedCurrency(CurrencyManager.GetDefaultCurrency());
         }
 
         private void merchandiseCombobox1_OnMyControlledSelectedIndexChanged()
@@ -1050,7 +1050,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if ((prize != PlattformOrdManData.NO_COUNT && merchandise.GetApprPrize() != prize) ||
                 merchandise.GetCurrencyId() != currencyId)
             {
-                var prizeStr = Data.CurrencyManager.GetCurrency(currencyId).GetPriceWithCurrencyString(prize);
+                var prizeStr = CurrencyManager.GetCurrency(currencyId).GetPriceWithCurrencyString(prize);
                 if (prize != PlattformOrdManData.NO_COUNT)
                 {
                     newApprPrize = prize;

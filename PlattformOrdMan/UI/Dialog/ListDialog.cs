@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Data;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.IO;
-using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ListDialog
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
 
 namespace PlattformOrdMan.UI.View.Base
 {

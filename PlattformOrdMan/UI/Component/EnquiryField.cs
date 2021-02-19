@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.UI.Component
+namespace PlattformOrdMan.UI.Component
 {
     public partial class EnquiryField : UserControl
     {

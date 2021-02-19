@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
 using PlattformOrdMan.Data.PostData;
+using DataException = PlattformOrdMan.Data.Exception.DataException;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class SetInvoiceNumberDialog : OrdManForm
     {
@@ -25,7 +20,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             int supplierId;
             if(IsEmpty(MyPosts))
             {
-                throw new Data.Exception.DataException("Empty post list");
+                throw new DataException("Empty post list");
             }
             supplierId = MyPosts[0].GetSupplierId();
 
@@ -33,7 +28,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 if (supplierId != post.GetSupplierId())
                 {
-                    throw new Data.Exception.DataException("Posts with different suppliers selected");
+                    throw new DataException("Posts with different suppliers selected");
                 }
             }
         }

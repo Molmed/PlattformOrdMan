@@ -1,7 +1,6 @@
-﻿using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.Data.Exception;
-using Molmed.PlattformOrdMan.UI.View;
+﻿using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.UI.View.Base;
 
 namespace PlattformOrdMan.UI.View.Post

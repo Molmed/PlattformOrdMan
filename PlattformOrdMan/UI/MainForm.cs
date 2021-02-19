@@ -1,18 +1,20 @@
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Reflection;
 using System.Timers;
-using Molmed.PlattformOrdMan.UI.Dialog;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.DatabaseReferencing;
-using Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing;
-using Molmed.PlattformOrdMan.DbConnection.Repositories;
+using System.Windows.Forms;
+using Molmed.PlattformOrdMan;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.Data.PostData;
+using PlattformOrdMan.Database;
+using PlattformOrdMan.DbConnection.DatabaseReferencing;
+using PlattformOrdMan.DbConnection.Repositories;
 using PlattformOrdMan.Properties;
+using PlattformOrdMan.UI.Dialog;
 
-namespace Molmed.PlattformOrdMan.UI
+namespace PlattformOrdMan.UI
 {
     public partial class MainForm : Form
     {
@@ -178,7 +180,7 @@ namespace Molmed.PlattformOrdMan.UI
         {
             if (IsNull(PlattformOrdManData.Configuration))
             {
-                throw new Data.Exception.DataException("Trying to save configuration but configuration is not initialized!");
+                throw new DataException("Trying to save configuration but configuration is not initialized!");
             }
             PlattformOrdManData.Configuration.SaveSettings();
         }
@@ -396,7 +398,7 @@ namespace Molmed.PlattformOrdMan.UI
                     new InitialsProvider(new EnvironmentRepository()),
                     Settings.Default.DatabaseName);
 
-                PlattformOrdManData.Database = new Database.Dataserver(
+                PlattformOrdManData.Database = new Dataserver(
                     userName, password, dbProvider.GenerateDatabaseName());
                 if (!PlattformOrdManData.Database.Connect())
                 {

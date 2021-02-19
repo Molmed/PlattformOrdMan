@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace Molmed.PlattformOrdMan.DbConnection
+namespace PlattformOrdMan.DbConnection
 {
     /// <summary>
     /// Explicitly reads the (appname).exe.config file, instead of using

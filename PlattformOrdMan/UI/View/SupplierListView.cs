@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Globalization;
-using System.ComponentModel;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.UI.View.Base;
 
-namespace Molmed.PlattformOrdMan.UI.View
+namespace PlattformOrdMan.UI.View
 {
     public partial class SupplierListView : OrderManListView
     {

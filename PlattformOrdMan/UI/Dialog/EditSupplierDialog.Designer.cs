@@ -1,6 +1,6 @@
 using PlattformOrdMan.UI.View.Base;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class EditSupplierDialog
     {

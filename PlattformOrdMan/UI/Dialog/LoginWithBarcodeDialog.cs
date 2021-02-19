@@ -1,7 +1,7 @@
 ﻿using System;
-using Molmed.PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.UI.Controller;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class LoginWithBarcodeDialog : OrdManForm
     {

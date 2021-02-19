@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.UI.View;
 
 namespace PlattformOrdMan.UI.View.Base
 {

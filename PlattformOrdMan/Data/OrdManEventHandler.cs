@@ -1,6 +1,6 @@
 ﻿using PlattformOrdMan.Data.PostData;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public class OrdManEventHandler : PlattformOrdManData
     {

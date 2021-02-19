@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
+using DataException = PlattformOrdMan.Data.Exception.DataException;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class CreateEditCustomerNumber : OrdManForm
     {
@@ -42,7 +38,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     EnabledCheckBox.Checked = MyCustomerNumber.IsEnabled();
                     break;
                 default:
-                    throw new Data.Exception.DataException("Unknown update alternative!");
+                    throw new DataException("Unknown update alternative!");
             }
         }
 

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.UI.View.Post;
 

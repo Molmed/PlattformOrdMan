@@ -1,6 +1,7 @@
+using PlattformOrdMan.UI.Component;
 using PlattformOrdMan.UI.View.Post;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class ShowOrderHistoryDialog
     {
@@ -43,10 +44,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.OptionsButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
-            this.userComboBox1 = new Molmed.PlattformOrdMan.UI.Component.UserComboBox();
-            this.SupplierCombobox = new Molmed.PlattformOrdMan.UI.Component.SupplierCombobox();
+            this.userComboBox1 = new UserComboBox();
+            this.SupplierCombobox = new SupplierCombobox();
             this.SearchButton = new System.Windows.Forms.Button();
-            this.merchandiseCombobox1 = new Molmed.PlattformOrdMan.UI.Component.MerchandiseCombobox();
+            this.merchandiseCombobox1 = new MerchandiseCombobox();
             this.CompletedPostPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.InvoiceNotCheckedPanel = new System.Windows.Forms.Panel();
@@ -334,15 +335,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Panel ProductArrivalLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private Molmed.PlattformOrdMan.UI.Component.MerchandiseCombobox merchandiseCombobox1;
+        private MerchandiseCombobox merchandiseCombobox1;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Panel CompletedPostPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel InvoiceNotCheckedPanel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button RestoreSortingButton;
-        private Molmed.PlattformOrdMan.UI.Component.SupplierCombobox SupplierCombobox;
-        private Molmed.PlattformOrdMan.UI.Component.UserComboBox userComboBox1;
+        private SupplierCombobox SupplierCombobox;
+        private UserComboBox userComboBox1;
         private System.Windows.Forms.TextBox FreeTextSearchTextBox;
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Panel ProductOrderConfirmedLabel;

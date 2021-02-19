@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.UI.View.Base;
 

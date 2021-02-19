@@ -1,7 +1,7 @@
 using System;
-using Molmed.PlattformOrdMan.Database;
+using PlattformOrdMan.Database;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public class User : DataComment
     {
@@ -28,7 +28,7 @@ namespace Molmed.PlattformOrdMan.Data
             MyUserType = (UserType)(Enum.Parse(typeof(UserType), userTypeString));
             if (!dataReader.IsDBNull(UserData.PLACE_OF_PURCHASE))
             {
-                placeOfPurchase = dataReader.GetString(PostData.PLACE_OF_PURCHASE);
+                placeOfPurchase = dataReader.GetString(PlattformOrdMan.Database.PostData.PLACE_OF_PURCHASE);
                 MyPlaceOfPurchase = (PlaceOfPurchase)(Enum.Parse(typeof(PlaceOfPurchase), placeOfPurchase));
             }
 
