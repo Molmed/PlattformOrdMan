@@ -96,18 +96,13 @@ namespace PlattformOrdMan.UI.View.Post
 
         public void UpdateViewItem()
         {
-            var sort = PostListViewConfColumns.ColSortOrder + " asc";
-
-            // Loop through columns in personal config datatable
-            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
-            for (int i = 0; i < rows.Length; i++)
+            var columns = PostListView.GetColumns();
+            var i = 0;
+            columns.ToList().ForEach(c =>
             {
-                var colName = (string)rows[i][PostListViewConfColumns.ColEnumName.ToString()];
-                var col = (PostListViewColumn)Enum.Parse(typeof(PostListViewColumn), colName);
-                
-                SubItems[(int)rows[i][PostListViewConfColumns.ColSortOrder.ToString()]].Text = 
-                    _post.GetStringForListViewColumn(col);
-            }
+                SubItems[i].Text = c.GetString(_post);
+                i++;
+            });
             SetStatusColor();
         }
     }
