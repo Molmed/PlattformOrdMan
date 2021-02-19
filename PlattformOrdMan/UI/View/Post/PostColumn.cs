@@ -72,6 +72,7 @@ namespace PlattformOrdMan.UI.View.Post
                 case PostListViewColumn.PlaceOfPurchase:
                 case PostListViewColumn.Account:
                 case PostListViewColumn.Periodization:
+                case PostListViewColumn.VangenSummary:
                     return ListDataType.String;
 
                 default:
@@ -90,6 +91,8 @@ namespace PlattformOrdMan.UI.View.Post
                 case PostListViewColumn.Account:
                 case PostListViewColumn.Periodization:
                     return _colEnum.ToString();
+                case PostListViewColumn.VangenSummary:
+                    return "Summary";
 
                 case PostListViewColumn.InvoiceCategoryCode:
                     return "Invoice category code";
@@ -148,6 +151,8 @@ namespace PlattformOrdMan.UI.View.Post
                     return post.GetAccountString();
                 case PostListViewColumn.Periodization:
                     return post.GetPeriodizationString();
+                case PostListViewColumn.VangenSummary:
+                    return post.GetVangenSummaryString();
                 case PostListViewColumn.Amount:
                     return post.GetAmountString();
                 case PostListViewColumn.InvoiceCategoryCode:

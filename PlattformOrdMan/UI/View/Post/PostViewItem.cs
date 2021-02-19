@@ -15,9 +15,14 @@ namespace PlattformOrdMan.UI.View.Post
             : base("")
         {
             _post = post;
+            InitContents();
+        }
+
+        private void InitContents()
+        {
             var columns = PostListView.GetColumns();
-            Text = columns.First().GetString(post);
-            columns.Skip(1).ToList().ForEach((c) => { SubItems.Add(c.GetString(post));});
+            Text = columns.First().GetString(_post);
+            columns.Skip(1).ToList().ForEach((c) => { SubItems.Add(c.GetString(_post)); });
             SetStatusColor();
         }
 

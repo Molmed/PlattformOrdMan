@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.Database;
 
@@ -419,6 +420,12 @@ namespace PlattformOrdMan.Data.PostData
             { 
                 case PostListViewColumn.Amount:
                     return GetAmountString();
+                case PostListViewColumn.Account:
+                    return GetAccountString();
+                case PostListViewColumn.Periodization:
+                    return GetPeriodizationString();
+                case PostListViewColumn.VangenSummary:
+                    return GetVangenSummaryString();
                 case PostListViewColumn.InvoiceCategoryCode:
                     return GetInvoiceCategoryCodeString2();
                 case PostListViewColumn.ApprArrival:
@@ -839,6 +846,15 @@ namespace PlattformOrdMan.Data.PostData
             return _amount;
         }
 
+        private string AccountStringVangen()
+        {
+            if (Account == null || !Account.HasAnswered || !Account.HasValue)
+            {
+                return "";
+            }
+            return Account.Value;
+        }
+
         public string GetAccountString()
         {
             if (Account == null || !Account.HasAnswered)
@@ -853,6 +869,21 @@ namespace PlattformOrdMan.Data.PostData
             {
                 return Account.Value;
             }
+        }
+
+        private string PeriodizationStringVangen()
+        {
+            if (Periodization == null || !Periodization.HasAnswered || !Periodization.HasValue)
+            {
+                return "";
+            }
+
+            if (Periodization.HasValue && string.IsNullOrEmpty(Periodization.Value))
+            {
+                return "<Has periodization>";
+            }
+
+            return Periodization.Value;
         }
 
         public string GetPeriodizationString()
@@ -873,6 +904,17 @@ namespace PlattformOrdMan.Data.PostData
             }
 
             return Periodization.Value;
+        }
+
+        public string GetVangenSummaryString()
+        {
+            StringBuilder str = new StringBuilder();
+            str.Append(GetCommentForListView());
+            str.Append(" ");
+            str.Append(AccountStringVangen());
+            str.Append(" ");
+            str.Append(PeriodizationStringVangen());
+            return str.ToString();
         }
         public string GetAmountString()
         {

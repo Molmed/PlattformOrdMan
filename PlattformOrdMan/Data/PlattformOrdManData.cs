@@ -51,7 +51,8 @@ namespace PlattformOrdMan.Data
         Comment,
         PlaceOfPurchase,
         Account,
-        Periodization
+        Periodization,
+        VangenSummary
     }
 
     public class PlattformOrdManData : PlattformOrdManBase
