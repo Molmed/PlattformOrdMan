@@ -839,6 +839,41 @@ namespace PlattformOrdMan.Data.PostData
             return _amount;
         }
 
+        public string GetAccountString()
+        {
+            if (Account == null || !Account.HasAnswered)
+            {
+                return "<not answered>";
+            }
+            else if(!Account.HasValue)
+            {
+                return "-";
+            }
+            else
+            {
+                return Account.Value;
+            }
+        }
+
+        public string GetPeriodizationString()
+        {
+            if (Periodization == null || !Periodization.HasAnswered)
+            {
+                return "<not answered>";
+            }
+
+            if (!Periodization.HasValue)
+            {
+                return "-";
+            }
+
+            if (Periodization.HasValue && string.IsNullOrEmpty(Periodization.Value))
+            {
+                return "yes";
+            }
+
+            return Periodization.Value;
+        }
         public string GetAmountString()
         {
             if (_amount == NO_COUNT)

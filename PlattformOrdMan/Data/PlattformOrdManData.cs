@@ -50,6 +50,8 @@ namespace PlattformOrdMan.Data
         SalesOrderNo,
         Comment,
         PlaceOfPurchase,
+        Account,
+        Periodization
     }
 
     public class PlattformOrdManData : PlattformOrdManBase

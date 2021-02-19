@@ -70,6 +70,8 @@ namespace PlattformOrdMan.UI.View.Post
                 case PostListViewColumn.SalesOrderNo:
                 case PostListViewColumn.Supplier:
                 case PostListViewColumn.PlaceOfPurchase:
+                case PostListViewColumn.Account:
+                case PostListViewColumn.Periodization:
                     return ListDataType.String;
 
                 default:
@@ -85,6 +87,8 @@ namespace PlattformOrdMan.UI.View.Post
                 case PostListViewColumn.Comment:
                 case PostListViewColumn.Supplier:
                 case PostListViewColumn.Booker:
+                case PostListViewColumn.Account:
+                case PostListViewColumn.Periodization:
                     return _colEnum.ToString();
 
                 case PostListViewColumn.InvoiceCategoryCode:
@@ -140,6 +144,10 @@ namespace PlattformOrdMan.UI.View.Post
         {
             switch (_colEnum)
             {
+                case PostListViewColumn.Account:
+                    return post.GetAccountString();
+                case PostListViewColumn.Periodization:
+                    return post.GetPeriodizationString();
                 case PostListViewColumn.Amount:
                     return post.GetAmountString();
                 case PostListViewColumn.InvoiceCategoryCode:
