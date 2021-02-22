@@ -131,6 +131,18 @@
     <Compile Include="UI\Component\PeriodizationField.Designer.cs">
       <DependentUpon>PeriodizationField.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Component\SearchPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Component\SearchPanel.Designer.cs">
+      <DependentUpon>SearchPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\ToggleButton.Designer.cs">
+      <DependentUpon>ToggleButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controller\BarCodeController.cs" />
     <Compile Include="UI\Controller\ToolTipHandler.cs" />
     <Compile Include="UI\Dialog\CreateEditCustomerNumber.cs">
@@ -212,6 +224,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Component\PeriodizationField.resx">
       <DependentUpon>PeriodizationField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\SearchPanel.resx">
+      <DependentUpon>SearchPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\ToggleButton.resx">
+      <DependentUpon>ToggleButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\AboutDialog.resx">
       <SubType>Designer</SubType>
