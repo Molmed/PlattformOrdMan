@@ -1,7 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace PlattformOrdMan.UI.Component
 {
+    [Designer(typeof(UserControlDesigner))]
     public partial class SearchPanel : UserControl
     {
         public delegate void ExpandEvent();
@@ -48,6 +51,22 @@ namespace PlattformOrdMan.UI.Component
             LinrPanel.Visible = false;
             SearchboxExpanded?.Invoke();
         }
+        [Category("Appearance")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public SplitContainer DropZone => splitContainer1;
+    }
+    // Designer
+    public class UserControlDesigner : ParentControlDesigner
+    {
+        public override void Initialize(System.ComponentModel.IComponent component)
+        {
+            base.Initialize(component);
 
+            if (this.Control is SearchPanel)
+            {
+                this.EnableDesignMode(
+                    ((SearchPanel)this.Control).DropZone, "DropZone");
+            }
+        }
     }
 }
