@@ -137,7 +137,6 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.OptionsButton);
             this.groupBox1.Controls.Add(this.ClearButton);
             this.groupBox1.Controls.Add(this.FreeTextSearchTextBox);
             this.groupBox1.Controls.Add(this.userComboBox1);
@@ -153,7 +152,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // OptionsButton
             // 
-            this.OptionsButton.Location = new System.Drawing.Point(428, 18);
+            this.OptionsButton.Location = new System.Drawing.Point(925, 29);
             this.OptionsButton.Name = "OptionsButton";
             this.OptionsButton.Size = new System.Drawing.Size(75, 24);
             this.OptionsButton.TabIndex = 10;
@@ -316,6 +315,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1072, 630);
+            this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.PeriodizationPanel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
