@@ -1,4 +1,6 @@
-﻿namespace Molmed.PlattformOrdMan.UI.Dialog
+﻿using PlattformOrdMan.UI.View;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class ListDialog: OrdManForm
     {
@@ -32,7 +34,7 @@
             this.CounterLabel = new System.Windows.Forms.Label();
             this.CloseButton = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
-            this.MyListView = new Molmed.PlattformOrdMan.UI.View.SortedListView();
+            this.MyListView = new SortedListView();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.MessagePanel = new System.Windows.Forms.Panel();
             this.MessageLabel = new System.Windows.Forms.Label();
@@ -178,7 +180,7 @@
         private System.Windows.Forms.Panel MyPanel;
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button OKButton;
-        protected Molmed.PlattformOrdMan.UI.View.SortedListView MyListView;
+        protected SortedListView MyListView;
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.ComboBox MaxRowsComboBox;
         private System.Windows.Forms.Label MaxRowsLabel;

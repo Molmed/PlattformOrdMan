@@ -1,6 +1,6 @@
-﻿namespace Molmed.PlattformOrdMan.UI.View
+﻿namespace PlattformOrdMan.UI.Component
 {
-    partial class PostListView
+    partial class ToggleButton
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion

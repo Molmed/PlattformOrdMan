@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Molmed.PlattformOrdMan.DbConnection.Repositories;
+using PlattformOrdMan.DbConnection.Repositories;
 
 namespace Chiasma.UnitTest.TestCases
 {

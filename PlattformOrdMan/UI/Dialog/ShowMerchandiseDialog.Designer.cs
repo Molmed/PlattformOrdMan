@@ -1,4 +1,7 @@
-namespace Molmed.PlattformOrdMan.UI.Dialog
+using PlattformOrdMan.UI.Component;
+using PlattformOrdMan.UI.View;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class ShowMerchandiseDialog
     {
@@ -36,9 +39,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.ResetButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchProductTextBox = new System.Windows.Forms.TextBox();
-            this.SupplierCombobox = new Molmed.PlattformOrdMan.UI.Component.SearchingCombobox();
+            this.SupplierCombobox = new SearchingCombobox();
             this.RestoreSortingButton = new System.Windows.Forms.Button();
-            this.MerchandiseListView2 = new Molmed.PlattformOrdMan.UI.View.MerchandiseListView(this.components);
+            this.MerchandiseListView2 = new MerchandiseListView(this.components);
             this.ShowOnlyEnabledProductsCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -178,12 +181,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button AddNewButton;
         private System.Windows.Forms.GroupBox groupBox1;
-        private Molmed.PlattformOrdMan.UI.Component.SearchingCombobox SupplierCombobox;
+        private SearchingCombobox SupplierCombobox;
         private System.Windows.Forms.TextBox SearchProductTextBox;
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Button RestoreSortingButton;
-        private Molmed.PlattformOrdMan.UI.View.MerchandiseListView MerchandiseListView2;
+        private MerchandiseListView MerchandiseListView2;
         private System.Windows.Forms.CheckBox ShowOnlyEnabledProductsCheckBox;
     }
 }

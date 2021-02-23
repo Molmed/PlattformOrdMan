@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
 using System.Data.SqlClient;
 
-namespace Molmed.PlattformOrdMan.Database
+namespace PlattformOrdMan.Database
 {
     public class DataReader
     {

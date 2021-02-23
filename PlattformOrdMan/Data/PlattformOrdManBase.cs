@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Molmed.PlattformOrdMan
+namespace PlattformOrdMan.Data
 {
     public class PlattformOrdManBase
     {

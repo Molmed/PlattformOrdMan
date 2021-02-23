@@ -1,6 +1,6 @@
 using System;
 
-namespace Molmed.PlattformOrdMan.DbConnection.Repositories
+namespace PlattformOrdMan.DbConnection.Repositories
 {
     public class NoEnvironentVariableForInitialsException : ApplicationException
     {

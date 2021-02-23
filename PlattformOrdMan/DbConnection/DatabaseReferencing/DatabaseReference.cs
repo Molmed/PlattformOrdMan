@@ -1,9 +1,7 @@
-using System.Configuration;
-using Molmed.PlattformOrdMan.DatabaseReferencing;
-using Molmed.PlattformOrdMan.DbConnection.Repositories;
+using PlattformOrdMan.DbConnection.Repositories;
 using PlattformOrdMan.Properties;
 
-namespace Molmed.PlattformOrdMan.DbConnection.DatabaseReferencing
+namespace PlattformOrdMan.DbConnection.DatabaseReferencing
 {
     public class DatabaseReference
     {

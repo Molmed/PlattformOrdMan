@@ -1,4 +1,6 @@
-﻿namespace Molmed.PlattformOrdMan.UI.Dialog
+﻿using PlattformOrdMan.UI.View.Base;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class ShowCurrenciesDialog
     {
@@ -30,7 +32,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowCurrenciesDialog));
-            this.CurrencyListView = new Molmed.PlattformOrdMan.UI.View.OrderManListView();
+            this.CurrencyListView = new OrderManListView();
             this.label1 = new System.Windows.Forms.Label();
             this.MyCloseButton = new System.Windows.Forms.Button();
             this.CreateButton = new System.Windows.Forms.Button();
@@ -98,7 +100,7 @@
 
         #endregion
 
-        private Molmed.PlattformOrdMan.UI.View.OrderManListView CurrencyListView;
+        private OrderManListView CurrencyListView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button MyCloseButton;
         private System.Windows.Forms.Button CreateButton;

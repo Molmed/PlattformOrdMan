@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
+using PlattformOrdMan.Data.Conf;
 
-namespace Molmed.PlattformOrdMan.Database
+namespace PlattformOrdMan.Database
 {
     public struct DataIdentifierData
     {
@@ -115,10 +114,14 @@ namespace Molmed.PlattformOrdMan.Database
         public const String MERCHANDISE_ENABLED = "merchandise_enabled";
         public const String MERCHANDISE_COMMENT = "merchandise_comment";
         public const String SUPPLIER_IDENTIFIER = "supplier_identifier";
-        public const String CUSTOMER_NUMBER_DESCRIPTION = "customer_number_description";
-        public const String CUSTOMER_NUMBER_IDENTIFIER = "customer_number_identifier";
         public const String INVOICE_CATEGORY_NUMBER = "invoice_category_number";
         public const String ATTENTION_FLAG = "attention_flag";
+        public const String PERIODIZATION = "periodization";
+        public const String HAS_PERIODIZATION = "has_periodization";
+        public const String PERIODIZATION_ANSWERED = "periodization_answered";
+        public const String ACCOUNT = "account";
+        public const String HAS_ACCOUNT = "has_account";
+        public const String ACCOUNT_ANSWERED = "account_answered";
     }
 
     public struct MerchandiseData
@@ -146,6 +149,8 @@ namespace Molmed.PlattformOrdMan.Database
         public const bool DEFAULT_TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY = false;
         public const string TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY = "time_restriction_for_completed_posts_only";
         public const string PLACE_OF_PURCHASE = "place_of_purchase";
+        public const string EDIT_POST_TAB = "edit_post_tab";
+        public const EditPostTab DEFAULT_EDIT_POST_TAB = EditPostTab.Delivery;
     }
 
     public struct SupplierData

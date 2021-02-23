@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Molmed.PlattformOrdMan.IO
+namespace PlattformOrdMan.IO
 {
     public class ExportDelimitedText : Export
     {

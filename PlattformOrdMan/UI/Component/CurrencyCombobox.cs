@@ -1,12 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
+using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
-namespace Molmed.PlattformOrdMan.UI.Component
+namespace PlattformOrdMan.UI.Component
 {
     public partial class CurrencyCombobox : ComboBox
     {
@@ -54,7 +51,7 @@ namespace Molmed.PlattformOrdMan.UI.Component
         {
             this.BeginUpdate();
             this.Items.Clear();
-            foreach (Currency currency in PlattformOrdMan.Data.CurrencyManager.GetCurrencies())
+            foreach (Currency currency in CurrencyManager.GetCurrencies())
             {
                 this.Items.Add(currency);
             }

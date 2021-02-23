@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.UI;
+using PlattformOrdMan.UI;
 
 
 namespace Molmed.PlattformOrdMan

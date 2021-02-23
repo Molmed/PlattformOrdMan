@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.View;
-using Molmed.PlattformOrdMan.UI.Controller;
-using Molmed.PlattformOrdMan.UI.Component;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.UI.View;
+using PlattformOrdMan.UI.View.Base;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ShowMerchandiseDialog : OrdManForm, ISupplierForm, IMerchandiseForm
     {
@@ -248,16 +243,16 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             int width;
             width = PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH;
-            MerchandiseListView2.AddColumn("Product", PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Amount", width, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Enabled", width, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Supplier", width, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Invoice Category", width, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Category", width, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Article number", width, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Approximate prize", width, OrderManListView.ListDataType.Currency);
-            MerchandiseListView2.AddColumn("Storage", width, OrderManListView.ListDataType.String);
-            MerchandiseListView2.AddColumn("Comment", width, OrderManListView.ListDataType.String);
+            MerchandiseListView2.AddColumn("Product", PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH, ListDataType.String);
+            MerchandiseListView2.AddColumn("Amount", width, ListDataType.String);
+            MerchandiseListView2.AddColumn("Enabled", width, ListDataType.String);
+            MerchandiseListView2.AddColumn("Supplier", width, ListDataType.String);
+            MerchandiseListView2.AddColumn("Invoice Category", width, ListDataType.String);
+            MerchandiseListView2.AddColumn("Category", width, ListDataType.String);
+            MerchandiseListView2.AddColumn("Article number", width, ListDataType.String);
+            MerchandiseListView2.AddColumn("Approximate prize", width, ListDataType.Currency);
+            MerchandiseListView2.AddColumn("Storage", width, ListDataType.String);
+            MerchandiseListView2.AddColumn("Comment", width, ListDataType.String);
             MerchandiseListView2.ShowItemToolTips = false;
             MerchandiseListView2.ItemMouseHover += MerchandiseListView2_ItemMouseHover;
             UpdateListView();
@@ -267,7 +262,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             AddMenuItem2(MerchandiseListView2, "sep", null, true);
             new CopyListViewMenu(MerchandiseListView2);
             MerchandiseListView2.DoubleClick += new EventHandler(PropertiesMenuItem_Click);
-            MerchandiseListView2.OnSortOrderSet += new OrderManListView.SortOrderSet(MerchandiseListView2_OnSortOrderSet);
+            MerchandiseListView2.OnSortOrderSet += new SortOrderSet(MerchandiseListView2_OnSortOrderSet);
         }
 
         void MerchandiseListView2_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Windows.Forms;
 using System.Data;
-using Molmed.PlattformOrdMan.Data;
+using System.Windows.Forms;
+using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.UI.View
+namespace PlattformOrdMan.UI.View
 {
     public partial class SortedListView : UserControl
     {

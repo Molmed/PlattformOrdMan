@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -20,7 +20,8 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,12 +40,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Design.4.0.0.0\lib\System.Design.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -57,10 +68,16 @@
     <Compile Include="Database\Dataserver.cs" />
     <Compile Include="Database\SqlCommandBuilder.cs" />
     <Compile Include="Data\ArticleNumber.cs" />
+    <Compile Include="Data\Conf\Configuration.cs" />
+    <Compile Include="Data\Conf\ConfTables.cs" />
+    <Compile Include="Data\Conf\EditPostTab.cs" />
+    <Compile Include="Data\Conf\PostListViewConfColumns.cs" />
     <Compile Include="Data\CustomerNumber.cs" />
     <Compile Include="Data\CustomerNumberManager.cs" />
+    <Compile Include="Data\Enquiry.cs" />
+    <Compile Include="Data\Exception\ValidationException.cs" />
+    <Compile Include="Data\PostData\OrderPostDto.cs" />
     <Compile Include="Data\OrdManEventHandler.cs" />
-    <Compile Include="Data\Configuration.cs" />
     <Compile Include="Data\Currency.cs" />
     <Compile Include="Data\CurrencyManager.cs" />
     <Compile Include="Data\DataComment.cs" />
@@ -79,14 +96,16 @@
     <Compile Include="Data\MerchandiseManager.cs" />
     <Compile Include="Data\PlattformOrdManBase.cs" />
     <Compile Include="Data\PlattformOrdManData.cs" />
-    <Compile Include="Data\Post.cs" />
-    <Compile Include="Data\PostManager.cs" />
+    <Compile Include="Data\PostData\Post.cs" />
+    <Compile Include="Data\PostData\PostManager.cs" />
+    <Compile Include="Data\PostData\OrderSelection.cs" />
     <Compile Include="Data\Supplier.cs" />
     <Compile Include="Data\SupplierManager.cs" />
     <Compile Include="Data\TimeIntervalForPosts.cs" />
     <Compile Include="Data\TimeIntervalForPostsManager.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Data\UserManager.cs" />
+    <Compile Include="Data\ValueObject.cs" />
     <Compile Include="DbConnection\DatabaseReferencing\DatabaseReference.cs" />
     <Compile Include="DbConnection\DatabaseReferencing\InitialsProvider.cs" />
     <Compile Include="DbConnection\Repositories\EnvironmentRepository.cs" />
@@ -97,6 +116,36 @@
     <Compile Include="IO\PathPersistFileDialog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Component\AccountField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Component\AccountField.Designer.cs">
+      <DependentUpon>AccountField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\EnquiryField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Component\EnquiryField.Designer.cs">
+      <DependentUpon>EnquiryField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\PeriodizationField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Component\PeriodizationField.Designer.cs">
+      <DependentUpon>PeriodizationField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\SearchPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Component\SearchPanel.Designer.cs">
+      <DependentUpon>SearchPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Component\ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Component\ToggleButton.Designer.cs">
+      <DependentUpon>ToggleButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controller\BarCodeController.cs" />
     <Compile Include="UI\Controller\ToolTipHandler.cs" />
     <Compile Include="UI\Dialog\CreateEditCustomerNumber.cs">
@@ -104,6 +153,12 @@
     </Compile>
     <Compile Include="UI\Dialog\CreateEditCustomerNumber.Designer.cs">
       <DependentUpon>CreateEditCustomerNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\OptionsDialog\FilteringOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\OptionsDialog\FilteringOptionsDialog.Designer.cs">
+      <DependentUpon>FilteringOptionsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialog\GetValueDialog.cs">
       <SubType>Form</SubType>
@@ -117,24 +172,41 @@
     <Compile Include="UI\Dialog\LoginWithBarcodeDialog.Designer.cs">
       <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Dialog\OrderHistoryOptionsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Dialog\OrderHistoryOptionsDialog.Designer.cs">
-      <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
-    </Compile>
+    <Compile Include="UI\Dialog\OptionsDialog\IncludedColumnsListViewItem.cs" />
     <Compile Include="UI\Dialog\SetInvoiceNumberDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Dialog\SetInvoiceNumberDialog.Designer.cs">
       <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\View\PostListView.cs">
+    <Compile Include="UI\Dialog\SignOrderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\SignOrderDialog.Designer.cs">
+      <DependentUpon>SignOrderDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog\OptionsDialog\ViewingOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\OptionsDialog\ViewingOptionsDialog.Designer.cs">
+      <DependentUpon>ViewingOptionsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\View\Base\ListDataType.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerChiasma.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerCurrency.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerDouble.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerInt32.cs" />
+    <Compile Include="UI\View\Base\ListViewComparerString.cs" />
+    <Compile Include="UI\View\Base\SortOrderSet.cs" />
+    <Compile Include="UI\View\Post\ListViewComparerDefault.cs" />
+    <Compile Include="UI\View\Post\PostListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\View\PostListView.Designer.cs">
+    <Compile Include="UI\View\Post\PostListView.Designer.cs">
       <DependentUpon>PostListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\View\Post\PostColumn.cs" />
+    <Compile Include="UI\View\Post\PostViewItem.cs" />
     <Compile Include="UI\View\SortedListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -151,6 +223,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\AccountField.resx">
+      <DependentUpon>AccountField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\EnquiryField.resx">
+      <DependentUpon>EnquiryField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\PeriodizationField.resx">
+      <DependentUpon>PeriodizationField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\SearchPanel.resx">
+      <DependentUpon>SearchPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\ToggleButton.resx">
+      <DependentUpon>ToggleButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\AboutDialog.resx">
       <SubType>Designer</SubType>
@@ -183,6 +270,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>EditUserDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\OptionsDialog\FilteringOptionsDialog.resx">
+      <DependentUpon>FilteringOptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\InvoiceCategoryDialog.resx">
       <DependentUpon>InvoiceCategoryDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -193,9 +283,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\LoginWithBarcodeDialog.resx">
       <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialog\OrderHistoryOptionsDialog.resx">
-      <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\SetInvoiceNumberDialog.resx">
       <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
@@ -227,6 +314,12 @@
     <EmbeddedResource Include="UI\Dialog\SignInvoiceDialog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SignInvoiceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\SignOrderDialog.resx">
+      <DependentUpon>SignOrderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\OptionsDialog\ViewingOptionsDialog.resx">
+      <DependentUpon>ViewingOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>
@@ -412,10 +505,10 @@
     <Compile Include="UI\View\MerchandiseListView.Designer.cs">
       <DependentUpon>MerchandiseListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\View\OrderManListView.cs">
+    <Compile Include="UI\View\Base\OrderManListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\View\OrderManListView.Designer.cs">
+    <Compile Include="UI\View\Base\OrderManListView.Designer.cs">
       <DependentUpon>OrderManListView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -437,6 +530,7 @@
     <None Include="Resources\Oxygen-Icons.org-Oxygen-Actions-go-up.ico" />
     <None Include="Resources\Oxygen-Icons.org-Oxygen-Actions-go-down.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ShowErrorDialog : Form
     {

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Molmed.PlattformOrdMan.Database;
+using PlattformOrdMan.Database;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public class TimeIntervalForPosts : PlattformOrdManData
     {
