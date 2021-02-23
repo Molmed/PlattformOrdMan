@@ -36,6 +36,9 @@
             this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LinrPanel = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.TimeRestrictionToCompletedPostsCheckbox = new System.Windows.Forms.CheckBox();
+            this.TimeIntervalsComboBox = new System.Windows.Forms.ComboBox();
             this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
             this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
             this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
@@ -45,6 +48,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -55,7 +59,7 @@
             this.groupBox1.Controls.Add(this.splitContainer1);
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(523, 209);
+            this.groupBox1.Size = new System.Drawing.Size(523, 286);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
@@ -81,10 +85,11 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel2.Controls.Add(this.userComboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.merchandiseCombobox1);
-            this.splitContainer1.Size = new System.Drawing.Size(514, 187);
-            this.splitContainer1.SplitterDistance = 114;
+            this.splitContainer1.Size = new System.Drawing.Size(514, 264);
+            this.splitContainer1.SplitterDistance = 110;
             this.splitContainer1.TabIndex = 0;
             // 
             // ClearButton
@@ -120,7 +125,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 93);
+            this.label1.Location = new System.Drawing.Point(38, 89);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 7;
@@ -132,10 +137,42 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LinrPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.LinrPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LinrPanel.Location = new System.Drawing.Point(105, 101);
+            this.LinrPanel.Location = new System.Drawing.Point(105, 97);
             this.LinrPanel.Name = "LinrPanel";
             this.LinrPanel.Size = new System.Drawing.Size(312, 2);
             this.LinrPanel.TabIndex = 6;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.TimeRestrictionToCompletedPostsCheckbox);
+            this.groupBox2.Controls.Add(this.TimeIntervalsComboBox);
+            this.groupBox2.Location = new System.Drawing.Point(7, 57);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(265, 74);
+            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Time restriction";
+            // 
+            // TimeRestrictionToCompletedPostsCheckbox
+            // 
+            this.TimeRestrictionToCompletedPostsCheckbox.AutoSize = true;
+            this.TimeRestrictionToCompletedPostsCheckbox.Location = new System.Drawing.Point(15, 43);
+            this.TimeRestrictionToCompletedPostsCheckbox.Name = "TimeRestrictionToCompletedPostsCheckbox";
+            this.TimeRestrictionToCompletedPostsCheckbox.Size = new System.Drawing.Size(236, 17);
+            this.TimeRestrictionToCompletedPostsCheckbox.TabIndex = 12;
+            this.TimeRestrictionToCompletedPostsCheckbox.Text = "Apply time restriction to completed posts only";
+            this.TimeRestrictionToCompletedPostsCheckbox.UseVisualStyleBackColor = true;
+            this.TimeRestrictionToCompletedPostsCheckbox.CheckedChanged += new System.EventHandler(this.TimeRestrictionToCompletedPostsCheckbox_CheckedChanged);
+            // 
+            // TimeIntervalsComboBox
+            // 
+            this.TimeIntervalsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TimeIntervalsComboBox.FormattingEnabled = true;
+            this.TimeIntervalsComboBox.Location = new System.Drawing.Point(15, 18);
+            this.TimeIntervalsComboBox.Name = "TimeIntervalsComboBox";
+            this.TimeIntervalsComboBox.Size = new System.Drawing.Size(236, 21);
+            this.TimeIntervalsComboBox.TabIndex = 10;
+            this.TimeIntervalsComboBox.SelectedIndexChanged += new System.EventHandler(this.TimeIntervalsComboBox_SelectedIndexChanged);
             // 
             // SupplierCombobox
             // 
@@ -150,7 +187,7 @@
             // toggleButton1
             // 
             this.toggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.toggleButton1.Location = new System.Drawing.Point(7, 87);
+            this.toggleButton1.Location = new System.Drawing.Point(7, 83);
             this.toggleButton1.Name = "toggleButton1";
             this.toggleButton1.Size = new System.Drawing.Size(25, 23);
             this.toggleButton1.TabIndex = 0;
@@ -179,13 +216,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "SearchPanel";
-            this.Size = new System.Drawing.Size(526, 212);
+            this.Size = new System.Drawing.Size(526, 289);
             this.groupBox1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -203,5 +242,8 @@
         private System.Windows.Forms.Button ClearButton;
         private MerchandiseCombobox merchandiseCombobox1;
         private UserComboBox userComboBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox TimeRestrictionToCompletedPostsCheckbox;
+        private System.Windows.Forms.ComboBox TimeIntervalsComboBox;
     }
 }

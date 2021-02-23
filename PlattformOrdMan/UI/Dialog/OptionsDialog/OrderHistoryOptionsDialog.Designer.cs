@@ -32,9 +32,6 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderHistoryOptionsDialog));
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.TimeRestrictionToCompletedPostsCheckbox = new System.Windows.Forms.CheckBox();
-            this.TimeIntervalsComboBox = new System.Windows.Forms.ComboBox();
             this.MyCancelButton = new System.Windows.Forms.Button();
             this.MyOkButton = new System.Windows.Forms.Button();
             this.PlaceOfPurchaseFilterListView = new System.Windows.Forms.ListView();
@@ -46,44 +43,13 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MoveDownButton = new System.Windows.Forms.Button();
             this.MoveUpButton = new System.Windows.Forms.Button();
-            this.IncludedColumnsListView = new OrderManListView();
-            this.groupBox2.SuspendLayout();
+            this.IncludedColumnsListView = new PlattformOrdMan.UI.View.Base.OrderManListView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.TimeRestrictionToCompletedPostsCheckbox);
-            this.groupBox2.Controls.Add(this.TimeIntervalsComboBox);
-            this.groupBox2.Location = new System.Drawing.Point(6, 147);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(265, 74);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Time restriction";
-            // 
-            // TimeRestrictionToCompletedPostsCheckbox
-            // 
-            this.TimeRestrictionToCompletedPostsCheckbox.AutoSize = true;
-            this.TimeRestrictionToCompletedPostsCheckbox.Location = new System.Drawing.Point(15, 43);
-            this.TimeRestrictionToCompletedPostsCheckbox.Name = "TimeRestrictionToCompletedPostsCheckbox";
-            this.TimeRestrictionToCompletedPostsCheckbox.Size = new System.Drawing.Size(236, 17);
-            this.TimeRestrictionToCompletedPostsCheckbox.TabIndex = 12;
-            this.TimeRestrictionToCompletedPostsCheckbox.Text = "Apply time restriction to completed posts only";
-            this.TimeRestrictionToCompletedPostsCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // TimeIntervalsComboBox
-            // 
-            this.TimeIntervalsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TimeIntervalsComboBox.FormattingEnabled = true;
-            this.TimeIntervalsComboBox.Location = new System.Drawing.Point(15, 18);
-            this.TimeIntervalsComboBox.Name = "TimeIntervalsComboBox";
-            this.TimeIntervalsComboBox.Size = new System.Drawing.Size(236, 21);
-            this.TimeIntervalsComboBox.TabIndex = 10;
             // 
             // MyCancelButton
             // 
@@ -112,6 +78,7 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
             // 
             this.PlaceOfPurchaseFilterListView.CheckBoxes = true;
             this.PlaceOfPurchaseFilterListView.GridLines = true;
+            this.PlaceOfPurchaseFilterListView.HideSelection = false;
             this.PlaceOfPurchaseFilterListView.Location = new System.Drawing.Point(6, 6);
             this.PlaceOfPurchaseFilterListView.Name = "PlaceOfPurchaseFilterListView";
             this.PlaceOfPurchaseFilterListView.Size = new System.Drawing.Size(265, 135);
@@ -136,7 +103,6 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(this.PlaceOfPurchaseFilterListView);
-            this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -219,6 +185,7 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
             this.IncludedColumnsListView.EnableColumnSort = true;
             this.IncludedColumnsListView.FullRowSelect = true;
             this.IncludedColumnsListView.GridLines = true;
+            this.IncludedColumnsListView.HideSelection = false;
             this.IncludedColumnsListView.Location = new System.Drawing.Point(6, 6);
             this.IncludedColumnsListView.MultiSelect = false;
             this.IncludedColumnsListView.Name = "IncludedColumnsListView";
@@ -241,8 +208,6 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
             this.Name = "OrderHistoryOptionsDialog";
             this.ShowInTaskbar = false;
             this.Text = "Viewing and Filtering Options";
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -254,10 +219,6 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox TimeRestrictionToCompletedPostsCheckbox;
-        private System.Windows.Forms.ComboBox TimeIntervalsComboBox;
         private System.Windows.Forms.Button MyCancelButton;
         private System.Windows.Forms.Button MyOkButton;
         private System.Windows.Forms.ListView PlaceOfPurchaseFilterListView;

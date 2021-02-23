@@ -19,8 +19,6 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
 
         private void Init()
         {
-            LoadTimeIntervalsCombobox();
-            InitTimeRestrictionToCompletedPostsOnly();
             InitPlaceOfPurchaseFilteringListView();
             InitIncludedColumnsListView();
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -173,41 +171,6 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
             PlaceOfPurchaseFilterListView.EndUpdate();
         }
 
-        private void InitTimeRestrictionToCompletedPostsOnly()
-        {
-            TimeRestrictionToCompletedPostsCheckbox.Checked = PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly;
-        }
-
-        private void LoadTimeIntervalsCombobox()
-        {
-            var defaultTimeInterval = PlattformOrdManData.Configuration.TimeIntervalForPosts;
-            var timeIntervals = TimeIntervalForPostsManager.GetTimeIntervalsForPosts();
-            foreach (TimeIntervalForPosts timeinterval in timeIntervals)
-            {
-                TimeIntervalsComboBox.Items.Add(timeinterval);
-            }
-            foreach (object item in TimeIntervalsComboBox.Items)
-            {
-                if (((TimeIntervalForPosts)item).GetMonths() == defaultTimeInterval)
-                {
-                    TimeIntervalsComboBox.SelectedItem = item;
-                    break;
-                }
-            }
-            if (TimeIntervalsComboBox.SelectedIndex == -1 && TimeIntervalsComboBox.Items.Count > 0)
-            {
-                TimeIntervalsComboBox.SelectedIndex = 0;
-            }
-            //LoadPosts();
-            //LoadPostsTime();
-        }
-        private void SaveTimeSettings()
-        {
-            PlattformOrdManData.Configuration.TimeIntervalForPosts =
-                ((TimeIntervalForPosts)TimeIntervalsComboBox.SelectedItem).GetMonths();
-            PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly =
-                TimeRestrictionToCompletedPostsCheckbox.Checked;
-        }
 
         private void SavePlaceOfPurchaseFiltering()
         {
@@ -229,7 +192,6 @@ namespace PlattformOrdMan.UI.Dialog.OptionsDialog
             try
             {
                 Cursor = Cursors.WaitCursor;
-                SaveTimeSettings();
                 SavePlaceOfPurchaseFiltering();
                 bool isColumnsUpdated;
                 GetNewIncludedColumns(out isColumnsUpdated);

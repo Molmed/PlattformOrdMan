@@ -52,9 +52,9 @@ namespace PlattformOrdMan.UI.Dialog
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.PeriodizationPanel = new System.Windows.Forms.Panel();
-            this.searchPanel2 = new PlattformOrdMan.UI.Component.SearchPanel();
             this.InfoPanel = new System.Windows.Forms.Panel();
             this.ButtonPanel = new System.Windows.Forms.Panel();
+            this.searchPanel2 = new PlattformOrdMan.UI.Component.SearchPanel();
             this.InfoPanel.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             this.SuspendLayout();
@@ -239,14 +239,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.PeriodizationPanel.Size = new System.Drawing.Size(38, 14);
             this.PeriodizationPanel.TabIndex = 10;
             // 
-            // searchPanel2
-            // 
-            this.searchPanel2.Caption = "Search";
-            this.searchPanel2.Location = new System.Drawing.Point(12, 8);
-            this.searchPanel2.Name = "searchPanel2";
-            this.searchPanel2.Size = new System.Drawing.Size(526, 212);
-            this.searchPanel2.TabIndex = 17;
-            // 
             // InfoPanel
             // 
             this.InfoPanel.Controls.Add(this.label1);
@@ -277,16 +269,24 @@ namespace PlattformOrdMan.UI.Dialog
             this.ButtonPanel.Size = new System.Drawing.Size(207, 33);
             this.ButtonPanel.TabIndex = 19;
             // 
+            // searchPanel2
+            // 
+            this.searchPanel2.Caption = "Search";
+            this.searchPanel2.Location = new System.Drawing.Point(12, 12);
+            this.searchPanel2.Name = "searchPanel2";
+            this.searchPanel2.Size = new System.Drawing.Size(526, 289);
+            this.searchPanel2.TabIndex = 20;
+            // 
             // ShowOrderHistoryDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1072, 630);
-            this.Controls.Add(this.ButtonPanel);
-            this.Controls.Add(this.InfoPanel);
             this.Controls.Add(this.PostsListView);
             this.Controls.Add(this.searchPanel2);
+            this.Controls.Add(this.ButtonPanel);
+            this.Controls.Add(this.InfoPanel);
             this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.CloseButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -323,8 +323,8 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel PeriodizationPanel;
-        private SearchPanel searchPanel2;
         private System.Windows.Forms.Panel InfoPanel;
         private System.Windows.Forms.Panel ButtonPanel;
+        private SearchPanel searchPanel2;
     }
 }

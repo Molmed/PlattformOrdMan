@@ -73,6 +73,7 @@ namespace PlattformOrdMan.UI.Dialog
             searchPanel2.ResetRequested += FilterPosts;
             searchPanel2.SearchboxExpanded +=SearchboxExpanded;
             searchPanel2.SearchboxCollapsed += SearchboxCollapsed;
+            searchPanel2.TimeRestrictionChanged += ReloadForm;
         }
 
         private void SearchboxCollapsed()

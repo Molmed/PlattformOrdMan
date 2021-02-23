@@ -22,6 +22,8 @@ namespace PlattformOrdMan.UI.Component
 
         public delegate void ResetButtonEvent();
 
+        public delegate void TimeRestrictionEvent();
+
         public event ExpandEvent SearchboxExpanded;
         public event CollapseEvent SearchboxCollapsed;
         public event SupplierChangedEvent SupplierChanged;
@@ -29,6 +31,7 @@ namespace PlattformOrdMan.UI.Component
         public event UserChangedEvent UserChanged;
         public event SearchButtonEvent SearchRequested;
         public event ResetButtonEvent ResetRequested;
+        public event TimeRestrictionEvent TimeRestrictionChanged;
 
         private readonly int _panel2OrigHeight;
         private readonly int _splitterDistance;
@@ -66,6 +69,15 @@ namespace PlattformOrdMan.UI.Component
             userComboBox1.OnMyControlledSelectedIndexChanged +=OnUserChanged;
             FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
             FreeTextSearchTextBox.Enter += FreeTextSearchTextBoxOnEnter;
+            LoadTimeIntervalsCombobox();
+            InitTimeRestrictionToCompletedPostsOnly();
+        }
+        private void SaveTimeSettings()
+        {
+            PlattformOrdManData.Configuration.TimeIntervalForPosts =
+                ((TimeIntervalForPosts)TimeIntervalsComboBox.SelectedItem).GetMonths();
+            PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly =
+                TimeRestrictionToCompletedPostsCheckbox.Checked;
         }
 
         private void FreeTextSearchTextBoxOnEnter(object sender, EventArgs e)
@@ -84,6 +96,27 @@ namespace PlattformOrdMan.UI.Component
         private void OnMerchendiseChange()
         {
             MerchendiseChanged?.Invoke();
+        }
+        private void LoadTimeIntervalsCombobox()
+        {
+            var defaultTimeInterval = PlattformOrdManData.Configuration.TimeIntervalForPosts;
+            var timeIntervals = TimeIntervalForPostsManager.GetTimeIntervalsForPosts();
+            foreach (TimeIntervalForPosts timeinterval in timeIntervals)
+            {
+                TimeIntervalsComboBox.Items.Add(timeinterval);
+            }
+            foreach (object item in TimeIntervalsComboBox.Items)
+            {
+                if (((TimeIntervalForPosts)item).GetMonths() == defaultTimeInterval)
+                {
+                    TimeIntervalsComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+            if (TimeIntervalsComboBox.SelectedIndex == -1 && TimeIntervalsComboBox.Items.Count > 0)
+            {
+                TimeIntervalsComboBox.SelectedIndex = 0;
+            }
         }
 
         private void OnSuppierChanged()
@@ -280,6 +313,22 @@ namespace PlattformOrdMan.UI.Component
         private void SearchButton_Click(object sender, EventArgs e)
         {
             SearchRequested?.Invoke();
+        }
+        private void InitTimeRestrictionToCompletedPostsOnly()
+        {
+            TimeRestrictionToCompletedPostsCheckbox.Checked = PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly;
+        }
+
+        private void TimeRestrictionToCompletedPostsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            SaveTimeSettings();
+            TimeRestrictionChanged?.Invoke();
+        }
+
+        private void TimeIntervalsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SaveTimeSettings();
+            TimeRestrictionChanged?.Invoke();
         }
     }
 }
