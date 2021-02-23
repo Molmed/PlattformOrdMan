@@ -18,11 +18,17 @@ namespace PlattformOrdMan.UI.Component
 
         public delegate void UserChangedEvent();
 
+        public delegate void SearchButtonEvent();
+
+        public delegate void ResetButtonEvent();
+
         public event ExpandEvent SearchboxExpanded;
         public event CollapseEvent SearchboxCollapsed;
         public event SupplierChangedEvent SupplierChanged;
         public event MerchendiseChangedEvent MerchendiseChanged;
         public event UserChangedEvent UserChanged;
+        public event SearchButtonEvent SearchRequested;
+        public event ResetButtonEvent ResetRequested;
 
         private readonly int _panel2OrigHeight;
         private readonly int _splitterDistance;
@@ -82,6 +88,16 @@ namespace PlattformOrdMan.UI.Component
 
         private void OnSuppierChanged()
         {
+            if (SupplierCombobox.GetSelectedIdentity() != null)
+            {
+                merchandiseCombobox1.SetSupplierId(SupplierCombobox.GetSelectedIdentity().GetId());
+                merchandiseCombobox1.LoadMerchandise(SupplierCombobox.GetSelectedIdentity().GetId());
+            }
+            else
+            {
+                merchandiseCombobox1.SetSupplierId(PlattformOrdManData.NO_ID);
+                merchandiseCombobox1.LoadIdentitiesWithInfoText();
+            }
             SupplierChanged?.Invoke();
         }
 
@@ -94,7 +110,8 @@ namespace PlattformOrdMan.UI.Component
             userComboBox1.LoadIdentitiesWithInfoText();
             FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
         }
-        private bool IsWithinSearchCriteria(Post post)
+
+        public bool IsWithinSearchCriteria(Post post)
         {
             if (SupplierCombobox.SelectedIndex > 0 &&
                 SupplierCombobox.GetSelectedIdentity().GetId() != post.GetSupplierId())
@@ -257,6 +274,12 @@ namespace PlattformOrdMan.UI.Component
         private void ClearButton_Click(object sender, EventArgs e)
         {
             ResetSearchFields();
+            ResetRequested?.Invoke();
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            SearchRequested?.Invoke();
         }
     }
 }

@@ -81,16 +81,16 @@ namespace PlattformOrdMan.UI.Dialog
             FreeTextSearchTextBox.Enter += FreeTextSearchTextBox_Enter;
             FormClosing += ShowOrderHistoryDialog_FormClosing;
             searchPanel2.Init();
+            searchPanel2.SupplierChanged += FilterPosts;
+            searchPanel2.MerchendiseChanged += FilterPosts;
+            searchPanel2.UserChanged += FilterPosts;
+            searchPanel2.SearchRequested += FilterPosts;
+            searchPanel2.ResetRequested += FilterPosts;
         }
 
         public override void ReloadForm()
         {
-            SupplierManager.RefreshCache();
-            MerchandiseManager.RefreshCache();
-            SupplierCombobox.LoadIdentitiesWithInfoText();
-            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
-            merchandiseCombobox1.LoadIdentitiesWithInfoText();
-            userComboBox1.LoadIdentitiesWithInfoText();
+            searchPanel2.Reload();
             RestoreSortingButton.Enabled = false;
             LoadPosts();
             UpdateListView();
@@ -172,12 +172,12 @@ namespace PlattformOrdMan.UI.Dialog
 
         public void AddCreatedSupplier(Supplier supplier)
         {
-            SupplierCombobox.AddCreatedSupplier(supplier);
+            searchPanel2.AddCreatedSupplier(supplier);
         }
 
         public void AddCreatedMerchandise(Merchandise merchandise)
         {
-            merchandiseCombobox1.AddCreatedMerchandise(merchandise);
+            searchPanel2.AddCreatedMerchandise(merchandise);
         }
 
         private void ShowOrderHistoryDialog_Shown(object sender, EventArgs e)
@@ -1246,7 +1246,7 @@ namespace PlattformOrdMan.UI.Dialog
             PostList filteredPosts = new PostList();
             foreach (Post post in _posts)
             {
-                if (IsWithinSearchCriteria(post))
+                if (searchPanel2.IsWithinSearchCriteria(post))
                 {
                     filteredPosts.Add(post);
                 }
