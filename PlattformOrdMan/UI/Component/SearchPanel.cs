@@ -56,6 +56,8 @@ namespace PlattformOrdMan.UI.Component
 
         public void Init()
         {
+            LoadTimeIntervalsCombobox();
+            InitTimeRestrictionToCompletedPostsOnly();
             SupplierManager.RefreshCache();
             MerchandiseManager.RefreshCache();
             var suppliers = SupplierManager.GetSuppliersFromCache();
@@ -70,16 +72,8 @@ namespace PlattformOrdMan.UI.Component
             userComboBox1.OnMyControlledSelectedIndexChanged +=OnUserChanged;
             FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
             FreeTextSearchTextBox.Enter += FreeTextSearchTextBoxOnEnter;
-            LoadTimeIntervalsCombobox();
-            InitTimeRestrictionToCompletedPostsOnly();
         }
-        private void SaveTimeSettings()
-        {
-            PlattformOrdManData.Configuration.TimeIntervalForPosts =
-                ((TimeIntervalForPosts)TimeIntervalsComboBox.SelectedItem).GetMonths();
-            PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly =
-                TimeRestrictionToCompletedPostsCheckbox.Checked;
-        }
+
 
         private void FreeTextSearchTextBoxOnEnter(object sender, EventArgs e)
         {
@@ -332,13 +326,15 @@ namespace PlattformOrdMan.UI.Component
 
         private void TimeRestrictionToCompletedPostsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            SaveTimeSettings();
+            PlattformOrdManData.Configuration.TimeRestrictionForCompletedPostsOnly =
+                TimeRestrictionToCompletedPostsCheckbox.Checked;
             TimeRestrictionChanged?.Invoke();
         }
 
         private void TimeIntervalsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SaveTimeSettings();
+            PlattformOrdManData.Configuration.TimeIntervalForPosts =
+                ((TimeIntervalForPosts)TimeIntervalsComboBox.SelectedItem).GetMonths();
             TimeRestrictionChanged?.Invoke();
         }
 
