@@ -186,6 +186,12 @@
     <Compile Include="UI\Dialog\SignOrderDialog.Designer.cs">
       <DependentUpon>SignOrderDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialog\ViewingOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\ViewingOptionsDialog.Designer.cs">
+      <DependentUpon>ViewingOptionsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\View\Base\ListDataType.cs" />
     <Compile Include="UI\View\Base\ListViewComparerChiasma.cs" />
     <Compile Include="UI\View\Base\ListViewComparerCurrency.cs" />
@@ -312,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\SignOrderDialog.resx">
       <DependentUpon>SignOrderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\ViewingOptionsDialog.resx">
+      <DependentUpon>ViewingOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>

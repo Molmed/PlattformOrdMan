@@ -566,5 +566,29 @@ namespace PlattformOrdMan.UI
                 Cursor = Cursors.Default;
             }
         }
+
+        private void ViewingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SetChildFocus(typeof(ViewingOptionsDialog)))
+                {
+                    Cursor = Cursors.WaitCursor;
+                    var viewingOptionsDialog = new ViewingOptionsDialog();
+                    Cursor = Cursors.Default;
+                    viewingOptionsDialog.MdiParent = this;
+                    viewingOptionsDialog.Show();
+                }
+
+            }
+            catch (Exception exception)
+            {
+                HandleError("Error when showing viewing options", exception);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
     }
 }

@@ -38,10 +38,13 @@ namespace PlattformOrdMan.UI
             this.orderHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.suppliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.merchandiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.refreshAllListsF5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filteringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +53,7 @@ namespace PlattformOrdMan.UI
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
+            this.optionsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -68,7 +72,7 @@ namespace PlattformOrdMan.UI
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -83,7 +87,7 @@ namespace PlattformOrdMan.UI
             this.toolStripSeparator2,
             this.refreshAllListsF5ToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // authorityManagementToolStripMenuItem
@@ -119,6 +123,40 @@ namespace PlattformOrdMan.UI
             this.merchandiseToolStripMenuItem.Text = "&Products ...";
             this.merchandiseToolStripMenuItem.Click += new System.EventHandler(this.merchandiseToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
+            // 
+            // refreshAllListsF5ToolStripMenuItem
+            // 
+            this.refreshAllListsF5ToolStripMenuItem.Name = "refreshAllListsF5ToolStripMenuItem";
+            this.refreshAllListsF5ToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.refreshAllListsF5ToolStripMenuItem.Text = "Refresh all lists(F5)";
+            this.refreshAllListsF5ToolStripMenuItem.Click += new System.EventHandler(this.refreshAllListsF5ToolStripMenuItem_Click);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewingToolStripMenuItem,
+            this.filteringToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // viewingToolStripMenuItem
+            // 
+            this.viewingToolStripMenuItem.Name = "viewingToolStripMenuItem";
+            this.viewingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewingToolStripMenuItem.Text = "Viewing";
+            this.viewingToolStripMenuItem.Click += new System.EventHandler(this.ViewingToolStripMenuItem_Click);
+            // 
+            // filteringToolStripMenuItem
+            // 
+            this.filteringToolStripMenuItem.Name = "filteringToolStripMenuItem";
+            this.filteringToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filteringToolStripMenuItem.Text = "Filtering";
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -133,18 +171,6 @@ namespace PlattformOrdMan.UI
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.aboutToolStripMenuItem.Text = "&About PlattformOrdMan ...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
-            // 
-            // refreshAllListsF5ToolStripMenuItem
-            // 
-            this.refreshAllListsF5ToolStripMenuItem.Name = "refreshAllListsF5ToolStripMenuItem";
-            this.refreshAllListsF5ToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.refreshAllListsF5ToolStripMenuItem.Text = "Refresh all lists(F5)";
-            this.refreshAllListsF5ToolStripMenuItem.Click += new System.EventHandler(this.refreshAllListsF5ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -180,5 +206,8 @@ namespace PlattformOrdMan.UI
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem refreshAllListsF5ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filteringToolStripMenuItem;
     }
 }
