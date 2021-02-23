@@ -40,7 +40,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.label1 = new System.Windows.Forms.Label();
             this.ProductArrivalLabel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.OptionsButton = new System.Windows.Forms.Button();
             this.CompletedPostPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.InvoiceNotCheckedPanel = new System.Windows.Forms.Panel();
@@ -131,15 +130,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Product is ordered";
-            // 
-            // OptionsButton
-            // 
-            this.OptionsButton.Location = new System.Drawing.Point(925, 29);
-            this.OptionsButton.Name = "OptionsButton";
-            this.OptionsButton.Size = new System.Drawing.Size(75, 24);
-            this.OptionsButton.TabIndex = 10;
-            this.OptionsButton.Text = "Options ...";
-            this.OptionsButton.UseVisualStyleBackColor = true;
             // 
             // CompletedPostPanel
             // 
@@ -286,7 +276,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.Controls.Add(this.searchPanel2);
             this.Controls.Add(this.ButtonPanel);
             this.Controls.Add(this.InfoPanel);
-            this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.CloseButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ShowOrderHistoryDialog";
@@ -317,7 +306,6 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Button RestoreSortingButton;
         private System.Windows.Forms.Panel ProductOrderConfirmedLabel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button OptionsButton;
         private System.Windows.Forms.Panel AttentionPanel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;

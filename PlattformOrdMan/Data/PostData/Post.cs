@@ -1063,11 +1063,14 @@ namespace PlattformOrdMan.Data.PostData
             _orderDate = tmpPost.GetOrderDate();
             _ordererUserId = bag.OrderedUserId;
             _orderer = null;
+            _periodization = bag.Periodization;
+            _account = bag.Account;
             SetPostStatus();
             if (_isInvoiceAbsent)
             {
                 SignPostInvoice(UserManager.GetUser(bag.OrderedUserId), InvoiceStatus.Ok, _isInvoiceAbsent);
             }
+            OEventHandler.FirePostUpdate(this);
         }
 
         public void ConfirmPostOrdered(int userId)

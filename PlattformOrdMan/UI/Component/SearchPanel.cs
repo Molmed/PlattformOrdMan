@@ -52,6 +52,16 @@ namespace PlattformOrdMan.UI.Component
             toggleButton1.SplitterExpanded += OnSplitterExpanded;
             toggleButton1.SplitterCollapsed += OnSplitterCollapsed;
             toggleButton1.OnClick(null, null);
+            FreeTextSearchTextBox.KeyUp += OnKeyUp;
+        }
+
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ActiveControl = SearchButton;
+                SearchButton_Click(null, null);
+            }
         }
 
         public void Init()
@@ -266,6 +276,18 @@ namespace PlattformOrdMan.UI.Component
                 {
                     return true;
                 }
+
+                if (post.Periodization.HasValue && !string.IsNullOrEmpty(post.Periodization.Value) &&
+                    post.Periodization.Value.ToLower().Contains(searchStr.ToLower()))
+                {
+                    return true;
+                }
+
+                if (post.Account.HasValue && !string.IsNullOrEmpty(post.Account.Value) &&
+                    post.Account.Value.ToLower().Contains(searchStr.ToLower()))
+                {
+                    return true;
+                }
             }
             else
             {
@@ -289,6 +311,8 @@ namespace PlattformOrdMan.UI.Component
             merchandiseCombobox1.LoadIdentitiesWithInfoText();
             userComboBox1.LoadIdentitiesWithInfoText();
             FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
+            HasAccountCheckbox.Checked = false;
+            HasPeriodizationCheckbox.Checked = false;
         }
 
         private void OnSplitterCollapsed()

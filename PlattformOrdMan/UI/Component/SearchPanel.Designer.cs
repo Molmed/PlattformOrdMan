@@ -34,15 +34,15 @@
             this.ClearButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
+            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
             this.label1 = new System.Windows.Forms.Label();
+            this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
             this.LinrPanel = new System.Windows.Forms.Panel();
+            this.HasAccountCheckbox = new System.Windows.Forms.CheckBox();
+            this.HasPeriodizationCheckbox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.TimeRestrictionToCompletedPostsCheckbox = new System.Windows.Forms.CheckBox();
             this.TimeIntervalsComboBox = new System.Windows.Forms.ComboBox();
-            this.HasPeriodizationCheckbox = new System.Windows.Forms.CheckBox();
-            this.HasAccountCheckbox = new System.Windows.Forms.CheckBox();
-            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
-            this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
             this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
             this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
             this.groupBox1.SuspendLayout();
@@ -125,6 +125,16 @@
             this.FreeTextSearchTextBox.Size = new System.Drawing.Size(410, 20);
             this.FreeTextSearchTextBox.TabIndex = 9;
             // 
+            // SupplierCombobox
+            // 
+            this.SupplierCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SupplierCombobox.FormattingEnabled = true;
+            this.SupplierCombobox.Location = new System.Drawing.Point(7, 12);
+            this.SupplierCombobox.Name = "SupplierCombobox";
+            this.SupplierCombobox.Size = new System.Drawing.Size(410, 21);
+            this.SupplierCombobox.TabIndex = 8;
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -135,6 +145,16 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Advanced";
             // 
+            // toggleButton1
+            // 
+            this.toggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.toggleButton1.Location = new System.Drawing.Point(7, 83);
+            this.toggleButton1.Name = "toggleButton1";
+            this.toggleButton1.Size = new System.Drawing.Size(25, 23);
+            this.toggleButton1.TabIndex = 0;
+            this.toggleButton1.Text = "\\/";
+            this.toggleButton1.UseVisualStyleBackColor = true;
+            // 
             // LinrPanel
             // 
             this.LinrPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -143,8 +163,30 @@
             this.LinrPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LinrPanel.Location = new System.Drawing.Point(105, 97);
             this.LinrPanel.Name = "LinrPanel";
-            this.LinrPanel.Size = new System.Drawing.Size(312, 2);
+            this.LinrPanel.Size = new System.Drawing.Size(312, 1);
             this.LinrPanel.TabIndex = 6;
+            // 
+            // HasAccountCheckbox
+            // 
+            this.HasAccountCheckbox.AutoSize = true;
+            this.HasAccountCheckbox.Location = new System.Drawing.Point(316, 98);
+            this.HasAccountCheckbox.Name = "HasAccountCheckbox";
+            this.HasAccountCheckbox.Size = new System.Drawing.Size(87, 17);
+            this.HasAccountCheckbox.TabIndex = 17;
+            this.HasAccountCheckbox.Text = "Has account";
+            this.HasAccountCheckbox.UseVisualStyleBackColor = true;
+            this.HasAccountCheckbox.CheckedChanged += new System.EventHandler(this.HasAccountCheckbox_CheckedChanged);
+            // 
+            // HasPeriodizationCheckbox
+            // 
+            this.HasPeriodizationCheckbox.AutoSize = true;
+            this.HasPeriodizationCheckbox.Location = new System.Drawing.Point(316, 75);
+            this.HasPeriodizationCheckbox.Name = "HasPeriodizationCheckbox";
+            this.HasPeriodizationCheckbox.Size = new System.Drawing.Size(107, 17);
+            this.HasPeriodizationCheckbox.TabIndex = 16;
+            this.HasPeriodizationCheckbox.Text = "Has periodization";
+            this.HasPeriodizationCheckbox.UseVisualStyleBackColor = true;
+            this.HasPeriodizationCheckbox.CheckedChanged += new System.EventHandler(this.HasPeriodizationCheckbox_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -177,48 +219,6 @@
             this.TimeIntervalsComboBox.Size = new System.Drawing.Size(236, 21);
             this.TimeIntervalsComboBox.TabIndex = 10;
             this.TimeIntervalsComboBox.SelectedIndexChanged += new System.EventHandler(this.TimeIntervalsComboBox_SelectedIndexChanged);
-            // 
-            // HasPeriodizationCheckbox
-            // 
-            this.HasPeriodizationCheckbox.AutoSize = true;
-            this.HasPeriodizationCheckbox.Location = new System.Drawing.Point(316, 75);
-            this.HasPeriodizationCheckbox.Name = "HasPeriodizationCheckbox";
-            this.HasPeriodizationCheckbox.Size = new System.Drawing.Size(107, 17);
-            this.HasPeriodizationCheckbox.TabIndex = 16;
-            this.HasPeriodizationCheckbox.Text = "Has periodization";
-            this.HasPeriodizationCheckbox.UseVisualStyleBackColor = true;
-            this.HasPeriodizationCheckbox.CheckedChanged += new System.EventHandler(this.HasPeriodizationCheckbox_CheckedChanged);
-            // 
-            // HasAccountCheckbox
-            // 
-            this.HasAccountCheckbox.AutoSize = true;
-            this.HasAccountCheckbox.Location = new System.Drawing.Point(316, 98);
-            this.HasAccountCheckbox.Name = "HasAccountCheckbox";
-            this.HasAccountCheckbox.Size = new System.Drawing.Size(87, 17);
-            this.HasAccountCheckbox.TabIndex = 17;
-            this.HasAccountCheckbox.Text = "Has account";
-            this.HasAccountCheckbox.UseVisualStyleBackColor = true;
-            this.HasAccountCheckbox.CheckedChanged += new System.EventHandler(this.HasAccountCheckbox_CheckedChanged);
-            // 
-            // SupplierCombobox
-            // 
-            this.SupplierCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SupplierCombobox.FormattingEnabled = true;
-            this.SupplierCombobox.Location = new System.Drawing.Point(7, 12);
-            this.SupplierCombobox.Name = "SupplierCombobox";
-            this.SupplierCombobox.Size = new System.Drawing.Size(410, 21);
-            this.SupplierCombobox.TabIndex = 8;
-            // 
-            // toggleButton1
-            // 
-            this.toggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.toggleButton1.Location = new System.Drawing.Point(7, 83);
-            this.toggleButton1.Name = "toggleButton1";
-            this.toggleButton1.Size = new System.Drawing.Size(25, 23);
-            this.toggleButton1.TabIndex = 0;
-            this.toggleButton1.Text = "\\/";
-            this.toggleButton1.UseVisualStyleBackColor = true;
             // 
             // userComboBox1
             // 
