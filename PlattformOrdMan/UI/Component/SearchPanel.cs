@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows.Forms;
 using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.PostData;
@@ -162,6 +163,16 @@ namespace PlattformOrdMan.UI.Component
                 return false;
             }
             if (!IsWithinFreeTextSearchCriteria(post))
+            {
+                return false;
+            }
+
+            if (HasPeriodizationCheckbox.Checked && !post.Periodization.HasValue)
+            {
+                return false;
+            }
+
+            if (HasAccountCheckbox.Checked && !post.Account.HasValue)
             {
                 return false;
             }
@@ -329,6 +340,16 @@ namespace PlattformOrdMan.UI.Component
         {
             SaveTimeSettings();
             TimeRestrictionChanged?.Invoke();
+        }
+
+        private void HasPeriodizationCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchRequested?.Invoke();
+        }
+
+        private void HasAccountCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchRequested?.Invoke();
         }
     }
 }

@@ -39,6 +39,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.TimeRestrictionToCompletedPostsCheckbox = new System.Windows.Forms.CheckBox();
             this.TimeIntervalsComboBox = new System.Windows.Forms.ComboBox();
+            this.HasPeriodizationCheckbox = new System.Windows.Forms.CheckBox();
+            this.HasAccountCheckbox = new System.Windows.Forms.CheckBox();
             this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
             this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
             this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
@@ -85,6 +87,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.HasAccountCheckbox);
+            this.splitContainer1.Panel2.Controls.Add(this.HasPeriodizationCheckbox);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel2.Controls.Add(this.userComboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.merchandiseCombobox1);
@@ -174,6 +178,28 @@
             this.TimeIntervalsComboBox.TabIndex = 10;
             this.TimeIntervalsComboBox.SelectedIndexChanged += new System.EventHandler(this.TimeIntervalsComboBox_SelectedIndexChanged);
             // 
+            // HasPeriodizationCheckbox
+            // 
+            this.HasPeriodizationCheckbox.AutoSize = true;
+            this.HasPeriodizationCheckbox.Location = new System.Drawing.Point(316, 75);
+            this.HasPeriodizationCheckbox.Name = "HasPeriodizationCheckbox";
+            this.HasPeriodizationCheckbox.Size = new System.Drawing.Size(107, 17);
+            this.HasPeriodizationCheckbox.TabIndex = 16;
+            this.HasPeriodizationCheckbox.Text = "Has periodization";
+            this.HasPeriodizationCheckbox.UseVisualStyleBackColor = true;
+            this.HasPeriodizationCheckbox.CheckedChanged += new System.EventHandler(this.HasPeriodizationCheckbox_CheckedChanged);
+            // 
+            // HasAccountCheckbox
+            // 
+            this.HasAccountCheckbox.AutoSize = true;
+            this.HasAccountCheckbox.Location = new System.Drawing.Point(316, 98);
+            this.HasAccountCheckbox.Name = "HasAccountCheckbox";
+            this.HasAccountCheckbox.Size = new System.Drawing.Size(87, 17);
+            this.HasAccountCheckbox.TabIndex = 17;
+            this.HasAccountCheckbox.Text = "Has account";
+            this.HasAccountCheckbox.UseVisualStyleBackColor = true;
+            this.HasAccountCheckbox.CheckedChanged += new System.EventHandler(this.HasAccountCheckbox_CheckedChanged);
+            // 
             // SupplierCombobox
             // 
             this.SupplierCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -221,6 +247,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -245,5 +272,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox TimeRestrictionToCompletedPostsCheckbox;
         private System.Windows.Forms.ComboBox TimeIntervalsComboBox;
+        private System.Windows.Forms.CheckBox HasAccountCheckbox;
+        private System.Windows.Forms.CheckBox HasPeriodizationCheckbox;
     }
 }
