@@ -80,7 +80,7 @@ namespace PlattformOrdMan.UI.Dialog
                 merchandiseCombobox1_OnMyControlledSelectedIndexChanged;
             FreeTextSearchTextBox.Enter += FreeTextSearchTextBox_Enter;
             FormClosing += ShowOrderHistoryDialog_FormClosing;
-            //MessageBox.Show(DateTime.Now.Subtract(start).Milliseconds.ToString() + " ms");
+            searchPanel2.Init();
         }
 
         public override void ReloadForm()

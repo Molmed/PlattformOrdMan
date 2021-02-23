@@ -60,6 +60,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.label7 = new System.Windows.Forms.Label();
             this.PeriodizationPanel = new System.Windows.Forms.Panel();
             this.searchPanel1 = new PlattformOrdMan.UI.Component.SearchPanel();
+            this.searchPanel2 = new PlattformOrdMan.UI.Component.SearchPanel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -312,13 +313,18 @@ namespace PlattformOrdMan.UI.Dialog
             // searchPanel1
             // 
             this.searchPanel1.Caption = "Search";
-            // 
-            // searchPanel1.DropZone
-            // 
             this.searchPanel1.Location = new System.Drawing.Point(429, 273);
             this.searchPanel1.Name = "searchPanel1";
             this.searchPanel1.Size = new System.Drawing.Size(527, 206);
             this.searchPanel1.TabIndex = 17;
+            // 
+            // searchPanel2
+            // 
+            this.searchPanel2.Caption = "Search";
+            this.searchPanel2.Location = new System.Drawing.Point(474, 186);
+            this.searchPanel2.Name = "searchPanel2";
+            this.searchPanel2.Size = new System.Drawing.Size(526, 212);
+            this.searchPanel2.TabIndex = 17;
             // 
             // ShowOrderHistoryDialog
             // 
@@ -327,6 +333,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1072, 630);
+            this.Controls.Add(this.searchPanel2);
             this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.PeriodizationPanel);
             this.Controls.Add(this.label7);
@@ -389,5 +396,6 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel PeriodizationPanel;
         private SearchPanel searchPanel1;
+        private SearchPanel searchPanel2;
     }
 }
