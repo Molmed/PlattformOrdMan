@@ -51,14 +51,6 @@ namespace PlattformOrdMan.UI.Dialog
 
         private void Init()
         {
-            SupplierManager.RefreshCache();
-            MerchandiseManager.RefreshCache();
-            var suppliers = SupplierManager.GetSuppliersFromCache();
-            SupplierCombobox.Init(suppliers, "supplier", true);
-            SupplierCombobox.LoadIdentitiesWithInfoText();
-            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
-            merchandiseCombobox1.Init(true, false);
-            merchandiseCombobox1.LoadIdentitiesWithInfoText();
             PostOrderInfoLabel.BackColor = Color.LightCoral;
             ProductArrivalLabel.BackColor = Color.Yellow;
             ProductOrderConfirmedLabel.BackColor = Color.LightBlue;
@@ -66,19 +58,9 @@ namespace PlattformOrdMan.UI.Dialog
             InvoiceNotCheckedPanel.BackColor = Color.Lime;
             AttentionPanel.BackColor = Color.Red;
             PeriodizationPanel.BackColor = Color.DarkMagenta;
-            userComboBox1.Init(true, "booker");
-            userComboBox1.LoadIdentitiesWithInfoText();
-            userComboBox1.OnMyControlledSelectedIndexChanged +=
-                userComboBox1_OnMyControlledSelectedIndexChanged;
-            merchandiseCombobox1.Enabled = true;
             RestoreSortingButton.Enabled = false;
             LoadPosts();
             InitListView();
-            SupplierCombobox.OnMyControlledSelectedIndexChanged +=
-                SupplierCombobox_OnMyControlledSelectedIndexChanged;
-            merchandiseCombobox1.OnMyControlledSelectedIndexChanged +=
-                merchandiseCombobox1_OnMyControlledSelectedIndexChanged;
-            FreeTextSearchTextBox.Enter += FreeTextSearchTextBox_Enter;
             FormClosing += ShowOrderHistoryDialog_FormClosing;
             searchPanel2.Init();
             searchPanel2.SupplierChanged += FilterPosts;
@@ -230,24 +212,6 @@ namespace PlattformOrdMan.UI.Dialog
             _posts.Sort();
         }
 
-        private void userComboBox1_OnMyControlledSelectedIndexChanged()
-        {
-            FilterPosts();
-        }
-
-
-        private void merchandiseCombobox1_OnMyControlledSelectedIndexChanged()
-        {
-            FilterPosts();
-        }
-
-        void FreeTextSearchTextBox_Enter(object sender, EventArgs e)
-        {
-            if (FreeTextSearchTextBox.Text == FREE_TEXT_SEARCH)
-            {
-                FreeTextSearchTextBox.Text = "";
-            }
-        }
 
         private void InitListView()
         {
@@ -405,15 +369,6 @@ namespace PlattformOrdMan.UI.Dialog
             }
             RedrawPosts(GetSelectedPosts());
             RestoreSortingButton.Enabled = true;
-        }
-
-        private void RegretInvoiceNotOK(object sender, EventArgs e)
-        {
-            foreach (Post post in GetSelectedPosts())
-            {
-                post.RegretCompleted();
-            }
-            RedrawPosts(GetSelectedPosts());
         }
 
         private void PostsListView_OnSortOrderSet(object sender, EventArgs e)
@@ -1116,131 +1071,6 @@ namespace PlattformOrdMan.UI.Dialog
             return post;
         }
 
-        private bool IsWithinFreeTextSearchCriteria(Post post)
-        {
-            var searchStr = FreeTextSearchTextBox.Text.Trim();
-            if (searchStr.Length > 0 &&
-                searchStr != FREE_TEXT_SEARCH)
-            {
-                if (post.GetPurchaseOrderNo().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetSalesOrderNo().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetBookerName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetBookDate().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetSupplier() != null &&
-                    post.GetSupplier().GetIdentifier().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetMerchandise() != null &&
-                    post.GetMerchandise().GetIdentifier().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetMerchandise() != null &&
-                    post.GetMerchandise().GetAmount().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetAmountString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetPriceWithCurrencyString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetOrdererName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetOrderDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArrivalSignUserName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArrivalDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArticleNumberString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceCategoryCodeString2().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoicerUserName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceStatusString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetComment().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArrivalDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceNumber().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsWithinSearchCriteria(Post post)
-        {
-            if (SupplierCombobox.SelectedIndex > 0 &&
-                SupplierCombobox.GetSelectedIdentity().GetId() != post.GetSupplierId())
-            {
-                return false;
-            }
-            if (merchandiseCombobox1.SelectedIndex > 0 && post.GetMerchandise() != null &&
-                merchandiseCombobox1.GetSelectedIdentity().GetId() != post.GetMerchandise().GetId())
-            {
-                return false;
-            }
-            if (userComboBox1.SelectedIndex > 0 && post.GetBooker() != null &&
-                userComboBox1.GetSelectedIdentity().GetId() != post.GetBooker().GetId())
-            {
-                return false;
-            }
-            if (!IsWithinFreeTextSearchCriteria(post))
-            {
-                return false;
-            }
-            return true;
-        }
-
         private void FilterPosts()
         {
             PostList filteredPosts = new PostList();
@@ -1495,21 +1325,6 @@ namespace PlattformOrdMan.UI.Dialog
             PostsListView.EndLoadItems();
         }
 
-        private void SupplierCombobox_OnMyControlledSelectedIndexChanged()
-        {
-            if (IsNotNull(SupplierCombobox.GetSelectedIdentity()))
-            {
-                merchandiseCombobox1.SetSupplierId(SupplierCombobox.GetSelectedIdentity().GetId());
-                merchandiseCombobox1.LoadMerchandise(SupplierCombobox.GetSelectedIdentity().GetId());
-            }
-            else
-            {
-                merchandiseCombobox1.SetSupplierId(PlattformOrdManData.NO_ID);
-                merchandiseCombobox1.LoadIdentitiesWithInfoText();
-            }
-            FilterPosts();
-        }
-
         private void RestoreSortingButton_Click(object sender, EventArgs e)
         {
             try
@@ -1520,27 +1335,6 @@ namespace PlattformOrdMan.UI.Dialog
             catch (Exception ex)
             {
                 HandleError("Error when restoring sort order", ex);
-            }
-        }
-
-        private void ResetSearchFields()
-        {
-            SupplierCombobox.LoadIdentitiesWithInfoText();
-            merchandiseCombobox1.LoadIdentitiesWithInfoText();
-            userComboBox1.LoadIdentitiesWithInfoText();
-            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
-        }
-
-        private void ClearButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ResetSearchFields();
-                FilterPosts();
-            }
-            catch (Exception ex)
-            {
-                HandleError("Error when clearing filter", ex);
             }
         }
 

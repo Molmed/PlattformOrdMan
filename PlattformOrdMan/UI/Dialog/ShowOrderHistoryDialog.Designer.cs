@@ -41,12 +41,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.ProductArrivalLabel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ClearButton = new System.Windows.Forms.Button();
-            this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
-            this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
-            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
-            this.SearchButton = new System.Windows.Forms.Button();
-            this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
             this.OptionsButton = new System.Windows.Forms.Button();
             this.CompletedPostPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,7 +55,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.PeriodizationPanel = new System.Windows.Forms.Panel();
             this.searchPanel1 = new PlattformOrdMan.UI.Component.SearchPanel();
             this.searchPanel2 = new PlattformOrdMan.UI.Component.SearchPanel();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PostsListView
@@ -139,69 +132,12 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.ClearButton);
-            this.groupBox1.Controls.Add(this.FreeTextSearchTextBox);
-            this.groupBox1.Controls.Add(this.userComboBox1);
-            this.groupBox1.Controls.Add(this.SupplierCombobox);
-            this.groupBox1.Controls.Add(this.SearchButton);
-            this.groupBox1.Controls.Add(this.merchandiseCombobox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 8);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(526, 156);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
-            // 
-            // ClearButton
-            // 
-            this.ClearButton.Location = new System.Drawing.Point(428, 126);
-            this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(75, 24);
-            this.ClearButton.TabIndex = 9;
-            this.ClearButton.Text = "Reset";
-            this.ClearButton.UseVisualStyleBackColor = true;
-            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
-            // 
-            // FreeTextSearchTextBox
-            // 
-            this.FreeTextSearchTextBox.Location = new System.Drawing.Point(6, 102);
-            this.FreeTextSearchTextBox.Name = "FreeTextSearchTextBox";
-            this.FreeTextSearchTextBox.Size = new System.Drawing.Size(416, 20);
-            this.FreeTextSearchTextBox.TabIndex = 8;
-            // 
-            // userComboBox1
-            // 
-            this.userComboBox1.FormattingEnabled = true;
-            this.userComboBox1.Location = new System.Drawing.Point(6, 75);
-            this.userComboBox1.Name = "userComboBox1";
-            this.userComboBox1.Size = new System.Drawing.Size(416, 21);
-            this.userComboBox1.TabIndex = 7;
-            // 
-            // SupplierCombobox
-            // 
-            this.SupplierCombobox.FormattingEnabled = true;
-            this.SupplierCombobox.Location = new System.Drawing.Point(6, 21);
-            this.SupplierCombobox.Name = "SupplierCombobox";
-            this.SupplierCombobox.Size = new System.Drawing.Size(416, 21);
-            this.SupplierCombobox.TabIndex = 6;
-            // 
-            // SearchButton
-            // 
-            this.SearchButton.Location = new System.Drawing.Point(428, 99);
-            this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 24);
-            this.SearchButton.TabIndex = 4;
-            this.SearchButton.Text = "Search";
-            this.SearchButton.UseVisualStyleBackColor = true;
-            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
-            // 
-            // merchandiseCombobox1
-            // 
-            this.merchandiseCombobox1.FormattingEnabled = true;
-            this.merchandiseCombobox1.Location = new System.Drawing.Point(6, 48);
-            this.merchandiseCombobox1.Name = "merchandiseCombobox1";
-            this.merchandiseCombobox1.Size = new System.Drawing.Size(416, 21);
-            this.merchandiseCombobox1.TabIndex = 3;
             // 
             // OptionsButton
             // 
@@ -328,7 +264,6 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // ShowOrderHistoryDialog
             // 
-            this.AcceptButton = this.SearchButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
@@ -359,8 +294,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.ShowInTaskbar = false;
             this.Text = "ShowOrderHistoryDialog";
             this.Shown += new System.EventHandler(this.ShowOrderHistoryDialog_Shown);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,17 +310,11 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Panel ProductArrivalLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private MerchandiseCombobox merchandiseCombobox1;
-        private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Panel CompletedPostPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel InvoiceNotCheckedPanel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button RestoreSortingButton;
-        private SupplierCombobox SupplierCombobox;
-        private UserComboBox userComboBox1;
-        private System.Windows.Forms.TextBox FreeTextSearchTextBox;
-        private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Panel ProductOrderConfirmedLabel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button OptionsButton;
