@@ -1,18 +1,24 @@
-﻿using System.ComponentModel;
+﻿using System;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
+using PlattformOrdMan.Data;
 
 namespace PlattformOrdMan.UI.Component
 {
-    [Designer(typeof(UserControlDesigner))]
     public partial class SearchPanel : UserControl
     {
+        private const String FREE_TEXT_SEARCH = "Free text search ...";
         public delegate void ExpandEvent();
 
         public delegate void CollapseEvent();
 
+        public delegate void SupplierChangedEvent();
+
+        public delegate void MerchendiseChangedEvent();
+
         public event ExpandEvent SearchboxExpanded;
         public event CollapseEvent SearchboxCollapsed;
+        public event SupplierChangedEvent SupplierChanged;
+        public event MerchendiseChangedEvent MerchendiseChanged;
 
         private readonly int _panel2OrigHeight;
         private readonly int _splitterDistance;
@@ -34,6 +40,54 @@ namespace PlattformOrdMan.UI.Component
             toggleButton1.OnClick(null, null);
         }
 
+        public void Init()
+        {
+            SupplierManager.RefreshCache();
+            MerchandiseManager.RefreshCache();
+            var suppliers = SupplierManager.GetSuppliersFromCache();
+            SupplierCombobox.Init(suppliers, "supplier", true);
+            SupplierCombobox.LoadIdentitiesWithInfoText();
+            SupplierCombobox.OnMyControlledSelectedIndexChanged += OnSuppierChanged;
+            merchandiseCombobox1.Init(true, false);
+            merchandiseCombobox1.LoadIdentitiesWithInfoText();
+            merchandiseCombobox1.OnMyControlledSelectedIndexChanged += OnMerchendiseChange;
+        }
+
+        private void OnMerchendiseChange()
+        {
+            MerchendiseChanged?.Invoke();
+        }
+
+        private void OnSuppierChanged()
+        {
+            SupplierChanged?.Invoke();
+        }
+
+        public void Reload()
+        {
+            SupplierManager.RefreshCache();
+            MerchandiseManager.RefreshCache();
+            SupplierCombobox.LoadIdentitiesWithInfoText();
+            merchandiseCombobox1.LoadIdentitiesWithInfoText();
+        }
+        public void AddCreatedSupplier(Supplier supplier)
+        {
+            SupplierCombobox.AddCreatedSupplier(supplier);
+        }
+
+        public void AddCreatedMerchandise(Merchandise merchandise)
+        {
+            merchandiseCombobox1.AddCreatedMerchandise(merchandise);
+        }
+
+        private void ResetSearchFields()
+        {
+            SupplierCombobox.LoadIdentitiesWithInfoText();
+            merchandiseCombobox1.LoadIdentitiesWithInfoText();
+            userComboBox1.LoadIdentitiesWithInfoText();
+            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
+        }
+
         private void OnSplitterCollapsed()
         {
             splitContainer1.Panel2Collapsed = true;
@@ -51,22 +105,10 @@ namespace PlattformOrdMan.UI.Component
             LinrPanel.Visible = false;
             SearchboxExpanded?.Invoke();
         }
-        [Category("Appearance")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public SplitContainer DropZone => splitContainer1;
-    }
-    // Designer
-    public class UserControlDesigner : ParentControlDesigner
-    {
-        public override void Initialize(System.ComponentModel.IComponent component)
-        {
-            base.Initialize(component);
 
-            if (this.Control is SearchPanel)
-            {
-                this.EnableDesignMode(
-                    ((SearchPanel)this.Control).DropZone, "DropZone");
-            }
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            ResetSearchFields();
         }
     }
 }

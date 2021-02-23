@@ -91,7 +91,6 @@ namespace PlattformOrdMan.UI.Dialog
             FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
             merchandiseCombobox1.LoadIdentitiesWithInfoText();
             userComboBox1.LoadIdentitiesWithInfoText();
-            merchandiseCombobox1.Enabled = true;
             RestoreSortingButton.Enabled = false;
             LoadPosts();
             UpdateListView();

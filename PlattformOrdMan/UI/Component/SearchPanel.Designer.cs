@@ -31,15 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.LinrPanel = new System.Windows.Forms.Panel();
-            this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
-            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
-            this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
-            this.SearchButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
-            this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
+            this.SearchButton = new System.Windows.Forms.Button();
+            this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
+            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
+            this.LinrPanel = new System.Windows.Forms.Panel();
             this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
+            this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -87,6 +87,44 @@
             this.splitContainer1.SplitterDistance = 114;
             this.splitContainer1.TabIndex = 0;
             // 
+            // ClearButton
+            // 
+            this.ClearButton.Location = new System.Drawing.Point(423, 66);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(75, 24);
+            this.ClearButton.TabIndex = 11;
+            this.ClearButton.Text = "Reset";
+            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
+            // SearchButton
+            // 
+            this.SearchButton.Location = new System.Drawing.Point(423, 36);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(75, 24);
+            this.SearchButton.TabIndex = 10;
+            this.SearchButton.Text = "Search";
+            this.SearchButton.UseVisualStyleBackColor = true;
+            // 
+            // FreeTextSearchTextBox
+            // 
+            this.FreeTextSearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FreeTextSearchTextBox.Location = new System.Drawing.Point(7, 39);
+            this.FreeTextSearchTextBox.Name = "FreeTextSearchTextBox";
+            this.FreeTextSearchTextBox.Size = new System.Drawing.Size(410, 20);
+            this.FreeTextSearchTextBox.TabIndex = 9;
+            // 
+            // SupplierCombobox
+            // 
+            this.SupplierCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SupplierCombobox.FormattingEnabled = true;
+            this.SupplierCombobox.Location = new System.Drawing.Point(7, 12);
+            this.SupplierCombobox.Name = "SupplierCombobox";
+            this.SupplierCombobox.Size = new System.Drawing.Size(410, 21);
+            this.SupplierCombobox.TabIndex = 8;
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -96,6 +134,16 @@
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Advanced";
+            // 
+            // toggleButton1
+            // 
+            this.toggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.toggleButton1.Location = new System.Drawing.Point(7, 87);
+            this.toggleButton1.Name = "toggleButton1";
+            this.toggleButton1.Size = new System.Drawing.Size(25, 23);
+            this.toggleButton1.TabIndex = 0;
+            this.toggleButton1.Text = "\\/";
+            this.toggleButton1.UseVisualStyleBackColor = true;
             // 
             // LinrPanel
             // 
@@ -108,52 +156,13 @@
             this.LinrPanel.Size = new System.Drawing.Size(403, 2);
             this.LinrPanel.TabIndex = 6;
             // 
-            // toggleButton1
+            // userComboBox1
             // 
-            this.toggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.toggleButton1.Location = new System.Drawing.Point(7, 87);
-            this.toggleButton1.Name = "toggleButton1";
-            this.toggleButton1.Size = new System.Drawing.Size(25, 23);
-            this.toggleButton1.TabIndex = 0;
-            this.toggleButton1.Text = "\\/";
-            this.toggleButton1.UseVisualStyleBackColor = true;
-            // 
-            // SupplierCombobox
-            // 
-            this.SupplierCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SupplierCombobox.FormattingEnabled = true;
-            this.SupplierCombobox.Location = new System.Drawing.Point(7, 12);
-            this.SupplierCombobox.Name = "SupplierCombobox";
-            this.SupplierCombobox.Size = new System.Drawing.Size(410, 21);
-            this.SupplierCombobox.TabIndex = 8;
-            // 
-            // FreeTextSearchTextBox
-            // 
-            this.FreeTextSearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FreeTextSearchTextBox.Location = new System.Drawing.Point(7, 39);
-            this.FreeTextSearchTextBox.Name = "FreeTextSearchTextBox";
-            this.FreeTextSearchTextBox.Size = new System.Drawing.Size(410, 20);
-            this.FreeTextSearchTextBox.TabIndex = 9;
-            // 
-            // SearchButton
-            // 
-            this.SearchButton.Location = new System.Drawing.Point(423, 36);
-            this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 24);
-            this.SearchButton.TabIndex = 10;
-            this.SearchButton.Text = "Search";
-            this.SearchButton.UseVisualStyleBackColor = true;
-            // 
-            // ClearButton
-            // 
-            this.ClearButton.Location = new System.Drawing.Point(423, 66);
-            this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(75, 24);
-            this.ClearButton.TabIndex = 11;
-            this.ClearButton.Text = "Reset";
-            this.ClearButton.UseVisualStyleBackColor = true;
+            this.userComboBox1.FormattingEnabled = true;
+            this.userComboBox1.Location = new System.Drawing.Point(7, 30);
+            this.userComboBox1.Name = "userComboBox1";
+            this.userComboBox1.Size = new System.Drawing.Size(416, 21);
+            this.userComboBox1.TabIndex = 8;
             // 
             // merchandiseCombobox1
             // 
@@ -162,14 +171,6 @@
             this.merchandiseCombobox1.Name = "merchandiseCombobox1";
             this.merchandiseCombobox1.Size = new System.Drawing.Size(416, 21);
             this.merchandiseCombobox1.TabIndex = 4;
-            // 
-            // userComboBox1
-            // 
-            this.userComboBox1.FormattingEnabled = true;
-            this.userComboBox1.Location = new System.Drawing.Point(7, 30);
-            this.userComboBox1.Name = "userComboBox1";
-            this.userComboBox1.Size = new System.Drawing.Size(416, 21);
-            this.userComboBox1.TabIndex = 8;
             // 
             // SearchPanel
             // 

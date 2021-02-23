@@ -41,13 +41,13 @@ namespace PlattformOrdMan.UI.Dialog
             this.ProductArrivalLabel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.OptionsButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
             this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
             this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
+            this.OptionsButton = new System.Windows.Forms.Button();
             this.CompletedPostPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.InvoiceNotCheckedPanel = new System.Windows.Forms.Panel();
@@ -59,6 +59,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.PeriodizationPanel = new System.Windows.Forms.Panel();
+            this.searchPanel1 = new PlattformOrdMan.UI.Component.SearchPanel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,16 +151,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
             // 
-            // OptionsButton
-            // 
-            this.OptionsButton.Location = new System.Drawing.Point(925, 29);
-            this.OptionsButton.Name = "OptionsButton";
-            this.OptionsButton.Size = new System.Drawing.Size(75, 24);
-            this.OptionsButton.TabIndex = 10;
-            this.OptionsButton.Text = "Options ...";
-            this.OptionsButton.UseVisualStyleBackColor = true;
-            this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
-            // 
             // ClearButton
             // 
             this.ClearButton.Location = new System.Drawing.Point(428, 126);
@@ -210,6 +201,16 @@ namespace PlattformOrdMan.UI.Dialog
             this.merchandiseCombobox1.Name = "merchandiseCombobox1";
             this.merchandiseCombobox1.Size = new System.Drawing.Size(416, 21);
             this.merchandiseCombobox1.TabIndex = 3;
+            // 
+            // OptionsButton
+            // 
+            this.OptionsButton.Location = new System.Drawing.Point(925, 29);
+            this.OptionsButton.Name = "OptionsButton";
+            this.OptionsButton.Size = new System.Drawing.Size(75, 24);
+            this.OptionsButton.TabIndex = 10;
+            this.OptionsButton.Text = "Options ...";
+            this.OptionsButton.UseVisualStyleBackColor = true;
+            this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
             // 
             // CompletedPostPanel
             // 
@@ -308,6 +309,17 @@ namespace PlattformOrdMan.UI.Dialog
             this.PeriodizationPanel.Size = new System.Drawing.Size(38, 14);
             this.PeriodizationPanel.TabIndex = 10;
             // 
+            // searchPanel1
+            // 
+            this.searchPanel1.Caption = "Search";
+            // 
+            // searchPanel1.DropZone
+            // 
+            this.searchPanel1.Location = new System.Drawing.Point(429, 273);
+            this.searchPanel1.Name = "searchPanel1";
+            this.searchPanel1.Size = new System.Drawing.Size(527, 206);
+            this.searchPanel1.TabIndex = 17;
+            // 
             // ShowOrderHistoryDialog
             // 
             this.AcceptButton = this.SearchButton;
@@ -376,5 +388,6 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel PeriodizationPanel;
+        private SearchPanel searchPanel1;
     }
 }

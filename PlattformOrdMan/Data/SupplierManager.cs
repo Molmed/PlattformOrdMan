@@ -212,18 +212,6 @@ namespace PlattformOrdMan.Data
             return MySupplierCache;
         }
 
-        public static Supplier GetSupplierFromCache(Int16 supplierId)
-        {
-            if (MySupplierCache != null)
-            {
-                return MySupplierCache.GetById(supplierId);
-            }
-            else
-            {
-                throw new Data.Exception.DataException("Supplier cache not initialized.");
-            }
-        }
-
         public static void RefreshCache()
         {
             DataReader dataReader = null;
@@ -237,10 +225,6 @@ namespace PlattformOrdMan.Data
                 {
                     MySupplierCache.Add(new Supplier(dataReader));
                 }
-            }
-            catch
-            {
-                throw;
             }
             finally
             {
