@@ -34,10 +34,10 @@
             this.ClearButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
-            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
             this.label1 = new System.Windows.Forms.Label();
-            this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
             this.LinrPanel = new System.Windows.Forms.Panel();
+            this.SupplierCombobox = new PlattformOrdMan.UI.Component.SupplierCombobox();
+            this.toggleButton1 = new PlattformOrdMan.UI.Component.ToggleButton(this.components);
             this.userComboBox1 = new PlattformOrdMan.UI.Component.UserComboBox();
             this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
             this.groupBox1.SuspendLayout();
@@ -116,16 +116,6 @@
             this.FreeTextSearchTextBox.Size = new System.Drawing.Size(410, 20);
             this.FreeTextSearchTextBox.TabIndex = 9;
             // 
-            // SupplierCombobox
-            // 
-            this.SupplierCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SupplierCombobox.FormattingEnabled = true;
-            this.SupplierCombobox.Location = new System.Drawing.Point(7, 12);
-            this.SupplierCombobox.Name = "SupplierCombobox";
-            this.SupplierCombobox.Size = new System.Drawing.Size(410, 21);
-            this.SupplierCombobox.TabIndex = 8;
-            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -136,6 +126,27 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Advanced";
             // 
+            // LinrPanel
+            // 
+            this.LinrPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LinrPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.LinrPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LinrPanel.Location = new System.Drawing.Point(105, 101);
+            this.LinrPanel.Name = "LinrPanel";
+            this.LinrPanel.Size = new System.Drawing.Size(312, 2);
+            this.LinrPanel.TabIndex = 6;
+            // 
+            // SupplierCombobox
+            // 
+            this.SupplierCombobox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SupplierCombobox.FormattingEnabled = true;
+            this.SupplierCombobox.Location = new System.Drawing.Point(7, 12);
+            this.SupplierCombobox.Name = "SupplierCombobox";
+            this.SupplierCombobox.Size = new System.Drawing.Size(410, 21);
+            this.SupplierCombobox.TabIndex = 8;
+            // 
             // toggleButton1
             // 
             this.toggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -145,17 +156,6 @@
             this.toggleButton1.TabIndex = 0;
             this.toggleButton1.Text = "\\/";
             this.toggleButton1.UseVisualStyleBackColor = true;
-            // 
-            // LinrPanel
-            // 
-            this.LinrPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LinrPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.LinrPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LinrPanel.Location = new System.Drawing.Point(105, 103);
-            this.LinrPanel.Name = "LinrPanel";
-            this.LinrPanel.Size = new System.Drawing.Size(403, 2);
-            this.LinrPanel.TabIndex = 6;
             // 
             // userComboBox1
             // 

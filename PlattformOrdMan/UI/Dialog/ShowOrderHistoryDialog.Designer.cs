@@ -40,7 +40,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.label1 = new System.Windows.Forms.Label();
             this.ProductArrivalLabel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.OptionsButton = new System.Windows.Forms.Button();
             this.CompletedPostPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,8 +52,11 @@ namespace PlattformOrdMan.UI.Dialog
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.PeriodizationPanel = new System.Windows.Forms.Panel();
-            this.searchPanel1 = new PlattformOrdMan.UI.Component.SearchPanel();
             this.searchPanel2 = new PlattformOrdMan.UI.Component.SearchPanel();
+            this.InfoPanel = new System.Windows.Forms.Panel();
+            this.ButtonPanel = new System.Windows.Forms.Panel();
+            this.InfoPanel.SuspendLayout();
+            this.ButtonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // PostsListView
@@ -76,7 +78,7 @@ namespace PlattformOrdMan.UI.Dialog
             // NewOrderButton
             // 
             this.NewOrderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewOrderButton.Location = new System.Drawing.Point(974, 140);
+            this.NewOrderButton.Location = new System.Drawing.Point(121, 3);
             this.NewOrderButton.Name = "NewOrderButton";
             this.NewOrderButton.Size = new System.Drawing.Size(86, 24);
             this.NewOrderButton.TabIndex = 1;
@@ -99,7 +101,7 @@ namespace PlattformOrdMan.UI.Dialog
             // PostOrderInfoLabel
             // 
             this.PostOrderInfoLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PostOrderInfoLabel.Location = new System.Drawing.Point(570, 8);
+            this.PostOrderInfoLabel.Location = new System.Drawing.Point(6, 0);
             this.PostOrderInfoLabel.Name = "PostOrderInfoLabel";
             this.PostOrderInfoLabel.Size = new System.Drawing.Size(38, 15);
             this.PostOrderInfoLabel.TabIndex = 3;
@@ -107,7 +109,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(614, 8);
+            this.label1.Location = new System.Drawing.Point(50, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 4;
@@ -116,7 +118,7 @@ namespace PlattformOrdMan.UI.Dialog
             // ProductArrivalLabel
             // 
             this.ProductArrivalLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ProductArrivalLabel.Location = new System.Drawing.Point(570, 29);
+            this.ProductArrivalLabel.Location = new System.Drawing.Point(6, 21);
             this.ProductArrivalLabel.Name = "ProductArrivalLabel";
             this.ProductArrivalLabel.Size = new System.Drawing.Size(38, 15);
             this.ProductArrivalLabel.TabIndex = 5;
@@ -124,20 +126,11 @@ namespace PlattformOrdMan.UI.Dialog
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(614, 29);
+            this.label2.Location = new System.Drawing.Point(50, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Product is ordered";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(12, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(526, 156);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Search";
             // 
             // OptionsButton
             // 
@@ -152,7 +145,7 @@ namespace PlattformOrdMan.UI.Dialog
             // CompletedPostPanel
             // 
             this.CompletedPostPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CompletedPostPanel.Location = new System.Drawing.Point(570, 91);
+            this.CompletedPostPanel.Location = new System.Drawing.Point(6, 83);
             this.CompletedPostPanel.Name = "CompletedPostPanel";
             this.CompletedPostPanel.Size = new System.Drawing.Size(38, 14);
             this.CompletedPostPanel.TabIndex = 8;
@@ -160,7 +153,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(614, 91);
+            this.label3.Location = new System.Drawing.Point(50, 83);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(148, 13);
             this.label3.TabIndex = 9;
@@ -169,7 +162,7 @@ namespace PlattformOrdMan.UI.Dialog
             // InvoiceNotCheckedPanel
             // 
             this.InvoiceNotCheckedPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InvoiceNotCheckedPanel.Location = new System.Drawing.Point(570, 71);
+            this.InvoiceNotCheckedPanel.Location = new System.Drawing.Point(6, 63);
             this.InvoiceNotCheckedPanel.Name = "InvoiceNotCheckedPanel";
             this.InvoiceNotCheckedPanel.Size = new System.Drawing.Size(38, 14);
             this.InvoiceNotCheckedPanel.TabIndex = 9;
@@ -177,7 +170,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(614, 71);
+            this.label4.Location = new System.Drawing.Point(50, 63);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 13);
             this.label4.TabIndex = 10;
@@ -186,7 +179,7 @@ namespace PlattformOrdMan.UI.Dialog
             // RestoreSortingButton
             // 
             this.RestoreSortingButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RestoreSortingButton.Location = new System.Drawing.Point(877, 141);
+            this.RestoreSortingButton.Location = new System.Drawing.Point(24, 4);
             this.RestoreSortingButton.Name = "RestoreSortingButton";
             this.RestoreSortingButton.Size = new System.Drawing.Size(91, 23);
             this.RestoreSortingButton.TabIndex = 12;
@@ -197,7 +190,7 @@ namespace PlattformOrdMan.UI.Dialog
             // ProductOrderConfirmedLabel
             // 
             this.ProductOrderConfirmedLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ProductOrderConfirmedLabel.Location = new System.Drawing.Point(570, 50);
+            this.ProductOrderConfirmedLabel.Location = new System.Drawing.Point(6, 42);
             this.ProductOrderConfirmedLabel.Name = "ProductOrderConfirmedLabel";
             this.ProductOrderConfirmedLabel.Size = new System.Drawing.Size(38, 14);
             this.ProductOrderConfirmedLabel.TabIndex = 13;
@@ -205,7 +198,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(614, 50);
+            this.label6.Location = new System.Drawing.Point(50, 42);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(130, 13);
             this.label6.TabIndex = 14;
@@ -214,7 +207,7 @@ namespace PlattformOrdMan.UI.Dialog
             // AttentionPanel
             // 
             this.AttentionPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AttentionPanel.Location = new System.Drawing.Point(570, 111);
+            this.AttentionPanel.Location = new System.Drawing.Point(6, 103);
             this.AttentionPanel.Name = "AttentionPanel";
             this.AttentionPanel.Size = new System.Drawing.Size(38, 14);
             this.AttentionPanel.TabIndex = 9;
@@ -222,7 +215,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(614, 111);
+            this.label5.Location = new System.Drawing.Point(50, 103);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(157, 13);
             this.label5.TabIndex = 15;
@@ -231,7 +224,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(614, 134);
+            this.label7.Location = new System.Drawing.Point(50, 126);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(165, 13);
             this.label7.TabIndex = 16;
@@ -241,26 +234,48 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.PeriodizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PeriodizationPanel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.PeriodizationPanel.Location = new System.Drawing.Point(570, 134);
+            this.PeriodizationPanel.Location = new System.Drawing.Point(6, 126);
             this.PeriodizationPanel.Name = "PeriodizationPanel";
             this.PeriodizationPanel.Size = new System.Drawing.Size(38, 14);
             this.PeriodizationPanel.TabIndex = 10;
             // 
-            // searchPanel1
-            // 
-            this.searchPanel1.Caption = "Search";
-            this.searchPanel1.Location = new System.Drawing.Point(429, 273);
-            this.searchPanel1.Name = "searchPanel1";
-            this.searchPanel1.Size = new System.Drawing.Size(527, 206);
-            this.searchPanel1.TabIndex = 17;
-            // 
             // searchPanel2
             // 
             this.searchPanel2.Caption = "Search";
-            this.searchPanel2.Location = new System.Drawing.Point(474, 186);
+            this.searchPanel2.Location = new System.Drawing.Point(12, 8);
             this.searchPanel2.Name = "searchPanel2";
             this.searchPanel2.Size = new System.Drawing.Size(526, 212);
             this.searchPanel2.TabIndex = 17;
+            // 
+            // InfoPanel
+            // 
+            this.InfoPanel.Controls.Add(this.label1);
+            this.InfoPanel.Controls.Add(this.PostOrderInfoLabel);
+            this.InfoPanel.Controls.Add(this.ProductArrivalLabel);
+            this.InfoPanel.Controls.Add(this.label2);
+            this.InfoPanel.Controls.Add(this.PeriodizationPanel);
+            this.InfoPanel.Controls.Add(this.CompletedPostPanel);
+            this.InfoPanel.Controls.Add(this.label7);
+            this.InfoPanel.Controls.Add(this.label3);
+            this.InfoPanel.Controls.Add(this.label5);
+            this.InfoPanel.Controls.Add(this.InvoiceNotCheckedPanel);
+            this.InfoPanel.Controls.Add(this.AttentionPanel);
+            this.InfoPanel.Controls.Add(this.label4);
+            this.InfoPanel.Controls.Add(this.label6);
+            this.InfoPanel.Controls.Add(this.ProductOrderConfirmedLabel);
+            this.InfoPanel.Location = new System.Drawing.Point(544, 12);
+            this.InfoPanel.Name = "InfoPanel";
+            this.InfoPanel.Size = new System.Drawing.Size(296, 152);
+            this.InfoPanel.TabIndex = 18;
+            // 
+            // ButtonPanel
+            // 
+            this.ButtonPanel.Controls.Add(this.NewOrderButton);
+            this.ButtonPanel.Controls.Add(this.RestoreSortingButton);
+            this.ButtonPanel.Location = new System.Drawing.Point(853, 131);
+            this.ButtonPanel.Name = "ButtonPanel";
+            this.ButtonPanel.Size = new System.Drawing.Size(207, 33);
+            this.ButtonPanel.TabIndex = 19;
             // 
             // ShowOrderHistoryDialog
             // 
@@ -268,34 +283,21 @@ namespace PlattformOrdMan.UI.Dialog
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1072, 630);
+            this.Controls.Add(this.ButtonPanel);
+            this.Controls.Add(this.InfoPanel);
+            this.Controls.Add(this.PostsListView);
             this.Controls.Add(this.searchPanel2);
             this.Controls.Add(this.OptionsButton);
-            this.Controls.Add(this.PeriodizationPanel);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.AttentionPanel);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.ProductOrderConfirmedLabel);
-            this.Controls.Add(this.RestoreSortingButton);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.InvoiceNotCheckedPanel);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.CompletedPostPanel);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.ProductArrivalLabel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.PostOrderInfoLabel);
             this.Controls.Add(this.CloseButton);
-            this.Controls.Add(this.NewOrderButton);
-            this.Controls.Add(this.PostsListView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ShowOrderHistoryDialog";
             this.ShowInTaskbar = false;
             this.Text = "ShowOrderHistoryDialog";
             this.Shown += new System.EventHandler(this.ShowOrderHistoryDialog_Shown);
+            this.InfoPanel.ResumeLayout(false);
+            this.InfoPanel.PerformLayout();
+            this.ButtonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -309,7 +311,6 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel ProductArrivalLabel;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel CompletedPostPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel InvoiceNotCheckedPanel;
@@ -322,7 +323,8 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel PeriodizationPanel;
-        private SearchPanel searchPanel1;
         private SearchPanel searchPanel2;
+        private System.Windows.Forms.Panel InfoPanel;
+        private System.Windows.Forms.Panel ButtonPanel;
     }
 }

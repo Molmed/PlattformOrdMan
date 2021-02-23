@@ -16,6 +16,7 @@ namespace PlattformOrdMan.UI.Dialog
     public partial class ShowOrderHistoryDialog : OrdManForm, ISupplierForm, IMerchandiseForm, IPostForm
     {
         private PostList _posts;
+        private int _diff;
         private Dictionary<int, PostList> _supplierDict;
         private Dictionary<int, PostList> _prodDict;
         private ToolTipHandler _toolTipHandler;
@@ -51,6 +52,8 @@ namespace PlattformOrdMan.UI.Dialog
 
         private void Init()
         {
+            var diffCandidate = searchPanel2.Location.Y + searchPanel2.Height - InfoPanel.Location.Y - InfoPanel.Height;
+            _diff = Math.Max(diffCandidate, 0);
             PostOrderInfoLabel.BackColor = Color.LightCoral;
             ProductArrivalLabel.BackColor = Color.Yellow;
             ProductOrderConfirmedLabel.BackColor = Color.LightBlue;
@@ -68,8 +71,30 @@ namespace PlattformOrdMan.UI.Dialog
             searchPanel2.UserChanged += FilterPosts;
             searchPanel2.SearchRequested += FilterPosts;
             searchPanel2.ResetRequested += FilterPosts;
+            searchPanel2.SearchboxExpanded +=SearchboxExpanded;
+            searchPanel2.SearchboxCollapsed += SearchboxCollapsed;
         }
 
+        private void SearchboxCollapsed()
+        {
+            AddToVerticalPosition(-_diff);
+        }
+
+        private void SearchboxExpanded()
+        {
+            AddToVerticalPosition(_diff);
+        }
+
+
+        private void AddToVerticalPosition(int y)
+        {
+            var newLocation = new Point(PostsListView.Location.X, PostsListView.Location.Y + y);
+            PostsListView.Height -= y;
+            PostsListView.Location = newLocation;
+
+            newLocation = new Point(ButtonPanel.Location.X, ButtonPanel.Location.Y + y);
+            ButtonPanel.Location = newLocation;
+        }
         public override void ReloadForm()
         {
             searchPanel2.Reload();
