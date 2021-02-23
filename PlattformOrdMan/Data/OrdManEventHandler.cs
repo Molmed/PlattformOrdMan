@@ -10,6 +10,7 @@ namespace PlattformOrdMan.Data
         public delegate void MerchandiseCreatedReporter(Merchandise merchandise);
         public delegate void PostUpdateReporter(Post post);
         public delegate void PostCreatedReporter(Post post);
+        public delegate void ViewingOptionsEvent();
 
         public event SupplierUpdateReporter MyOnSupplierUpdate;
         public event SupplierCreatedReporter MyOnSupplierCreate;
@@ -17,6 +18,7 @@ namespace PlattformOrdMan.Data
         public event MerchandiseCreatedReporter MyOnMerchandiseCreate;
         public event PostUpdateReporter MyOnPostUpdate;
         public event PostCreatedReporter MyOnPostCreate;
+        public event ViewingOptionsEvent OnViewingOptionsChanged;
 
         public OrdManEventHandler()
         { 
@@ -37,6 +39,11 @@ namespace PlattformOrdMan.Data
             {
                 MyOnPostUpdate(post);
             }
+        }
+
+        public void FireViewingOptionsChanged()
+        {
+            OnViewingOptionsChanged?.Invoke();
         }
 
         public void FireSupplierCreate(Supplier supplier)

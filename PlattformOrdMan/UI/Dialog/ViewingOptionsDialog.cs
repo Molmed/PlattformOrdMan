@@ -9,8 +9,6 @@ namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ViewingOptionsDialog : OrdManForm
     {
-        public event OrderHistoryOptionOK OnOrderHistoryOptionsOK;
-
         public ViewingOptionsDialog()
         {
             InitializeComponent();
@@ -21,10 +19,10 @@ namespace PlattformOrdMan.UI.Dialog
         {
             InitIncludedColumnsListView();
         }
-        private void GetNewIncludedColumns(out bool isUpdated)
+        private void GetNewIncludedColumns()
         {
             int j = 0;
-            isUpdated = false;
+            var isUpdated = false;
 
 
             // Create a new presumable config-table
@@ -176,9 +174,8 @@ namespace PlattformOrdMan.UI.Dialog
             try
             {
                 Cursor = Cursors.WaitCursor;
-                bool isColumnsUpdated;
-                GetNewIncludedColumns(out isColumnsUpdated);
-                OnOrderHistoryOptionsOK?.Invoke(isColumnsUpdated);
+                GetNewIncludedColumns();
+                PlattformOrdManData.OEventHandler.FireViewingOptionsChanged();
                 Close();
             }
             catch (Exception ex)

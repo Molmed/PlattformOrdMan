@@ -41,6 +41,16 @@ namespace PlattformOrdMan.UI
             PlattformOrdManData.OEventHandler.MyOnMerchandiseCreate += AddCreatedMerchandiseToMDIChildren;
             PlattformOrdManData.OEventHandler.MyOnPostUpdate += ReloadPostForMDIChildren;
             PlattformOrdManData.OEventHandler.MyOnPostCreate += AddCreatedPostForMDIChildren;
+            PlattformOrdManData.OEventHandler.OnViewingOptionsChanged += OnViewingOptionsChanged;
+        }
+
+        private void OnViewingOptionsChanged()
+        {
+            foreach (Form form in MdiChildren)
+            {
+                var viewingForm = form as IViewingOptionsForm;
+                viewingForm?.OnViewingOptionsChanged();
+            }
         }
 
         private void ReloadSupplierForMDIChildren(Supplier supplier)

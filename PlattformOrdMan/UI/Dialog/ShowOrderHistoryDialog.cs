@@ -13,7 +13,7 @@ using DataException = PlattformOrdMan.Data.Exception.DataException;
 
 namespace PlattformOrdMan.UI.Dialog
 {
-    public partial class ShowOrderHistoryDialog : OrdManForm, ISupplierForm, IMerchandiseForm, IPostForm
+    public partial class ShowOrderHistoryDialog : OrdManForm, ISupplierForm, IMerchandiseForm, IPostForm, IViewingOptionsForm
     {
         private PostList _posts;
         private int _diff;
@@ -1375,6 +1375,21 @@ namespace PlattformOrdMan.UI.Dialog
             catch (Exception ex)
             {
                 HandleError("Error when setting options", ex);
+            }
+        }
+
+        public void OnViewingOptionsChanged()
+        {
+            try
+            {
+                //this.Cursor = Cursors.WaitCursor;
+                LoadPosts();
+                ReInitListView();
+                FilterPosts();
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
             }
         }
 

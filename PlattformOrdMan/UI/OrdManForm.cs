@@ -32,6 +32,11 @@ namespace PlattformOrdMan.UI
         void AddCreatedPost(Post post);
     }
 
+    public interface IViewingOptionsForm
+    {
+        void OnViewingOptionsChanged();
+    }
+
     public partial class OrdManForm : Form
     {
         public enum UpdateMode
