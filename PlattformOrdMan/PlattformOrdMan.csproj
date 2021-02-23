@@ -154,6 +154,12 @@
     <Compile Include="UI\Dialog\CreateEditCustomerNumber.Designer.cs">
       <DependentUpon>CreateEditCustomerNumber.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialog\OptionsDialog\FilteringOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialog\OptionsDialog\FilteringOptionsDialog.Designer.cs">
+      <DependentUpon>FilteringOptionsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialog\GetValueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,13 +173,6 @@
       <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialog\OptionsDialog\IncludedColumnsListViewItem.cs" />
-    <Compile Include="UI\Dialog\OptionsDialog\OrderHistoryOptionOK.cs" />
-    <Compile Include="UI\Dialog\OptionsDialog\OrderHistoryOptionsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Dialog\OptionsDialog\OrderHistoryOptionsDialog.Designer.cs">
-      <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Dialog\SetInvoiceNumberDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,10 +185,10 @@
     <Compile Include="UI\Dialog\SignOrderDialog.Designer.cs">
       <DependentUpon>SignOrderDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Dialog\ViewingOptionsDialog.cs">
+    <Compile Include="UI\Dialog\OptionsDialog\ViewingOptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Dialog\ViewingOptionsDialog.Designer.cs">
+    <Compile Include="UI\Dialog\OptionsDialog\ViewingOptionsDialog.Designer.cs">
       <DependentUpon>ViewingOptionsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\View\Base\ListDataType.cs" />
@@ -271,6 +270,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>EditUserDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialog\OptionsDialog\FilteringOptionsDialog.resx">
+      <DependentUpon>FilteringOptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\InvoiceCategoryDialog.resx">
       <DependentUpon>InvoiceCategoryDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -281,9 +283,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\LoginWithBarcodeDialog.resx">
       <DependentUpon>LoginWithBarcodeDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialog\OptionsDialog\OrderHistoryOptionsDialog.resx">
-      <DependentUpon>OrderHistoryOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialog\SetInvoiceNumberDialog.resx">
       <DependentUpon>SetInvoiceNumberDialog.cs</DependentUpon>
@@ -319,7 +318,7 @@
     <EmbeddedResource Include="UI\Dialog\SignOrderDialog.resx">
       <DependentUpon>SignOrderDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Dialog\ViewingOptionsDialog.resx">
+    <EmbeddedResource Include="UI\Dialog\OptionsDialog\ViewingOptionsDialog.resx">
       <DependentUpon>ViewingOptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">

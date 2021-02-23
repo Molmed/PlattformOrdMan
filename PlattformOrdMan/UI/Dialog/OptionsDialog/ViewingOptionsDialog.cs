@@ -2,10 +2,9 @@
 using System.Windows.Forms;
 using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
-using PlattformOrdMan.UI.Dialog.OptionsDialog;
 using PlattformOrdMan.UI.View.Post;
 
-namespace PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog.OptionsDialog
 {
     public partial class ViewingOptionsDialog : OrdManForm
     {

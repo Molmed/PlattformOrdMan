@@ -13,6 +13,7 @@ using PlattformOrdMan.DbConnection.DatabaseReferencing;
 using PlattformOrdMan.DbConnection.Repositories;
 using PlattformOrdMan.Properties;
 using PlattformOrdMan.UI.Dialog;
+using PlattformOrdMan.UI.Dialog.OptionsDialog;
 
 namespace PlattformOrdMan.UI
 {
@@ -594,6 +595,30 @@ namespace PlattformOrdMan.UI
             catch (Exception exception)
             {
                 HandleError("Error when showing viewing options", exception);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void FilteringToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SetChildFocus(typeof(FilteringOptionsDialog)))
+                {
+                    Cursor = Cursors.WaitCursor;
+                    var filteringOptionsDialog = new FilteringOptionsDialog();
+                    Cursor = Cursors.Default;
+                    filteringOptionsDialog.MdiParent = this;
+                    filteringOptionsDialog.Show();
+                }
+
+            }
+            catch (Exception exception)
+            {
+                HandleError("Error when showing filtering options", exception);
             }
             finally
             {

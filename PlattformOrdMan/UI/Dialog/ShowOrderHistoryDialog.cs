@@ -7,7 +7,6 @@ using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.Data.PostData;
 using PlattformOrdMan.UI.Controller;
-using PlattformOrdMan.UI.Dialog.OptionsDialog;
 using PlattformOrdMan.UI.View.Post;
 using DataException = PlattformOrdMan.Data.Exception.DataException;
 
@@ -1361,20 +1360,6 @@ namespace PlattformOrdMan.UI.Dialog
             catch (Exception ex)
             {
                 HandleError("Error when restoring sort order", ex);
-            }
-        }
-
-        private void OptionsButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var orderHistoryOptionsDialog = new OrderHistoryOptionsDialog {MdiParent = MdiParent};
-                orderHistoryOptionsDialog.OnOrderHistoryOptionsOK += OrderHistoryOptions_OK;
-                orderHistoryOptionsDialog.Show();
-            }
-            catch (Exception ex)
-            {
-                HandleError("Error when setting options", ex);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿namespace PlattformOrdMan.UI.Dialog
+﻿namespace PlattformOrdMan.UI.Dialog.OptionsDialog
 {
     partial class ViewingOptionsDialog
     {
