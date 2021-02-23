@@ -14,7 +14,7 @@ namespace PlattformOrdMan.UI.Component
         public EnquiryField()
         {
             InitializeComponent();
-            ValueTextBox.GotFocus += RemoveText;
+            ValueTextBox.GotFocus += OnGotFocus;
             ValueTextBox.LostFocus += AddPlaceholder;
             Load += AddPlaceholder;
         }
@@ -34,13 +34,18 @@ namespace PlattformOrdMan.UI.Component
 
         public string PlaceholderText { get; set; }
 
-        private void RemoveText(object sender, EventArgs e)
+        private void OnGotFocus(object sender, EventArgs e)
         {
             ResetColors();
             if (ValueTextBox.Text == PlaceholderText)
             {
                 ValueTextBox.Text = "";
                 ValueTextBox.ForeColor = SystemColors.WindowText;
+            }
+
+            if (!YesRadioButton.Checked)
+            {
+                YesRadioButton.Checked = true;
             }
         }
 

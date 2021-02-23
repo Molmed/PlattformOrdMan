@@ -58,6 +58,7 @@
             this.ValueTextBox.Size = new System.Drawing.Size(295, 20);
             this.ValueTextBox.TabIndex = 2;
             this.ValueTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ValueTextbox_Keydown);
+            this.ValueTextBox.KeyUp += ValueTextbox_Keyup;
             // 
             // YesRadioButton
             // 
