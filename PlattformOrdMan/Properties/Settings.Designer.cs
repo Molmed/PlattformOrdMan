@@ -139,5 +139,14 @@ namespace PlattformOrdMan.Properties {
                 return ((int)(this["BarCodeLengthInternal"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnforceAppVersion {
+            get {
+                return ((bool)(this["EnforceAppVersion"]));
+            }
+        }
     }
 }
