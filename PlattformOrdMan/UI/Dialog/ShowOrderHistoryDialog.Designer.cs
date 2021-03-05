@@ -251,6 +251,8 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // ButtonPanel
             // 
+            this.ButtonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonPanel.Controls.Add(this.NewOrderButton);
             this.ButtonPanel.Controls.Add(this.RestoreSortingButton);
             this.ButtonPanel.Location = new System.Drawing.Point(853, 131);
