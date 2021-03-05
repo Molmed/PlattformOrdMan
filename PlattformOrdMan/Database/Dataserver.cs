@@ -776,12 +776,12 @@ namespace PlattformOrdMan.Database
             return ExecuteCommand(commandBuilder);
         }
 
-        public Int32 UpdatePostSetSalesOrderNo(Int32 postId, string salesOrderNo)
+        public Int32 UpdatePostSetPurchaseSalesOrderNo(Int32 postId, string purchaseSalesOrderNo)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_UpdatePostSalesOrderNumber");
             commandBuilder.AddParameter(PostData.POST_ID, postId);
-            //commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
+            commandBuilder.AddParameter(PostData.PURCHASE_SALES_ORDER_NO, purchaseSalesOrderNo);
             return ExecuteCommand(commandBuilder);
         }
 

@@ -26,7 +26,7 @@ namespace PlattformOrdMan.UI.Dialog
         private const String ORDER_POST = "Sign order ...";
         private const String CONFIRM_ORDER = "Set order confirmed";
         private const String CONFIRM_ARRIVAL = "Confirm arrival";
-        private const String SET_ORDER_NR_SO = "Set Sales Order No (SO)";
+        private const String SET_ORDER_NR_PO_SO = "Set Purchase/Sales Order No (PO + SO)";
         private const String SUPPLIER = "Supplier ...";
         private const String MERCHANDISE = "Product ...";
         private const String SIGN_INVOICE_OK_AND_SENT = "Sign invoice Ok and sent";
@@ -250,7 +250,7 @@ namespace PlattformOrdMan.UI.Dialog
             AddMenuItem(PostsListView, ORDER_POST, OrderPostMenuItem_Click);
             AddMenuItem(PostsListView, CONFIRM_ORDER, ConfirmOrderMenuItem_Click);
             AddMenuItem(PostsListView, CONFIRM_ARRIVAL, ConfirmArrivalMenuItem_Click);
-            AddMenuItem(PostsListView, SET_ORDER_NR_SO, SetSalesOrderNo_Click);
+            AddMenuItem(PostsListView, SET_ORDER_NR_PO_SO, SetSalesOrderNo_Click);
             AddMenuItem(PostsListView, REGRET_ORDER_POST, RegretOrderPost);
             AddMenuItem(PostsListView, REGRET_CONFRIRM_ORDER, RegretOrderConfirmation);
             AddMenuItem(PostsListView, SIGN_INVOICE_OK_AND_SENT, SignInvoiceOkAndSentMenuItem_Click);
@@ -554,7 +554,7 @@ namespace PlattformOrdMan.UI.Dialog
             {
                 SetVisible(sender, ORDER_POST, false);
                 SetVisible(sender, CONFIRM_ORDER, false);
-                SetVisible(sender, SET_ORDER_NR_SO, false);
+                SetVisible(sender, SET_ORDER_NR_PO_SO, false);
                 SetVisible(sender, CONFIRM_ARRIVAL, false);
                 SetVisible(sender, UPDATE, false);
                 SetVisible(sender, DELETE, false);
@@ -655,7 +655,7 @@ namespace PlattformOrdMan.UI.Dialog
             if (UserManager.GetCurrentUser().HasAdministratorRights())
             {
                 SetVisible(sender, SET_INVOICE_NUMBER, true);
-                SetVisible(sender, SET_ORDER_NR_SO, true);
+                SetVisible(sender, SET_ORDER_NR_PO_SO, true);
             }
         }
 
@@ -768,7 +768,7 @@ namespace PlattformOrdMan.UI.Dialog
             PostList posts = new PostList();
             try
             {
-                var getValueDialog = new GetValueDialog(SET_ORDER_NR_SO, "Enter a sales order number, please.", "");
+                var getValueDialog = new GetValueDialog(SET_ORDER_NR_PO_SO, "Enter a purchase + sales order number, please.", "");
                 if (getValueDialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
@@ -777,7 +777,7 @@ namespace PlattformOrdMan.UI.Dialog
                 {
                     var tmpPost = viewItem.GetPost();
                     posts.Add(tmpPost);
-                    tmpPost.SetSalesOrderNo(getValueDialog.GetText());
+                    tmpPost.SetPurchaseAndSalesOrderNo(getValueDialog.GetText());
                 }
                 RedrawPosts(posts);
             }

@@ -1264,10 +1264,10 @@ namespace PlattformOrdMan.Data.PostData
             }
         }
 
-        public void SetSalesOrderNo(string salesOrderNo)
+        public void SetPurchaseAndSalesOrderNo(string purchaseSalesOrderNo)
         {
-            Database.UpdatePostSetSalesOrderNo(GetId(), salesOrderNo);
-            //_salesOrderNo = salesOrderNo;
+            Database.UpdatePostSetPurchaseSalesOrderNo(GetId(), purchaseSalesOrderNo);
+            _purchaseAndSalesOrderNo = purchaseSalesOrderNo;
         }
     }
 
