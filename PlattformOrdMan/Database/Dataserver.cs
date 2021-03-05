@@ -215,7 +215,7 @@ namespace PlattformOrdMan.Database
         public DataReader CreatePost(int articleNumberId, int bookerId, String comment, int merchandiseId, int supplierId, 
             int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, bool invoiceAbsent,
             string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseOrderNo, 
-            string salesOrderNo, string placeOfPurchase, bool periodizationAnswered,
+            string salesOrderNo, string purchaseAndsalesOrderNo, string placeOfPurchase, bool periodizationAnswered,
             bool hasPeriodization, string periodizationValue, bool accountAnswered, bool hasAccount, 
             string accountValue)
         {
@@ -254,6 +254,11 @@ namespace PlattformOrdMan.Database
             if (IsNotEmpty(salesOrderNo))
             {
                 commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
+            }
+
+            if (IsNotEmpty(purchaseAndsalesOrderNo))
+            {
+                commandBuilder.AddParameter(PostData.PURCHASE_SALES_ORDER_NO, purchaseAndsalesOrderNo);
             }
             if (IsNotEmpty(deliveryDeviation))
             {

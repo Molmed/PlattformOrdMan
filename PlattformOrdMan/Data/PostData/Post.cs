@@ -67,6 +67,7 @@ namespace PlattformOrdMan.Data.PostData
         private string _deliveryDeviation;
         private string _purchaseOrderNo;
         private string _salesOrderNo;
+        private string _purchaseAndSalesOrderNo;
         private PlaceOfPurchase _placeOfPurchase;
         private string _comment;
         private readonly int _id;
@@ -123,6 +124,7 @@ namespace PlattformOrdMan.Data.PostData
             _confirmedOrderUserId = dataReader.GetInt32(PlattformOrdMan.Database.PostData.AUTHORITY_ID_CONFIRMED_ORDER, NO_ID);
             _purchaseOrderNo = "";
             _salesOrderNo = "";
+            _purchaseAndSalesOrderNo = "";
             if (!dataReader.IsDBNull(PlattformOrdMan.Database.PostData.CONFIRMED_ORDER_DATE))
             {
                 _confirmedOrderDate = dataReader.GetDateTime(PlattformOrdMan.Database.PostData.CONFIRMED_ORDER_DATE);
@@ -179,6 +181,12 @@ namespace PlattformOrdMan.Data.PostData
             if (!dataReader.IsDBNull(PlattformOrdMan.Database.PostData.SALES_ORDER_NO))
             {
                 _salesOrderNo = dataReader.GetString(PlattformOrdMan.Database.PostData.SALES_ORDER_NO);
+            }
+
+            if (!dataReader.IsDBNull(PlattformOrdMan.Database.PostData.PURCHASE_SALES_ORDER_NO))
+            {
+                _purchaseAndSalesOrderNo =
+                    dataReader.GetString(PlattformOrdMan.Database.PostData.PURCHASE_SALES_ORDER_NO);
             }
 
             if (!dataReader.IsDBNull(PlattformOrdMan.Database.PostData.PLACE_OF_PURCHASE))
@@ -301,6 +309,11 @@ namespace PlattformOrdMan.Data.PostData
         public string GetSalesOrderNo()
         {
             return _salesOrderNo;
+        }
+
+        public string GetPurchaseAndSalesOrderNo()
+        {
+            return _purchaseAndSalesOrderNo;
         }
 
         public decimal GetFinalPrize()
@@ -1110,7 +1123,7 @@ namespace PlattformOrdMan.Data.PostData
                 GetBookerId(), GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(),
                 GetArrivalDate(), GetInvoiceUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 GetInvoiceNumber(), GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(), 
-                GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(),
+                GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPurchaseAndSalesOrderNo(), GetPlaceOfPurchase().ToString(),
                 markForAttention, _periodization, _account);
         }
 
@@ -1124,7 +1137,7 @@ namespace PlattformOrdMan.Data.PostData
                 GetBookerId(), GetBookDateDT(), GetOrderUserId(), GetOrderDate(), GetArrivalSignUserId(),
                 GetArrivalDate(), GetInvoicerUserId(), GetInvoiceDate(), _articleNumberId, GetSupplierId(),
                 invoiceNumber, GetFinalPrize(), GetConfirmedOrderDate(), GetConfirmedOrderUserId(),
-                GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPlaceOfPurchase().ToString(), 
+                GetDeliveryDeviation(), GetPurchaseOrderNo(), GetSalesOrderNo(), GetPurchaseAndSalesOrderNo(), GetPlaceOfPurchase().ToString(), 
                 AttentionFlag, _periodization, _account);
         }
 
@@ -1134,7 +1147,7 @@ namespace PlattformOrdMan.Data.PostData
             DateTime arrivalDate, int invoiceCheckerUserId, DateTime invoiceDate, 
             int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize, 
             DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation,
-            string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, 
+            string purchaseOrderNo, string salesOrderNo, string purchaseAndsalesOrderNo, string placeOfPurchase, 
             bool attentionFlag, Enquiry periodization, Enquiry account)
         {
             Database.UpdatePost(GetId(), comment, apprPrize, amount, invoiceClin, invoiceInst, apprArrival, 
@@ -1177,6 +1190,7 @@ namespace PlattformOrdMan.Data.PostData
             _deliveryDeviation = deliveryDeviation;
             _purchaseOrderNo = purchaseOrderNo;
             _salesOrderNo = salesOrderNo;
+            _purchaseAndSalesOrderNo = purchaseAndsalesOrderNo;
             _placeOfPurchase = (PlaceOfPurchase)(Enum.Parse(typeof(PlaceOfPurchase), placeOfPurchase));
 
             // Metadata update

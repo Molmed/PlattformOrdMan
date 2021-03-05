@@ -108,6 +108,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.Periodization = new PlattformOrdMan.UI.Component.PeriodizationField();
             this.Account = new PlattformOrdMan.UI.Component.AccountField();
+            this.PurchaseSalesOrderTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -927,6 +928,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.PurchaseSalesOrderTextBox);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
             this.splitContainer2.Panel1.Controls.Add(this.label24);
             this.splitContainer2.Panel1.Controls.Add(this.ShowSupplierButton);
@@ -971,6 +973,13 @@ namespace PlattformOrdMan.UI.Dialog
             this.Account.PlaceholderText = "Fill in if other than SNP&SEQ standard operational";
             this.Account.Size = new System.Drawing.Size(482, 44);
             this.Account.TabIndex = 0;
+            // 
+            // PurchaseSalesOrderTextBox
+            // 
+            this.PurchaseSalesOrderTextBox.Location = new System.Drawing.Point(206, 121);
+            this.PurchaseSalesOrderTextBox.Name = "PurchaseSalesOrderTextBox";
+            this.PurchaseSalesOrderTextBox.Size = new System.Drawing.Size(315, 20);
+            this.PurchaseSalesOrderTextBox.TabIndex = 45;
             // 
             // CreatePostDialog
             // 
@@ -1092,5 +1101,6 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.SplitContainer splitContainer2;
         private Component.PeriodizationField Periodization;
         private Component.AccountField Account;
+        private System.Windows.Forms.TextBox PurchaseSalesOrderTextBox;
     }
 }

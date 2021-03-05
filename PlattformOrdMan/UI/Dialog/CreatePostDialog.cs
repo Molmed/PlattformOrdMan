@@ -688,8 +688,9 @@ namespace PlattformOrdMan.UI.Dialog
             _post = PostManager.CreatePost(merchandise.GetCurrentArticleNumberId(), bookerUserId, GetCommentFromForm(),
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
                 InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
-                finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text,
-                popStr, Periodization.GetEnquiry(), Account.GetEnquiry());
+                finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, 
+                PurchaseSalesOrderTextBox.Text,popStr, Periodization.GetEnquiry(), 
+                Account.GetEnquiry());
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
                 OrdererUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
             {
@@ -940,7 +941,8 @@ namespace PlattformOrdMan.UI.Dialog
                 _post.GetMerchandise().GetCurrentArticleNumberId(),
                 SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
-                PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, popStr,
+                PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, 
+                PurchaseSalesOrderTextBox.Text, popStr,
                 AttentionCheckBox.Checked, Periodization.GetEnquiry(),
                 Account.GetEnquiry());
             if (_post.IsInvoceAbsent() && _post.GetPostStatus() == Post.PostStatus.Confirmed)
