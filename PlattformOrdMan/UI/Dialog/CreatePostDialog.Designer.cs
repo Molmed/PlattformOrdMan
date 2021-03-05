@@ -48,14 +48,14 @@ namespace PlattformOrdMan.UI.Dialog
             this.label5 = new System.Windows.Forms.Label();
             this.MerchandiseCommentTextBox = new System.Windows.Forms.TextBox();
             this.NoInvoiceCheckBox = new System.Windows.Forms.CheckBox();
-            this.SupplierComboBox = new SupplierCombobox();
-            this.merchandiseCombobox1 = new MerchandiseCombobox();
+            this.SupplierComboBox = new PlattformOrdMan.UI.Component.SupplierCombobox();
+            this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.AttentionCheckBox = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.ConfirmedOrderDateTextBox = new System.Windows.Forms.TextBox();
-            this.ConfirmedOrderUserComboBox = new UserComboBox();
+            this.ConfirmedOrderUserComboBox = new PlattformOrdMan.UI.Component.UserComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -63,15 +63,15 @@ namespace PlattformOrdMan.UI.Dialog
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.ArrivalDateTextBox = new System.Windows.Forms.TextBox();
-            this.ArrivalSignUserComboBox = new UserComboBox();
+            this.ArrivalSignUserComboBox = new PlattformOrdMan.UI.Component.UserComboBox();
             this.OrderDateTextBox = new System.Windows.Forms.TextBox();
-            this.OrdererUserComboBox = new UserComboBox();
+            this.OrdererUserComboBox = new PlattformOrdMan.UI.Component.UserComboBox();
             this.BookDateTextBox = new System.Windows.Forms.TextBox();
-            this.BookerUserComboBox = new UserComboBox();
+            this.BookerUserComboBox = new PlattformOrdMan.UI.Component.UserComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.InvoiceCheckDateTextBox = new System.Windows.Forms.TextBox();
-            this.InvoiceCheckerUserComboBox = new UserComboBox();
+            this.InvoiceCheckerUserComboBox = new PlattformOrdMan.UI.Component.UserComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.InvoiceNumberTextBox = new System.Windows.Forms.TextBox();
             this.DeliveryDeviationTextBox = new System.Windows.Forms.TextBox();
@@ -98,7 +98,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.FinalPrizeTextBox = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.EditCurrencyButton = new System.Windows.Forms.Button();
-            this.CurrencyCombobox = new CurrencyCombobox();
+            this.CurrencyCombobox = new PlattformOrdMan.UI.Component.CurrencyCombobox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
@@ -106,8 +106,8 @@ namespace PlattformOrdMan.UI.Dialog
             this.commentPanel = new System.Windows.Forms.Panel();
             this.topPanel = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.Periodization = new PeriodizationField();
-            this.Account = new AccountField();
+            this.Periodization = new PlattformOrdMan.UI.Component.PeriodizationField();
+            this.Account = new PlattformOrdMan.UI.Component.AccountField();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -815,6 +815,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.FinalPrizeTextBox.Name = "FinalPrizeTextBox";
             this.FinalPrizeTextBox.Size = new System.Drawing.Size(380, 20);
             this.FinalPrizeTextBox.TabIndex = 56;
+            this.FinalPrizeTextBox.TextChanged += new System.EventHandler(this.FinalPrizeTextBox_TextChanged);
             // 
             // label16
             // 

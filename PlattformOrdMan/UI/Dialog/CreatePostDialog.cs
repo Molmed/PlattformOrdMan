@@ -6,7 +6,6 @@ using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.Data.PostData;
-using PlattformOrdMan.Database;
 using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
 namespace PlattformOrdMan.UI.Dialog
@@ -1426,17 +1425,6 @@ namespace PlattformOrdMan.UI.Dialog
             HandleSaveButtonEnabled();
         }
 
-        private void InvoiceOKCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            HandleSaveButtonEnabled();
-        }
-
-        private void FinalPrizeTextBox_TextChanged(object sender, EventArgs e)
-        {
-            HandleSaveButtonEnabled();
-            SetTotalPrize();
-        }
-
         private void InvoiceNumberTextBox_TextChanged(object sender, EventArgs e)
         {
             HandleSaveButtonEnabled();
@@ -1460,23 +1448,7 @@ namespace PlattformOrdMan.UI.Dialog
         {
         }
 
-        private void label16_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void CurrencyCombobox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-        }
-
         private void ApprArrivalLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label6_Click(object sender, EventArgs e)
         {
         }
 
@@ -1543,11 +1515,6 @@ namespace PlattformOrdMan.UI.Dialog
         {
         }
 
-        private void CustomerNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            HandleSaveButtonEnabled();
-        }
-
         private void AttentionCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             AttentionCheckBox.BackColor = AttentionCheckBox.Checked ? Color.Red : BackColor;
@@ -1560,6 +1527,11 @@ namespace PlattformOrdMan.UI.Dialog
         }
 
         protected void Account_Changed(object sender, EventArgs e)
+        {
+            HandleSaveButtonEnabled();
+        }
+
+        private void FinalPrizeTextBox_TextChanged(object sender, EventArgs e)
         {
             HandleSaveButtonEnabled();
         }
