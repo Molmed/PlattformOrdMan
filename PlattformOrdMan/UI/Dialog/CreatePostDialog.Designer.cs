@@ -80,10 +80,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.StorageTextBox = new System.Windows.Forms.TextBox();
             this.ShowSupplierButton = new System.Windows.Forms.Button();
             this.ShowProductButton = new System.Windows.Forms.Button();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.PurchaseOrderNoTextBox = new System.Windows.Forms.TextBox();
-            this.SalesOrdernoTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.bottomPanel = new System.Windows.Forms.Panel();
@@ -106,9 +102,10 @@ namespace PlattformOrdMan.UI.Dialog
             this.commentPanel = new System.Windows.Forms.Panel();
             this.topPanel = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.PurchaseSalesOrderTextBox = new System.Windows.Forms.TextBox();
             this.Periodization = new PlattformOrdMan.UI.Component.PeriodizationField();
             this.Account = new PlattformOrdMan.UI.Component.AccountField();
-            this.PurchaseSalesOrderTextBox = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -633,46 +630,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.ShowProductButton.UseVisualStyleBackColor = true;
             this.ShowProductButton.Click += new System.EventHandler(this.ShowProductButton_Click);
             // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 95);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(97, 13);
-            this.label23.TabIndex = 41;
-            this.label23.Text = "Purchase order no.";
-            this.label23.Click += new System.EventHandler(this.label23_Click);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(6, 121);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(78, 13);
-            this.label24.TabIndex = 42;
-            this.label24.Text = "Sales order no.";
-            this.label24.Click += new System.EventHandler(this.label24_Click);
-            // 
-            // PurchaseOrderNoTextBox
-            // 
-            this.PurchaseOrderNoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PurchaseOrderNoTextBox.Location = new System.Drawing.Point(123, 92);
-            this.PurchaseOrderNoTextBox.Name = "PurchaseOrderNoTextBox";
-            this.PurchaseOrderNoTextBox.Size = new System.Drawing.Size(335, 20);
-            this.PurchaseOrderNoTextBox.TabIndex = 43;
-            this.PurchaseOrderNoTextBox.TextChanged += new System.EventHandler(this.PurchaseOrderNoTextBox_TextChanged);
-            // 
-            // SalesOrdernoTextBox
-            // 
-            this.SalesOrdernoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SalesOrdernoTextBox.Location = new System.Drawing.Point(123, 118);
-            this.SalesOrdernoTextBox.Name = "SalesOrdernoTextBox";
-            this.SalesOrdernoTextBox.Size = new System.Drawing.Size(335, 20);
-            this.SalesOrdernoTextBox.TabIndex = 44;
-            this.SalesOrdernoTextBox.TextChanged += new System.EventHandler(this.SalesOrdernoTextBox_TextChanged);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.OrderingUnitComboBox);
@@ -928,14 +885,11 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.label25);
             this.splitContainer2.Panel1.Controls.Add(this.PurchaseSalesOrderTextBox);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
-            this.splitContainer2.Panel1.Controls.Add(this.label24);
             this.splitContainer2.Panel1.Controls.Add(this.ShowSupplierButton);
-            this.splitContainer2.Panel1.Controls.Add(this.label23);
             this.splitContainer2.Panel1.Controls.Add(this.SupplierComboBox);
-            this.splitContainer2.Panel1.Controls.Add(this.SalesOrdernoTextBox);
-            this.splitContainer2.Panel1.Controls.Add(this.PurchaseOrderNoTextBox);
             this.splitContainer2.Panel1.Controls.Add(this.ShowProductButton);
             this.splitContainer2.Panel1.Controls.Add(this.label3);
             this.splitContainer2.Panel1.Controls.Add(this.merchandiseCombobox1);
@@ -949,6 +903,16 @@ namespace PlattformOrdMan.UI.Dialog
             this.splitContainer2.Size = new System.Drawing.Size(971, 157);
             this.splitContainer2.SplitterDistance = 479;
             this.splitContainer2.TabIndex = 42;
+            // 
+            // PurchaseSalesOrderTextBox
+            // 
+            this.PurchaseSalesOrderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PurchaseSalesOrderTextBox.Location = new System.Drawing.Point(148, 90);
+            this.PurchaseSalesOrderTextBox.Name = "PurchaseSalesOrderTextBox";
+            this.PurchaseSalesOrderTextBox.Size = new System.Drawing.Size(310, 20);
+            this.PurchaseSalesOrderTextBox.TabIndex = 45;
+            this.PurchaseSalesOrderTextBox.TextChanged += new System.EventHandler(this.PurchaseSalesOrderTextBox_TextChanged);
             // 
             // Periodization
             // 
@@ -974,12 +938,14 @@ namespace PlattformOrdMan.UI.Dialog
             this.Account.Size = new System.Drawing.Size(482, 44);
             this.Account.TabIndex = 0;
             // 
-            // PurchaseSalesOrderTextBox
+            // label25
             // 
-            this.PurchaseSalesOrderTextBox.Location = new System.Drawing.Point(206, 121);
-            this.PurchaseSalesOrderTextBox.Name = "PurchaseSalesOrderTextBox";
-            this.PurchaseSalesOrderTextBox.Size = new System.Drawing.Size(315, 20);
-            this.PurchaseSalesOrderTextBox.TabIndex = 45;
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(3, 93);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(139, 13);
+            this.label25.TabIndex = 46;
+            this.label25.Text = "Purchase + Sales Order No:";
             // 
             // CreatePostDialog
             // 
@@ -1072,10 +1038,6 @@ namespace PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.TextBox StorageTextBox;
         private System.Windows.Forms.Button ShowSupplierButton;
         private System.Windows.Forms.Button ShowProductButton;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox PurchaseOrderNoTextBox;
-        private System.Windows.Forms.TextBox SalesOrdernoTextBox;
         private System.Windows.Forms.CheckBox AttentionCheckBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabStatusType;
@@ -1102,5 +1064,6 @@ namespace PlattformOrdMan.UI.Dialog
         private Component.PeriodizationField Periodization;
         private Component.AccountField Account;
         private System.Windows.Forms.TextBox PurchaseSalesOrderTextBox;
+        private System.Windows.Forms.Label label25;
     }
 }

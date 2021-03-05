@@ -214,8 +214,8 @@ namespace PlattformOrdMan.Database
 
         public DataReader CreatePost(int articleNumberId, int bookerId, String comment, int merchandiseId, int supplierId, 
             int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, bool invoiceAbsent,
-            string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseOrderNo, 
-            string salesOrderNo, string purchaseAndsalesOrderNo, string placeOfPurchase, bool periodizationAnswered,
+            string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseAndsalesOrderNo, 
+            string placeOfPurchase, bool periodizationAnswered,
             bool hasPeriodization, string periodizationValue, bool accountAnswered, bool hasAccount, 
             string accountValue)
         {
@@ -247,14 +247,6 @@ namespace PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.INVOICE_NUMBER, invoiceNumber);
             commandBuilder.AddParameter(PostData.FINAL_PRIZE, finalPrize);
             commandBuilder.AddParameter(PostData.PLACE_OF_PURCHASE, placeOfPurchase);
-            if (IsNotEmpty(purchaseOrderNo))
-            {
-                commandBuilder.AddParameter(PostData.PURCHASE_ORDER_NO, purchaseOrderNo);
-            }
-            if (IsNotEmpty(salesOrderNo))
-            {
-                commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
-            }
 
             if (IsNotEmpty(purchaseAndsalesOrderNo))
             {
@@ -789,7 +781,7 @@ namespace PlattformOrdMan.Database
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_UpdatePostSalesOrderNumber");
             commandBuilder.AddParameter(PostData.POST_ID, postId);
-            commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
+            //commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
             return ExecuteCommand(commandBuilder);
         }
 
@@ -823,7 +815,7 @@ namespace PlattformOrdMan.Database
             int arrivalSignUserId, DateTime arrivalDate, int invoiceCheckerUserId, 
             DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize, 
             DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation, 
-            string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, 
+            string purchaseSalesOrderNo, string placeOfPurchase, 
             bool attentionFlag, string periodizationValue, bool hasPeriodization, bool periodizationAnswered, 
             string accountValue, bool hasAccount, bool accountAnswered
             )
@@ -850,13 +842,9 @@ namespace PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.ACCOUNT, accountValue);
             commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, accountAnswered);
             commandBuilder.AddParameter(PostData.HAS_ACCOUNT, hasAccount);
-            if (IsNotEmpty(purchaseOrderNo))
+            if (!string.IsNullOrEmpty(purchaseSalesOrderNo))
             {
-                commandBuilder.AddParameter(PostData.PURCHASE_ORDER_NO, purchaseOrderNo);
-            }
-            if (IsNotEmpty(salesOrderNo))
-            {
-                commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
+                commandBuilder.AddParameter(PostData.PURCHASE_SALES_ORDER_NO, purchaseSalesOrderNo);
             }
             if (orderUserId != PlattformOrdManData.NO_ID)
             {

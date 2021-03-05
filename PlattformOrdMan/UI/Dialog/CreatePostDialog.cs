@@ -365,8 +365,7 @@ namespace PlattformOrdMan.UI.Dialog
             MerchandiseCommentTextBox.Text = _post.GetMerchandise().GetComment();
             AmountTextBox.Text = _post.GetAmountString();
             CommentTextBox.Text = _post.GetComment();
-            PurchaseOrderNoTextBox.Text = _post.GetPurchaseOrderNo();
-            SalesOrdernoTextBox.Text = _post.GetSalesOrderNo();
+            PurchaseSalesOrderTextBox.Text = _post.GetPurchaseAndSalesOrderNo();
             DeliveryDeviationTextBox.Text = _post.GetDeliveryDeviation();
             ApprPrizeTextBox.Text = _post.GetPriceWithCurrencyString();
             FinalPrizeTextBox.Text = _post.GetFinalPrizeWithCurrencyString();
@@ -504,8 +503,7 @@ namespace PlattformOrdMan.UI.Dialog
                     InvoiceNumberTextBox.Text.Trim() != _post.GetInvoiceNumber() ||
                     ConfirmedOrderUserComboBox.GetSelectedIdentityId() != _post.GetConfirmedOrderUserId() ||
                     GetConfirmedOrderDate().Date != _post.GetConfirmedOrderDate().Date ||
-                    PurchaseOrderNoTextBox.Text.Trim() != _post.GetPurchaseOrderNo() ||
-                    SalesOrdernoTextBox.Text.Trim() != _post.GetSalesOrderNo() ||
+                    PurchaseSalesOrderTextBox.Text.Trim() != _post.GetPurchaseAndSalesOrderNo() ||
                     IsOrderingUnitUpdated() ||
                     IsSupplierUpdated() ||
                     AttentionCheckBox.Checked != _post.AttentionFlag ||
@@ -688,8 +686,7 @@ namespace PlattformOrdMan.UI.Dialog
             _post = PostManager.CreatePost(merchandise.GetCurrentArticleNumberId(), bookerUserId, GetCommentFromForm(),
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
                 InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
-                finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, 
-                PurchaseSalesOrderTextBox.Text,popStr, Periodization.GetEnquiry(), 
+                finalPrize, GetDeliveryDeviationFromForm(), PurchaseSalesOrderTextBox.Text,popStr, Periodization.GetEnquiry(), 
                 Account.GetEnquiry());
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
                 OrdererUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
@@ -941,7 +938,6 @@ namespace PlattformOrdMan.UI.Dialog
                 _post.GetMerchandise().GetCurrentArticleNumberId(),
                 SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
-                PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, 
                 PurchaseSalesOrderTextBox.Text, popStr,
                 AttentionCheckBox.Checked, Periodization.GetEnquiry(),
                 Account.GetEnquiry());
@@ -1534,6 +1530,11 @@ namespace PlattformOrdMan.UI.Dialog
         }
 
         private void FinalPrizeTextBox_TextChanged(object sender, EventArgs e)
+        {
+            HandleSaveButtonEnabled();
+        }
+
+        private void PurchaseSalesOrderTextBox_TextChanged(object sender, EventArgs e)
         {
             HandleSaveButtonEnabled();
         }

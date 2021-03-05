@@ -189,11 +189,7 @@ namespace PlattformOrdMan.UI.Component
             if (searchStr.Length > 0 &&
                 searchStr != FREE_TEXT_SEARCH)
             {
-                if (post.GetPurchaseOrderNo().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetSalesOrderNo().ToLower().Contains(searchStr.ToLower()))
+                if (post.GetPurchaseAndSalesOrderNo().ToLower().Contains(searchStr.ToLower()))
                 {
                     return true;
                 }
