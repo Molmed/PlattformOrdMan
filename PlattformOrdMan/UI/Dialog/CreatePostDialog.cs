@@ -6,7 +6,6 @@ using PlattformOrdMan.Data;
 using PlattformOrdMan.Data.Conf;
 using PlattformOrdMan.Data.Exception;
 using PlattformOrdMan.Data.PostData;
-using PlattformOrdMan.Database;
 using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
 namespace PlattformOrdMan.UI.Dialog
@@ -366,8 +365,7 @@ namespace PlattformOrdMan.UI.Dialog
             MerchandiseCommentTextBox.Text = _post.GetMerchandise().GetComment();
             AmountTextBox.Text = _post.GetAmountString();
             CommentTextBox.Text = _post.GetComment();
-            PurchaseOrderNoTextBox.Text = _post.GetPurchaseOrderNo();
-            SalesOrdernoTextBox.Text = _post.GetSalesOrderNo();
+            PurchaseSalesOrderTextBox.Text = _post.GetPurchaseAndSalesOrderNo();
             DeliveryDeviationTextBox.Text = _post.GetDeliveryDeviation();
             ApprPrizeTextBox.Text = _post.GetPriceWithCurrencyString();
             FinalPrizeTextBox.Text = _post.GetFinalPrizeWithCurrencyString();
@@ -505,8 +503,7 @@ namespace PlattformOrdMan.UI.Dialog
                     InvoiceNumberTextBox.Text.Trim() != _post.GetInvoiceNumber() ||
                     ConfirmedOrderUserComboBox.GetSelectedIdentityId() != _post.GetConfirmedOrderUserId() ||
                     GetConfirmedOrderDate().Date != _post.GetConfirmedOrderDate().Date ||
-                    PurchaseOrderNoTextBox.Text.Trim() != _post.GetPurchaseOrderNo() ||
-                    SalesOrdernoTextBox.Text.Trim() != _post.GetSalesOrderNo() ||
+                    PurchaseSalesOrderTextBox.Text.Trim() != _post.GetPurchaseAndSalesOrderNo() ||
                     IsOrderingUnitUpdated() ||
                     IsSupplierUpdated() ||
                     AttentionCheckBox.Checked != _post.AttentionFlag ||
@@ -689,8 +686,8 @@ namespace PlattformOrdMan.UI.Dialog
             _post = PostManager.CreatePost(merchandise.GetCurrentArticleNumberId(), bookerUserId, GetCommentFromForm(),
                 merchandise.GetId(), supplierId, GetAmountFromForm(), prize, currencyId, InvoiceInstCheckBox.Checked,
                 InvoiceClinCheckBox.Checked, NoInvoiceCheckBox.Checked, GetInvoiceNumberFromForm(),
-                finalPrize, GetDeliveryDeviationFromForm(), PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text,
-                popStr, Periodization.GetEnquiry(), Account.GetEnquiry());
+                finalPrize, GetDeliveryDeviationFromForm(), PurchaseSalesOrderTextBox.Text,popStr, Periodization.GetEnquiry(), 
+                Account.GetEnquiry());
             if (GetDate(BookDateTextBox.Text.Trim()).Date != DateTime.Now.Date ||
                 OrdererUserComboBox.GetSelectedIdentityId() != PlattformOrdManData.NO_ID)
             {
@@ -941,7 +938,7 @@ namespace PlattformOrdMan.UI.Dialog
                 _post.GetMerchandise().GetCurrentArticleNumberId(),
                 SupplierComboBox.GetSelectedIdentityId(), GetInvoiceNumberFromForm(), finalPrize,
                 GetConfirmedOrderDate(), confirmOrderUserId, GetDeliveryDeviationFromForm(),
-                PurchaseOrderNoTextBox.Text, SalesOrdernoTextBox.Text, popStr,
+                PurchaseSalesOrderTextBox.Text, popStr,
                 AttentionCheckBox.Checked, Periodization.GetEnquiry(),
                 Account.GetEnquiry());
             if (_post.IsInvoceAbsent() && _post.GetPostStatus() == Post.PostStatus.Confirmed)
@@ -1426,17 +1423,6 @@ namespace PlattformOrdMan.UI.Dialog
             HandleSaveButtonEnabled();
         }
 
-        private void InvoiceOKCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            HandleSaveButtonEnabled();
-        }
-
-        private void FinalPrizeTextBox_TextChanged(object sender, EventArgs e)
-        {
-            HandleSaveButtonEnabled();
-            SetTotalPrize();
-        }
-
         private void InvoiceNumberTextBox_TextChanged(object sender, EventArgs e)
         {
             HandleSaveButtonEnabled();
@@ -1460,23 +1446,7 @@ namespace PlattformOrdMan.UI.Dialog
         {
         }
 
-        private void label16_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void CurrencyCombobox_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-        }
-
         private void ApprArrivalLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label6_Click(object sender, EventArgs e)
         {
         }
 
@@ -1543,11 +1513,6 @@ namespace PlattformOrdMan.UI.Dialog
         {
         }
 
-        private void CustomerNumberComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            HandleSaveButtonEnabled();
-        }
-
         private void AttentionCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             AttentionCheckBox.BackColor = AttentionCheckBox.Checked ? Color.Red : BackColor;
@@ -1560,6 +1525,16 @@ namespace PlattformOrdMan.UI.Dialog
         }
 
         protected void Account_Changed(object sender, EventArgs e)
+        {
+            HandleSaveButtonEnabled();
+        }
+
+        private void FinalPrizeTextBox_TextChanged(object sender, EventArgs e)
+        {
+            HandleSaveButtonEnabled();
+        }
+
+        private void PurchaseSalesOrderTextBox_TextChanged(object sender, EventArgs e)
         {
             HandleSaveButtonEnabled();
         }

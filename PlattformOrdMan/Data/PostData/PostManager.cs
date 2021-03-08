@@ -13,7 +13,7 @@ namespace PlattformOrdMan.Data.PostData
         public static Post CreatePost(int articleNumberId, int bookerUserId, String comment, int merchandiseId, int supplierId,
                         int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, 
                         bool invoiceAbsent, string invoiceNumber, decimal finalPrize, string deliveryDeviation,
-                        string purchaseOrderNo, string salesOrderNo, string placeOfPurchase,
+                        string purchaseAndsalesOrderNo, string placeOfPurchase,
                         Enquiry periodization, Enquiry account)
         {
             DataReader dataReader = null;
@@ -22,7 +22,7 @@ namespace PlattformOrdMan.Data.PostData
             {
                 dataReader = Database.CreatePost(articleNumberId, bookerUserId, comment, merchandiseId, supplierId, amount, 
                     apprPrize, currencyId, invoiceInst, invoiceClin, invoiceAbsent, invoiceNumber, finalPrize, 
-                    deliveryDeviation, purchaseOrderNo, salesOrderNo, placeOfPurchase, 
+                    deliveryDeviation, purchaseAndsalesOrderNo, placeOfPurchase, 
                     periodization.HasAnswered, periodization.HasValue, periodization.Value, 
                     account.HasAnswered, account.HasValue, account.Value);
                 if (dataReader.Read())

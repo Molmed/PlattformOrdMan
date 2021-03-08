@@ -105,8 +105,7 @@ namespace PlattformOrdMan.Database
         public const String AUTHORITY_ID_CONFIRMED_ORDER = "authority_id_confirmed_order";
         public const String CONFIRMED_ORDER_DATE = "confirmed_order_date";
         public const String DELIVERY_DEVIATION = "delivery_deviation";
-        public const String PURCHASE_ORDER_NO = "purchase_order_no";
-        public const String SALES_ORDER_NO = "sales_order_no";
+        public const String PURCHASE_SALES_ORDER_NO = "purchase_sales_order_no";
         public const String PLACE_OF_PURCHASE = "place_of_purchase";
         public const String CUSTOMER_NUMBER_ID = "customer_number_id";
         public const String MERCHANDISE_IDENTIFIER = "merchandise_identifier";

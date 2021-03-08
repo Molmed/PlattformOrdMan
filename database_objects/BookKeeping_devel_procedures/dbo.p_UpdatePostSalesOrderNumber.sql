@@ -9,7 +9,7 @@ GO
 
 CREATE PROCEDURE [dbo].[p_UpdatePostSalesOrderNumber](
 @id INTEGER,
-@sales_order_no varchar(255)
+@purchase_sales_order_no varchar(255)
 )
 
 AS
@@ -18,7 +18,7 @@ SET NOCOUNT ON
 
 UPDATE post 
 SET 
-	sales_order_no = @sales_order_no
+	purchase_sales_order_no = @purchase_sales_order_no
 WHERE post_id = @id
 	
 IF @@ERROR <> 0

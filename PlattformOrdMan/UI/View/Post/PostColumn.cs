@@ -66,8 +66,7 @@ namespace PlattformOrdMan.UI.View.Post
                 case PostListViewColumn.InvoiceStatus:
                 case PostListViewColumn.OrderSign:
                 case PostListViewColumn.Product:
-                case PostListViewColumn.PurchaseOrderNo:
-                case PostListViewColumn.SalesOrderNo:
+                case PostListViewColumn.PurchaseSalesOrderNo:
                 case PostListViewColumn.Supplier:
                 case PostListViewColumn.PlaceOfPurchase:
                 case PostListViewColumn.Account:
@@ -132,10 +131,8 @@ namespace PlattformOrdMan.UI.View.Post
                     return "Order sign";
                 case PostListViewColumn.Product:
                     return "Product";
-                case PostListViewColumn.PurchaseOrderNo:
-                    return "PO";
-                case PostListViewColumn.SalesOrderNo:
-                    return "SO";
+                case PostListViewColumn.PurchaseSalesOrderNo:
+                    return "PO + SO";
                 case PostListViewColumn.PlaceOfPurchase:
                     return "Group";
                 default:
@@ -197,10 +194,8 @@ namespace PlattformOrdMan.UI.View.Post
                     return post.GetOrdererName();
                 case PostListViewColumn.Product:
                     return post.GetMerchandiseName2();
-                case PostListViewColumn.PurchaseOrderNo:
-                    return post.GetPurchaseOrderNo();
-                case PostListViewColumn.SalesOrderNo:
-                    return post.GetSalesOrderNo();
+                case PostListViewColumn.PurchaseSalesOrderNo:
+                    return post.GetPurchaseAndSalesOrderNo();
                 case PostListViewColumn.Supplier:
                     return post.GetSupplierName2();
                 case PostListViewColumn.PlaceOfPurchase:
