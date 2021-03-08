@@ -1,4 +1,6 @@
-﻿namespace Molmed.PlattformOrdMan.UI.Dialog
+﻿using PlattformOrdMan.UI.Component;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class InvoiceCategoryDialog
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.invoiceCategoryCombobox1 = new Molmed.PlattformOrdMan.UI.Component.InvoiceCategoryCombobox();
+            this.invoiceCategoryCombobox1 = new InvoiceCategoryCombobox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -145,7 +147,7 @@
 
         #endregion
 
-        private Molmed.PlattformOrdMan.UI.Component.InvoiceCategoryCombobox invoiceCategoryCombobox1;
+        private InvoiceCategoryCombobox invoiceCategoryCombobox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

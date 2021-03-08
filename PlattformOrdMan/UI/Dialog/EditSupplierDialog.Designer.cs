@@ -1,4 +1,6 @@
-namespace Molmed.PlattformOrdMan.UI.Dialog
+using PlattformOrdMan.UI.View.Base;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class EditSupplierDialog
     {
@@ -43,7 +45,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.MyCancelButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.ShortNameTextBox = new System.Windows.Forms.TextBox();
-            this.CustomerNumberListView = new Molmed.PlattformOrdMan.UI.View.OrderManListView();
+            this.CustomerNumberListView = new OrderManListView();
             this.CustomerNumberFilterCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -253,7 +255,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private System.Windows.Forms.Button MyCancelButton;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox ShortNameTextBox;
-        private View.OrderManListView CustomerNumberListView;
+        private OrderManListView CustomerNumberListView;
         private System.Windows.Forms.CheckBox CustomerNumberFilterCheckBox;
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace Molmed.PlattformOrdMan.UI.View
+namespace PlattformOrdMan.UI.View
 {
     public interface IScrollableView
     {

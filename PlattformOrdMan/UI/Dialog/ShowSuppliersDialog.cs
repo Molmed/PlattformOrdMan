@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan;
-using Molmed.PlattformOrdMan.UI.View;
-using Molmed.PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.UI.View;
+using PlattformOrdMan.UI.View.Base;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class ShowSuppliersDialog : OrdManForm, ISupplierForm
     {
@@ -202,12 +197,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             int width;
             width = PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH;
-            SuppliersListView.AddColumn("Name", width, OrderManListView.ListDataType.String);
-            SuppliersListView.AddColumn("Enabled", width, OrderManListView.ListDataType.String);
-            SuppliersListView.AddColumn("Short name", width, OrderManListView.ListDataType.String);
-            SuppliersListView.AddColumn("Tel nr/fax", width, OrderManListView.ListDataType.String);
-            SuppliersListView.AddColumn("Contract term.", width, OrderManListView.ListDataType.String);
-            SuppliersListView.AddColumn("Comment", width, OrderManListView.ListDataType.String);
+            SuppliersListView.AddColumn("Name", width, ListDataType.String);
+            SuppliersListView.AddColumn("Enabled", width, ListDataType.String);
+            SuppliersListView.AddColumn("Short name", width, ListDataType.String);
+            SuppliersListView.AddColumn("Tel nr/fax", width, ListDataType.String);
+            SuppliersListView.AddColumn("Contract term.", width, ListDataType.String);
+            SuppliersListView.AddColumn("Comment", width, ListDataType.String);
 
             AddMenuItem(SuppliersListView, DELETE, DeleteMenuItem_Click);
             AddMenuItem(SuppliersListView, PROPERTIES, PropertiesMenuItem_Click);
@@ -215,7 +210,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             new CopyListViewMenu(SuppliersListView);
             SuppliersListView.DoubleClick += new EventHandler(PropertiesMenuItem_Click);
             UpdateListView();
-            SuppliersListView.OnSortOrderSet += new OrderManListView.SortOrderSet(SuppliersListView_OnSortOrderSet);
+            SuppliersListView.OnSortOrderSet += new SortOrderSet(SuppliersListView_OnSortOrderSet);
         }
 
         void SuppliersListView_OnSortOrderSet(object sender, EventArgs e)

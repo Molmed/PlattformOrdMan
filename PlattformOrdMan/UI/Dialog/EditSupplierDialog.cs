@@ -1,14 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.Data.PostData;
+using PlattformOrdMan.UI.View.Base;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
 
     public partial class EditSupplierDialog : OrdManForm, ISupplierForm
@@ -261,12 +259,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 CustomerNumberListView.Columns.Clear();
             }
-            CustomerNumberListView.AddColumn("Customer number", -2, View.OrderManListView.ListDataType.String);
-            CustomerNumberListView.AddColumn("Description", -2, View.OrderManListView.ListDataType.String);
-            CustomerNumberListView.AddColumn("Used by Group", -2, View.OrderManListView.ListDataType.String);
+            CustomerNumberListView.AddColumn("Customer number", -2, ListDataType.String);
+            CustomerNumberListView.AddColumn("Description", -2, ListDataType.String);
+            CustomerNumberListView.AddColumn("Used by Group", -2, ListDataType.String);
             if (showArchived)
             {
-                CustomerNumberListView.AddColumn("Archived", -2, View.OrderManListView.ListDataType.String);
+                CustomerNumberListView.AddColumn("Archived", -2, ListDataType.String);
             }
 
         }
@@ -545,21 +543,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             CreateCustomerNumbers(false);
             MySupplier.ResetCustomerNumberLocal();
             MySupplier.Set();
-            UpdateInLinePosts();
-        }
-
-        private void UpdateInLinePosts()
-        {
-            foreach (CustomerNumberLocal custLocal in MyLocalCustomerNumbers)
-            {
-                if (custLocal.HasPendingPostsUpdate())
-                {
-                    foreach (Post post in custLocal.GetPendingUpdatePosts())
-                    {
-                        post.UpdateCustomerNumberId(custLocal.GetId());
-                    }
-                }
-            }
         }
 
         private void HandleEnableStatus()

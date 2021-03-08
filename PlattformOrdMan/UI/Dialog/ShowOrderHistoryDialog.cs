@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using Molmed.PlattformOrdMan.UI.View;
-using Molmed.PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.Data.PostData;
+using PlattformOrdMan.UI.Controller;
+using PlattformOrdMan.UI.View.Post;
+using DataException = PlattformOrdMan.Data.Exception.DataException;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
-    public partial class ShowOrderHistoryDialog : OrdManForm, ISupplierForm, IMerchandiseForm, IPostForm
+    public partial class ShowOrderHistoryDialog : OrdManForm, ISupplierForm, IMerchandiseForm, IPostForm, IViewingOptionsForm
     {
         private PostList _posts;
+        private int _diff;
         private Dictionary<int, PostList> _supplierDict;
         private Dictionary<int, PostList> _prodDict;
         private ToolTipHandler _toolTipHandler;
@@ -23,7 +26,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private const String ORDER_POST = "Sign order ...";
         private const String CONFIRM_ORDER = "Set order confirmed";
         private const String CONFIRM_ARRIVAL = "Confirm arrival";
-        private const String SET_ORDER_NR_SO = "Set Sales Order No (SO)";
+        private const String SET_ORDER_NR_PO_SO = "Set Purchase/Sales Order No (PO + SO)";
         private const String SUPPLIER = "Supplier ...";
         private const String MERCHANDISE = "Product ...";
         private const String SIGN_INVOICE_OK_AND_SENT = "Sign invoice Ok and sent";
@@ -48,46 +51,53 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void Init()
         {
-            SupplierManager.RefreshCache();
-            MerchandiseManager.RefreshCache();
-            var suppliers = SupplierManager.GetSuppliersFromCache();
-            SupplierCombobox.Init(suppliers, "supplier", true);
-            SupplierCombobox.LoadIdentitiesWithInfoText();
-            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
-            merchandiseCombobox1.Init(true, false);
-            merchandiseCombobox1.LoadIdentitiesWithInfoText();
+            var diffCandidate = searchPanel2.Location.Y + searchPanel2.Height - InfoPanel.Location.Y - InfoPanel.Height;
+            _diff = Math.Max(diffCandidate, 0);
             PostOrderInfoLabel.BackColor = Color.LightCoral;
             ProductArrivalLabel.BackColor = Color.Yellow;
             ProductOrderConfirmedLabel.BackColor = Color.LightBlue;
             CompletedPostPanel.BackColor = Color.White;
             InvoiceNotCheckedPanel.BackColor = Color.Lime;
             AttentionPanel.BackColor = Color.Red;
-            userComboBox1.Init(true, "booker");
-            userComboBox1.LoadIdentitiesWithInfoText();
-            userComboBox1.OnMyControlledSelectedIndexChanged +=
-                userComboBox1_OnMyControlledSelectedIndexChanged;
-            merchandiseCombobox1.Enabled = true;
+            PeriodizationPanel.BackColor = Color.DarkMagenta;
             RestoreSortingButton.Enabled = false;
             LoadPosts();
             InitListView();
-            SupplierCombobox.OnMyControlledSelectedIndexChanged +=
-                SupplierCombobox_OnMyControlledSelectedIndexChanged;
-            merchandiseCombobox1.OnMyControlledSelectedIndexChanged +=
-                merchandiseCombobox1_OnMyControlledSelectedIndexChanged;
-            FreeTextSearchTextBox.Enter += FreeTextSearchTextBox_Enter;
             FormClosing += ShowOrderHistoryDialog_FormClosing;
-            //MessageBox.Show(DateTime.Now.Subtract(start).Milliseconds.ToString() + " ms");
+            searchPanel2.Init();
+            searchPanel2.SupplierChanged += FilterPosts;
+            searchPanel2.MerchendiseChanged += FilterPosts;
+            searchPanel2.UserChanged += FilterPosts;
+            searchPanel2.SearchRequested += FilterPosts;
+            searchPanel2.ResetRequested += FilterPosts;
+            searchPanel2.SearchboxExpanded +=SearchboxExpanded;
+            searchPanel2.SearchboxCollapsed += SearchboxCollapsed;
+            searchPanel2.TimeRestrictionChanged += ReloadForm;
         }
 
+        private void SearchboxCollapsed()
+        {
+            AddToVerticalPosition(-_diff);
+        }
+
+        private void SearchboxExpanded()
+        {
+            AddToVerticalPosition(_diff);
+        }
+
+
+        private void AddToVerticalPosition(int y)
+        {
+            var newLocation = new Point(PostsListView.Location.X, PostsListView.Location.Y + y);
+            PostsListView.Height -= y;
+            PostsListView.Location = newLocation;
+
+            newLocation = new Point(ButtonPanel.Location.X, ButtonPanel.Location.Y + y);
+            ButtonPanel.Location = newLocation;
+        }
         public override void ReloadForm()
         {
-            SupplierManager.RefreshCache();
-            MerchandiseManager.RefreshCache();
-            SupplierCombobox.LoadIdentitiesWithInfoText();
-            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
-            merchandiseCombobox1.LoadIdentitiesWithInfoText();
-            userComboBox1.LoadIdentitiesWithInfoText();
-            merchandiseCombobox1.Enabled = true;
+            searchPanel2.Reload();
             RestoreSortingButton.Enabled = false;
             LoadPosts();
             UpdateListView();
@@ -144,7 +154,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     if (post.GetSupplierId() != supplier.GetId())
                     {
-                        throw new Data.Exception.DataException("Supplier id mismatch!");
+                        throw new DataException("Supplier id mismatch!");
                     }
                     post.ReloadSupplier(supplier);
                 }
@@ -160,7 +170,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     if (post.GetMerchandiseId() != merchandise.GetId())
                     {
-                        throw new Data.Exception.DataException("Merchandise id mismatch!");
+                        throw new DataException("Merchandise id mismatch!");
                     }
                     post.ReloadMerchandise(merchandise);
                 }
@@ -169,12 +179,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         public void AddCreatedSupplier(Supplier supplier)
         {
-            SupplierCombobox.AddCreatedSupplier(supplier);
+            searchPanel2.AddCreatedSupplier(supplier);
         }
 
         public void AddCreatedMerchandise(Merchandise merchandise)
         {
-            merchandiseCombobox1.AddCreatedMerchandise(merchandise);
+            searchPanel2.AddCreatedMerchandise(merchandise);
         }
 
         private void ShowOrderHistoryDialog_Shown(object sender, EventArgs e)
@@ -227,42 +237,10 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             _posts.Sort();
         }
 
-        private void userComboBox1_OnMyControlledSelectedIndexChanged()
-        {
-            FilterPosts();
-        }
-
-
-        private void merchandiseCombobox1_OnMyControlledSelectedIndexChanged()
-        {
-            FilterPosts();
-        }
-
-        void FreeTextSearchTextBox_Enter(object sender, EventArgs e)
-        {
-            if (FreeTextSearchTextBox.Text == FREE_TEXT_SEARCH)
-            {
-                FreeTextSearchTextBox.Text = "";
-            }
-        }
 
         private void InitListView()
         {
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " ASC";
-            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
-
-            // Add columns to post according to personal configuration
-            PostsListView.BeginUpdate();
-            foreach (DataRow row in rows)
-            {
-                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                var postListViewColumn = (PostListViewColumn) Enum.Parse(typeof(PostListViewColumn), colEnumName);
-                var colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
-                var colWidth = (int) row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
-                var listDataType = PostListView.GetListDataType(postListViewColumn);
-                PostsListView.AddColumn(colHeader, colWidth, listDataType);
-            }
-            PostsListView.EndUpdate();
+            PostsListView.AddColumns();
 
             AddMenuItem(PostsListView, LOCK_COLUMN_WIDTH, LockColumnWidth_Click);
             AddMenuItem(PostsListView, UN_LOCK_COLUMN_WIDTH, UnlockColumnWidth_Click);
@@ -272,7 +250,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             AddMenuItem(PostsListView, ORDER_POST, OrderPostMenuItem_Click);
             AddMenuItem(PostsListView, CONFIRM_ORDER, ConfirmOrderMenuItem_Click);
             AddMenuItem(PostsListView, CONFIRM_ARRIVAL, ConfirmArrivalMenuItem_Click);
-            AddMenuItem(PostsListView, SET_ORDER_NR_SO, SetSalesOrderNo_Click);
+            AddMenuItem(PostsListView, SET_ORDER_NR_PO_SO, SetSalesOrderNo_Click);
             AddMenuItem(PostsListView, REGRET_ORDER_POST, RegretOrderPost);
             AddMenuItem(PostsListView, REGRET_CONFRIRM_ORDER, RegretOrderConfirmation);
             AddMenuItem(PostsListView, SIGN_INVOICE_OK_AND_SENT, SignInvoiceOkAndSentMenuItem_Click);
@@ -301,22 +279,8 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private void ReInitListView()
         {
             // Updates columns and rows only
-            var sort = Configuration.PostListViewConfColumns.ColSortOrder + " ASC";
-            var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select("", sort);
-
-            // Add columns to post according to personal configuration
             PostsListView.Clear();
-            PostsListView.BeginUpdate();
-            foreach (DataRow row in rows)
-            {
-                var colEnumName = row[Configuration.PostListViewConfColumns.ColEnumName.ToString()].ToString();
-                var colWidth = (int) row[Configuration.PostListViewConfColumns.ColWidth.ToString()];
-                var postListViewColumn = (PostListViewColumn) Enum.Parse(typeof(PostListViewColumn), colEnumName);
-                var listDataType = PostListView.GetListDataType(postListViewColumn);
-                var colHeader = PostListView.GetColumnHeaderName(postListViewColumn);
-                PostsListView.AddColumn(colHeader, colWidth, listDataType);
-            }
-            PostsListView.EndUpdate();
+            PostsListView.AddColumns();
             UpdateListView();
             ReInitAllColumnWidths();
         }
@@ -373,10 +337,9 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     var invoiceNumber = setInvoiceNumberDialog.InvoiceNumber;
                     var noInvoice = setInvoiceNumberDialog.NoInvoice;
-                    var customerNumberId = setInvoiceNumberDialog.CustomerNumberId;
                     foreach (Post post in posts)
                     {
-                        post.UpdateInvoiceNumber(invoiceNumber, customerNumberId, noInvoice);
+                        post.UpdateInvoiceNumber(invoiceNumber, noInvoice);
                     }
                     RedrawPosts(posts);
                 }
@@ -433,15 +396,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             RestoreSortingButton.Enabled = true;
         }
 
-        private void RegretInvoiceNotOK(object sender, EventArgs e)
-        {
-            foreach (Post post in GetSelectedPosts())
-            {
-                post.RegretCompleted();
-            }
-            RedrawPosts(GetSelectedPosts());
-        }
-
         private void PostsListView_OnSortOrderSet(object sender, EventArgs e)
         {
             RestoreSortingButton.Enabled = true;
@@ -449,32 +403,32 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private void UnlockColumnWidth(int colIndex)
         {
-            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+            var expr = PostListViewConfColumns.ColSortOrder + " = " + colIndex;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
+                rows[0][PostListViewConfColumns.ColWidth.ToString()] =
                     PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH;
                 ReInitColumnWidth(colIndex, true);
             }
             else
             {
-                throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
+                throw new DataException("Column sort order mis-match: " + colIndex);
             }
         }
 
         private void LockColumnWidth(int colIndex)
         {
-            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+            var expr = PostListViewConfColumns.ColSortOrder + " = " + colIndex;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
+                rows[0][PostListViewConfColumns.ColWidth.ToString()] =
                     PostsListView.Columns[colIndex].Width;
             }
             else
             {
-                throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
+                throw new DataException("Column sort order mis-match: " + colIndex);
             }
         }
 
@@ -482,20 +436,20 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             for (int colIndex = 0; colIndex < PostsListView.Columns.Count; colIndex++)
             {
-                var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colIndex;
+                var expr = PostListViewConfColumns.ColSortOrder + " = " + colIndex;
                 var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
                 if (rows.Length == 1)
                 {
-                    var currentConfWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                    var currentConfWidth = (int) rows[0][PostListViewConfColumns.ColWidth.ToString()];
                     if (currentConfWidth > 0)
                     {
-                        rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()] =
+                        rows[0][PostListViewConfColumns.ColWidth.ToString()] =
                             PostsListView.Columns[colIndex].Width;
                     }
                 }
                 else
                 {
-                    throw new Data.Exception.DataException("Column sort order mis-match: " + colIndex);
+                    throw new DataException("Column sort order mis-match: " + colIndex);
                 }
             }
         }
@@ -553,15 +507,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private bool HasColumnFixedWidthInConfig(int colInd)
         {
             int colWidth;
-            var expr = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colInd;
+            var expr = PostListViewConfColumns.ColSortOrder + " = " + colInd;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expr);
             if (rows.Length == 1)
             {
-                colWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                colWidth = (int) rows[0][PostListViewConfColumns.ColWidth.ToString()];
             }
             else
             {
-                throw new Data.Exception.DataException("Column index mis-match: " + colInd);
+                throw new DataException("Column index mis-match: " + colInd);
             }
             return colWidth > 0;
         }
@@ -600,7 +554,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             {
                 SetVisible(sender, ORDER_POST, false);
                 SetVisible(sender, CONFIRM_ORDER, false);
-                SetVisible(sender, SET_ORDER_NR_SO, false);
+                SetVisible(sender, SET_ORDER_NR_PO_SO, false);
                 SetVisible(sender, CONFIRM_ARRIVAL, false);
                 SetVisible(sender, UPDATE, false);
                 SetVisible(sender, DELETE, false);
@@ -701,7 +655,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             if (UserManager.GetCurrentUser().HasAdministratorRights())
             {
                 SetVisible(sender, SET_INVOICE_NUMBER, true);
-                SetVisible(sender, SET_ORDER_NR_SO, true);
+                SetVisible(sender, SET_ORDER_NR_PO_SO, true);
             }
         }
 
@@ -814,7 +768,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             PostList posts = new PostList();
             try
             {
-                var getValueDialog = new GetValueDialog(SET_ORDER_NR_SO, "Enter a sales order number, please.", "");
+                var getValueDialog = new GetValueDialog(SET_ORDER_NR_PO_SO, "Enter a purchase + sales order number, please.", "");
                 if (getValueDialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
@@ -823,7 +777,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     var tmpPost = viewItem.GetPost();
                     posts.Add(tmpPost);
-                    tmpPost.SetSalesOrderNo(getValueDialog.GetText());
+                    tmpPost.SetPurchaseAndSalesOrderNo(getValueDialog.GetText());
                 }
                 RedrawPosts(posts);
             }
@@ -838,14 +792,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             PostList posts = new PostList();
             try
             {
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
-                {
-                    return;
-                }
-
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
                     var tmpPost = pViewItem.GetPost();
@@ -1047,16 +993,15 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
         }
 
-        private bool HasAnySelectedPostUnHandledCustomerNumber()
+        private List<Post> GetSelectedList()
         {
-            foreach (PostViewItem viewItem in PostsListView.SelectedItems)
+            List<Post> ret = new List<Post>();
+            foreach (Post selectedPost in GetSelectedPosts())
             {
-                if (!viewItem.GetPost().IsCustomerNumberHandled())
-                {
-                    return true;
-                }
+                ret.Add(selectedPost);
             }
-            return false;
+
+            return ret;
         }
 
         private void OrderPostMenuItem_Click(object sender, EventArgs e)
@@ -1077,19 +1022,30 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                         return;
                     }
                 }
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
+
+                var postList = GetSelectedList();
+                var selection = new OrderSelection(postList);
+                List<OrderPostDto> bags;
+                if (selection.AllPostsEmpty())
                 {
+                    SignOrderDialog dialog = new SignOrderDialog();
+                    if (dialog.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    bags = selection.GenerateFromCommonInput(dialog.Account, dialog.Periodization);
+                }
+                else if (selection.AllHasMandatory())
+                {
+                    bags = selection.GenerateFromCurrent();
+                }
+                else
+                {
+                    ShowWarning("The selected posts have different values on Account and Periodization, " +
+                                "and some of them have missing values. " +
+                                "Please update posts one by one. ");
                     return;
                 }
-                foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
-                {
-                    pViewItem.GetPost().OrderPost(UserManager.GetCurrentUser().GetId());
-                    posts.Add(pViewItem.GetPost());
-                }
-                RedrawPosts(posts);
+                selection.SignAsOrdered(bags);
+                RedrawPosts(selection.PostList());
             }
             catch (Exception ex)
             {
@@ -1102,14 +1058,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             var posts = new PostList();
             try
             {
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
-                {
-                    return;
-                }
-
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
                     pViewItem.GetPost().ConfirmPostOrdered(UserManager.GetCurrentUser().GetId());
@@ -1148,137 +1096,12 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             return post;
         }
 
-        private bool IsWithinFreeTextSearchCriteria(Post post)
-        {
-            var searchStr = FreeTextSearchTextBox.Text.Trim();
-            if (searchStr.Length > 0 &&
-                searchStr != FREE_TEXT_SEARCH)
-            {
-                if (post.GetPurchaseOrderNo().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetSalesOrderNo().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetBookerName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetBookDate().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetSupplier() != null &&
-                    post.GetSupplier().GetIdentifier().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetMerchandise() != null &&
-                    post.GetMerchandise().GetIdentifier().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetMerchandise() != null &&
-                    post.GetMerchandise().GetAmount().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetAmountString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetPriceWithCurrencyString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetOrdererName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetOrderDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArrivalSignUserName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArrivalDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArticleNumberString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceCategoryCodeString2().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoicerUserName().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceStatusString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetComment().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetArrivalDateString().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-                if (post.GetInvoiceNumber().ToLower().Contains(searchStr.ToLower()))
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsWithinSearchCriteria(Post post)
-        {
-            if (SupplierCombobox.SelectedIndex > 0 &&
-                SupplierCombobox.GetSelectedIdentity().GetId() != post.GetSupplierId())
-            {
-                return false;
-            }
-            if (merchandiseCombobox1.SelectedIndex > 0 && post.GetMerchandise() != null &&
-                merchandiseCombobox1.GetSelectedIdentity().GetId() != post.GetMerchandise().GetId())
-            {
-                return false;
-            }
-            if (userComboBox1.SelectedIndex > 0 && post.GetBooker() != null &&
-                userComboBox1.GetSelectedIdentity().GetId() != post.GetBooker().GetId())
-            {
-                return false;
-            }
-            if (!IsWithinFreeTextSearchCriteria(post))
-            {
-                return false;
-            }
-            return true;
-        }
-
         private void FilterPosts()
         {
             PostList filteredPosts = new PostList();
             foreach (Post post in _posts)
             {
-                if (IsWithinSearchCriteria(post))
+                if (searchPanel2.IsWithinSearchCriteria(post))
                 {
                     filteredPosts.Add(post);
                 }
@@ -1362,7 +1185,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         private void ReInitColumnWidth(int colInd, bool updateHandling)
         {
             var col = PostsListView.Columns[colInd];
-            var expression = Configuration.PostListViewConfColumns.ColSortOrder + " = " + colInd;
+            var expression = PostListViewConfColumns.ColSortOrder + " = " + colInd;
             var rows = PlattformOrdManData.Configuration.PostListViewSelectedColumns.Select(expression);
             try
             {
@@ -1372,7 +1195,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                     {
                         PostsListView.BeginUpdate();
                     }
-                    var configWidth = (int) rows[0][Configuration.PostListViewConfColumns.ColWidth.ToString()];
+                    var configWidth = (int) rows[0][PostListViewConfColumns.ColWidth.ToString()];
                     if (configWidth == PlattformOrdManData.LIST_VIEW_COLUMN_CONTENTS_AUTO_WIDTH)
                     {
                         col.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -1386,7 +1209,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 }
                 else
                 {
-                    throw new Data.Exception.DataException("Column name mismatch in configuration: " + col.Text);
+                    throw new DataException("Column name mismatch in configuration: " + col.Text);
                 }
             }
             finally
@@ -1444,14 +1267,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
                 {
                     return;
                 }
-                if (HasAnySelectedPostUnHandledCustomerNumber() &&
-                    MessageBox.Show("Customer number has not been chosen for at least one post, continue anyway?",
-                        "Unhandled customer number", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) ==
-                    DialogResult.Cancel)
-                {
-                    return;
-                }
-
                 foreach (PostViewItem pViewItem in PostsListView.SelectedItems)
                 {
                     var tmpPost = pViewItem.GetPost();
@@ -1535,21 +1350,6 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             PostsListView.EndLoadItems();
         }
 
-        private void SupplierCombobox_OnMyControlledSelectedIndexChanged()
-        {
-            if (IsNotNull(SupplierCombobox.GetSelectedIdentity()))
-            {
-                merchandiseCombobox1.SetSupplierId(SupplierCombobox.GetSelectedIdentity().GetId());
-                merchandiseCombobox1.LoadMerchandise(SupplierCombobox.GetSelectedIdentity().GetId());
-            }
-            else
-            {
-                merchandiseCombobox1.SetSupplierId(PlattformOrdManData.NO_ID);
-                merchandiseCombobox1.LoadIdentitiesWithInfoText();
-            }
-            FilterPosts();
-        }
-
         private void RestoreSortingButton_Click(object sender, EventArgs e)
         {
             try
@@ -1563,38 +1363,18 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
         }
 
-        private void ResetSearchFields()
-        {
-            SupplierCombobox.LoadIdentitiesWithInfoText();
-            merchandiseCombobox1.LoadIdentitiesWithInfoText();
-            userComboBox1.LoadIdentitiesWithInfoText();
-            FreeTextSearchTextBox.Text = FREE_TEXT_SEARCH;
-        }
-
-        private void ClearButton_Click(object sender, EventArgs e)
+        public void OnViewingOptionsChanged()
         {
             try
             {
-                ResetSearchFields();
+                //this.Cursor = Cursors.WaitCursor;
+                LoadPosts();
+                ReInitListView();
                 FilterPosts();
             }
-            catch (Exception ex)
+            finally
             {
-                HandleError("Error when clearing filter", ex);
-            }
-        }
-
-        private void OptionsButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var orderHistoryOptionsDialog = new OrderHistoryOptionsDialog {MdiParent = MdiParent};
-                orderHistoryOptionsDialog.OnOrderHistoryOptionsOK += OrderHistoryOptions_OK;
-                orderHistoryOptionsDialog.Show();
-            }
-            catch (Exception ex)
-            {
-                HandleError("Error when setting options", ex);
+                Cursor = Cursors.Default;
             }
         }
 

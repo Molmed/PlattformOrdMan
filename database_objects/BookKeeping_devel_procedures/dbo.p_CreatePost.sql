@@ -1,4 +1,4 @@
-USE [BookKeeping]
+USE [BookKeeping_devel_ee]
 GO
 /****** Object:  StoredProcedure [dbo].[p_CreatePost]    Script Date: 7/27/2017 1:42:17 PM ******/
 SET ANSI_NULLS OFF
@@ -8,7 +8,7 @@ GO
 
 
 
-CREATE PROCEDURE [dbo].[p_CreatePost](
+alter PROCEDURE [dbo].[p_CreatePost](
 @article_number_id int = null,
 @authority_id_booker INTEGER,
 @comment VARCHAR(1024) = NULL,
@@ -23,10 +23,15 @@ CREATE PROCEDURE [dbo].[p_CreatePost](
 @invoice_number varchar(255) = null,
 @final_prize money = null,
 @delivery_deviation varchar(1024) = null,
-@purchase_order_no varchar(255) = null,
-@sales_order_no varchar(255) = null,
+@purchase_sales_order_no varchar(255) = null,
 @place_of_purchase varchar(30),
-@customer_number_id int = null)
+@periodization varchar(255) = null,
+@has_periodization BIT = null,
+@periodization_answered bit = null,
+@account varchar(255) = null,
+@account_answered bit = null,
+@has_account bit = null
+)
 
 AS
 BEGIN
@@ -56,10 +61,14 @@ INSERT INTO post
 		invoice_number,
 		final_prize,
 		delivery_deviation,
-		purchase_order_no,
-		sales_order_no,
+		purchase_sales_order_no,
 		place_of_purchase_id,
-		customer_number_id
+		periodization,
+		has_periodization,
+		periodization_answered,
+		account,
+		account_answered,
+		has_account
 	)
 VALUES
 	(
@@ -78,10 +87,14 @@ VALUES
 		@invoice_number,
 		@final_prize,
 		@delivery_deviation,
-		@purchase_order_no,
-		@sales_order_no,
+		@purchase_sales_order_no,
 		@place_of_purchase_id,
-		@customer_number_id
+		@periodization,
+		@has_periodization,
+		@periodization_answered,
+		@account,
+		@account_answered,
+		@has_account
 	)
 
 IF @@ERROR <> 0

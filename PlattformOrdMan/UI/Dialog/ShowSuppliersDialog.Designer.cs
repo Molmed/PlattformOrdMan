@@ -1,4 +1,6 @@
-namespace Molmed.PlattformOrdMan.UI.Dialog
+using PlattformOrdMan.UI.View;
+
+namespace PlattformOrdMan.UI.Dialog
 {
     partial class ShowSuppliersDialog
     {
@@ -32,7 +34,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowSuppliersDialog));
             this.CloseButton = new System.Windows.Forms.Button();
             this.AddNewButton = new System.Windows.Forms.Button();
-            this.SuppliersListView = new Molmed.PlattformOrdMan.UI.View.SupplierListView();
+            this.SuppliersListView = new SupplierListView();
             this.RestoreSortingButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.FreeTextSearchTextBox = new System.Windows.Forms.TextBox();
@@ -153,7 +155,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
 
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button AddNewButton;
-        private Molmed.PlattformOrdMan.UI.View.SupplierListView SuppliersListView;
+        private SupplierListView SuppliersListView;
         private System.Windows.Forms.Button RestoreSortingButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox FreeTextSearchTextBox;

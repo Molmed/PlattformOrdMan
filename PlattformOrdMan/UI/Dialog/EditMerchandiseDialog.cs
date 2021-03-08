@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
-using PlattformOrdMan.Properties;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.UI.Component;
+using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class EditMerchandiseDialog : OrdManForm, ISupplierForm, IMerchandiseForm
     {
@@ -27,7 +23,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             SaveButton.Enabled = false;
             invoiceCategoryCombobox1.LoadInvoiceCategory();
             SupplierCombobox.OnMyControlledSelectedIndexChanged += 
-                new Molmed.PlattformOrdMan.UI.Component.SearchingCombobox.MyControlledSelectedIndexChanged(SupplierCombobox_OnMyControlledSelectedIndexChanged);
+                new SearchingCombobox.MyControlledSelectedIndexChanged(SupplierCombobox_OnMyControlledSelectedIndexChanged);
             CurrencyCombobox.SelectedIndexChanged += new EventHandler(CurrencyCombobox_SelectedIndexChanged);
             ArticleNumberComboBox.TextChanged += new EventHandler(ArticleNumberComboBox_TextChanged);
 
@@ -94,7 +90,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             this.Text = "Create product";
             DissableCheckBox.Visible = false;
             invoiceCategoryCombobox1.SetSelectedInvoiceCategory(PlattformOrdManData.NO_ID);
-            CurrencyCombobox.SetSelectedCurrency(Data.CurrencyManager.GetDefaultCurrency());
+            CurrencyCombobox.SetSelectedCurrency(CurrencyManager.GetDefaultCurrency());
         }
 
         private void CurrencyCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -162,7 +158,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
             }
             else
             {
-                CurrencyCombobox.SetSelectedCurrency(Data.CurrencyManager.GetDefaultCurrency());
+                CurrencyCombobox.SetSelectedCurrency(CurrencyManager.GetDefaultCurrency());
             }
             if (MyMerchandise.GetInvoiceCagegoryId() != PlattformOrdManData.NO_ID)
             {

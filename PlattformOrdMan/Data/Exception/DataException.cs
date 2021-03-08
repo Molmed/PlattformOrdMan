@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Specialized;
 
-namespace Molmed.PlattformOrdMan.Data.Exception
+namespace PlattformOrdMan.Data.Exception
 {
     public class DataException : ApplicationException
     {

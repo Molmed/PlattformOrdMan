@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Globalization;
-using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Database;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public enum PlaceOfPurchase
     {
@@ -45,11 +46,12 @@ namespace Molmed.PlattformOrdMan.Data
         ArrivalSign,
         InvoiceDate,
         InvoiceSender,
-        PurchaseOrderNo,
-        SalesOrderNo,
+        PurchaseSalesOrderNo,
         Comment,
         PlaceOfPurchase,
-        CustomerNumber
+        Account,
+        Periodization,
+        VangenSummary
     }
 
     public class PlattformOrdManData : PlattformOrdManBase

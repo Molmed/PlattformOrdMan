@@ -1,44 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.CodeDom;
 using System.Collections.Specialized;
-using System.Text;
 using System.Data;
 using System.IO;
-using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.UI.View;
+using PlattformOrdMan.Database;
+using DataException = PlattformOrdMan.Data.Exception.DataException;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data.Conf
 {
     public class Configuration
     {
         private StringDictionary MyItems;
         private const string ConfigFileName = "Order_config.XML";
-        private bool MyShowOnlyEnabledProducts;
-        private bool MyTimeRestrictionForCompletedPostsOnly;
-        private int MyTimeIntervalForPosts;
-        private PlaceOfPurchase MyPlaceOfPurchase;
-        private StringCollection MyPlaceOfPurchaseFilter;
-        private DataTable MyPostListViewSelectedColumns;
-
-        public enum PostListViewConfColumns
-        { 
-            ColEnumName,
-            ColSortOrder,
-            ColWidth
-        }
-
-        private enum ConfTables
-        { 
-            Item,
-            PlaceOfPurchaseFilter,
-            PostListViewSelectedColumns
-        }
 
         public Configuration()
         {
             MyItems = new StringDictionary();
-            MyPlaceOfPurchaseFilter = new StringCollection();
-            MyPostListViewSelectedColumns = GetPostListViewSelectedColumnsTable(ConfTables.PostListViewSelectedColumns.ToString());
+            PlaceOfPurchaseFilter = new StringCollection();
+            PostListViewSelectedColumns = GetPostListViewSelectedColumnsTable(ConfTables.PostListViewSelectedColumns.ToString());
 
             //			SAVED FOR CREATING THE CONFIGURATION FILE.
             //			MyItems.Add("VersionControlFlag", "true");
@@ -93,78 +72,20 @@ namespace Molmed.PlattformOrdMan.Data
             return table;
         }
 
-        public StringCollection PlaceOfPurchaseFilter
-        {
-            get
-            {
-                return MyPlaceOfPurchaseFilter;
-            }
-            set
-            {
-                MyPlaceOfPurchaseFilter = value;
-            }
-        }
+        public StringCollection PlaceOfPurchaseFilter { get; set; }
 
-        public DataTable PostListViewSelectedColumns
-        {
-            get
-            {
-                return MyPostListViewSelectedColumns;
-            }
-            set
-            {
-                MyPostListViewSelectedColumns = value;
-            }
-        }
+        public DataTable PostListViewSelectedColumns { get; set; }
 
-        public int TimeIntervalForPosts
-        {
-            get
-            {
-                return MyTimeIntervalForPosts;
-            }
-            set
-            {
-                MyTimeIntervalForPosts = value;
-            }
-        }
+        public int TimeIntervalForPosts { get; set; }
 
-        public PlaceOfPurchase PlaceOfPurchase
-        {
-            get
-            {
-                return MyPlaceOfPurchase;
-            }
-            set
-            {
-                MyPlaceOfPurchase = value;
-            }
-        }
+        public PlaceOfPurchase PlaceOfPurchase { get; set; }
 
-        public bool TimeRestrictionForCompletedPostsOnly
-        {
-            get
-            {
-                return MyTimeRestrictionForCompletedPostsOnly;
-            }
-            set
-            {
-                MyTimeRestrictionForCompletedPostsOnly = value;
-            }
-        }
+        public bool TimeRestrictionForCompletedPostsOnly { get; set; }
 
 
-        public bool ShowOnlyEnabledProducts
-        {
-            get
-            {
-                return MyShowOnlyEnabledProducts;
-            }
-            set
-            {
-                MyShowOnlyEnabledProducts = value;
-            }
-        }
+        public bool ShowOnlyEnabledProducts { get; set; }
+
+        public EditPostTab EditPostTab { get; set; }
 
         public void SaveSettings()
         {
@@ -182,7 +103,7 @@ namespace Molmed.PlattformOrdMan.Data
                 dSet.Tables[ConfTables.Item.ToString()].Rows.Add(rowValues);
             }
 
-            foreach (string pop in MyPlaceOfPurchaseFilter)
+            foreach (string pop in PlaceOfPurchaseFilter)
             {
                 rowValues = new object[1];
                 rowValues[0] = pop;
@@ -193,7 +114,7 @@ namespace Molmed.PlattformOrdMan.Data
             {
                 dSet.Tables.Remove(ConfTables.PostListViewSelectedColumns.ToString());
             }
-            dSet.Tables.Add(MyPostListViewSelectedColumns.Copy());
+            dSet.Tables.Add(PostListViewSelectedColumns.Copy());
 
             dSet.WriteXml(System.Windows.Forms.Application.StartupPath + "\\" + ConfigFileName, XmlWriteMode.IgnoreSchema);
         }
@@ -204,6 +125,7 @@ namespace Molmed.PlattformOrdMan.Data
             Set(ConfigurationData.TIME_INTERVAL_FOR_POSTS, TimeIntervalForPosts.ToString());
             Set(ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY, TimeRestrictionForCompletedPostsOnly.ToString());
             Set(ConfigurationData.PLACE_OF_PURCHASE, PlaceOfPurchase.ToString());
+            Set(ConfigurationData.EDIT_POST_TAB, EditPostTab.ToString());
         }
 
         private static Configuration GetDefaultSettings()
@@ -213,9 +135,10 @@ namespace Molmed.PlattformOrdMan.Data
             config.MyItems.Add(ConfigurationData.SHOW_ENABLED_PRODUCTS_ONLY, ConfigurationData.DEFAULT_SHOW_ENABLED_PRODUCTS_ONLY.ToString());
             config.MyItems.Add(ConfigurationData.TIME_INTERVAL_FOR_POSTS, ConfigurationData.DEFAULT_TIME_INTERVAL_FOR_POSTS.ToString());
             config.MyItems.Add(ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY, ConfigurationData.DEFAULT_TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY.ToString());
+            config.MyItems.Add(ConfigurationData.EDIT_POST_TAB, ConfigurationData.DEFAULT_EDIT_POST_TAB.ToString());
             config.MyItems.Add(ConfigurationData.PLACE_OF_PURCHASE, UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
-            config.MyPlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
-            if (!config.MyPlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
+            config.PlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
+            if (!config.PlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
                 UserManager.GetCurrentUser().GetPlaceOfPurchase() != PlaceOfPurchase.Research)
             {
                 config.PlaceOfPurchaseFilter.Add(PlaceOfPurchase.Other.ToString());
@@ -248,21 +171,21 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 foreach (DataRow tempRow in dSet.Tables[ConfTables.PlaceOfPurchaseFilter.ToString()].Rows)
                 {
-                    config.MyPlaceOfPurchaseFilter.Add(tempRow["Value"].ToString());
+                    config.PlaceOfPurchaseFilter.Add(tempRow["Value"].ToString());
                 }
-                if (config.MyPlaceOfPurchaseFilter.Count == 0)
+                if (config.PlaceOfPurchaseFilter.Count == 0)
                 {
-                    config.MyPlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
-                    if (!config.MyPlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
+                    config.PlaceOfPurchaseFilter.Add(UserManager.GetCurrentUser().GetPlaceOfPurchaseString());
+                    if (!config.PlaceOfPurchaseFilter.Contains(PlaceOfPurchase.Other.ToString()) &&
                         UserManager.GetCurrentUser().GetPlaceOfPurchase() != PlaceOfPurchase.Research)
                     {
-                        config.MyPlaceOfPurchaseFilter.Add(PlaceOfPurchase.Other.ToString());
+                        config.PlaceOfPurchaseFilter.Add(PlaceOfPurchase.Other.ToString());
                     }
                 }
-                config.MyPostListViewSelectedColumns = dSet.Tables[ConfTables.PostListViewSelectedColumns.ToString()];
-                if (config.MyPostListViewSelectedColumns.Rows.Count == 0)
+                config.PostListViewSelectedColumns = dSet.Tables[ConfTables.PostListViewSelectedColumns.ToString()];
+                if (config.PostListViewSelectedColumns.Rows.Count == 0)
                 {
-                    config.MyPostListViewSelectedColumns = GetDefaultPostListViewColumns();
+                    config.PostListViewSelectedColumns = GetDefaultPostListViewColumns();
                 }
             }
             config.SetWorkingVariables();
@@ -275,26 +198,14 @@ namespace Molmed.PlattformOrdMan.Data
             TimeIntervalForPosts = (int)Get(ConfigurationData.TIME_INTERVAL_FOR_POSTS, typeof(int));
             TimeRestrictionForCompletedPostsOnly = (bool)Get(ConfigurationData.TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY, typeof(bool));
             PlaceOfPurchase = (PlaceOfPurchase)Get(ConfigurationData.PLACE_OF_PURCHASE, typeof(PlaceOfPurchase));
-        }
-
-        private object Get(string key)
-        {
-            if (MyItems.ContainsKey(key))
-            {
-                return MyItems[key];
-            }
-            else
-            {
-                MyItems.Add(key, GetDefaultValue(key).ToString());
-                return GetDefaultValue(key);
-            }
+            EditPostTab = (EditPostTab) Get(ConfigurationData.EDIT_POST_TAB, typeof(EditPostTab));
         }
 
         private void Set(string key, string value)
         {
             if (!MyItems.ContainsKey(key))
             {
-                throw new Exception.DataException("Attempting to retrieve unknown configuration item " + key + ".");            
+                throw new DataException("Attempting to retrieve unknown configuration item " + key + ".");            
             }
             MyItems[key] = value;
         }
@@ -313,13 +224,17 @@ namespace Molmed.PlattformOrdMan.Data
             {
                 return ConfigurationData.DEFAULT_TIME_RESTRICTION_FOR_COMPLETED_POSTS_ONLY;
             }
+            else if (key == ConfigurationData.EDIT_POST_TAB)
+            {
+                return ConfigurationData.DEFAULT_EDIT_POST_TAB;
+            }
             else if (key == ConfigurationData.PLACE_OF_PURCHASE)
             {
                 return UserManager.GetCurrentUser().GetPlaceOfPurchase();
             }
             else
             {
-                throw new Exception.DataException("Attempting to retrieve unknown configuration item " + key + ".");
+                throw new DataException("Attempting to retrieve unknown configuration item " + key + ".");
             }
         }
 
@@ -341,7 +256,7 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 else
                 {
-                    throw new Exception.DataException("Unable to parse setting " + key + " to an int");
+                    throw new DataException("Unable to parse setting " + key + " to an int");
                 }
             }
             else if (type == typeof(bool))
@@ -352,7 +267,7 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 else
                 {
-                    throw new Exception.DataException("Unable to parse setting " + key + "to a boolean");                
+                    throw new DataException("Unable to parse setting " + key + "to a boolean");                
                 }
             }
             else if (type == typeof(PlaceOfPurchase))
@@ -363,7 +278,20 @@ namespace Molmed.PlattformOrdMan.Data
                 }
                 catch (ArgumentException ex)
                 {
-                    throw new Exception.DataException("Unable to parse setting " + key + " to the enumerable PlaceOfPurchase", ex);
+                    throw new DataException(
+                        "Unable to parse setting " + key + " to the enumerable PlaceOfPurchase", ex);
+                }
+            }
+            else if (type == typeof(EditPostTab))
+            {
+                try
+                {
+                    result = (EditPostTab)Enum.Parse(typeof(EditPostTab), MyItems[key]);
+                }
+                catch (ArgumentException e)
+                {
+                    throw new DataException(
+                        "Unable to parse setting " + key + " to the enumerable EditPostTab", e);
                 }
             }
             else if (type == typeof(string))
@@ -372,7 +300,7 @@ namespace Molmed.PlattformOrdMan.Data
             }
             else
             {
-                throw new Exception.DataException("No handling for type: " + type.ToString());
+                throw new DataException("No handling for type: " + type.ToString());
             }
             return result;
         }

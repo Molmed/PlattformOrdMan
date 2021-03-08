@@ -1,4 +1,4 @@
-﻿namespace Molmed.PlattformOrdMan.UI.Dialog
+﻿namespace PlattformOrdMan.UI.Dialog
 {
     partial class SetInvoiceNumberDialog
     {
@@ -34,8 +34,6 @@
             this.NoInvoiceCheckBox = new System.Windows.Forms.CheckBox();
             this.OkButton = new System.Windows.Forms.Button();
             this.MyCancelButton = new System.Windows.Forms.Button();
-            this.CustomerNumberComboBox = new System.Windows.Forms.ComboBox();
-            this.CustNumLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -59,7 +57,7 @@
             // NoInvoiceCheckBox
             // 
             this.NoInvoiceCheckBox.AutoSize = true;
-            this.NoInvoiceCheckBox.Location = new System.Drawing.Point(12, 146);
+            this.NoInvoiceCheckBox.Location = new System.Drawing.Point(15, 86);
             this.NoInvoiceCheckBox.Name = "NoInvoiceCheckBox";
             this.NoInvoiceCheckBox.Size = new System.Drawing.Size(77, 17);
             this.NoInvoiceCheckBox.TabIndex = 4;
@@ -70,7 +68,7 @@
             // OkButton
             // 
             this.OkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OkButton.Location = new System.Drawing.Point(12, 183);
+            this.OkButton.Location = new System.Drawing.Point(12, 127);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(75, 23);
             this.OkButton.TabIndex = 5;
@@ -82,7 +80,7 @@
             // 
             this.MyCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.MyCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.MyCancelButton.Location = new System.Drawing.Point(272, 183);
+            this.MyCancelButton.Location = new System.Drawing.Point(272, 127);
             this.MyCancelButton.Name = "MyCancelButton";
             this.MyCancelButton.Size = new System.Drawing.Size(75, 23);
             this.MyCancelButton.TabIndex = 6;
@@ -90,34 +88,12 @@
             this.MyCancelButton.UseVisualStyleBackColor = true;
             this.MyCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // CustomerNumberComboBox
-            // 
-            this.CustomerNumberComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CustomerNumberComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CustomerNumberComboBox.FormattingEnabled = true;
-            this.CustomerNumberComboBox.Location = new System.Drawing.Point(12, 108);
-            this.CustomerNumberComboBox.Name = "CustomerNumberComboBox";
-            this.CustomerNumberComboBox.Size = new System.Drawing.Size(335, 21);
-            this.CustomerNumberComboBox.TabIndex = 7;
-            // 
-            // CustNumLabel
-            // 
-            this.CustNumLabel.AutoSize = true;
-            this.CustNumLabel.Location = new System.Drawing.Point(12, 92);
-            this.CustNumLabel.Name = "CustNumLabel";
-            this.CustNumLabel.Size = new System.Drawing.Size(91, 13);
-            this.CustNumLabel.TabIndex = 8;
-            this.CustNumLabel.Text = "Customer Number";
-            // 
             // SetInvoiceNumberDialog
             // 
             this.AcceptButton = this.OkButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 218);
-            this.Controls.Add(this.CustNumLabel);
-            this.Controls.Add(this.CustomerNumberComboBox);
+            this.ClientSize = new System.Drawing.Size(359, 162);
             this.Controls.Add(this.MyCancelButton);
             this.Controls.Add(this.OkButton);
             this.Controls.Add(this.NoInvoiceCheckBox);
@@ -138,7 +114,5 @@
         private System.Windows.Forms.CheckBox NoInvoiceCheckBox;
         private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Button MyCancelButton;
-        private System.Windows.Forms.ComboBox CustomerNumberComboBox;
-        private System.Windows.Forms.Label CustNumLabel;
     }
 }
