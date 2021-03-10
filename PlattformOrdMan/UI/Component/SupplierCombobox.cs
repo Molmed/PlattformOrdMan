@@ -1,12 +1,7 @@
 using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.UI.Component
+namespace PlattformOrdMan.UI.Component
 {
     public partial class SupplierCombobox : SearchingCombobox
     {

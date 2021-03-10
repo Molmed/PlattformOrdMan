@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using Molmed.PlattformOrdMan.Database;
-using Molmed.PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Database;
 
-namespace Molmed.PlattformOrdMan.Data
+namespace PlattformOrdMan.Data
 {
     public class SupplierManager : PlattformOrdManData
     {
@@ -215,18 +212,6 @@ namespace Molmed.PlattformOrdMan.Data
             return MySupplierCache;
         }
 
-        public static Supplier GetSupplierFromCache(Int16 supplierId)
-        {
-            if (MySupplierCache != null)
-            {
-                return MySupplierCache.GetById(supplierId);
-            }
-            else
-            {
-                throw new Data.Exception.DataException("Supplier cache not initialized.");
-            }
-        }
-
         public static void RefreshCache()
         {
             DataReader dataReader = null;
@@ -240,10 +225,6 @@ namespace Molmed.PlattformOrdMan.Data
                 {
                     MySupplierCache.Add(new Supplier(dataReader));
                 }
-            }
-            catch
-            {
-                throw;
             }
             finally
             {

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
-namespace Molmed.PlattformOrdMan.UI.Controller
+namespace PlattformOrdMan.UI.Controller
 {
     // Made for showing tool tips for list view items
     // In list view item:

@@ -2,9 +2,10 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.IO;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.IO;
 
-namespace Molmed.PlattformOrdMan.UI.Controller
+namespace PlattformOrdMan.UI.Controller
 {
     public class CopyListViewMenu : PlattformOrdManBase
     {

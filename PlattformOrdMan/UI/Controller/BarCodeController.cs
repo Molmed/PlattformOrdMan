@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Properties;
 
-namespace Molmed.PlattformOrdMan.UI.Controller
+namespace PlattformOrdMan.UI.Controller
 {
     public delegate void BarCodeEventHandler(String barCode);
 

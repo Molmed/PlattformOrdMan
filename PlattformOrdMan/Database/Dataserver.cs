@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using PlattformOrdMan.Data;
 using PlattformOrdMan.Properties;
-using Molmed.PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.Database
+namespace PlattformOrdMan.Database
 {
     public delegate void TransactionCommitedEventHandler();
     public delegate void TransactionRollbackedEventHandler();
@@ -23,7 +21,7 @@ namespace Molmed.PlattformOrdMan.Database
         public event TransactionRollbackedEventHandler TransactionRollbacked;
 
         public Dataserver(String userName, String password)
-            : this(userName, password, Settings.Default.DataServerInitialCatalog)
+            : this(userName, password, Settings.Default.DatabaseName)
         {
         }
 
@@ -216,8 +214,10 @@ namespace Molmed.PlattformOrdMan.Database
 
         public DataReader CreatePost(int articleNumberId, int bookerId, String comment, int merchandiseId, int supplierId, 
             int amount, decimal apprPrize, int currencyId, bool invoiceInst, bool invoiceClin, bool invoiceAbsent,
-            string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseOrderNo, 
-            string salesOrderNo, string placeOfPurchase, int customerNumberId)
+            string invoiceNumber, decimal finalPrize, string deliveryDeviation, string purchaseAndsalesOrderNo, 
+            string placeOfPurchase, bool periodizationAnswered,
+            bool hasPeriodization, string periodizationValue, bool accountAnswered, bool hasAccount, 
+            string accountValue)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_CreatePost");
@@ -225,6 +225,12 @@ namespace Molmed.PlattformOrdMan.Database
             {
                 commandBuilder.AddParameter(PostData.ARTICLE_NUMBER_ID, articleNumberId);
             }
+            commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodizationAnswered);
+            commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, hasPeriodization);
+            commandBuilder.AddParameter(PostData.PERIODIZATION, periodizationValue);
+            commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, accountAnswered);
+            commandBuilder.AddParameter(PostData.HAS_ACCOUNT, hasAccount);
+            commandBuilder.AddParameter(PostData.ACCOUNT, accountValue);
             commandBuilder.AddParameter(PostData.AUTHORITY_ID_BOOKER, bookerId);
             commandBuilder.AddParameter(PostData.COMMENT, comment);
             commandBuilder.AddParameter(PostData.MERCHANDISE_ID, merchandiseId);
@@ -241,21 +247,14 @@ namespace Molmed.PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.INVOICE_NUMBER, invoiceNumber);
             commandBuilder.AddParameter(PostData.FINAL_PRIZE, finalPrize);
             commandBuilder.AddParameter(PostData.PLACE_OF_PURCHASE, placeOfPurchase);
-            if (IsNotEmpty(purchaseOrderNo))
+
+            if (IsNotEmpty(purchaseAndsalesOrderNo))
             {
-                commandBuilder.AddParameter(PostData.PURCHASE_ORDER_NO, purchaseOrderNo);
-            }
-            if (IsNotEmpty(salesOrderNo))
-            {
-                commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
+                commandBuilder.AddParameter(PostData.PURCHASE_SALES_ORDER_NO, purchaseAndsalesOrderNo);
             }
             if (IsNotEmpty(deliveryDeviation))
             {
                 commandBuilder.AddParameter(PostData.DELIVERY_DEVIATION, deliveryDeviation);
-            }
-            if (customerNumberId != PlattformOrdManData.NO_ID)
-            {
-                commandBuilder.AddParameter(PostData.CUSTOMER_NUMBER_ID, customerNumberId);
             }
             return GetRow(commandBuilder);
         }
@@ -623,12 +622,18 @@ namespace Molmed.PlattformOrdMan.Database
             return (MyTransaction != null);
         }
 
-        public Int32 OrderPost(int postId, int userId)
+        public Int32 OrderPost(int postId, int userId, Enquiry account, Enquiry periodization)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_OrderPost");
             commandBuilder.AddParameter(PostData.POST_ID, postId);
             commandBuilder.AddParameter(PostData.AUTHORITY_ID_ORDERER, userId);
+            commandBuilder.AddParameter(PostData.ACCOUNT, account.Value);
+            commandBuilder.AddParameter(PostData.HAS_ACCOUNT, account.HasValue);
+            commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, account.HasAnswered);
+            commandBuilder.AddParameter(PostData.PERIODIZATION, periodization.Value);
+            commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, periodization.HasValue);
+            commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodization.HasAnswered);
             return ExecuteCommand(commandBuilder);            
         }
 
@@ -771,12 +776,12 @@ namespace Molmed.PlattformOrdMan.Database
             return ExecuteCommand(commandBuilder);
         }
 
-        public Int32 UpdatePostSetSalesOrderNo(Int32 postId, string salesOrderNo)
+        public Int32 UpdatePostSetPurchaseSalesOrderNo(Int32 postId, string purchaseSalesOrderNo)
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_UpdatePostSalesOrderNumber");
             commandBuilder.AddParameter(PostData.POST_ID, postId);
-            commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
+            commandBuilder.AddParameter(PostData.PURCHASE_SALES_ORDER_NO, purchaseSalesOrderNo);
             return ExecuteCommand(commandBuilder);
         }
 
@@ -805,13 +810,15 @@ namespace Molmed.PlattformOrdMan.Database
         }
 
         public Int32 UpdatePost(int postId, String comment, decimal apprPrize, int amount, bool invoiceClin, bool invoiceInst,
-            DateTime apprArrival, String invoiceStatus, bool isInvoiceAbsent, int currencyId,
-                int bookerUserId, DateTime bookDate, int orderUserId, DateTime orderDate, 
-                int arrivalSignUserId, DateTime arrivalDate, int invoiceCheckerUserId, 
-                DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize,
-                DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation,
-                string purchaseOrderNo, string salesOrderNo, string placeOfPurchase, int customerNumberId,
-                bool attentionFlag)
+            DateTime apprArrival, String invoiceStatus, bool isInvoiceAbsent, int currencyId, 
+            int bookerUserId, DateTime bookDate, int orderUserId, DateTime orderDate, 
+            int arrivalSignUserId, DateTime arrivalDate, int invoiceCheckerUserId, 
+            DateTime invoiceDate, int articleNumberId, int supplierId, string invoiceNumber, decimal finalPrize, 
+            DateTime confirmedOrderDate, int confirmedOrderUserId, string deliveryDeviation, 
+            string purchaseSalesOrderNo, string placeOfPurchase, 
+            bool attentionFlag, string periodizationValue, bool hasPeriodization, bool periodizationAnswered, 
+            string accountValue, bool hasAccount, bool accountAnswered
+            )
         {
             SqlCommandBuilder commandBuilder;
             commandBuilder = new SqlCommandBuilder("p_UpdatePost");
@@ -829,17 +836,15 @@ namespace Molmed.PlattformOrdMan.Database
             commandBuilder.AddParameter(PostData.FINAL_PRIZE, finalPrize);
             commandBuilder.AddParameter(PostData.INVOICE_NUMBER, invoiceNumber);
             commandBuilder.AddParameter(PostData.PLACE_OF_PURCHASE, placeOfPurchase);
-            if (customerNumberId != PlattformOrdManData.NO_ID)
+            commandBuilder.AddParameter(PostData.PERIODIZATION, periodizationValue);
+            commandBuilder.AddParameter(PostData.PERIODIZATION_ANSWERED, periodizationAnswered);
+            commandBuilder.AddParameter(PostData.HAS_PERIODIZATION, hasPeriodization);
+            commandBuilder.AddParameter(PostData.ACCOUNT, accountValue);
+            commandBuilder.AddParameter(PostData.ACCOUNT_ANSWERED, accountAnswered);
+            commandBuilder.AddParameter(PostData.HAS_ACCOUNT, hasAccount);
+            if (!string.IsNullOrEmpty(purchaseSalesOrderNo))
             {
-                commandBuilder.AddParameter(PostData.CUSTOMER_NUMBER_ID, customerNumberId);
-            }
-            if (IsNotEmpty(purchaseOrderNo))
-            {
-                commandBuilder.AddParameter(PostData.PURCHASE_ORDER_NO, purchaseOrderNo);
-            }
-            if (IsNotEmpty(salesOrderNo))
-            {
-                commandBuilder.AddParameter(PostData.SALES_ORDER_NO, salesOrderNo);
+                commandBuilder.AddParameter(PostData.PURCHASE_SALES_ORDER_NO, purchaseSalesOrderNo);
             }
             if (orderUserId != PlattformOrdManData.NO_ID)
             {
@@ -974,6 +979,5 @@ namespace Molmed.PlattformOrdMan.Database
 
             return ExecuteCommand(commandBuilder);
         }
-
     }
 }

@@ -1,13 +1,21 @@
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Reflection;
 using System.Timers;
-using Molmed.PlattformOrdMan.UI.Dialog;
-using Molmed.PlattformOrdMan.Data;
+using System.Windows.Forms;
+using Molmed.PlattformOrdMan;
+using PlattformOrdMan.Data;
+using PlattformOrdMan.Data.Conf;
+using PlattformOrdMan.Data.Exception;
+using PlattformOrdMan.Data.PostData;
+using PlattformOrdMan.Database;
+using PlattformOrdMan.DbConnection.DatabaseReferencing;
+using PlattformOrdMan.DbConnection.Repositories;
 using PlattformOrdMan.Properties;
+using PlattformOrdMan.UI.Dialog;
+using PlattformOrdMan.UI.Dialog.OptionsDialog;
 
-namespace Molmed.PlattformOrdMan.UI
+namespace PlattformOrdMan.UI
 {
     public partial class MainForm : Form
     {
@@ -34,6 +42,16 @@ namespace Molmed.PlattformOrdMan.UI
             PlattformOrdManData.OEventHandler.MyOnMerchandiseCreate += AddCreatedMerchandiseToMDIChildren;
             PlattformOrdManData.OEventHandler.MyOnPostUpdate += ReloadPostForMDIChildren;
             PlattformOrdManData.OEventHandler.MyOnPostCreate += AddCreatedPostForMDIChildren;
+            PlattformOrdManData.OEventHandler.OnViewingOptionsChanged += OnViewingOptionsChanged;
+        }
+
+        private void OnViewingOptionsChanged()
+        {
+            foreach (Form form in MdiChildren)
+            {
+                var viewingForm = form as IViewingOptionsForm;
+                viewingForm?.OnViewingOptionsChanged();
+            }
         }
 
         private void ReloadSupplierForMDIChildren(Supplier supplier)
@@ -134,16 +152,16 @@ namespace Molmed.PlattformOrdMan.UI
                 toolStripSeparator1.Visible = UserManager.GetCurrentUser().HasAdministratorRights();
             }
             Text = Config.GetDialogTitleStandard();
-            if (Settings.Default.DataServerInitialCatalog.Contains(RESEARCH_TAG))
+            if (Settings.Default.DatabaseName.Contains(RESEARCH_TAG))
             {
                 Text = Text + " (Research)";
             }
-            else if(Settings.Default.DataServerInitialCatalog.Contains(PRACTICE_TAG))                
+            else if(Settings.Default.DatabaseName.Contains(PRACTICE_TAG))                
             {
                 Text += " (VALIDATAION)";
                 BackgroundImage = Resources.ValidationBackground;
             }
-            else if (Settings.Default.DataServerInitialCatalog.Contains(DEVEL_TAG))
+            else if (Settings.Default.DatabaseName.Contains(DEVEL_TAG))
             {
                 Text += " (DEVELOPMENT)";
                 BackgroundImage = Resources.DevelBackground;
@@ -173,7 +191,7 @@ namespace Molmed.PlattformOrdMan.UI
         {
             if (IsNull(PlattformOrdManData.Configuration))
             {
-                throw new Data.Exception.DataException("Trying to save configuration but configuration is not initialized!");
+                throw new DataException("Trying to save configuration but configuration is not initialized!");
             }
             PlattformOrdManData.Configuration.SaveSettings();
         }
@@ -387,7 +405,12 @@ namespace Molmed.PlattformOrdMan.UI
             try
             {
                 // Try to connect to the database.
-                PlattformOrdManData.Database = new Database.Dataserver(userName, password);
+                var dbProvider = new DatabaseReference(
+                    new InitialsProvider(new EnvironmentRepository()),
+                    Settings.Default.DatabaseName);
+
+                PlattformOrdManData.Database = new Dataserver(
+                    userName, password, dbProvider.GenerateDatabaseName());
                 if (!PlattformOrdManData.Database.Connect())
                 {
                     throw new Exception("Could not connect user " + userName + " to database");
@@ -548,6 +571,54 @@ namespace Molmed.PlattformOrdMan.UI
             catch (Exception ex)
             {
                 HandleError("Error when reloading windows", ex);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void ViewingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SetChildFocus(typeof(ViewingOptionsDialog)))
+                {
+                    Cursor = Cursors.WaitCursor;
+                    var viewingOptionsDialog = new ViewingOptionsDialog();
+                    Cursor = Cursors.Default;
+                    viewingOptionsDialog.MdiParent = this;
+                    viewingOptionsDialog.Show();
+                }
+
+            }
+            catch (Exception exception)
+            {
+                HandleError("Error when showing viewing options", exception);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void FilteringToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SetChildFocus(typeof(FilteringOptionsDialog)))
+                {
+                    Cursor = Cursors.WaitCursor;
+                    var filteringOptionsDialog = new FilteringOptionsDialog();
+                    Cursor = Cursors.Default;
+                    filteringOptionsDialog.MdiParent = this;
+                    filteringOptionsDialog.Show();
+                }
+
+            }
+            catch (Exception exception)
+            {
+                HandleError("Error when showing filtering options", exception);
             }
             finally
             {

@@ -1,4 +1,4 @@
-USE [BookKeeping]
+USE [BookKeeping_devel_ee]
 GO
 /****** Object:  Trigger [dbo].[T_post_insert_update]    Script Date: 7/27/2017 1:47:00 PM ******/
 SET ANSI_NULLS ON
@@ -7,7 +7,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 --Logs insert and update operations to the aliquot table.
 
-CREATE TRIGGER [dbo].[T_post_insert_update] ON [dbo].[post]
+alter TRIGGER [dbo].[T_post_insert_update] ON [dbo].[post]
 AFTER INSERT, UPDATE
 
 AS
@@ -48,8 +48,15 @@ INSERT INTO post_history
 	 purchase_order_no,
 	 sales_order_no,
 	 place_of_purchase_id,
+	 purchase_sales_order_no,
 	 customer_number_id,
-	 attention_flag)
+	 attention_flag,
+	 account,
+	 periodization,
+	 periodization_answered,
+	 has_periodization,
+	 account_answered,
+	 has_account)
 SELECT
 	 post_id,
 	 article_number_id,
@@ -80,8 +87,15 @@ SELECT
 	 purchase_order_no,
 	 sales_order_no,
 	 place_of_purchase_id,
+	 purchase_sales_order_no,
 	 customer_number_id,
-	 attention_flag
+	 attention_flag,
+	 account,
+	 periodization,
+	 periodization_answered,
+	 has_periodization,
+	 account_answered,
+	 has_account
 FROM inserted
 	
 SET NOCOUNT OFF

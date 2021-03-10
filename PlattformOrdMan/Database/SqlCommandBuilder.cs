@@ -1,9 +1,9 @@
 using System;
 using System.Globalization;
 using System.Text;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.Database
+namespace PlattformOrdMan.Database
 {
     public class SqlCommandBuilder
     {

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
+using CurrencyManager = PlattformOrdMan.Data.CurrencyManager;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class EditCurrencyDialog : OrdManForm
     {
@@ -119,7 +115,7 @@ namespace Molmed.PlattformOrdMan.UI.Dialog
         {
             if (MyUpdateMode == UpdateMode.Create)
             {
-                MyCurrency = Data.CurrencyManager.CreateCurrency(DescriptionTextBox.Text.Trim(),
+                MyCurrency = CurrencyManager.CreateCurrency(DescriptionTextBox.Text.Trim(),
                     SymbolTextBox.Text.Trim(), CurrencyCodeTextBox.Text.Trim());
             }
             else if (MyUpdateMode == UpdateMode.Edit)

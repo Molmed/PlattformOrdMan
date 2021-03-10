@@ -1,6 +1,6 @@
-﻿namespace Molmed.PlattformOrdMan.UI.View
+﻿namespace PlattformOrdMan.UI.View.Post
 {
-    partial class OrderManListView
+    partial class PostListView
     {
         /// <summary>
         /// Required designer variable.

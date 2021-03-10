@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.UI;
+using PlattformOrdMan.Properties;
+using PlattformOrdMan.UI;
 
 
 namespace Molmed.PlattformOrdMan
 {
     static class Program
     {
-        private const Boolean MyVersionControl = false;
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -25,7 +24,7 @@ namespace Molmed.PlattformOrdMan
 
                 // Init main.
                 mainForm = new MainForm();
-                if (mainForm.Login(MyVersionControl))
+                if (mainForm.Login(Settings.Default.EnforceAppVersion))
                 {
                     Application.Run(mainForm);
                 }

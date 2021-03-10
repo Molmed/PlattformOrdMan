@@ -1,8 +1,8 @@
 using System;
 using System.Windows.Forms;
-using Molmed.PlattformOrdMan.Data;
+using PlattformOrdMan.Data;
 
-namespace Molmed.PlattformOrdMan.UI.Dialog
+namespace PlattformOrdMan.UI.Dialog
 {
     public partial class EditUserDialog : OrdManForm
     {
