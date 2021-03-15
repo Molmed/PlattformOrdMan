@@ -106,6 +106,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.PurchaseSalesOrderTextBox = new System.Windows.Forms.TextBox();
             this.Periodization = new PlattformOrdMan.UI.Component.PeriodizationField();
             this.Account = new PlattformOrdMan.UI.Component.AccountField();
+            this.ProductNamePanel = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.bottomPanel.SuspendLayout();
@@ -124,6 +125,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.ProductNamePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -161,7 +163,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 42);
+            this.label2.Location = new System.Drawing.Point(4, 8);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 5;
@@ -170,7 +172,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 95);
+            this.label3.Location = new System.Drawing.Point(3, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 6;
@@ -200,7 +202,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.AmountTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AmountTextBox.Location = new System.Drawing.Point(148, 92);
+            this.AmountTextBox.Location = new System.Drawing.Point(148, 65);
             this.AmountTextBox.Name = "AmountTextBox";
             this.AmountTextBox.Size = new System.Drawing.Size(375, 20);
             this.AmountTextBox.TabIndex = 9;
@@ -318,9 +320,9 @@ namespace PlattformOrdMan.UI.Dialog
             this.merchandiseCombobox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.merchandiseCombobox1.FormattingEnabled = true;
-            this.merchandiseCombobox1.Location = new System.Drawing.Point(148, 39);
+            this.merchandiseCombobox1.Location = new System.Drawing.Point(57, 5);
             this.merchandiseCombobox1.Name = "merchandiseCombobox1";
-            this.merchandiseCombobox1.Size = new System.Drawing.Size(338, 21);
+            this.merchandiseCombobox1.Size = new System.Drawing.Size(870, 21);
             this.merchandiseCombobox1.TabIndex = 22;
             // 
             // groupBox1
@@ -623,7 +625,7 @@ namespace PlattformOrdMan.UI.Dialog
             // ShowProductButton
             // 
             this.ShowProductButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ShowProductButton.Location = new System.Drawing.Point(492, 37);
+            this.ShowProductButton.Location = new System.Drawing.Point(933, 3);
             this.ShowProductButton.Name = "ShowProductButton";
             this.ShowProductButton.Size = new System.Drawing.Size(31, 23);
             this.ShowProductButton.TabIndex = 37;
@@ -729,7 +731,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.ArticleNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ArticleNumberTextBox.Location = new System.Drawing.Point(148, 66);
+            this.ArticleNumberTextBox.Location = new System.Drawing.Point(148, 39);
             this.ArticleNumberTextBox.Name = "ArticleNumberTextBox";
             this.ArticleNumberTextBox.ReadOnly = true;
             this.ArticleNumberTextBox.Size = new System.Drawing.Size(375, 20);
@@ -738,7 +740,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 69);
+            this.label6.Location = new System.Drawing.Point(4, 42);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 13);
             this.label6.TabIndex = 59;
@@ -870,9 +872,9 @@ namespace PlattformOrdMan.UI.Dialog
             this.topPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.topPanel.Controls.Add(this.splitContainer2);
-            this.topPanel.Location = new System.Drawing.Point(2, 1);
+            this.topPanel.Location = new System.Drawing.Point(2, 47);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(971, 166);
+            this.topPanel.Size = new System.Drawing.Size(971, 120);
             this.topPanel.TabIndex = 0;
             // 
             // splitContainer2
@@ -889,24 +891,21 @@ namespace PlattformOrdMan.UI.Dialog
             this.splitContainer2.Panel1.Controls.Add(this.label1);
             this.splitContainer2.Panel1.Controls.Add(this.ShowSupplierButton);
             this.splitContainer2.Panel1.Controls.Add(this.SupplierComboBox);
-            this.splitContainer2.Panel1.Controls.Add(this.ShowProductButton);
             this.splitContainer2.Panel1.Controls.Add(this.label3);
-            this.splitContainer2.Panel1.Controls.Add(this.merchandiseCombobox1);
             this.splitContainer2.Panel1.Controls.Add(this.AmountTextBox);
-            this.splitContainer2.Panel1.Controls.Add(this.label2);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.Periodization);
             this.splitContainer2.Panel2.Controls.Add(this.Account);
-            this.splitContainer2.Size = new System.Drawing.Size(971, 163);
+            this.splitContainer2.Size = new System.Drawing.Size(971, 120);
             this.splitContainer2.SplitterDistance = 544;
             this.splitContainer2.TabIndex = 42;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(3, 119);
+            this.label25.Location = new System.Drawing.Point(3, 92);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(139, 13);
             this.label25.TabIndex = 46;
@@ -916,7 +915,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.PurchaseSalesOrderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PurchaseSalesOrderTextBox.Location = new System.Drawing.Point(148, 116);
+            this.PurchaseSalesOrderTextBox.Location = new System.Drawing.Point(148, 89);
             this.PurchaseSalesOrderTextBox.Name = "PurchaseSalesOrderTextBox";
             this.PurchaseSalesOrderTextBox.Size = new System.Drawing.Size(375, 20);
             this.PurchaseSalesOrderTextBox.TabIndex = 45;
@@ -946,12 +945,25 @@ namespace PlattformOrdMan.UI.Dialog
             this.Account.Size = new System.Drawing.Size(417, 44);
             this.Account.TabIndex = 0;
             // 
+            // ProductNamePanel
+            // 
+            this.ProductNamePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProductNamePanel.Controls.Add(this.ShowProductButton);
+            this.ProductNamePanel.Controls.Add(this.merchandiseCombobox1);
+            this.ProductNamePanel.Controls.Add(this.label2);
+            this.ProductNamePanel.Location = new System.Drawing.Point(2, 12);
+            this.ProductNamePanel.Name = "ProductNamePanel";
+            this.ProductNamePanel.Size = new System.Drawing.Size(971, 29);
+            this.ProductNamePanel.TabIndex = 55;
+            // 
             // CreatePostDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.MyCloseButton;
             this.ClientSize = new System.Drawing.Size(975, 719);
+            this.Controls.Add(this.ProductNamePanel);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.splitContainer1);
@@ -983,6 +995,8 @@ namespace PlattformOrdMan.UI.Dialog
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.ProductNamePanel.ResumeLayout(false);
+            this.ProductNamePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1064,5 +1078,6 @@ namespace PlattformOrdMan.UI.Dialog
         private Component.AccountField Account;
         private System.Windows.Forms.TextBox PurchaseSalesOrderTextBox;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Panel ProductNamePanel;
     }
 }
