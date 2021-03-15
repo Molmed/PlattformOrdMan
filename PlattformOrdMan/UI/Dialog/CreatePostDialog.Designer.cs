@@ -51,6 +51,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.SupplierComboBox = new PlattformOrdMan.UI.Component.SupplierCombobox();
             this.merchandiseCombobox1 = new PlattformOrdMan.UI.Component.MerchandiseCombobox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.AttentionCheckBox = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -81,14 +82,11 @@ namespace PlattformOrdMan.UI.Dialog
             this.ShowSupplierButton = new System.Windows.Forms.Button();
             this.ShowProductButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.OrderingUnitComboBox = new System.Windows.Forms.ComboBox();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.tabStatusType = new System.Windows.Forms.TabControl();
             this.tabDeliveryStatus = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.ArticleNumberTextBox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.TotalPrizeTextBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.FinalPrizeTextBox = new System.Windows.Forms.TextBox();
@@ -98,6 +96,8 @@ namespace PlattformOrdMan.UI.Dialog
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.ArticleNumberTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.commentPanel = new System.Windows.Forms.Panel();
             this.topPanel = new System.Windows.Forms.Panel();
@@ -352,6 +352,15 @@ namespace PlattformOrdMan.UI.Dialog
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Status information";
+            // 
+            // OrderingUnitComboBox
+            // 
+            this.OrderingUnitComboBox.FormattingEnabled = true;
+            this.OrderingUnitComboBox.Location = new System.Drawing.Point(204, 246);
+            this.OrderingUnitComboBox.Name = "OrderingUnitComboBox";
+            this.OrderingUnitComboBox.Size = new System.Drawing.Size(121, 21);
+            this.OrderingUnitComboBox.TabIndex = 41;
+            this.OrderingUnitComboBox.Visible = false;
             // 
             // AttentionCheckBox
             // 
@@ -652,15 +661,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.panel1.Size = new System.Drawing.Size(957, 326);
             this.panel1.TabIndex = 51;
             // 
-            // OrderingUnitComboBox
-            // 
-            this.OrderingUnitComboBox.FormattingEnabled = true;
-            this.OrderingUnitComboBox.Location = new System.Drawing.Point(204, 246);
-            this.OrderingUnitComboBox.Name = "OrderingUnitComboBox";
-            this.OrderingUnitComboBox.Size = new System.Drawing.Size(121, 21);
-            this.OrderingUnitComboBox.TabIndex = 41;
-            this.OrderingUnitComboBox.Visible = false;
-            // 
             // bottomPanel
             // 
             this.bottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -726,25 +726,6 @@ namespace PlattformOrdMan.UI.Dialog
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(957, 326);
             this.panel2.TabIndex = 51;
-            // 
-            // ArticleNumberTextBox
-            // 
-            this.ArticleNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ArticleNumberTextBox.Location = new System.Drawing.Point(148, 39);
-            this.ArticleNumberTextBox.Name = "ArticleNumberTextBox";
-            this.ArticleNumberTextBox.ReadOnly = true;
-            this.ArticleNumberTextBox.Size = new System.Drawing.Size(375, 20);
-            this.ArticleNumberTextBox.TabIndex = 60;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 42);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 13);
-            this.label6.TabIndex = 59;
-            this.label6.Text = "Article number";
             // 
             // TotalPrizeTextBox
             // 
@@ -837,6 +818,25 @@ namespace PlattformOrdMan.UI.Dialog
             this.label27.TabIndex = 16;
             this.label27.Text = "Invoice checker";
             // 
+            // ArticleNumberTextBox
+            // 
+            this.ArticleNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ArticleNumberTextBox.Location = new System.Drawing.Point(148, 39);
+            this.ArticleNumberTextBox.Name = "ArticleNumberTextBox";
+            this.ArticleNumberTextBox.ReadOnly = true;
+            this.ArticleNumberTextBox.Size = new System.Drawing.Size(375, 20);
+            this.ArticleNumberTextBox.TabIndex = 60;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(4, 42);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 13);
+            this.label6.TabIndex = 59;
+            this.label6.Text = "Article number";
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -879,6 +879,8 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // splitContainer2
             // 
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             // 
