@@ -170,7 +170,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 69);
+            this.label3.Location = new System.Drawing.Point(3, 95);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 6;
@@ -200,7 +200,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.AmountTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AmountTextBox.Location = new System.Drawing.Point(148, 66);
+            this.AmountTextBox.Location = new System.Drawing.Point(148, 92);
             this.AmountTextBox.Name = "AmountTextBox";
             this.AmountTextBox.Size = new System.Drawing.Size(375, 20);
             this.AmountTextBox.TabIndex = 9;
@@ -225,7 +225,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.CommentTextBox.Location = new System.Drawing.Point(9, 25);
             this.CommentTextBox.Multiline = true;
             this.CommentTextBox.Name = "CommentTextBox";
-            this.CommentTextBox.Size = new System.Drawing.Size(959, 95);
+            this.CommentTextBox.Size = new System.Drawing.Size(959, 92);
             this.CommentTextBox.TabIndex = 11;
             this.CommentTextBox.TextChanged += new System.EventHandler(this.CommentTextBox_TextChanged);
             // 
@@ -326,6 +326,7 @@ namespace PlattformOrdMan.UI.Dialog
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.OrderingUnitComboBox);
             this.groupBox1.Controls.Add(this.AttentionCheckBox);
             this.groupBox1.Controls.Add(this.label19);
             this.groupBox1.Controls.Add(this.label18);
@@ -572,17 +573,17 @@ namespace PlattformOrdMan.UI.Dialog
             this.DeliveryDeviationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeliveryDeviationTextBox.Location = new System.Drawing.Point(8, 289);
+            this.DeliveryDeviationTextBox.Location = new System.Drawing.Point(8, 205);
             this.DeliveryDeviationTextBox.Multiline = true;
             this.DeliveryDeviationTextBox.Name = "DeliveryDeviationTextBox";
-            this.DeliveryDeviationTextBox.Size = new System.Drawing.Size(936, 80);
+            this.DeliveryDeviationTextBox.Size = new System.Drawing.Size(549, 118);
             this.DeliveryDeviationTextBox.TabIndex = 32;
             this.DeliveryDeviationTextBox.TextChanged += new System.EventHandler(this.DeliveryDeviationTextBox_TextChanged);
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(11, 273);
+            this.label20.Location = new System.Drawing.Point(8, 189);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(91, 13);
             this.label20.TabIndex = 33;
@@ -632,7 +633,6 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.OrderingUnitComboBox);
             this.panel1.Controls.Add(this.StorageTextBox);
             this.panel1.Controls.Add(this.label21);
             this.panel1.Controls.Add(this.label20);
@@ -647,13 +647,13 @@ namespace PlattformOrdMan.UI.Dialog
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(957, 372);
+            this.panel1.Size = new System.Drawing.Size(957, 326);
             this.panel1.TabIndex = 51;
             // 
             // OrderingUnitComboBox
             // 
             this.OrderingUnitComboBox.FormattingEnabled = true;
-            this.OrderingUnitComboBox.Location = new System.Drawing.Point(388, 232);
+            this.OrderingUnitComboBox.Location = new System.Drawing.Point(204, 246);
             this.OrderingUnitComboBox.Name = "OrderingUnitComboBox";
             this.OrderingUnitComboBox.Size = new System.Drawing.Size(121, 21);
             this.OrderingUnitComboBox.TabIndex = 41;
@@ -678,7 +678,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.tabStatusType.Location = new System.Drawing.Point(0, 0);
             this.tabStatusType.Name = "tabStatusType";
             this.tabStatusType.SelectedIndex = 0;
-            this.tabStatusType.Size = new System.Drawing.Size(971, 404);
+            this.tabStatusType.Size = new System.Drawing.Size(971, 358);
             this.tabStatusType.TabIndex = 52;
             // 
             // tabDeliveryStatus
@@ -687,7 +687,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.tabDeliveryStatus.Location = new System.Drawing.Point(4, 22);
             this.tabDeliveryStatus.Name = "tabDeliveryStatus";
             this.tabDeliveryStatus.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDeliveryStatus.Size = new System.Drawing.Size(963, 378);
+            this.tabDeliveryStatus.Size = new System.Drawing.Size(963, 332);
             this.tabDeliveryStatus.TabIndex = 0;
             this.tabDeliveryStatus.Text = "Delivery status";
             this.tabDeliveryStatus.UseVisualStyleBackColor = true;
@@ -698,15 +698,13 @@ namespace PlattformOrdMan.UI.Dialog
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(963, 407);
+            this.tabPage2.Size = new System.Drawing.Size(963, 332);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Invoice status";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.ArticleNumberTextBox);
-            this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.TotalPrizeTextBox);
             this.panel2.Controls.Add(this.label22);
             this.panel2.Controls.Add(this.FinalPrizeTextBox);
@@ -724,23 +722,23 @@ namespace PlattformOrdMan.UI.Dialog
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(957, 401);
+            this.panel2.Size = new System.Drawing.Size(957, 326);
             this.panel2.TabIndex = 51;
             // 
             // ArticleNumberTextBox
             // 
             this.ArticleNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ArticleNumberTextBox.Location = new System.Drawing.Point(134, 40);
+            this.ArticleNumberTextBox.Location = new System.Drawing.Point(148, 66);
             this.ArticleNumberTextBox.Name = "ArticleNumberTextBox";
             this.ArticleNumberTextBox.ReadOnly = true;
-            this.ArticleNumberTextBox.Size = new System.Drawing.Size(380, 20);
+            this.ArticleNumberTextBox.Size = new System.Drawing.Size(375, 20);
             this.ArticleNumberTextBox.TabIndex = 60;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 43);
+            this.label6.Location = new System.Drawing.Point(4, 69);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 13);
             this.label6.TabIndex = 59;
@@ -750,7 +748,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.TotalPrizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TotalPrizeTextBox.Location = new System.Drawing.Point(134, 92);
+            this.TotalPrizeTextBox.Location = new System.Drawing.Point(134, 66);
             this.TotalPrizeTextBox.Name = "TotalPrizeTextBox";
             this.TotalPrizeTextBox.ReadOnly = true;
             this.TotalPrizeTextBox.Size = new System.Drawing.Size(380, 20);
@@ -759,7 +757,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(17, 95);
+            this.label22.Location = new System.Drawing.Point(17, 69);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(56, 13);
             this.label22.TabIndex = 57;
@@ -769,7 +767,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.FinalPrizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FinalPrizeTextBox.Location = new System.Drawing.Point(134, 66);
+            this.FinalPrizeTextBox.Location = new System.Drawing.Point(134, 40);
             this.FinalPrizeTextBox.Name = "FinalPrizeTextBox";
             this.FinalPrizeTextBox.Size = new System.Drawing.Size(380, 20);
             this.FinalPrizeTextBox.TabIndex = 56;
@@ -778,7 +776,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(17, 69);
+            this.label16.Location = new System.Drawing.Point(17, 43);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(74, 13);
             this.label16.TabIndex = 55;
@@ -787,7 +785,7 @@ namespace PlattformOrdMan.UI.Dialog
             // EditCurrencyButton
             // 
             this.EditCurrencyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditCurrencyButton.Location = new System.Drawing.Point(439, 116);
+            this.EditCurrencyButton.Location = new System.Drawing.Point(439, 90);
             this.EditCurrencyButton.Name = "EditCurrencyButton";
             this.EditCurrencyButton.Size = new System.Drawing.Size(75, 23);
             this.EditCurrencyButton.TabIndex = 54;
@@ -800,7 +798,7 @@ namespace PlattformOrdMan.UI.Dialog
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrencyCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CurrencyCombobox.FormattingEnabled = true;
-            this.CurrencyCombobox.Location = new System.Drawing.Point(134, 118);
+            this.CurrencyCombobox.Location = new System.Drawing.Point(134, 92);
             this.CurrencyCombobox.Name = "CurrencyCombobox";
             this.CurrencyCombobox.Size = new System.Drawing.Size(294, 21);
             this.CurrencyCombobox.TabIndex = 53;
@@ -808,7 +806,7 @@ namespace PlattformOrdMan.UI.Dialog
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 121);
+            this.label7.Location = new System.Drawing.Point(20, 95);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(49, 13);
             this.label7.TabIndex = 52;
@@ -842,7 +840,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(2, 124);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 173);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -853,8 +851,8 @@ namespace PlattformOrdMan.UI.Dialog
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.commentPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(971, 531);
-            this.splitContainer1.SplitterDistance = 404;
+            this.splitContainer1.Size = new System.Drawing.Size(971, 482);
+            this.splitContainer1.SplitterDistance = 358;
             this.splitContainer1.TabIndex = 54;
             // 
             // commentPanel
@@ -864,7 +862,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.commentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.commentPanel.Location = new System.Drawing.Point(0, 0);
             this.commentPanel.Name = "commentPanel";
-            this.commentPanel.Size = new System.Drawing.Size(971, 123);
+            this.commentPanel.Size = new System.Drawing.Size(971, 120);
             this.commentPanel.TabIndex = 0;
             // 
             // topPanel
@@ -874,7 +872,7 @@ namespace PlattformOrdMan.UI.Dialog
             this.topPanel.Controls.Add(this.splitContainer2);
             this.topPanel.Location = new System.Drawing.Point(2, 1);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(971, 124);
+            this.topPanel.Size = new System.Drawing.Size(971, 166);
             this.topPanel.TabIndex = 0;
             // 
             // splitContainer2
@@ -884,6 +882,8 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.ArticleNumberTextBox);
+            this.splitContainer2.Panel1.Controls.Add(this.label6);
             this.splitContainer2.Panel1.Controls.Add(this.label25);
             this.splitContainer2.Panel1.Controls.Add(this.PurchaseSalesOrderTextBox);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
@@ -899,14 +899,14 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.splitContainer2.Panel2.Controls.Add(this.Periodization);
             this.splitContainer2.Panel2.Controls.Add(this.Account);
-            this.splitContainer2.Size = new System.Drawing.Size(971, 117);
+            this.splitContainer2.Size = new System.Drawing.Size(971, 163);
             this.splitContainer2.SplitterDistance = 544;
             this.splitContainer2.TabIndex = 42;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(3, 93);
+            this.label25.Location = new System.Drawing.Point(3, 119);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(139, 13);
             this.label25.TabIndex = 46;
@@ -916,7 +916,7 @@ namespace PlattformOrdMan.UI.Dialog
             // 
             this.PurchaseSalesOrderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PurchaseSalesOrderTextBox.Location = new System.Drawing.Point(148, 90);
+            this.PurchaseSalesOrderTextBox.Location = new System.Drawing.Point(148, 116);
             this.PurchaseSalesOrderTextBox.Name = "PurchaseSalesOrderTextBox";
             this.PurchaseSalesOrderTextBox.Size = new System.Drawing.Size(375, 20);
             this.PurchaseSalesOrderTextBox.TabIndex = 45;
