@@ -25,7 +25,7 @@ namespace PlattformOrdMan.UI.Component
             }
             foreach (Merchandise product in products)
             {
-                identities.Add(new MerchandiseViewItem(product, true));
+                identities.Add(new MerchandiseViewItem(product));
             }
             base.Init(identities, "product", showNoSelectedString);
             MySupplierId = PlattformOrdManData.NO_ID;
@@ -39,7 +39,6 @@ namespace PlattformOrdMan.UI.Component
         public void ReloadMerchandise(Merchandise merchandise)
         {
             MerchandiseViewItem merchViewItem = null;
-            bool showSupplier;
             int ind;
             if (merchandise != null && MyIdentities != null)
             {
@@ -48,8 +47,7 @@ namespace PlattformOrdMan.UI.Component
             if (merchandise != null && merchViewItem != null)
             {
                 ind = MyIdentities.GetIndex(merchViewItem);
-                showSupplier = MySupplierId == PlattformOrdManData.NO_ID;
-                MyIdentities[ind] = new MerchandiseViewItem(merchandise, showSupplier);
+                MyIdentities[ind] = new MerchandiseViewItem(merchandise);
                 for (int i = 0; i < this.Items.Count; i++)
                 {
                     if (this.Items[i] is MerchandiseViewItem &&
@@ -65,11 +63,9 @@ namespace PlattformOrdMan.UI.Component
         public void AddCreatedMerchandise(Merchandise merchandise)
         {
             MerchandiseViewItem selectedItem = null;
-            bool showSuppliers;
             if (merchandise != null && !HasMerchandiseLoaded(merchandise.GetId()))
             { 
-                showSuppliers = MySupplierId == PlattformOrdManData.NO_ID;
-                MyIdentities.Add(new MerchandiseViewItem(merchandise, showSuppliers));
+                MyIdentities.Add(new MerchandiseViewItem(merchandise));
                 MyIdentities.Sort();
                 if (this.SelectedIndex > -1)
                 {
@@ -108,14 +104,6 @@ namespace PlattformOrdMan.UI.Component
                 this.Items.Add(MyNoSelectionString);
             }
             MySupplierId = supplierId;
-            if (MySupplierId == PlattformOrdManData.NO_ID)
-            {
-                SetShowSupplier(true);
-            }
-            else
-            {
-                SetShowSupplier(false);
-            }
 
             foreach (DataIdentity identity in MyIdentities)
             {
@@ -166,29 +154,14 @@ namespace PlattformOrdMan.UI.Component
             return ((MerchandiseViewItem)this.SelectedItem).GetMerchandise();
         }
 
-        public void SetShowSupplier(bool showSupplier)
-        {
-            foreach (DataIdentity identity in MyIdentities)
-            {
-                ((MerchandiseViewItem)identity).ShowSupplierInText(showSupplier);
-            }
-        }
-
         private class MerchandiseViewItem : DataIdentity
         {
             private Merchandise MyMerchandise;
-            public MerchandiseViewItem(Merchandise merchandise, bool showSuppliers)
+            public MerchandiseViewItem(Merchandise merchandise)
                 : base(merchandise.GetId(), merchandise.GetIdentifier())
             {
                 MyMerchandise = merchandise;
-                if (showSuppliers)
-                {
-                    this.UpdateIdentifier(GetIdentifierWithSupplier());
-                }
-                else
-                {
-                    this.UpdateIdentifier(GetFixedIdentifier());                
-                }
+                UpdateIdentifier(GetFixedIdentifier());
             }
 
             public String GetFixedIdentifier()
@@ -214,33 +187,6 @@ namespace PlattformOrdMan.UI.Component
                     id = MyMerchandise.GetSupplier().GetId();
                 }
                 return id;
-            }
-
-            private String GetIdentifierWithSupplier()
-            {
-                string identifier;
-                if (MyMerchandise == null)
-                {
-                    return "";
-                }
-                identifier = GetFixedIdentifier();
-                if(IsNotEmpty(MyMerchandise.GetSupplierName()))
-                {
-                    identifier += " (" + MyMerchandise.GetSupplierName() + ")";
-                }
-                return identifier;
-            }
-
-            public void ShowSupplierInText(bool showSupplier)
-            {
-                if (showSupplier)
-                {
-                    this.UpdateIdentifier(GetIdentifierWithSupplier());
-                }
-                else
-                {
-                    this.UpdateIdentifier(GetFixedIdentifier());
-                }
             }
 
             public override DataType GetDataType()
