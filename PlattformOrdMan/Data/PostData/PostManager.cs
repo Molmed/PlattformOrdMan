@@ -3,7 +3,7 @@ using PlattformOrdMan.Database;
 
 namespace PlattformOrdMan.Data.PostData
 {
-    class PostManager : PlattformOrdManData
+    public class PostManager : PlattformOrdManData
     {
         public PostManager()
             : base()

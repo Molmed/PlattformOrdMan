@@ -684,7 +684,7 @@ namespace PlattformOrdMan.Data.PostData
             {
                 return false;
             }
-            else if (post1.GetBookDateDT().Ticks < post2.GetBookDateDT().Ticks)
+            else if (post1.Comparable() < post2.Comparable())
             {
                 return false;
             }
@@ -692,6 +692,11 @@ namespace PlattformOrdMan.Data.PostData
             {
                 return true;
             }
+        }
+
+        public long Comparable()
+        {
+            return GetBookDateDT().Ticks + GetId();
         }
 
         public static Boolean operator ==(Post post1, Post post2)
